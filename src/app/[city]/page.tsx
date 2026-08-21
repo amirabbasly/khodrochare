@@ -9,7 +9,7 @@ export function generateStaticParams() { return Object.values(seoLocations).map(
 export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
   const location = seoLocations[(await params).city as keyof typeof seoLocations];
   if (!location) return {};
-  return seoMetadata({ title: `امداد خودرو ${location.name} | امداد خودرو آنلاین`, description: `${location.description} ثبت درخواست آنلاین امداد خودرو در ${location.name}.`, path: `/${location.slug}` });
+  return seoMetadata({ title: `امداد خودرو ${location.name} | امداد خودرو آنلاین`, description: `${location.description} ثبت درخواست آنلاین امداد خودرو در ${location.name}.`, path: `/${location.slug}`, keywords: location.keywords });
 }
 
 export default async function CityPage({ params }: { params: Promise<{ city: string }> }) { const location = seoLocations[(await params).city as keyof typeof seoLocations]; if (!location) notFound(); return <CityLanding location={location} />; }

@@ -10,8 +10,8 @@ const slides = [
     image: "/images/hero-roadside.webp",
     alt: "امداد خودرو در جاده بارانی",
     eyebrow: "امداد هوشمند شبانه‌روزی",
-    title: "راه‌حل فوری برای هر مشکل خودرو",
-    desc: "اعزام سریع امدادگر و یدک‌کش با امکان پیگیری زنده مسیر",
+    title: "امداد خودرو شبانه‌روزی تهران و کرج",
+    desc: "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، باتری، مکانیک سیار و یدک‌کش؛ با توسعه مرحله‌ای خدمات در شهرهای دیگر",
     cta: "درخواست امداد فوری",
     icon: "truck",
     objectPosition: "48% center",
@@ -71,7 +71,7 @@ export function HeroCarousel() {
           <div className="hidden items-start md:flex" dir="rtl"><TechnicianMapCard /></div>
           <div key={active} className="hero-slide-copy min-w-0 max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
             <span className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/35 bg-black/20 px-3 text-xs font-bold"><Icon name={slides[active].icon} size={16} /> {slides[active].eyebrow}</span>
-            <h1 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[active].title}</h1>
+            {active === 0 ? <h1 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[active].title}</h1> : <h2 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[active].title}</h2>}
             <p className="mt-4 max-w-md text-sm leading-7 text-slate-200 md:text-base">{slides[active].desc}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <ButtonLink href="#request"><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
