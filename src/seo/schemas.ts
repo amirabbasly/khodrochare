@@ -25,6 +25,6 @@ export function faqSchema(items: readonly { question: string; answer: string }[]
   return { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: items.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) };
 }
 
-export function articleSchema({ title, description, path, image, publishedAt }: { title: string; description: string; path: string; image: string; publishedAt: string }) {
-  return { "@context": "https://schema.org", "@type": "Article", headline: title, description, url: `${siteUrl}${path}`, image: `${siteUrl}${image}`, datePublished: publishedAt, author: { "@id": `${siteUrl}/#organization` }, publisher: { "@id": `${siteUrl}/#organization` }, inLanguage: "fa-IR" };
+export function articleSchema({ title, description, path, image, publishedAt, section, keywords }: { title: string; description: string; path: string; image: string; publishedAt: string; section?: string; keywords?: string[] }) {
+  return { "@context": "https://schema.org", "@type": "Article", headline: title, description, url: `${siteUrl}${path}`, image: `${siteUrl}${image}`, datePublished: publishedAt, ...(section ? { articleSection: section } : {}), ...(keywords?.length ? { keywords: keywords.join(", ") } : {}), author: { "@id": `${siteUrl}/#organization` }, publisher: { "@id": `${siteUrl}/#organization` }, inLanguage: "fa-IR" };
 }
