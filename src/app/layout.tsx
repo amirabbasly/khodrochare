@@ -16,8 +16,11 @@ export const metadata: Metadata = {
   description:
     "خودرو چاره؛ امداد خودرو آنلاین تهران و کرج، یدک‌کش، مکانیک سیار، باتری خودرو، کارواش سیار و خدمات خودرو در محل.",
   icons: {
-    icon: "/images/khodrochare-3d-logo.webp",
-    apple: "/images/khodrochare-3d-logo.webp",
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-64x64.png", sizes: "64x64", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   keywords: ["خودرو چاره", ...primaryKeywords, "کارواش سیار", "باتری خودرو", "لوازم یدکی"],
   alternates: {
