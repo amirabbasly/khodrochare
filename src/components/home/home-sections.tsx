@@ -10,6 +10,7 @@ import {
 } from "./home-content";
 import { QrCode } from "./home-illustrations";
 import { blogPosts } from "@/content/blog";
+import { BlogSlider } from "./blog-slider";
 import { BrandLogo, BrandMark, ButtonLink, Icon, PlatformLogo, SectionTitle } from "./home-ui";
 import { AiChat } from "./ai-chat";
 import { AddToHomeButton } from "./add-to-home-button";
@@ -267,7 +268,7 @@ export function MagazineSection() {
   return (
     <section className="section-shell rounded-2xl bg-[#f3f5f7] py-6 md:py-8" aria-labelledby="magazine-title" data-aos="fade-up">
       <div className="flex items-center justify-between gap-4 px-1" dir="rtl"><h2 id="magazine-title" className="text-2xl font-black text-ink md:text-3xl">مجله خودرو چاره</h2><Link href="/blog" className="text-sm font-black text-brand-orange">موارد بیشتر ←</Link></div>
-      <div className="mt-6 grid gap-5 md:grid-cols-3" dir="rtl">{blogPosts.map((post) => <Link key={post.slug} href={`/blog/${post.slug}`} className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-card"><div className="relative h-48 overflow-hidden"><Image src={post.image} alt={post.title} fill sizes="(min-width:768px) 33vw,100vw" className="object-cover transition duration-500 group-hover:scale-105" /></div><div className="p-5"><div className="flex items-center justify-between text-[10px]"><span className="font-black text-brand-orange">{post.category}</span><span className="text-slate-400">{post.readTime}</span></div><h3 className="mt-3 line-clamp-2 text-base font-black leading-8 text-ink">{post.title}</h3><p className="mt-2 line-clamp-2 text-xs leading-6 text-slate-500">{post.excerpt}</p><span className="mt-4 inline-flex text-xs font-black text-brand-orange">مطالعه مقاله ←</span></div></Link>)}</div>
+      <BlogSlider posts={blogPosts} />
     </section>
   );
 }
