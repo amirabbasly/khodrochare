@@ -18,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/assistant`, lastModified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/about`, lastModified, changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/contact`, lastModified, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${baseUrl}/قیمت-خدمات`, lastModified, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/pricing`, lastModified, changeFrequency: "monthly", priority: 0.8 },
   ];
 
   const cityPages: MetadataRoute.Sitemap = Object.values(seoLocations).flatMap((location) => [
