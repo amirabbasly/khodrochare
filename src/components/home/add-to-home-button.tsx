@@ -40,13 +40,13 @@ export function AddToHomeButton() {
   }
 
   return (
-    <div className="mt-3">
+    <div className="mt-3 w-full">
       <button
         type="button"
         onClick={install}
-        className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-brand-orange px-4 text-xs font-black text-white shadow-orange transition hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-orange px-5 py-3 text-xs font-black text-white shadow-orange transition hover:-translate-y-0.5 hover:brightness-110 sm:min-h-13 sm:max-w-sm sm:px-7 sm:text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
-        <span className="text-lg leading-none" aria-hidden="true">+</span>
+        <span className="text-xl leading-none" aria-hidden="true">+</span>
         افزودن به صفحه اصلی
       </button>
       {message && <p className="mt-2 text-[10px] leading-5 text-cyan-100" role="status">{message}</p>}
