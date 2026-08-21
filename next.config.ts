@@ -8,9 +8,10 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/blog/car-battery-warning-signs", destination: "/blog/نشانه-های-خرابی-باتری-خودرو", permanent: true },
-      { source: "/blog/safe-towing-guide", destination: "/blog/راهنمای-یدک-کشی-ایمن", permanent: true },
-      { source: "/blog/mobile-mechanic-checklist", destination: "/blog/چک-لیست-انتخاب-مکانیک-سیار", permanent: true },
+      { source: "/blog/مناطق-تحت-پوشش-خودرو-چاره", destination: "/blog/car-assistance-coverage-tehran-karaj", permanent: true },
+      { source: "/blog/نشانه-های-خرابی-باتری-خودرو", destination: "/blog/car-battery-warning-signs", permanent: true },
+      { source: "/blog/راهنمای-یدک-کشی-ایمن", destination: "/blog/safe-towing-guide", permanent: true },
+      { source: "/blog/چک-لیست-انتخاب-مکانیک-سیار", destination: "/blog/mobile-mechanic-checklist", permanent: true },
     ];
   },
 };
