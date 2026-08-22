@@ -2,7 +2,7 @@ import { siteUrl } from "./metadata";
 
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "AutoRepair"],
+  "@type": ["LocalBusiness", "AutoRepair"],
   "@id": `${siteUrl}/#organization`,
   name: "خودرو چاره",
   url: siteUrl,
@@ -10,6 +10,7 @@ export const organizationSchema = {
   telephone: "+989123022064",
   email: "info@khodrochare.ir",
   areaServed: ["تهران", "کرج"],
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "00:00", closes: "23:59" }],
   contactPoint: [{ "@type": "ContactPoint", telephone: "+989123022064", contactType: "customer service", areaServed: "IR", availableLanguage: ["fa"] }],
 };
 
@@ -18,7 +19,8 @@ export function breadcrumbSchema(items: { name: string; path?: string }[]) {
 }
 
 export function serviceSchema({ name, description, path, area }: { name: string; description: string; path: string; area: string }) {
-  return { "@context": "https://schema.org", "@type": "Service", name, description, url: `${siteUrl}${path}`, areaServed: { "@type": "City", name: area }, provider: { "@id": `${siteUrl}/#organization` } };
+  const areaServed = area === "تهران و کرج" ? [{ "@type": "City", name: "تهران" }, { "@type": "City", name: "کرج" }] : { "@type": "City", name: area };
+  return { "@context": "https://schema.org", "@type": "Service", name, description, url: `${siteUrl}${path}`, areaServed, provider: { "@id": `${siteUrl}/#organization` } };
 }
 
 export function faqSchema(items: readonly { question: string; answer: string }[]) {

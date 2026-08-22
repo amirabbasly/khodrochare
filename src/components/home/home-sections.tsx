@@ -190,6 +190,36 @@ export function CoverageSection() {
   );
 }
 
+export function SeoServiceHub() {
+  const commercialServices = [
+    ["امداد خودرو در محل", "/services/roadside-assistance", "عیب‌یابی اولیه و رفع خرابی‌های قابل‌تعمیر در محل"],
+    ["یدک کش تهران و کرج", "/services/tow-truck", "حمل خودرو پس از بررسی نوع گیربکس، چرخ‌ها و مسیر"],
+    ["خودروبر تهران و کرج", "/services/flatbed-carrier", "حمل ایمن خودروهای لوکس، صفر، تصادفی یا غیرقابل حرکت"],
+    ["مکانیک سیار تهران و کرج", "/services/mobile-mechanic", "اعزام مکانیک برای عیب‌یابی و تعمیرات مجاز در محل"],
+  ] as const;
+
+  return (
+    <section className="section-shell grid gap-5 lg:grid-cols-[.78fr_1.22fr]" aria-labelledby="emergency-services-title" dir="ltr">
+      <article className="rounded-2xl bg-ink p-6 text-white shadow-card md:p-8" dir="rtl">
+        <p className="text-xs font-black text-orange-300">مناطق تحت پوشش</p>
+        <h2 className="mt-3 text-2xl font-black">امداد خودرو تهران و کرج</h2>
+        <p className="mt-4 text-sm leading-8 text-slate-300">پوشش عملیاتی فعلی خودرو چاره در تهران و کرج است. برای مشاهده خدمات، محدوده‌ها و روش ثبت درخواست آنلاین، صفحه شهر خود را انتخاب کنید.</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <Link href="/تهران" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو تهران</strong><span className="mt-2 block text-xs text-slate-300">تهران و مسیرهای شهری فعال ←</span></Link>
+          <Link href="/کرج" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو کرج</strong><span className="mt-2 block text-xs text-slate-300">کرج و محدوده‌های قابل هماهنگی ←</span></Link>
+        </div>
+      </article>
+      <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card md:p-8" dir="rtl">
+        <p className="text-xs font-black text-brand-orange">خدمات امدادی</p>
+        <h2 id="emergency-services-title" className="mt-3 text-2xl font-black text-ink">خدمت مناسب را مستقیم انتخاب کنید</h2>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {commercialServices.map(([title, href, description]) => <Link key={href} href={href} className="rounded-xl border border-slate-200 p-4 transition hover:border-orange-200 hover:bg-orange-50"><h3 className="font-black">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p><span className="mt-3 inline-flex text-xs font-black text-brand-orange">جزئیات و درخواست ←</span></Link>)}
+        </div>
+      </article>
+    </section>
+  );
+}
+
 export function TrustSection() {
   return (
     <section id="trust" className="section-shell relative overflow-hidden rounded-xl bg-ink text-white shadow-card" data-aos="fade-up">

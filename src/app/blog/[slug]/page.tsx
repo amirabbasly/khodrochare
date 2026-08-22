@@ -7,6 +7,16 @@ import { blogPosts, getBlogPost } from "@/content/blog";
 import { StructuredData } from "@/components/seo/structured-data";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/seo/schemas";
 
+const commercialLinks: Record<string, { title: string; href: string }[]> = {
+  "safe-towing-guide": [{ title: "یدک کش تهران و کرج", href: "/services/tow-truck" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }],
+  "car-tow-truck-price-guide": [{ title: "یدک کش تهران و کرج", href: "/services/tow-truck" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }],
+  "mobile-mechanic-checklist": [{ title: "مکانیک سیار تهران و کرج", href: "/services/mobile-mechanic" }],
+  "car-battery-warning-signs": [{ title: "باتری خودرو در محل", href: "/services/battery-replacement" }],
+  "mobile-battery-replacement-tehran-karaj": [{ title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "باتری به باتری", href: "/services/jump-start" }],
+  "mobile-carwash-guide": [{ title: "کارواش سیار در محل", href: "/services/mobile-carwash" }],
+  "flat-tire-roadside-assistance": [{ title: "پنچری سیار", href: "/services/flat-tire" }],
+};
+
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
@@ -29,6 +39,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getBlogPost(slug);
   if (!post) notFound();
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug && item.category === post.category).slice(0, 3);
+  const serviceLinks = commercialLinks[post.slug] ?? [{ title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }];
   return (
     <SubpageShell>
       <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"] })} />
@@ -37,6 +48,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <article>
         <header className="bg-[#071a2e] py-14 text-white"><div className="site-container max-w-4xl"><Link href="/blog" className="text-xs font-black text-brand-orange">بازگشت به وبلاگ</Link><p className="mt-6 text-xs text-slate-400">{post.category} · {post.readTime} · {post.publishedAt}</p><h1 className="mt-4 text-3xl font-black leading-[1.6] md:text-5xl">{post.title}</h1><p className="mt-5 max-w-3xl text-sm leading-8 text-slate-300">{post.excerpt}</p></div></header>
         <div className="site-container max-w-4xl -mt-5 relative z-10"><div className="relative h-64 overflow-hidden rounded-2xl shadow-card md:h-[430px]"><Image src={post.image} alt={post.title} fill priority sizes="900px" className="object-cover" /></div><div className="mt-6 rounded-2xl bg-white p-6 shadow-card md:p-10">{post.sections.map((section) => <section key={section.title} className="mb-9 last:mb-0"><h2 className="text-xl font-black md:text-2xl">{section.title}</h2><p className="mt-4 text-sm leading-9 text-slate-600">{section.body}</p></section>)}{post.faqs?.length ? <section className="mt-10 border-t border-slate-100 pt-8" aria-labelledby="article-faq"><h2 id="article-faq" className="text-xl font-black md:text-2xl">سؤالات متداول</h2><div className="mt-5 space-y-3">{post.faqs.map((faq) => <details key={faq.question} className="group rounded-xl border border-slate-200 bg-slate-50 p-4"><summary className="cursor-pointer list-none text-sm font-black text-ink marker:hidden">{faq.question}<span className="float-left text-brand-orange transition group-open:rotate-45">+</span></summary><p className="mt-3 text-sm leading-8 text-slate-600">{faq.answer}</p></details>)}</div></section> : null}</div>{relatedPosts.length ? <aside className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" dir="rtl"><h2 className="text-lg font-black">مطالب مرتبط</h2><div className="mt-4 grid gap-3 md:grid-cols-3">{relatedPosts.map((related) => <Link key={related.slug} href={`/blog/${related.slug}`} className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-sm font-black leading-7 text-ink transition hover:border-orange-200 hover:text-brand-orange">{related.title}<span className="mt-2 block text-[10px] font-normal text-slate-400">مطالعه مقاله ←</span></Link>)}</div></aside> : null}<div className="mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-6 text-center"><strong className="text-lg">نیاز به بررسی خودرو در محل دارید؟</strong><p className="mt-2 text-xs leading-7 text-slate-600">تشخیص قطعی ایراد فنی باید توسط متخصص و پس از بازدید انجام شود.</p><Link href="/#request" className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-brand-orange px-6 text-sm font-black text-white">ثبت درخواست خدمت</Link></div></div>
+        <aside className="site-container max-w-4xl mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-6" dir="rtl" aria-label="خدمات مرتبط"><h2 className="text-lg font-black">خدمات مرتبط خودرو چاره</h2><div className="mt-4 flex flex-wrap gap-3">{serviceLinks.map((item) => <Link key={item.href} href={item.href} className="rounded-lg bg-white px-4 py-3 text-sm font-black text-brand-orange shadow-sm">{item.title} ←</Link>)}</div></aside>
       </article>
     </SubpageShell>
   );

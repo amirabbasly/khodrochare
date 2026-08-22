@@ -7,12 +7,6 @@ import { Icon } from "@/components/home/home-ui";
 
 const phoneNumber = "09123022064";
 
-const benefits = [
-  "اپلیکیشن خودرو چاره؛ نوآوری در حوزه امداد خودرو و خدمات خودرویی",
-  "تضمین قیمت منصفانه، کیفیت خدمت و مشتری‌مداری",
-  "هماهنگی سریع با متخصص مناسب برای هر مشکل خودرو",
-];
-
 export function WelcomeModal() {
   const [open, setOpen] = useState(true);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -52,32 +46,18 @@ export function WelcomeModal() {
             </div>
             <div>
               <span className="text-[10px] font-black tracking-wide text-orange-300">خوش آمدید به خودرو چاره</span>
-              <h2 id="welcome-modal-title" className="mt-1 text-xl font-black leading-8 sm:text-2xl">کمک خودرو، همیشه نزدیک شما</h2>
+              <h2 id="welcome-modal-title" className="mt-1 text-xl font-black leading-8 sm:text-2xl">همه خدمات خودرو، یک‌جا</h2>
             </div>
           </div>
 
-          <p id="welcome-modal-description" className="mt-6 text-sm leading-8 text-slate-300">برای شروع، مزیت‌های خودرو چاره را ببینید و هر وقت نیاز داشتید با یک تماس از ما کمک بگیرید.</p>
-
-          <ul className="mt-5 grid gap-3">
-            {benefits.map((benefit) => (
-              <li key={benefit} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 text-xs leading-7 text-slate-100 sm:p-4">
-                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-400/15 text-orange-300"><Icon name="check" size={15} /></span>
-                <span>{benefit}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-5 rounded-2xl border border-orange-300/20 bg-orange-300/10 p-4 text-center">
-            <p className="text-xs leading-7 text-orange-50">اگر عجله دارید، همین الان تماس بگیرید؛ اگر هم عجله ندارید، شماره ما را ذخیره کنید، شاید یک روز به کارتان بیاید.</p>
-            <a href={`tel:${phoneNumber}`} className="mt-3 inline-flex items-center gap-2 text-xl font-black tracking-wide text-white transition hover:text-orange-200" dir="ltr"><Icon name="phone" size={19} className="text-orange-300" />{phoneNumber}</a>
-          </div>
+          <p id="welcome-modal-description" className="mt-6 text-sm leading-8 text-slate-300">از امداد خودرو آنلاین و مکانیک سیار تا کارواش، باتری و لوازم یدکی کنار شما هستیم. برای آشنایی بیشتر سایت را ببینید؛ اگر همین حالا کمک می‌خواهید، تماس بگیرید.</p>
 
           <div className="mt-5 grid gap-2 sm:grid-cols-[1fr_auto]">
-            <a href={`tel:${phoneNumber}`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-orange px-5 text-sm font-black text-white shadow-orange transition hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><Icon name="phone" size={18} /> تماس بگیرید</a>
-            <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-5 text-sm font-black text-white transition hover:border-orange-300/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"><Icon name="download" size={17} /> ادامه برای نصب اپلیکیشن</Link>
+            <a href={`tel:${phoneNumber}`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-orange px-5 text-sm font-black text-white shadow-orange transition hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><Icon name="phone" size={18} /> تماس فوری</a>
+            <Link href="/services" onClick={() => setOpen(false)} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-5 text-sm font-black text-white transition hover:border-orange-300/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange">آشنایی با خدمات</Link>
           </div>
 
-          <button type="button" onClick={() => setOpen(false)} className="mx-auto mt-4 block text-[11px] font-bold text-slate-400 transition hover:text-white">فعلاً فقط می‌خواهم سایت را ببینم</button>
+          <button type="button" onClick={() => setOpen(false)} className="mx-auto mt-4 block text-[11px] font-bold text-slate-400 transition hover:text-white">ورود به سایت</button>
         </div>
       </div>
     </div>

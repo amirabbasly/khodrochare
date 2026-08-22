@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const region = Object.values(seoRegions).find((item) => item.slug === slug);
   if (!location) return {};
   if (route) return seoMetadata({ title: `${route.title} ${location.name} | اعزام آنلاین`, description: `${route.title} در ${location.name}. شرح خدمت، شرایط هماهنگی و ثبت درخواست آنلاین خودرو چاره.`, path: `/${city}/${slug}` });
-  if (region) return seoMetadata({ title: `${region.name} | امداد خودرو ${location.name}`, description: region.description, path: `/${city}/${slug}` });
+  if (region) return seoMetadata({ title: `${region.name} | امداد خودرو ${location.name}`, description: region.description, path: `/${city}/${slug}`, noindex: true });
   return {};
 }
 
