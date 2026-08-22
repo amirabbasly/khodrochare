@@ -9,7 +9,9 @@ const paramsList = [...Object.values(seoLocations).flatMap((location) => persian
 export function generateStaticParams() { return paramsList; }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; slug: string }> }): Promise<Metadata> {
-  const { city, slug } = await params;
+  const rawParams = await params;
+  const city = decodeURIComponent(rawParams.city);
+  const slug = decodeURIComponent(rawParams.slug);
   const location = Object.values(seoLocations).find((item) => item.slug === city);
   const route = persianServiceRoutes.find((item) => item.slug === slug);
   const region = Object.values(seoRegions).find((item) => item.slug === slug);
@@ -20,7 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 }
 
 export default async function CitySlugPage({ params }: { params: Promise<{ city: string; slug: string }> }) {
-  const { city, slug } = await params;
+  const rawParams = await params;
+  const city = decodeURIComponent(rawParams.city);
+  const slug = decodeURIComponent(rawParams.slug);
   const location = Object.values(seoLocations).find((item) => item.slug === city);
   const route = persianServiceRoutes.find((item) => item.slug === slug);
   const region = Object.values(seoRegions).find((item) => item.slug === slug);
