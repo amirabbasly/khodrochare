@@ -1,4 +1,5 @@
 import { siteUrl } from "./metadata";
+import { businessFacts } from "@/content/business";
 
 export const organizationSchema = {
   "@context": "https://schema.org",
@@ -9,10 +10,19 @@ export const organizationSchema = {
   logo: `${siteUrl}/images/khodrochare-3d-logo.webp`,
   telephone: "+989123022064",
   email: "info@khodrochare.ir",
-  areaServed: ["تهران", "کرج"],
+  areaServed: ["تهران", "کرج", "اسلامشهر"],
+  numberOfEmployees: { "@type": "QuantitativeValue", value: 100 },
+  knowsAbout: [...businessFacts.services, "امداد خودرو آنلاین"],
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "00:00", closes: "23:59" }],
-  contactPoint: [{ "@type": "ContactPoint", telephone: "+989123022064", contactType: "customer service", areaServed: "IR", availableLanguage: ["fa"] }],
+  contactPoint: [
+    { "@type": "ContactPoint", telephone: "+989123022064", contactType: "emergency", areaServed: ["تهران", "کرج", "اسلامشهر"], availableLanguage: ["fa"], hoursAvailable: organizationHours() },
+    { "@type": "ContactPoint", telephone: "+989397979861", contactType: "customer support", availableLanguage: ["fa"] },
+  ],
 };
+
+function organizationHours() {
+  return { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "00:00", closes: "23:59" };
+}
 
 export function breadcrumbSchema(items: { name: string; path?: string }[]) {
   return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.name, ...(item.path ? { item: `${siteUrl}${item.path}` } : {}) })) };

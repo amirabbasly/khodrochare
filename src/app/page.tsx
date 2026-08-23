@@ -9,6 +9,7 @@ import { faqSchema, serviceSchema } from "@/seo/schemas";
 import { faqItems } from "@/content/faq";
 import {
   AppSection,
+  BusinessFactsSection,
   ChatSection,
   ContactCta,
   CoverageSection,
@@ -46,6 +47,7 @@ export default function Home() {
       <ServiceStrip />
       <FeatureBanners />
       <SeoServiceHub />
+      <BusinessFactsSection />
       <MiniServices />
       <ChatSection />
       <AppSection />

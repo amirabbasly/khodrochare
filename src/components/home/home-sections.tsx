@@ -15,6 +15,7 @@ import { BrandLogo, BrandMark, ButtonLink, Icon, PlatformLogo, SectionTitle } fr
 import { AiChat } from "./ai-chat";
 import { AddToHomeButton } from "./add-to-home-button";
 import { HeroCarousel } from "./hero-carousel";
+import { businessFacts } from "@/content/business";
 // The site-wide header and footer live in shared site components.
 
 export function HeroSection() {
@@ -218,6 +219,17 @@ export function SeoServiceHub() {
       </article>
     </section>
   );
+}
+
+export function BusinessFactsSection() {
+  const facts = [
+    ["clock", "پاسخ‌گویی شبانه‌روزی", "۲۴ ساعت، ۷ روز هفته"],
+    ["truck", "اعزام معمولاً زیر ۳۰ دقیقه", "وابسته به ترافیک و موقعیت"],
+    ["user", "حدود ۱۰۰ امدادگر فعال", "شبکه امدادی تهران و کرج"],
+    ["award", "بیش از ۱۵ سال تجربه", "پیشینه تیم اجرایی"],
+  ] as const;
+
+  return <section className="section-shell rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-7" aria-labelledby="business-facts-title" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">اطلاعات واقعی خودرو چاره</p><h2 id="business-facts-title" className="mt-2 text-2xl font-black">امداد گسترده در تهران و کرج</h2></div><p className="max-w-xl text-xs leading-7 text-slate-500">{businessFacts.coverage}؛ شامل امداد در محل، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی.</p></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{facts.map(([icon, title, description]) => <article key={title} className="rounded-xl bg-slate-50 p-4"><Icon name={icon} size={22} className="text-brand-orange" /><h3 className="mt-3 text-sm font-black text-ink">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p></article>)}</div></section>;
 }
 
 export function TrustSection() {
