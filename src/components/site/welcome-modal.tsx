@@ -42,7 +42,7 @@ export function WelcomeModal() {
 
           <div className="flex items-center gap-3 pl-10">
             <div className="relative h-16 w-24 shrink-0 rounded-2xl border border-white/15 bg-white/10 p-2 sm:h-20 sm:w-32">
-              <Image src="/images/khodrochare-3d-logo.webp" alt="لوگوی خودرو چاره" fill priority sizes="128px" className="object-contain" />
+              <Image src="/images/khodrochare-logo-compact.webp" alt="لوگوی خودرو چاره" fill sizes="128px" className="object-contain" />
             </div>
             <div>
               <span className="text-[10px] font-black tracking-wide text-orange-300">خوش آمدید به خودرو چاره</span>

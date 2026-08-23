@@ -86,7 +86,7 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
     <Link href="/" className={`relative block shrink-0 overflow-hidden ${compact ? "h-12 w-36" : "h-14 w-40 sm:w-44 xl:h-16 xl:w-48"}`} aria-label="خودرو چاره، صفحه اصلی">
       <Image
-        src="/images/khodrochare-3d-logo.webp"
+        src="/images/khodrochare-logo-compact.webp"
         alt="لوگوی سه‌بعدی خودرو چاره"
         fill
         priority

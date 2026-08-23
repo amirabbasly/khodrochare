@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "aos/dist/aos.css";
 import "./globals.css";
 import { RouteProgress } from "@/components/site/route-progress";
 import { StructuredData } from "@/components/seo/structured-data";

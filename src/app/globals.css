@@ -97,11 +97,8 @@ button, select { cursor: pointer; }
 .city-beam { position: absolute; left: 50%; top: 100%; width: 2px; height: 14px; transform: translateX(-50%); opacity: .55; }
 .city-lock { position: relative; width: 10px; height: 8px; border: 1.5px solid currentColor; border-radius: 2px; }
 .city-lock::before { content: ""; position: absolute; left: 1px; top: -7px; width: 6px; height: 7px; border: 1.5px solid currentColor; border-bottom: 0; border-radius: 5px 5px 0 0; }
-.welcome-modal { background: rgb(3 18 36 / .78); backdrop-filter: blur(9px); animation: welcome-fade-in .22s ease-out both; }
+.welcome-modal { background: rgb(3 18 36 / .9); animation: welcome-fade-in .22s ease-out both; }
 .welcome-modal-card { animation: welcome-card-in .3s cubic-bezier(.22,.61,.36,1) both; }
-
-/* Keep server-rendered content visible until AOS is ready. */
-html:not(.aos-ready) [data-aos] { opacity: 1 !important; transform: none !important; }
 
 @keyframes voice-pulse { 0% { transform: scale(.7); opacity: .15; } 55% { opacity: .7; } 100% { transform: scale(1.15); opacity: 0; } }
 @keyframes hero-copy-in { from { opacity: 0; transform: translateX(48px); filter: blur(5px); } to { opacity: 1; transform: translateX(0); filter: blur(0); } }

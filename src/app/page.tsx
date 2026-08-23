@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AiChat } from "@/components/home/ai-chat";
-import { AosProvider } from "@/components/home/aos-provider";
 import { ResponsiveSiteHeader } from "@/components/home/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteFaq } from "@/components/site/site-faq";
@@ -41,7 +40,6 @@ export default function Home() {
     <main id="main-content" className="min-h-screen overflow-hidden">
       <StructuredData data={serviceSchema({ name: "امداد خودرو آنلاین شبانه‌روزی", description: "ثبت آنلاین امداد خودرو، یدک‌کش، خودروبر، مکانیک سیار و امداد در محل در تهران و کرج", path: "/", area: "تهران و کرج" })} />
       <StructuredData data={faqSchema(faqItems)} />
-      <AosProvider />
       <ResponsiveSiteHeader />
       <HeroSection />
       <ServiceStrip />
