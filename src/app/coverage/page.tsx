@@ -1,26 +1,39 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@/components/home/home-ui";
+import { StructuredData } from "@/components/seo/structured-data";
 import { SubpageShell } from "@/components/site/subpage-shell";
+import { seoMetadata } from "@/seo/metadata";
+import { breadcrumbSchema } from "@/seo/schemas";
 
-export const metadata: Metadata = {
-  title: "محدوده پوشش خودرو چاره",
-  description: "نقشه سه‌بعدی محدوده پوشش خودرو چاره؛ تهران و کرج فعال هستند و شهرهای دیگر مرحله‌به‌مرحله اضافه می‌شوند.",
-  alternates: { canonical: "/coverage" },
-};
+export const metadata: Metadata = seoMetadata({
+  title: "مناطق تحت پوشش امداد خودرو تهران و کرج | خودرو چاره",
+  description: "فهرست مناطق تحت پوشش امداد خودرو آنلاین خودرو چاره در مناطق ۲۲گانه تهران و مناطق فعال کرج و حومه، با پاسخ‌گویی شبانه‌روزی.",
+  path: "/coverage",
+});
 
-const lockedCities = ["قم", "اصفهان", "مشهد", "شیراز", "تبریز", "اهواز"];
+const tehranDistricts = [
+  ["منطقه ۱", "نیاوران، تجریش، زعفرانیه، ولنجک و قیطریه"], ["منطقه ۲", "سعادت‌آباد، شهرک غرب، گیشا و مرزداران"],
+  ["منطقه ۳", "ونک، میرداماد، قلهک و اختیاریه"], ["منطقه ۴", "تهرانپارس، حکیمیه، لویزان و شمیران‌نو"],
+  ["منطقه ۵", "پونک، جنت‌آباد، اکباتان و فردوس"], ["منطقه ۶", "یوسف‌آباد، امیرآباد، فاطمی و میدان ولیعصر"],
+  ["منطقه ۷", "سهروردی، عباس‌آباد، نظام‌آباد و مجیدیه"], ["منطقه ۸", "نارمک، هفت‌حوض، فدک و تهرانپارس غربی"],
+  ["منطقه ۹", "مهرآباد، استاد معین و شمشیری"], ["منطقه ۱۰", "سلسبیل، بریانک، کارون و هاشمی"],
+  ["منطقه ۱۱", "منیریه، امیریه، راه‌آهن و جمهوری"], ["منطقه ۱۲", "بازار، بهارستان، دروازه شمیران و هرندی"],
+  ["منطقه ۱۳", "پیروزی، نیروی هوایی، تهران‌نو و سرخه‌حصار"], ["منطقه ۱۴", "دولاب، افسریه، آهنگ و چهارصد دستگاه"],
+  ["منطقه ۱۵", "مشیریه، کیانشهر، خاوران و مسعودیه"], ["منطقه ۱۶", "نازی‌آباد، جوادیه، خزانه و یاخچی‌آباد"],
+  ["منطقه ۱۷", "امامزاده حسن، یافت‌آباد شرقی و آذری"], ["منطقه ۱۸", "یافت‌آباد، شادآباد، شهرک ولیعصر و تولیددارو"],
+  ["منطقه ۱۹", "خانی‌آباد نو، عبدل‌آباد و نعمت‌آباد"], ["منطقه ۲۰", "شهرری، دولت‌آباد، جوانمرد قصاب و حمزه‌آباد"],
+  ["منطقه ۲۱", "تهرانسر، وردآورد و شهرک استقلال"], ["منطقه ۲۲", "چیتگر، شهرک گلستان، دریاچه و دهکده المپیک"],
+] as const;
+
+const karajAreas = ["مرکز کرج", "عظیمیه", "جهانشهر", "گوهردشت", "مهرشهر", "باغستان", "حصارک", "شاهین‌ویلا", "کیانمهر", "کمالشهر", "محمدشهر", "فردیس", "مشکین‌دشت", "گرمدره"];
 
 export default function CoveragePage() {
-  return (
-    <SubpageShell>
-      <section className="relative overflow-hidden bg-[#071a2e] py-16 text-white"><div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(14,165,233,.22),transparent_28%),radial-gradient(circle_at_85%_70%,rgba(255,83,21,.16),transparent_25%)]" /><div className="site-container relative text-center"><span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-black text-emerald-300">تهران و کرج فعال</span><h1 className="mt-6 text-3xl font-black md:text-5xl">محدوده پوشش خودرو چاره</h1><p className="mx-auto mt-4 max-w-2xl text-sm leading-8 text-slate-300">تهران و کرج نقطه شروع شبکه امداد خودرو چاره هستند. شهرهای دیگر با توسعه شبکه امدادگران، مرحله‌به‌مرحله فعال می‌شوند.</p></div></section>
-      <section className="site-container -mt-8 relative z-10 grid gap-5 lg:grid-cols-[1.45fr_.55fr]" dir="ltr">
-        <div className="relative min-h-[520px] overflow-hidden rounded-[1.8rem] border border-slate-200 bg-[#071a2e] shadow-card" dir="rtl"><Image src="/images/coverage-iran-glass-v2.webp" alt="نقشه سه‌بعدی شیشه‌ای محدوده پوشش خودرو چاره در ایران" fill priority sizes="(min-width:1024px) 65vw,100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#031224]/80 via-transparent to-[#031224]/10" /><div className="absolute right-[35%] top-[39%] rounded-full border border-emerald-300/70 bg-emerald-400/20 px-3 py-2 text-[10px] font-black text-white shadow-[0_0_24px_rgba(52,211,153,.55)]">تهران · فعال</div><div className="absolute right-[32%] top-[45%] rounded-full border border-emerald-300/70 bg-emerald-400/20 px-3 py-2 text-[10px] font-black text-white shadow-[0_0_24px_rgba(52,211,153,.55)]">کرج · فعال</div><div className="absolute bottom-5 right-5 max-w-xs rounded-2xl border border-white/20 bg-[#031224]/70 p-4 text-xs leading-6 text-slate-200 backdrop-blur-md">نقاط کم‌نور، شهرهایی هستند که در صف توسعه شبکه قرار دارند. فعال‌سازی هر شهر به تکمیل شبکه امدادگران وابسته است.</div></div>
-        <aside className="rounded-[1.8rem] bg-white p-6 shadow-card" dir="rtl"><h2 className="text-xl font-black">وضعیت شهرها</h2><div className="mt-5 grid gap-3"><div className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 p-4"><span className="font-black">تهران</span><span className="rounded-full bg-emerald-500 px-3 py-1 text-[10px] font-black text-white">فعال</span></div><div className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 p-4"><span className="font-black">کرج</span><span className="rounded-full bg-emerald-500 px-3 py-1 text-[10px] font-black text-white">فعال</span></div>{lockedCities.map((city, index) => <div key={city} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-4"><div className="flex items-center gap-2"><Icon name="lock" size={16} className="text-slate-400" /><span className="text-sm font-bold text-slate-600">{city}</span></div><span className="inline-flex items-center gap-2 text-[10px] text-slate-400"><i className="h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-brand-orange" /> مرحله {(index + 1).toLocaleString("fa-IR")}</span></div>)}</div></aside>
-      </section>
-      <section className="site-container mt-10 rounded-2xl bg-white p-7 text-center shadow-card"><h2 className="text-2xl font-black">در تهران یا کرج به امداد نیاز دارید؟</h2><p className="mt-3 text-sm text-slate-500">درخواست را ثبت کنید تا نزدیک‌ترین مسیر هماهنگی برای شما بررسی شود.</p><div className="mt-6 flex flex-wrap justify-center gap-3"><Link href="/#request" className="inline-flex min-h-11 items-center rounded-lg bg-brand-orange px-6 text-sm font-black text-white">ثبت درخواست</Link><a href="tel:09123022064" className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-6 text-sm font-black" dir="ltr">09123022064</a></div></section>
-    </SubpageShell>
-  );
+  return <SubpageShell>
+    <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مناطق تحت پوشش" }])} />
+    <section className="relative overflow-hidden bg-ink text-white"><div className="site-container grid items-center gap-8 py-12 lg:grid-cols-[.9fr_1.1fr]" dir="ltr"><div className="relative min-h-72 overflow-hidden rounded-[1.8rem] border border-white/15"><Image src="/images/facts/active-network.webp" alt="شبکه امداد خودرو در تهران و کرج" fill priority sizes="(min-width:1024px) 45vw,100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink/45 to-transparent" /></div><div dir="rtl"><p className="text-xs font-black text-orange-300">پاسخ‌گویی ۲۴ ساعته، ۷ روز هفته</p><h1 className="mt-4 text-3xl font-black leading-[1.55] md:text-5xl">مناطق تحت پوشش امداد خودرو تهران و کرج</h1><p className="mt-5 max-w-2xl text-sm leading-8 text-slate-300">خودرو چاره درخواست‌های امداد در مناطق ۲۲گانه تهران و مناطق فعال کرج و حومه را هماهنگ می‌کند. زمان معمول اعزام کمتر از ۳۰ دقیقه است و با توجه به ترافیک، موقعیت و نوع خدمت اعلام می‌شود.</p></div></div></section>
+    <section className="site-container mt-8" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">تهران</p><h2 className="mt-2 text-2xl font-black">مناطق ۲۲گانه تهران</h2></div><Link href="/تهران" className="text-sm font-black text-brand-orange">صفحه امداد خودرو تهران ←</Link></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{tehranDistricts.map(([district, areas]) => <article key={district} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><h3 className="font-black text-ink">{district}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{areas}</p></article>)}</div></section>
+    <section className="site-container mt-10 rounded-2xl bg-white p-6 shadow-card md:p-8" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">کرج و حومه</p><h2 className="mt-2 text-2xl font-black">مناطق فعال کرج</h2></div><Link href="/کرج" className="text-sm font-black text-brand-orange">صفحه امداد خودرو کرج ←</Link></div><div className="mt-6 flex flex-wrap gap-2">{karajAreas.map((area) => <span key={area} className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-bold text-slate-700">{area}</span>)}</div><p className="mt-5 text-xs leading-7 text-slate-500">اگر نام محدوده شما در این فهرست نیست، موقعیت را هنگام تماس یا ثبت درخواست اعلام کنید تا امکان اعزام نزدیک‌ترین امدادگر بررسی شود.</p></section>
+    <section className="site-container mt-10 rounded-2xl bg-ink p-7 text-center text-white shadow-card" dir="rtl"><h2 className="text-2xl font-black">برای خودرو در تهران یا کرج امداد می‌خواهید؟</h2><p className="mt-3 text-sm leading-8 text-slate-300">درخواست آنلاین را ثبت کنید یا برای هماهنگی فوری با پشتیبانی شبانه‌روزی تماس بگیرید.</p><div className="mt-6 flex flex-wrap justify-center gap-3"><Link href="/#request" className="inline-flex min-h-12 items-center rounded-lg bg-brand-orange px-6 text-sm font-black text-white">ثبت درخواست آنلاین</Link><a href="tel:09123022064" className="inline-flex min-h-12 items-center rounded-lg border border-white/30 px-6 text-sm font-black" dir="ltr">09123022064</a></div></section>
+  </SubpageShell>;
 }

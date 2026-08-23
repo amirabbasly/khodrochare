@@ -223,13 +223,13 @@ export function SeoServiceHub() {
 
 export function BusinessFactsSection() {
   const facts = [
-    ["clock", "پاسخ‌گویی شبانه‌روزی", "۲۴ ساعت، ۷ روز هفته"],
-    ["truck", "اعزام معمولاً زیر ۳۰ دقیقه", "وابسته به ترافیک و موقعیت"],
-    ["user", "حدود ۱۰۰ امدادگر فعال", "شبکه امدادی تهران و کرج"],
-    ["award", "بیش از ۱۵ سال تجربه", "پیشینه تیم اجرایی"],
+    ["/images/facts/support-24h.webp", "پاسخ‌گویی شبانه‌روزی", "۲۴ ساعت، ۷ روز هفته", "پشتیبانی شبانه‌روزی امداد خودرو"],
+    ["/images/facts/fast-dispatch.webp", "اعزام معمولاً زیر ۳۰ دقیقه", "زمان دقیق به ترافیک و موقعیت بستگی دارد", "اعزام خودروبر و امدادگر در تهران"],
+    ["/images/facts/active-network.webp", "حدود ۱۰۰ امدادگر فعال", "شبکه امدادی تهران و کرج", "شبکه امدادگران خودرو چاره"],
+    ["/images/facts/experienced-mechanic.webp", "بیش از ۱۵ سال تجربه", "پیشینه تیم اجرایی در خدمات خودرو", "مکانیک باتجربه در حال بررسی خودرو"],
   ] as const;
 
-  return <section className="section-shell rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-7" aria-labelledby="business-facts-title" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">اطلاعات واقعی خودرو چاره</p><h2 id="business-facts-title" className="mt-2 text-2xl font-black">امداد گسترده در تهران و کرج</h2></div><p className="max-w-xl text-xs leading-7 text-slate-500">{businessFacts.coverage}؛ شامل امداد در محل، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی.</p></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{facts.map(([icon, title, description]) => <article key={title} className="rounded-xl bg-slate-50 p-4"><Icon name={icon} size={22} className="text-brand-orange" /><h3 className="mt-3 text-sm font-black text-ink">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p></article>)}</div></section>;
+  return <section className="section-shell rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-7" aria-labelledby="business-facts-title" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">خودرو چاره در یک نگاه</p><h2 id="business-facts-title" className="mt-2 text-2xl font-black">امداد گسترده در تهران و کرج</h2></div><div className="max-w-xl text-xs leading-7 text-slate-500"><p>{businessFacts.coverage}؛ شامل امداد در محل، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی.</p><Link href="/coverage" className="mt-2 inline-flex font-black text-brand-orange">مشاهده فهرست کامل مناطق تحت پوشش ←</Link></div></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{facts.map(([image, title, description, alt]) => <article key={title} className="overflow-hidden rounded-xl border border-slate-100 bg-slate-50"><div className="relative h-32"><Image src={image} alt={alt} fill sizes="(min-width:1024px) 25vw,(min-width:640px) 50vw,100vw" className="object-cover" /></div><div className="p-4"><h3 className="text-sm font-black text-ink">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p></div></article>)}</div></section>;
 }
 
 export function TrustSection() {
