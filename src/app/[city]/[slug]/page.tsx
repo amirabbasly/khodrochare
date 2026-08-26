@@ -16,7 +16,15 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const route = persianServiceRoutes.find((item) => item.slug === slug);
   const region = Object.values(seoRegions).find((item) => item.slug === slug);
   if (!location) return {};
-  if (route) return seoMetadata({ title: `${route.title} ${location.name} | اعزام آنلاین`, description: `${route.title} در ${location.name}. شرح خدمت، شرایط هماهنگی و ثبت درخواست آنلاین خودرو چاره.`, path: `/${city}/${slug}` });
+  if (route) {
+    const titles: Record<string, string> = {
+      "پنچرگیری-سیار": `پنچرگیری سیار ${location.name} و تعویض لاستیک در محل`,
+      "دیاگ-سیار": `دیاگ سیار ${location.name} | عیب‌یابی خودرو در محل`,
+      "کارواش-سیار": `کارواش سیار ${location.name} | شست‌وشوی خودرو در محل`,
+      "امداد-خودرو": `امداد خودرو آنلاین ${location.name} | اعزام شبانه‌روزی`,
+    };
+    return seoMetadata({ title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`, description: `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام، عوامل مؤثر بر قیمت و پاسخ پرسش‌های رایج.`, path: `/${city}/${slug}`, keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`] });
+  }
   if (region) return seoMetadata({ title: `${region.name} | امداد خودرو ${location.name}`, description: region.description, path: `/${city}/${slug}`, noindex: true });
   return {};
 }

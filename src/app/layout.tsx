@@ -5,6 +5,7 @@ import { StructuredData } from "@/components/seo/structured-data";
 import { organizationSchema } from "@/seo/schemas";
 import { primaryKeywords } from "@/seo/keywords";
 import { WelcomeModal } from "@/components/site/welcome-modal";
+import { AnalyticsEvents } from "@/components/site/analytics-events";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://khodrochare.ir"),
@@ -58,7 +59,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fa" dir="rtl" className="h-full antialiased">
-      <body className="min-h-full flex flex-col"><StructuredData data={organizationSchema} /><RouteProgress />{children}<WelcomeModal /></body>
+      <body className="min-h-full flex flex-col"><StructuredData data={organizationSchema} /><AnalyticsEvents /><RouteProgress />{children}<WelcomeModal /></body>
     </html>
   );
 }

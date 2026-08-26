@@ -13,8 +13,9 @@ const commercialLinks: Record<string, { title: string; href: string }[]> = {
   "mobile-mechanic-checklist": [{ title: "مکانیک سیار تهران و کرج", href: "/services/mobile-mechanic" }],
   "car-battery-warning-signs": [{ title: "باتری خودرو در محل", href: "/services/battery-replacement" }],
   "mobile-battery-replacement-tehran-karaj": [{ title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "باتری به باتری", href: "/services/jump-start" }],
-  "mobile-carwash-guide": [{ title: "کارواش سیار در محل", href: "/services/mobile-carwash" }],
-  "flat-tire-roadside-assistance": [{ title: "پنچری سیار", href: "/services/flat-tire" }],
+  "mobile-carwash-guide": [{ title: "کارواش سیار تهران", href: "/تهران/کارواش-سیار" }, { title: "کارواش سیار کرج", href: "/کرج/کارواش-سیار" }, { title: "کارواش سیار در محل", href: "/services/mobile-carwash" }],
+  "flat-tire-roadside-assistance": [{ title: "پنچرگیری سیار تهران", href: "/تهران/پنچرگیری-سیار" }, { title: "پنچرگیری سیار کرج", href: "/کرج/پنچرگیری-سیار" }, { title: "تعویض لاستیک در محل", href: "/services/flat-tire" }],
+  "mobile-diagnostics-check-engine-guide": [{ title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }, { title: "دیاگ سیار کرج", href: "/کرج/دیاگ-سیار" }, { title: "عیب‌یابی سیار خودرو", href: "/services/mobile-diagnostics" }],
 };
 
 export function generateStaticParams() {
