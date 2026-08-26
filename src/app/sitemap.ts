@@ -5,7 +5,7 @@ import { persianServiceRoutes } from "@/seo/internal-links";
 import { seoLocations } from "@/seo/locations";
 
 const baseUrl = "https://khodrochare.ir";
-const lastModified = new Date("2026-08-26T00:00:00.000Z");
+const lastModified = new Date("2026-08-27T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [

@@ -1,6 +1,8 @@
 export const businessFacts = {
   emergencyPhone: "09123022064",
   complaintPhone: "09397979861",
+  email: "info@khodrochare.ir",
+  address: "تهران، خیابان آزادی، جنب تعمیرات یدکی چاره، پلاک ۱۲۱، واحد ۱۴",
   availability: "پاسخ‌گویی ۲۴ ساعته در تمام ۷ روز هفته",
   dispatchTime: "اعزام معمولاً کمتر از ۳۰ دقیقه",
   experience: "بیش از ۱۵ سال پیشینه فعالیت تیم اجرایی در خدمات خودرو",

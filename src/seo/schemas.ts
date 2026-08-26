@@ -10,6 +10,13 @@ export const organizationSchema = {
   logo: `${siteUrl}/images/khodrochare-3d-logo.webp`,
   telephone: "+989123022064",
   email: "info@khodrochare.ir",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "خیابان آزادی، جنب تعمیرات یدکی چاره، پلاک ۱۲۱، واحد ۱۴",
+    addressLocality: "تهران",
+    addressRegion: "تهران",
+    addressCountry: "IR",
+  },
   areaServed: ["تهران", "کرج"],
   numberOfEmployees: { "@type": "QuantitativeValue", value: 100 },
   knowsAbout: [...businessFacts.services, "امداد خودرو آنلاین"],
@@ -39,4 +46,18 @@ export function faqSchema(items: readonly { question: string; answer: string }[]
 
 export function articleSchema({ title, description, path, image, publishedAt, section, keywords }: { title: string; description: string; path: string; image: string; publishedAt: string; section?: string; keywords?: string[] }) {
   return { "@context": "https://schema.org", "@type": "Article", headline: title, description, url: `${siteUrl}${path}`, image: `${siteUrl}${image}`, datePublished: publishedAt, ...(section ? { articleSection: section } : {}), ...(keywords?.length ? { keywords: keywords.join(", ") } : {}), author: { "@id": `${siteUrl}/#organization` }, publisher: { "@id": `${siteUrl}/#organization` }, inLanguage: "fa-IR" };
+}
+
+export function webPageSchema({ type = "WebPage", name, description, path }: { type?: "WebPage" | "AboutPage" | "ContactPage"; name: string; description: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": type,
+    "@id": `${siteUrl}${path}#webpage`,
+    url: `${siteUrl}${path}`,
+    name,
+    description,
+    inLanguage: "fa-IR",
+    about: { "@id": `${siteUrl}/#organization` },
+    isPartOf: { "@id": `${siteUrl}/#website` },
+  };
 }

@@ -29,6 +29,7 @@ export function AnalyticsEvents() {
     const handleSubmit = (event: SubmitEvent) => {
       const form = event.target as HTMLFormElement | null;
       if (form?.id === "request") sendEvent("service_request_submit", { page_location: window.location.href, form_id: form.id });
+      if (form?.id === "contact-form") sendEvent("contact_form_submit", { page_location: window.location.href, form_id: form.id });
     };
     document.addEventListener("click", handleClick);
     document.addEventListener("submit", handleSubmit);
