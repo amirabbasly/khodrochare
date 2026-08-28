@@ -8,14 +8,17 @@ import { StructuredData } from "@/components/seo/structured-data";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/seo/schemas";
 
 const commercialLinks: Record<string, { title: string; href: string }[]> = {
-  "safe-towing-guide": [{ title: "یدک کش تهران و کرج", href: "/services/tow-truck" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }],
-  "car-tow-truck-price-guide": [{ title: "یدک کش تهران و کرج", href: "/services/tow-truck" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }],
-  "mobile-mechanic-checklist": [{ title: "مکانیک سیار تهران و کرج", href: "/services/mobile-mechanic" }],
-  "car-battery-warning-signs": [{ title: "باتری خودرو در محل", href: "/services/battery-replacement" }],
-  "mobile-battery-replacement-tehran-karaj": [{ title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "باتری به باتری", href: "/services/jump-start" }],
+  "car-assistance-coverage-tehran-karaj": [{ title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }, { title: "مناطق تحت پوشش", href: "/coverage" }, { title: "ثبت امداد خودرو آنلاین", href: "/#request" }],
+  "safe-towing-guide": [{ title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }, { title: "هزینه حمل خودرو", href: "/blog/car-tow-truck-price-guide" }],
+  "car-tow-truck-price-guide": [{ title: "هزینه و درخواست یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "هزینه و درخواست یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }, { title: "قیمت خدمات امدادی", href: "/pricing" }],
+  "mobile-mechanic-checklist": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }],
+  "what-to-do-when-car-stops-on-highway": [{ title: "امداد خودرو آنلاین تهران", href: "/تهران/امداد-خودرو" }, { title: "امداد خودرو آنلاین کرج", href: "/کرج/امداد-خودرو" }, { title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "ثبت درخواست فوری", href: "/#request" }],
+  "car-battery-warning-signs": [{ title: "باتری خودرو تهران", href: "/تهران/باتری-خودرو" }, { title: "باتری خودرو کرج", href: "/کرج/باتری-خودرو" }, { title: "باتری به باتری", href: "/services/jump-start" }],
+  "mobile-battery-replacement-tehran-karaj": [{ title: "باتری خودرو تهران", href: "/تهران/باتری-خودرو" }, { title: "باتری خودرو کرج", href: "/کرج/باتری-خودرو" }, { title: "باتری به باتری", href: "/services/jump-start" }],
   "mobile-carwash-guide": [{ title: "کارواش سیار تهران", href: "/تهران/کارواش-سیار" }, { title: "کارواش سیار کرج", href: "/کرج/کارواش-سیار" }, { title: "کارواش سیار در محل", href: "/services/mobile-carwash" }],
   "flat-tire-roadside-assistance": [{ title: "پنچرگیری سیار تهران", href: "/تهران/پنچرگیری-سیار" }, { title: "پنچرگیری سیار کرج", href: "/کرج/پنچرگیری-سیار" }, { title: "تعویض لاستیک در محل", href: "/services/flat-tire" }],
   "mobile-diagnostics-check-engine-guide": [{ title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }, { title: "دیاگ سیار کرج", href: "/کرج/دیاگ-سیار" }, { title: "عیب‌یابی سیار خودرو", href: "/services/mobile-diagnostics" }],
+  "car-maintenance-before-long-trip": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "پنچرگیری سیار", href: "/services/flat-tire" }, { title: "امداد خودرو آنلاین", href: "/services/roadside-assistance" }],
 };
 
 export function generateStaticParams() {
@@ -31,7 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: post.excerpt,
     keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "امداد خودرو تهران", "امداد خودرو کرج"],
     alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: { type: "article", title: post.title, description: post.excerpt, url: `/blog/${post.slug}`, images: [{ url: post.image, alt: post.title }], publishedTime: post.publishedAtIso, section: post.category, locale: "fa_IR" },
+    openGraph: { type: "article", title: post.title, description: post.excerpt, url: `/blog/${post.slug}`, images: [{ url: post.image, alt: post.title }], publishedTime: post.publishedAtIso, modifiedTime: post.updatedAtIso, section: post.category, locale: "fa_IR" },
   };
 }
 
@@ -43,7 +46,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const serviceLinks = commercialLinks[post.slug] ?? [{ title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }];
   return (
     <SubpageShell>
-      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"] })} />
+      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: post.updatedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"] })} />
       <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مجله خودرو چاره", path: "/blog" }, { name: post.title }])} />
       {post.faqs?.length ? <StructuredData data={faqSchema(post.faqs)} /> : null}
       <article>

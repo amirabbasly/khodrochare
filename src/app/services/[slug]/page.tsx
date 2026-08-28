@@ -13,8 +13,8 @@ import { persianServiceRoutes } from "@/seo/internal-links";
 
 const relatedArticles: Record<string, { title: string; slug: string }[]> = {
   "roadside-assistance": [{ title: "وقتی خودرو در بزرگراه خاموش می‌شود چه کنیم؟", slug: "what-to-do-when-car-stops-on-highway" }, { title: "مناطق تحت پوشش امداد خودرو تهران و کرج", slug: "car-assistance-coverage-tehran-karaj" }],
-  "tow-truck": [{ title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }, { title: "قیمت یدک‌کش و خودروبر چگونه محاسبه می‌شود؟", slug: "car-tow-truck-price-guide" }],
-  "flatbed-carrier": [{ title: "قیمت یدک‌کش و خودروبر چگونه محاسبه می‌شود؟", slug: "car-tow-truck-price-guide" }, { title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }],
+  "tow-truck": [{ title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }, { title: "هزینه حمل خودرو با یدک‌کش در تهران و کرج", slug: "car-tow-truck-price-guide" }],
+  "flatbed-carrier": [{ title: "هزینه حمل خودرو با یدک‌کش و خودروبر", slug: "car-tow-truck-price-guide" }, { title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }],
   "mobile-mechanic": [{ title: "چک‌لیست انتخاب مکانیک سیار قابل اعتماد", slug: "mobile-mechanic-checklist" }, { title: "وقتی خودرو در بزرگراه خاموش می‌شود چه کنیم؟", slug: "what-to-do-when-car-stops-on-highway" }],
   "battery-replacement": [{ title: "نشانه‌های خرابی باتری خودرو", slug: "car-battery-warning-signs" }, { title: "باتری خودرو در محل تهران و کرج", slug: "mobile-battery-replacement-tehran-karaj" }],
   "jump-start": [{ title: "نشانه‌های خرابی باتری خودرو", slug: "car-battery-warning-signs" }],

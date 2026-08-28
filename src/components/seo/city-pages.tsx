@@ -32,6 +32,10 @@ export function RegionLanding({ location, region }: { location: SeoLocation; reg
 }
 
 const cityServiceGuides: Record<string, { title: string; href: string }> = {
+  "roadside-assistance": { title: "راهنمای توقف خودرو در بزرگراه", href: "/blog/what-to-do-when-car-stops-on-highway" },
+  "tow-truck": { title: "هزینه حمل خودرو با یدک‌کش", href: "/blog/car-tow-truck-price-guide" },
+  "mobile-mechanic": { title: "چک‌لیست انتخاب مکانیک سیار", href: "/blog/mobile-mechanic-checklist" },
+  "battery-replacement": { title: "راهنمای تعویض باتری در محل", href: "/blog/mobile-battery-replacement-tehran-karaj" },
   "flat-tire": { title: "راهنمای پنچرگیری سیار و تعویض لاستیک در محل", href: "/blog/flat-tire-roadside-assistance" },
   "mobile-carwash": { title: "راهنمای انتخاب کارواش سیار", href: "/blog/mobile-carwash-guide" },
   "mobile-diagnostics": { title: "چراغ چک و زمان درخواست دیاگ سیار", href: "/blog/mobile-diagnostics-check-engine-guide" },

@@ -23,7 +23,13 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
       "کارواش-سیار": `کارواش سیار ${location.name} | شست‌وشوی خودرو در محل`,
       "امداد-خودرو": `امداد خودرو آنلاین ${location.name} | اعزام شبانه‌روزی`,
     };
-    return seoMetadata({ title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`, description: `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام، عوامل مؤثر بر قیمت و پاسخ پرسش‌های رایج.`, path: `/${city}/${slug}`, keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`] });
+    const descriptions: Record<string, string> = {
+      "پنچرگیری-سیار": `درخواست پنچرگیری سیار و تعویض لاستیک در محل ${location.name}؛ هماهنگی شبانه‌روزی، بررسی موقعیت، زمان تقریبی اعزام و عوامل مؤثر بر هزینه.`,
+      "دیاگ-سیار": `ثبت درخواست دیاگ سیار ${location.name} برای بررسی چراغ چک، خطاهای ECU و عیب‌یابی اولیه خودرو در محل با هماهنگی شبانه‌روزی.`,
+      "کارواش-سیار": `درخواست کارواش سیار ${location.name} برای شست‌وشوی خودرو در محل؛ معرفی خدمات، شرایط محل، عوامل هزینه و نحوه هماهنگی آنلاین.`,
+      "یدک-کش": `درخواست یدک کش و حمل خودرو در ${location.name}؛ انتخاب وسیله متناسب، زمان اعزام، عوامل هزینه و هماهنگی آنلاین خودرو چاره.`,
+    };
+    return seoMetadata({ title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`, description: descriptions[route.slug] ?? `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام، عوامل مؤثر بر قیمت و پاسخ پرسش‌های رایج.`, path: `/${city}/${slug}`, keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`] });
   }
   if (region) return seoMetadata({ title: `${region.name} | امداد خودرو ${location.name}`, description: region.description, path: `/${city}/${slug}`, noindex: true });
   return {};

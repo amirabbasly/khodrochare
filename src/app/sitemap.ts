@@ -5,7 +5,7 @@ import { persianServiceRoutes } from "@/seo/internal-links";
 import { seoLocations } from "@/seo/locations";
 
 const baseUrl = "https://khodrochare.ir";
-const lastModified = new Date("2026-08-27T00:00:00.000Z");
+const lastModified = new Date("2026-08-28T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [
@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]);
 
   const servicePages: MetadataRoute.Sitemap = services.map((service) => ({ url: `${baseUrl}/services/${service.slug}`, lastModified, changeFrequency: "monthly" as const, priority: 0.7 }));
-  const postPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({ url: `${baseUrl}/blog/${post.slug}`, lastModified: new Date(post.publishedAtIso), changeFrequency: "monthly" as const, priority: 0.7 }));
+  const postPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({ url: `${baseUrl}/blog/${post.slug}`, lastModified: new Date(post.updatedAtIso ?? post.publishedAtIso), changeFrequency: "monthly" as const, priority: 0.7 }));
 
   return [...pages, ...cityPages, ...servicePages, ...postPages];
 }
