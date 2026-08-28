@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CityServiceLanding, RegionLanding } from "@/components/seo/city-pages";
+import { CityServiceLanding } from "@/components/seo/city-pages";
+import { ExpandedRegionLanding } from "@/components/seo/regional-landing-pages";
 import { persianServiceRoutes } from "@/seo/internal-links";
 import { seoLocations, seoRegions } from "@/seo/locations";
 import { seoMetadata } from "@/seo/metadata";
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
     };
     return seoMetadata({ title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`, description: descriptions[route.slug] ?? `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام، عوامل مؤثر بر قیمت و پاسخ پرسش‌های رایج.`, path: `/${city}/${slug}`, keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`] });
   }
-  if (region) return seoMetadata({ title: `${region.name} | امداد خودرو ${location.name}`, description: region.description, path: `/${city}/${slug}`, noindex: true });
+  if (region) return seoMetadata({ title: `امداد خودرو ${region.name} شبانه‌روزی | درخواست آنلاین`, description: `${region.description} مشاهده محله‌ها، مسیرهای اصلی، خدمات قابل ارائه، زمان اعزام، عوامل قیمت و ثبت درخواست آنلاین.`, path: `/${city}/${slug}`, keywords: [`امداد خودرو ${region.name}`, `یدک کش ${region.name}`, `مکانیک سیار ${region.name}`] });
   return {};
 }
 
@@ -44,6 +45,6 @@ export default async function CitySlugPage({ params }: { params: Promise<{ city:
   const region = Object.values(seoRegions).find((item) => item.slug === slug);
   if (!location) notFound();
   if (route) return <CityServiceLanding location={location} route={route} />;
-  if (region) return <RegionLanding location={location} region={region} />;
+  if (region) return <ExpandedRegionLanding location={location} region={region} />;
   notFound();
 }

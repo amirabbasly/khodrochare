@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
 };
 
-const categories = ["همه مطالب", "باتری و برق", "امداد جاده‌ای", "حمل خودرو", "خدمات خودرو", "نگهداری خودرو"];
+const categories = ["همه مطالب", "امداد خودرو آنلاین", "امداد جاده‌ای", "حمل خودرو", "مکانیک سیار", "باتری و برق", "نگهداری خودرو"];
 
 export default function BlogPage() {
   const [featured, ...posts] = blogPosts;

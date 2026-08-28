@@ -20,6 +20,10 @@ const commercialLinks: Record<string, { title: string; href: string }[]> = {
   "flat-tire-roadside-assistance": [{ title: "پنچرگیری سیار تهران", href: "/تهران/پنچرگیری-سیار" }, { title: "پنچرگیری سیار کرج", href: "/کرج/پنچرگیری-سیار" }, { title: "تعویض لاستیک در محل", href: "/services/flat-tire" }],
   "mobile-diagnostics-check-engine-guide": [{ title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }, { title: "دیاگ سیار کرج", href: "/کرج/دیاگ-سیار" }, { title: "عیب‌یابی سیار خودرو", href: "/services/mobile-diagnostics" }],
   "car-maintenance-before-long-trip": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "پنچرگیری سیار", href: "/services/flat-tire" }, { title: "امداد خودرو آنلاین", href: "/services/roadside-assistance" }],
+  "online-roadside-assistance-request-guide": [{ title: "امداد خودرو آنلاین تهران", href: "/تهران/امداد-خودرو" }, { title: "امداد خودرو آنلاین کرج", href: "/کرج/امداد-خودرو" }, { title: "مناطق تحت پوشش", href: "/coverage" }, { title: "ثبت درخواست آنلاین", href: "/#request" }],
+  "automatic-car-towing-guide": [{ title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر و حمل با کفی", href: "/services/flatbed-carrier" }, { title: "هزینه حمل خودرو", href: "/blog/car-tow-truck-price-guide" }],
+  "car-overheating-roadside-guide": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "یدک کش", href: "/services/tow-truck" }],
+  "mobile-mechanic-repairs-at-location": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "دیاگ سیار", href: "/services/mobile-diagnostics" }, { title: "قیمت خدمات", href: "/pricing" }],
 };
 
 const contextualLinkRules = [

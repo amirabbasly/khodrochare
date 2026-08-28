@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { blogContentUpdatedAtIso, blogPosts } from "@/content/blog";
 import { services } from "@/content/services";
 import { persianServiceRoutes } from "@/seo/internal-links";
-import { seoLocations } from "@/seo/locations";
+import { seoLocations, seoRegions } from "@/seo/locations";
 
 const baseUrl = "https://khodrochare.ir";
 const lastModified = new Date("2026-08-28T00:00:00.000Z");
@@ -25,9 +25,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/${location.slug}`, lastModified, changeFrequency: "weekly" as const, priority: 0.9 },
     ...persianServiceRoutes.map((route) => ({ url: `${baseUrl}/${location.slug}/${route.slug}`, lastModified, changeFrequency: "monthly" as const, priority: 0.8 })),
   ]);
+  const regionPages: MetadataRoute.Sitemap = Object.values(seoRegions).map((region) => ({ url: `${baseUrl}/${region.citySlug}/${region.slug}`, lastModified, changeFrequency: "monthly" as const, priority: 0.8 }));
 
   const servicePages: MetadataRoute.Sitemap = services.map((service) => ({ url: `${baseUrl}/services/${service.slug}`, lastModified, changeFrequency: "monthly" as const, priority: 0.7 }));
   const postPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({ url: `${baseUrl}/blog/${post.slug}`, lastModified: new Date(post.updatedAtIso ?? blogContentUpdatedAtIso), changeFrequency: "monthly" as const, priority: 0.7 }));
 
-  return [...pages, ...cityPages, ...servicePages, ...postPages];
+  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages];
 }

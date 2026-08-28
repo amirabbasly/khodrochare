@@ -12,10 +12,10 @@ import { SeoBreadcrumbs } from "@/components/seo/seo-breadcrumbs";
 import { persianServiceRoutes } from "@/seo/internal-links";
 
 const relatedArticles: Record<string, { title: string; slug: string }[]> = {
-  "roadside-assistance": [{ title: "وقتی خودرو در بزرگراه خاموش می‌شود چه کنیم؟", slug: "what-to-do-when-car-stops-on-highway" }, { title: "مناطق تحت پوشش امداد خودرو تهران و کرج", slug: "car-assistance-coverage-tehran-karaj" }],
-  "tow-truck": [{ title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }, { title: "هزینه حمل خودرو با یدک‌کش در تهران و کرج", slug: "car-tow-truck-price-guide" }],
-  "flatbed-carrier": [{ title: "هزینه حمل خودرو با یدک‌کش و خودروبر", slug: "car-tow-truck-price-guide" }, { title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }],
-  "mobile-mechanic": [{ title: "چک‌لیست انتخاب مکانیک سیار قابل اعتماد", slug: "mobile-mechanic-checklist" }, { title: "وقتی خودرو در بزرگراه خاموش می‌شود چه کنیم؟", slug: "what-to-do-when-car-stops-on-highway" }],
+  "roadside-assistance": [{ title: "امداد خودرو آنلاین چگونه کار می‌کند؟", slug: "online-roadside-assistance-request-guide" }, { title: "وقتی خودرو در بزرگراه خاموش می‌شود چه کنیم؟", slug: "what-to-do-when-car-stops-on-highway" }, { title: "مناطق تحت پوشش امداد خودرو تهران و کرج", slug: "car-assistance-coverage-tehran-karaj" }],
+  "tow-truck": [{ title: "یدک‌کش خودرو اتوماتیک و حمل با کفی", slug: "automatic-car-towing-guide" }, { title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }, { title: "هزینه حمل خودرو با یدک‌کش در تهران و کرج", slug: "car-tow-truck-price-guide" }],
+  "flatbed-carrier": [{ title: "یدک‌کش خودرو اتوماتیک و حمل با کفی", slug: "automatic-car-towing-guide" }, { title: "هزینه حمل خودرو با یدک‌کش و خودروبر", slug: "car-tow-truck-price-guide" }, { title: "راهنمای یدک‌کشی ایمن", slug: "safe-towing-guide" }],
+  "mobile-mechanic": [{ title: "مکانیک سیار چه تعمیراتی در محل انجام می‌دهد؟", slug: "mobile-mechanic-repairs-at-location" }, { title: "جوش آوردن خودرو در مسیر", slug: "car-overheating-roadside-guide" }, { title: "چک‌لیست انتخاب مکانیک سیار", slug: "mobile-mechanic-checklist" }],
   "battery-replacement": [{ title: "نشانه‌های خرابی باتری خودرو", slug: "car-battery-warning-signs" }, { title: "باتری خودرو در محل تهران و کرج", slug: "mobile-battery-replacement-tehran-karaj" }],
   "jump-start": [{ title: "نشانه‌های خرابی باتری خودرو", slug: "car-battery-warning-signs" }],
   "mobile-carwash": [{ title: "راهنمای انتخاب کارواش سیار", slug: "mobile-carwash-guide" }],
