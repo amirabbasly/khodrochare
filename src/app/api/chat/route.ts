@@ -15,6 +15,34 @@ const SYSTEM_PROMPT = `
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
+const RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const MAX_BODY_BYTES = 50_000;
+const requestLog = new Map<string, number[]>();
+
+function clientIp(request: Request) {
+  return request.headers.get("cf-connecting-ip") ?? request.headers.get("x-real-ip") ?? "unknown";
+}
+
+function rateLimit(request: Request) {
+  const now = Date.now();
+  const ip = clientIp(request);
+  const recent = (requestLog.get(ip) ?? []).filter((time) => now - time < RATE_LIMIT_WINDOW_MS);
+  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
+    requestLog.set(ip, recent);
+    return false;
+  }
+  recent.push(now);
+  requestLog.set(ip, recent);
+
+  if (requestLog.size > 5_000) {
+    for (const [key, times] of requestLog) {
+      if (!times.some((time) => now - time < RATE_LIMIT_WINDOW_MS)) requestLog.delete(key);
+    }
+  }
+  return true;
+}
+
 const isSupportPhoneQuestion = (text: string) => /پشتیبانی/.test(text) && /(شماره|تلفن|تماس)/.test(text);
 
 function withSupportSuffix(reply: string) {
@@ -27,11 +55,36 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "کلید API گپ‌جی‌پی‌تی تنظیم نشده است." }, { status: 500 });
   }
 
+  if (!rateLimit(request)) {
+    return NextResponse.json(
+      { error: "تعداد درخواست‌ها زیاد است. لطفاً چند دقیقه دیگر دوباره تلاش کنید." },
+      { status: 429, headers: { "Retry-After": "300" } },
+    );
+  }
+
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (contentLength > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: "حجم درخواست بیش از حد مجاز است." }, { status: 413 });
+  }
+
+  if (!request.headers.get("content-type")?.toLowerCase().includes("application/json")) {
+    return NextResponse.json({ error: "نوع محتوای درخواست باید JSON باشد." }, { status: 415 });
+  }
+
   try {
-    const body = (await request.json()) as { messages?: ChatMessage[] };
+    const rawBody = await request.text();
+    if (new TextEncoder().encode(rawBody).length > MAX_BODY_BYTES) {
+      return NextResponse.json({ error: "حجم درخواست بیش از حد مجاز است." }, { status: 413 });
+    }
+    let body: { messages?: ChatMessage[] };
+    try {
+      body = JSON.parse(rawBody) as { messages?: ChatMessage[] };
+    } catch {
+      return NextResponse.json({ error: "بدنه JSON معتبر نیست." }, { status: 400 });
+    }
     const messages = body.messages;
 
-    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 30) {
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 20) {
       return NextResponse.json({ error: "فرمت یا تعداد پیام‌ها معتبر نیست." }, { status: 400 });
     }
 
@@ -45,6 +98,10 @@ export async function POST(request: Request) {
 
     if (validMessages.length !== messages.length) {
       return NextResponse.json({ error: "محتوای پیام‌ها معتبر نیست." }, { status: 400 });
+    }
+
+    if (validMessages.reduce((total, message) => total + message.content.length, 0) > 20_000) {
+      return NextResponse.json({ error: "حجم گفتگو بیش از حد مجاز است." }, { status: 400 });
     }
 
     const lastUserMessage = [...validMessages].reverse().find((message) => message.role === "user");
@@ -61,6 +118,8 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         model: "gpt-4o",
         messages: [{ role: "system", content: SYSTEM_PROMPT }, ...validMessages],
+        max_tokens: 600,
+        temperature: 0.3,
       }),
       signal: AbortSignal.timeout(30000),
     });

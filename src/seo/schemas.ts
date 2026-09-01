@@ -3,7 +3,7 @@ import { businessFacts } from "@/content/business";
 
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "AutoRepair"],
+  "@type": ["LocalBusiness", "AutoRepair", "EmergencyService"],
   "@id": `${siteUrl}/#organization`,
   name: "خودرو چاره",
   url: siteUrl,
@@ -20,11 +20,30 @@ export const organizationSchema = {
   areaServed: ["تهران", "کرج"],
   numberOfEmployees: { "@type": "QuantitativeValue", value: 100 },
   knowsAbout: [...businessFacts.services, "امداد خودرو آنلاین"],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "خدمات امداد خودرو و خدمات خودرو در محل",
+    itemListElement: businessFacts.services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: service },
+    })),
+  },
   openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "00:00", closes: "23:59" }],
   contactPoint: [
     { "@type": "ContactPoint", telephone: "+989123022064", contactType: "emergency", areaServed: ["تهران", "کرج"], availableLanguage: ["fa"], hoursAvailable: organizationHours() },
     { "@type": "ContactPoint", telephone: "+989397979861", contactType: "customer support", availableLanguage: ["fa"] },
   ],
+};
+
+export const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: `${siteUrl}/`,
+  name: "خودرو چاره",
+  alternateName: ["خودروچاره", "khodrochare.ir"],
+  inLanguage: "fa-IR",
+  publisher: { "@id": `${siteUrl}/#organization` },
 };
 
 function organizationHours() {

@@ -11,7 +11,7 @@ import { seoMetadata } from "@/seo/metadata";
 
 const description = "آدرس و راه‌های تماس با خودرو چاره؛ پشتیبانی شبانه‌روزی امداد خودرو آنلاین تهران و کرج، پیگیری خدمات، رسیدگی به شکایات و فرم تماس.";
 
-export const metadata: Metadata = seoMetadata({ title: "تماس با خودرو چاره | آدرس و پشتیبانی شبانه‌روزی", description, path: "/contact", keywords: ["تماس با خودرو چاره", "شماره امداد خودرو", "پشتیبانی امداد خودرو", "آدرس خودرو چاره"] });
+export const metadata: Metadata = seoMetadata({ title: "تماس با ما | آدرس و پشتیبانی شبانه‌روزی", description, path: "/contact", keywords: ["تماس با خودرو چاره", "شماره امداد خودرو", "پشتیبانی امداد خودرو", "آدرس خودرو چاره"] });
 
 const contactCards = [
   { href: `tel:${businessFacts.emergencyPhone}`, image: "/images/facts/fast-dispatch.webp", alt: "پاسخ‌گویی تلفنی امداد خودرو چاره", title: "امداد و اعزام فوری", value: businessFacts.emergencyPhone, note: "پاسخ‌گویی ۲۴ ساعته، ۷ روز هفته" },

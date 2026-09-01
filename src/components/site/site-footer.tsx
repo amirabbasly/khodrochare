@@ -3,7 +3,7 @@ import Image from "next/image";
 import { BrandMark, Icon } from "@/components/home/home-ui";
 
 const groups = [
-  { title: "خدمات خودرو", links: [["امداد در محل", "/services/roadside-assistance"], ["یدک‌کش حمل خودرو", "/services/tow-truck"], ["کفی و خودروبر", "/services/flatbed-carrier"], ["باتری به باتری", "/services/jump-start"], ["کارواش سیار", "/services/mobile-carwash"], ["مکانیک سیار", "/services/mobile-mechanic"]] },
+  { title: "خدمات خودرو", links: [["امداد خودرو تهران", "/تهران"], ["امداد خودرو کرج", "/کرج"], ["امداد در محل", "/services/roadside-assistance"], ["یدک‌کش حمل خودرو", "/services/tow-truck"], ["کفی و خودروبر", "/services/flatbed-carrier"], ["باتری به باتری", "/services/jump-start"], ["کارواش سیار", "/services/mobile-carwash"], ["مکانیک سیار", "/services/mobile-mechanic"]] },
   { title: "راهنما و پشتیبانی", links: [["همه خدمات", "/services"], ["محدوده پوشش", "/coverage"], ["دستیار هوشمند", "/assistant"], ["مجله خودرو چاره", "/blog"], ["اپلیکیشن", "/app"], ["فروشگاه", "/store"]] },
   { title: "اعتماد و قوانین", links: [["درباره خودرو چاره", "/about"], ["تماس با ما", "/contact"], ["قوانین و مقررات", "/rules"], ["پرسش‌های متداول", "/#faq-title"], ["ثبت درخواست", "/#request"]] },
 ] as const;

@@ -7,7 +7,7 @@ import { seoMetadata } from "@/seo/metadata";
 import { breadcrumbSchema } from "@/seo/schemas";
 
 export const metadata: Metadata = seoMetadata({
-  title: "مناطق تحت پوشش امداد خودرو تهران و کرج | خودرو چاره",
+  title: "مناطق تحت پوشش امداد خودرو تهران و کرج",
   description: "فهرست مناطق تحت پوشش امداد خودرو آنلاین خودرو چاره در مناطق ۲۲گانه تهران و مناطق فعال کرج و حومه، با پاسخ‌گویی شبانه‌روزی.",
   path: "/coverage",
 });

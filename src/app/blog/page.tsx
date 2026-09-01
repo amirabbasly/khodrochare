@@ -7,7 +7,7 @@ import { StructuredData } from "@/components/seo/structured-data";
 import { breadcrumbSchema } from "@/seo/schemas";
 
 export const metadata: Metadata = {
-  title: "مجله خودرو چاره | راهنمای نگهداری و امداد خودرو",
+  title: "مجله خودرو | راهنمای نگهداری و امداد خودرو",
   description: "مقالات کاربردی خودرو چاره درباره باتری، امداد جاده‌ای، یدک‌کشی ایمن، مکانیک سیار و نگهداری خودرو.",
   alternates: { canonical: "/blog" },
 };

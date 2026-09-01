@@ -4,7 +4,7 @@ import { Icon } from "@/components/home/home-ui";
 import { SubpageShell } from "@/components/site/subpage-shell";
 
 export const metadata: Metadata = {
-  title: "فروشگاه خودرو چاره به‌زودی",
+  title: "فروشگاه قطعات خودرو به‌زودی",
   description: "فروشگاه خودرو چاره به‌زودی با قدرت شروع خواهد کرد.",
   alternates: { canonical: "/store" },
   robots: { index: false, follow: true },

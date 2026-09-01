@@ -6,7 +6,7 @@ import { Icon, PlatformLogo } from "@/components/home/home-ui";
 import { QrCode } from "@/components/home/home-illustrations";
 import { SubpageShell } from "@/components/site/subpage-shell";
 
-export const metadata: Metadata = { title: "اپلیکیشن خودرو چاره", description: "اپلیکیشن و نسخه وب خودرو چاره برای درخواست امداد، پیگیری خدمت و دریافت راهنمایی هوشمند.", alternates: { canonical: "/app" } };
+export const metadata: Metadata = { title: "اپلیکیشن امداد و خدمات خودرو", description: "اپلیکیشن و نسخه وب خودرو چاره برای درخواست امداد، پیگیری خدمت و دریافت راهنمایی هوشمند.", alternates: { canonical: "/app" } };
 
 const benefits = [
   ["location", "تمرکز روی اعزام درست", "مسیر محصول از انتخاب مشکل و موقعیت شروع می‌شود تا درخواست به خدمت مناسب برسد؛ نه اینکه همه قابلیت‌ها یک‌جا جلوی چشم شما فریاد زده شوند."],

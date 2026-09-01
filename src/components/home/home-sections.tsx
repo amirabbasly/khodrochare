@@ -16,6 +16,7 @@ import { AiChat } from "./ai-chat";
 import { AddToHomeButton } from "./add-to-home-button";
 import { HeroCarousel } from "./hero-carousel";
 import { businessFacts } from "@/content/business";
+import { persianServiceRoutes } from "@/seo/internal-links";
 // The site-wide header and footer live in shared site components.
 
 export function HeroSection() {
@@ -198,6 +199,12 @@ export function SeoServiceHub() {
     ["خودروبر تهران و کرج", "/services/flatbed-carrier", "حمل ایمن خودروهای لوکس، صفر، تصادفی یا غیرقابل حرکت"],
     ["مکانیک سیار تهران و کرج", "/services/mobile-mechanic", "اعزام مکانیک برای عیب‌یابی و تعمیرات مجاز در محل"],
   ] as const;
+  const cityLandingLinks = ["تهران", "کرج"].flatMap((city) =>
+    persianServiceRoutes.map((route) => ({
+      title: `${route.title} ${city}`,
+      href: `/${city}/${route.slug}`,
+    })),
+  );
 
   return (
     <section className="section-shell grid gap-5 lg:grid-cols-[.78fr_1.22fr]" aria-labelledby="emergency-services-title" dir="ltr">
@@ -215,6 +222,12 @@ export function SeoServiceHub() {
         <h2 id="emergency-services-title" className="mt-3 text-2xl font-black text-ink">خدمت مناسب را مستقیم انتخاب کنید</h2>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {commercialServices.map(([title, href, description]) => <Link key={href} href={href} className="rounded-xl border border-slate-200 p-4 transition hover:border-orange-200 hover:bg-orange-50"><h3 className="font-black">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p><span className="mt-3 inline-flex text-xs font-black text-brand-orange">جزئیات و درخواست ←</span></Link>)}
+        </div>
+        <div className="mt-6 border-t border-slate-200 pt-5">
+          <h3 className="text-sm font-black text-ink">خدمات امداد خودرو در تهران و کرج</h3>
+          <nav className="mt-3 flex flex-wrap gap-2" aria-label="لندینگ‌های محلی خدمات امداد خودرو">
+            {cityLandingLinks.map((item) => <Link key={item.href} href={item.href} className="inline-flex min-h-10 items-center rounded-lg border border-slate-200 bg-slate-50 px-3 text-[11px] font-bold text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">{item.title}</Link>)}
+          </nav>
         </div>
       </article>
     </section>

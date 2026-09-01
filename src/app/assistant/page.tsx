@@ -3,7 +3,7 @@ import { AssistantWorkspace } from "@/components/assistant/assistant-workspace";
 import { SubpageShell } from "@/components/site/subpage-shell";
 
 export const metadata: Metadata = {
-  title: "دستیار هوشمند خودرو چاره",
+  title: "دستیار هوشمند خودرو",
   description: "گفت‌وگوی تخصصی با دستیار هوشمند خودرو چاره برای بررسی اولیه مشکلات خودرو و انتخاب مسیر امن بعدی.",
   alternates: { canonical: "/assistant" },
 };
