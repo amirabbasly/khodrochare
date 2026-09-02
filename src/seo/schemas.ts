@@ -10,6 +10,10 @@ export const organizationSchema = {
   logo: `${siteUrl}/images/khodrochare-3d-logo.webp`,
   telephone: "+989123022064",
   email: "info@khodrochare.ir",
+  sameAs: [
+    "https://www.instagram.com/khodrochare",
+    "https://web.bale.ai/chat?uid=6102593448",
+  ],
   address: {
     "@type": "PostalAddress",
     streetAddress: "خیابان آزادی، جنب تعمیرات یدکی چاره، پلاک ۱۲۱، واحد ۱۴",
