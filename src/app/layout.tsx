@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { RouteProgress } from "@/components/site/route-progress";
 import { StructuredData } from "@/components/seo/structured-data";
@@ -6,42 +6,60 @@ import { organizationSchema, websiteSchema } from "@/seo/schemas";
 import { primaryKeywords } from "@/seo/keywords";
 import { WelcomeModal } from "@/components/site/welcome-modal";
 import { AnalyticsEvents } from "@/components/site/analytics-events";
+import { Analytics } from "@/components/site/analytics";
+import { defaultOgImage, siteName, siteUrl } from "@/seo/metadata";
+
+const defaultTitle = "امداد خودرو شبانه‌روزی تهران و کرج | خودرو چاره";
+const defaultDescription =
+  "خودرو چاره؛ سامانه امداد خودرو آنلاین و خدمات خودرو در محل، با هماهنگی امدادگر، یدک‌کش، مکانیک سیار و باتری در تهران و کرج و توسعه مرحله‌ای در شهرهای دیگر.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://khodrochare.ir"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "امداد خودرو شبانه‌روزی تهران و کرج | خودرو چاره",
+    default: defaultTitle,
     template: "%s | خودرو چاره",
   },
-  description:
-    "خودرو چاره؛ سامانه امداد خودرو آنلاین و خدمات خودرو در محل، با هماهنگی امدادگر، یدک‌کش، مکانیک سیار و باتری در تهران و کرج و توسعه مرحله‌ای در شهرهای دیگر.",
+  description: defaultDescription,
+  applicationName: siteName,
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
+  category: "خدمات خودرو",
+  generator: "Next.js",
+  formatDetection: { telephone: true, email: true, address: false },
+  appleWebApp: { capable: true, title: siteName, statusBarStyle: "black-translucent" },
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-64x64.png", sizes: "64x64", type: "image/png" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/app-icon.svg", type: "image/svg+xml" },
     ],
-    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon-32x32.png",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   keywords: ["خودرو چاره", ...primaryKeywords, "کارواش سیار", "باتری خودرو", "لوازم یدکی"],
   alternates: {
     canonical: "/",
+    languages: { "fa-IR": "/" },
+    types: { "application/rss+xml": `${siteUrl}/blog/feed.xml` },
   },
   openGraph: {
-    title: "امداد خودرو شبانه‌روزی تهران و کرج | خودرو چاره",
+    title: defaultTitle,
     description:
       "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ با تمرکز فعلی تهران و کرج و مسیر توسعه برای شهرهای دیگر.",
-    url: "https://khodrochare.ir",
-    siteName: "خودرو چاره",
+    url: siteUrl,
+    siteName,
     locale: "fa_IR",
     type: "website",
-    images: [{ url: "/images/hero-roadside.webp", width: 1536, height: 864, alt: "امداد خودرو چاره" }],
+    images: [{ url: defaultOgImage.url, width: defaultOgImage.width, height: defaultOgImage.height, alt: "امداد خودرو چاره" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "امداد خودرو شبانه‌روزی تهران و کرج | خودرو چاره",
+    title: defaultTitle,
     description:
       "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ با تمرکز فعلی تهران و کرج و مسیر توسعه برای شهرهای دیگر.",
-    images: ["/images/hero-roadside.webp"],
+    images: [defaultOgImage.url],
   },
   robots: {
     index: true,
@@ -54,12 +72,27 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  colorScheme: "light",
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#071a2e" }, { media: "(prefers-color-scheme: dark)", color: "#031224" }],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fa" dir="rtl" className="h-full antialiased">
-      <body className="min-h-full flex flex-col"><StructuredData data={organizationSchema} /><StructuredData data={websiteSchema} /><AnalyticsEvents /><RouteProgress />{children}<WelcomeModal /></body>
+      <head>
+        <link rel="preload" href="/fonts/Vazir.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Vazir-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
+      <body className="min-h-full flex flex-col"><a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:right-4 focus:top-4 focus:z-[300] focus:rounded-lg focus:bg-brand-orange focus:px-4 focus:py-3 focus:text-sm focus:font-black focus:text-white">رفتن به محتوای اصلی</a><StructuredData data={organizationSchema} /><StructuredData data={websiteSchema} /><Analytics /><AnalyticsEvents /><RouteProgress />{children}<WelcomeModal /></body>
     </html>
   );
 }

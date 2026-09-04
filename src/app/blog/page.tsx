@@ -4,12 +4,17 @@ import Link from "next/link";
 import { SubpageShell } from "@/components/site/subpage-shell";
 import { blogPosts } from "@/content/blog";
 import { StructuredData } from "@/components/seo/structured-data";
-import { breadcrumbSchema } from "@/seo/schemas";
+import { breadcrumbSchema, itemListSchema, webPageSchema } from "@/seo/schemas";
+import { seoMetadata, siteUrl } from "@/seo/metadata";
 
 export const metadata: Metadata = {
-  title: "مجله خودرو چاره | راهنمای امداد خودرو و نگهداری خودرو",
-  description: "مقالات تخصصی درباره امداد خودرو آنلاین، امداد خودرو تهران و کرج، خودروبر، یدک‌کش، مکانیک سیار، باتری و نگهداری خودرو.",
-  alternates: { canonical: "/blog" },
+  ...seoMetadata({
+    title: "مجله خودرو چاره | راهنمای امداد خودرو",
+    description: "مقالات تخصصی درباره امداد خودرو آنلاین، امداد خودرو تهران و کرج، خودروبر، یدک‌کش، مکانیک سیار، باتری و نگهداری خودرو.",
+    path: "/blog",
+    keywords: ["مجله خودرو", "راهنمای امداد خودرو", "آموزش نگهداری خودرو", "امداد خودرو آنلاین"],
+  }),
+  alternates: { canonical: "/blog", types: { "application/rss+xml": `${siteUrl}/blog/feed.xml` } },
 };
 
 const topics = [
@@ -24,8 +29,10 @@ const topics = [
 export default function BlogPage() {
   const [lead, second, third, ...posts] = blogPosts;
   return <SubpageShell>
-    <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مجله خودرو چاره" }])} />
-    <main className="bg-[#f6f6f4] pb-16" dir="rtl">
+    <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مجله خودرو چاره" }], "/blog")} />
+    <StructuredData data={webPageSchema({ type: "CollectionPage", name: "مجله خودرو چاره", description: "مقالات تخصصی امداد خودرو، حمل خودرو، مکانیک سیار و نگهداری خودرو.", path: "/blog", breadcrumb: true })} />
+    <StructuredData data={itemListSchema({ name: "مقالات مجله خودرو چاره", path: "/blog", items: blogPosts.map((post) => ({ name: post.title, path: `/blog/${post.slug}` })) })} />
+    <div className="bg-[#f6f6f4] pb-16" dir="rtl">
       <section className="border-b border-slate-200 bg-white"><div className="site-container flex min-h-14 items-center gap-4 overflow-hidden"><strong className="shrink-0 rounded-lg bg-brand-orange px-4 py-2 text-xs text-white">آخرین مطالب</strong><div className="flex min-w-0 items-center gap-8 overflow-hidden whitespace-nowrap text-xs font-bold text-slate-600">{blogPosts.slice(0, 5).map(post => <Link key={post.slug} href={`/blog/${post.slug}`} className="hover:text-brand-orange">{post.title}</Link>)}</div></div></section>
       <section className="site-container py-8 md:py-12">
         <div className="flex flex-wrap items-end justify-between gap-5"><div><span className="text-xs font-black text-brand-orange">مجله خودرو چاره</span><h1 className="mt-2 text-3xl font-black tracking-tight text-ink md:text-5xl">دانستنی‌های خودرو و راهنمای امداد در مسیر</h1><p className="mt-4 max-w-3xl text-sm leading-8 text-slate-600">راهنمای تخصصی و قابل‌فهم برای خرابی خودرو، انتخاب امدادگر، حمل ایمن، نگهداری و تصمیم‌گیری سریع در تهران و کرج.</p></div><div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 text-center shadow-sm"><strong className="block text-2xl text-ink">{blogPosts.length.toLocaleString("fa-IR")}</strong><span className="text-xs text-slate-500">مقاله تخصصی</span></div></div>
@@ -39,6 +46,6 @@ export default function BlogPage() {
         <div><div className="flex items-center justify-between border-b-2 border-ink pb-3"><h2 className="text-2xl font-black">تازه‌ترین راهنماها</h2><Link href="/services" className="text-xs font-black text-brand-orange">همه خدمات ←</Link></div><div className="mt-6 grid gap-6 md:grid-cols-2">{posts.map(post => <article key={post.slug} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-card"><Link href={`/blog/${post.slug}`}><div className="relative aspect-[16/9] overflow-hidden"><Image src={post.image} alt={post.title} fill sizes="(min-width:1024px) 34vw,(min-width:768px) 50vw,100vw" className="object-cover transition duration-500 group-hover:scale-105"/></div><div className="p-5"><div className="flex items-center justify-between text-[10px]"><span className="font-black text-brand-orange">{post.category}</span><span className="text-slate-400">{post.publishedAt}</span></div><h3 className="mt-3 text-lg font-black leading-8 text-ink">{post.title}</h3><p className="mt-3 line-clamp-3 text-xs leading-7 text-slate-500">{post.excerpt}</p><span className="mt-4 inline-flex text-xs font-black text-brand-orange">ادامه مطلب ←</span></div></Link></article>)}</div></div>
         <aside><div className="sticky top-24 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><h2 className="border-b-2 border-brand-orange pb-3 text-lg font-black">راهنمای خدمات فوری</h2><div className="mt-4 space-y-3">{topics.slice(0, 5).map(([label, href], index) => <Link key={href} href={href} className="flex items-center gap-3 rounded-xl bg-slate-50 p-3 hover:bg-orange-50"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-ink text-xs font-black text-white">{(index + 1).toLocaleString("fa-IR")}</span><strong className="text-xs leading-6">{label}</strong></Link>)}</div><div className="mt-6 rounded-xl bg-ink p-5 text-white"><strong>خودرو در مسیر متوقف شده؟</strong><p className="mt-2 text-xs leading-7 text-slate-300">موقعیت و نوع مشکل را آنلاین ثبت کنید.</p><Link href="/#request" className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-brand-orange px-4 text-xs font-black">ثبت درخواست فوری</Link></div></div></aside>
       </section>
-    </main>
+    </div>
   </SubpageShell>;
 }

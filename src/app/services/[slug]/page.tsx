@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return {};
   const titleOverrides: Record<string, string> = { "tow-truck": "یدک کش و حمل ایمن خودرو", "flatbed-carrier": "خودروبر و حمل خودرو با کفی", "mobile-mechanic": "مکانیک سیار و تعمیر خودرو در محل", "flat-tire": "پنچرگیری سیار و تعویض لاستیک در محل", "mobile-diagnostics": "دیاگ سیار و عیب‌یابی خودرو در محل", "mobile-carwash": "کارواش سیار و شست‌وشوی خودرو در محل" };
   const seoTitle = titleOverrides[service.slug] ?? service.title;
-  return seoMetadata({ title: seoTitle, description: `${service.summary} پوشش تهران و کرج، عوامل مؤثر بر قیمت، زمان اعزام و ثبت درخواست آنلاین.`, path: `/services/${service.slug}` });
+  return seoMetadata({ title: seoTitle, description: `${service.summary} پوشش تهران و کرج، عوامل مؤثر بر قیمت، زمان اعزام و ثبت درخواست آنلاین.`, path: `/services/${service.slug}`, keywords: [service.title, `${service.shortTitle} تهران`, `${service.shortTitle} کرج`, "امداد خودرو آنلاین"], image: service.image, imageAlt: service.title });
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -43,8 +43,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const cityRoute = persianServiceRoutes.find((route) => route.serviceSlug === service.slug);
   return (
     <SubpageShell>
-      <StructuredData data={serviceSchema({ name: service.title, description: service.description, path: `/services/${service.slug}`, area: "تهران و کرج" })} />
-      <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "خدمات", path: "/services" }, { name: service.title }])} />
+      <StructuredData data={serviceSchema({ name: service.title, description: service.description, path: `/services/${service.slug}`, area: "تهران و کرج", image: service.image })} />
+      <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "خدمات", path: "/services" }, { name: service.title }], `/services/${service.slug}`)} />
       <StructuredData data={faqSchema(service.faqs)} />
       <section className="relative overflow-hidden bg-[#071a2e] text-white">
         <div className="absolute inset-0 opacity-25" style={{ background: `radial-gradient(circle at 12% 20%,${service.accent},transparent 28%)` }} />

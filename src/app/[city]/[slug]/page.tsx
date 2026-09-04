@@ -5,6 +5,7 @@ import { ExpandedRegionLanding } from "@/components/seo/regional-landing-pages";
 import { persianServiceRoutes } from "@/seo/internal-links";
 import { seoLocations, seoRegions } from "@/seo/locations";
 import { seoMetadata } from "@/seo/metadata";
+import { getService } from "@/content/services";
 
 const paramsList = [...Object.values(seoLocations).flatMap((location) => persianServiceRoutes.map((route) => ({ city: location.slug, slug: route.slug }))), ...Object.values(seoRegions).map((region) => ({ city: region.citySlug, slug: region.slug }))];
 export function generateStaticParams() { return paramsList; }
@@ -30,9 +31,16 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
       "کارواش-سیار": `درخواست کارواش سیار ${location.name} برای شست‌وشوی خودرو در محل؛ معرفی خدمات، شرایط محل، عوامل هزینه و نحوه هماهنگی آنلاین.`,
       "یدک-کش": `درخواست یدک کش و حمل خودرو در ${location.name}؛ انتخاب وسیله متناسب، زمان اعزام، عوامل هزینه و هماهنگی آنلاین خودرو چاره.`,
     };
-    return seoMetadata({ title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`, description: descriptions[route.slug] ?? `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام، عوامل مؤثر بر قیمت و پاسخ پرسش‌های رایج.`, path: `/${city}/${slug}`, keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`] });
+    const service = getService(route.serviceSlug);
+    return seoMetadata({
+      title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`,
+      description: descriptions[route.slug] ?? `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام و عوامل مؤثر بر قیمت.`,
+      path: `/${city}/${slug}`,
+      keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`],
+      ...(service ? { image: service.image, imageAlt: `${route.title} در ${location.name}` } : {}),
+    });
   }
-  if (region) return seoMetadata({ title: `امداد خودرو ${region.name} شبانه‌روزی | درخواست آنلاین`, description: `${region.description} مشاهده محله‌ها، مسیرهای اصلی، خدمات قابل ارائه، زمان اعزام، عوامل قیمت و ثبت درخواست آنلاین.`, path: `/${city}/${slug}`, keywords: [`امداد خودرو ${region.name}`, `یدک کش ${region.name}`, `مکانیک سیار ${region.name}`] });
+  if (region) return seoMetadata({ title: `امداد خودرو ${region.name} شبانه‌روزی | درخواست آنلاین`, description: region.metaDescription, path: `/${city}/${slug}`, keywords: [`امداد خودرو ${region.name}`, `یدک کش ${region.name}`, `مکانیک سیار ${region.name}`], image: region.image, imageAlt: `امداد خودرو ${region.name}` });
   return {};
 }
 
