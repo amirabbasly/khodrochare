@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { blogContentUpdatedAtIso, blogPosts } from "@/content/blog";
+import { carBrands } from "@/content/brands";
 import { services } from "@/content/services";
 import { persianServiceRoutes } from "@/seo/internal-links";
 import { seoLocations, seoRegions } from "@/seo/locations";
@@ -10,9 +11,11 @@ import { absoluteUrl } from "@/seo/metadata";
  * URLs do not match the canonical tags Next.js renders and crawlers may treat them
  * as separate (or invalid) locations. `absoluteUrl()` handles the encoding.
  */
-const siteUpdatedAt = new Date("2026-09-04T00:00:00.000Z");
+const siteUpdatedAt = new Date("2026-09-05T00:00:00.000Z");
 const contentUpdatedAt = new Date("2026-09-04T00:00:00.000Z");
 const staticPageUpdatedAt = new Date("2026-08-27T00:00:00.000Z");
+/** Launch date of the brands hub and the cost calculator tool. */
+const featureLaunchedAt = new Date("2026-09-05T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [
@@ -26,6 +29,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/about"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.6 },
     { url: absoluteUrl("/pricing"), lastModified: staticPageUpdatedAt, changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/brands"), lastModified: featureLaunchedAt, changeFrequency: "weekly", priority: 0.85, images: [absoluteUrl("/images/services/roadside-assistance-v2.webp")] },
+    { url: absoluteUrl("/cost-calculator"), lastModified: featureLaunchedAt, changeFrequency: "monthly", priority: 0.85, images: [absoluteUrl("/images/services/tow-truck-v2.webp")] },
   ];
 
   const cityPages: MetadataRoute.Sitemap = Object.values(seoLocations).flatMap((location) => [
@@ -64,6 +69,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [absoluteUrl(service.image)],
   }));
 
+  const brandPages: MetadataRoute.Sitemap = carBrands.map((brand) => ({
+    url: absoluteUrl(`/brands/${brand.slug}`),
+    lastModified: featureLaunchedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+    images: [absoluteUrl(brand.image)],
+  }));
+
   const postPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: absoluteUrl(`/blog/${post.slug}`),
     lastModified: new Date(post.updatedAtIso ?? post.publishedAtIso ?? blogContentUpdatedAtIso),
@@ -72,5 +85,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [absoluteUrl(post.image)],
   }));
 
-  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages];
+  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...brandPages, ...postPages];
 }

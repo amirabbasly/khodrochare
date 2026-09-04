@@ -11,6 +11,7 @@ import { itemListSchema, webPageSchema } from "@/seo/schemas";
 import { services } from "@/content/services";
 import {
   AppSection,
+  BrandCoverageSection,
   BusinessFactsSection,
   ChatSection,
   ContactCta,
@@ -25,9 +26,9 @@ import {
   TrustSection,
 } from "@/components/home/home-sections";
 
-const homeTitle = "امداد خودرو آنلاین تهران و کرج | یدک کش و خودروبر | خودرو چاره";
+const homeTitle = "امداد خودرو آنلاین تهران و کرج | خودرو چاره | ۰۹۱۲۳۰۲۲۰۶۴";
 const homeDescription =
-  "امداد خودرو آنلاین شبانه‌روزی در تهران و کرج؛ ثبت درخواست اینترنتی یدک‌کش، خودروبر، مکانیک سیار، باتری و امداد در محل با امکان پیگیری خدمت.";
+  "امداد خودرو آنلاین شبانه‌روزی در تهران و کرج؛ ثبت درخواست اینترنتی یدک‌کش، خودروبر، مکانیک سیار، باتری و امداد در محل با امکان پیگیری خدمت. تماس فوری: ۰۹۱۲۳۰۲۲۰۶۴";
 
 export const metadata: Metadata = {
   title: { absolute: homeTitle },
@@ -57,6 +58,7 @@ export default function Home() {
       <ServiceStrip />
       <FeatureBanners />
       <SeoServiceHub />
+      <BrandCoverageSection />
       <BusinessFactsSection />
       <MiniServices />
       <ChatSection />

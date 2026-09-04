@@ -80,21 +80,39 @@ export function HeroCarousel() {
       <div className="site-container relative min-h-[620px] pb-10 pt-8 sm:min-h-[660px] lg:min-h-[720px] lg:pb-32 lg:pt-10">
         <div className="grid gap-8 lg:grid-cols-[.8fr_1.15fr]" dir="ltr">
           <div className="hidden items-start md:flex" dir="rtl"><TechnicianMapCard /></div>
-          <div key={active} className="hero-slide-copy min-w-0 max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
-            <span className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/35 bg-black/20 px-3 text-xs font-bold"><Icon name={slides[active].icon} size={16} /> {slides[active].eyebrow}</span>
-            {active === 0 ? <h1 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[active].title}</h1> : <h2 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[active].title}</h2>}
-            <p className="mt-4 max-w-md text-sm leading-7 text-slate-200 md:text-base">{slides[active].desc}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink href="#request"><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
-              <a href="tel:09123022064" className="inline-flex min-h-11 items-center gap-3 rounded-lg border border-white/50 bg-black/20 px-5 text-sm font-extrabold" dir="ltr">09123022064 <Icon name="phone" size={17} /></a>
-            </div>
-            <div className="mt-3 flex flex-wrap items-center gap-3">
-              <ButtonLink href="/app" variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
-              <span className="inline-flex items-center gap-2 text-xs font-black text-amber-300"><Image src="/images/quality-guarantee.svg" alt="نشان تضمین کیفیت و قیمت" width={38} height={44} className="h-10 w-9 drop-shadow-[0_4px_10px_rgba(245,158,11,.45)]" /> تضمین کیفیت و قیمت</span>
-            </div>
-            <div className="mt-6 grid max-w-md grid-cols-3 divide-x divide-x-reverse divide-white/15 text-center">
-              {[["clock", "خدمات شبانه‌روزی"], ["shield", "متخصص تأییدشده"], ["tag", "قیمت منصفانه"]].map(([icon, label]) => <div key={label} className="px-2"><Icon name={icon} size={21} className="mx-auto text-slate-200" /><p className="mt-2 text-[10px] font-bold text-slate-300">{label}</p></div>)}
-            </div>
+          {/*
+            All slide copies stay mounted in one grid cell (col-start-1 row-start-1) and only
+            opacity/visibility toggle on rotation. This keeps the keyword-carrying <h1> permanently
+            present in the rendered DOM — previously the h1 was unmounted 7.2s after load, so a
+            late Googlebot render snapshot could see a homepage with no h1 at all.
+          */}
+          <div className="grid min-w-0 max-w-full px-2 pt-4 sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
+            {slides.map((slide, index) => {
+              const isActive = index === active;
+              return (
+                <div
+                  key={slide.title}
+                  aria-hidden={!isActive}
+                  inert={!isActive}
+                  className={`col-start-1 row-start-1 min-w-0 text-right transition-[opacity,visibility] duration-700 ease-out ${isActive ? "hero-slide-copy visible opacity-100" : "invisible opacity-0"}`}
+                >
+                  <span className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/35 bg-black/20 px-3 text-xs font-bold"><Icon name={slide.icon} size={16} /> {slide.eyebrow}</span>
+                  {index === 0 ? <h1 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slide.title}</h1> : <h2 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slide.title}</h2>}
+                  <p className="mt-4 max-w-md text-sm leading-7 text-slate-200 md:text-base">{slide.desc}</p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <ButtonLink href="#request"><Icon name="user" size={17} /> {slide.cta}</ButtonLink>
+                    <a href="tel:09123022064" className="inline-flex min-h-11 items-center gap-3 rounded-lg border border-white/50 bg-black/20 px-5 text-sm font-extrabold" dir="ltr">09123022064 <Icon name="phone" size={17} /></a>
+                  </div>
+                  <div className="mt-3 flex flex-wrap items-center gap-3">
+                    <ButtonLink href="/app" variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
+                    <span className="inline-flex items-center gap-2 text-xs font-black text-amber-300"><Image src="/images/quality-guarantee.svg" alt={isActive ? "نشان تضمین کیفیت و قیمت" : ""} width={38} height={44} className="h-10 w-9 drop-shadow-[0_4px_10px_rgba(245,158,11,.45)]" /> تضمین کیفیت و قیمت</span>
+                  </div>
+                  <div className="mt-6 grid max-w-md grid-cols-3 divide-x divide-x-reverse divide-white/15 text-center">
+                    {[["clock", "خدمات شبانه‌روزی"], ["shield", "متخصص تأییدشده"], ["tag", "قیمت منصفانه"]].map(([icon, label]) => <div key={label} className="px-2"><Icon name={icon} size={21} className="mx-auto text-slate-200" /><p className="mt-2 text-[10px] font-bold text-slate-300">{label}</p></div>)}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 

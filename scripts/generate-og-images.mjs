@@ -15,6 +15,7 @@ const sources = [
   "src/content/services.ts",
   "src/content/blog.ts",
   "src/seo/locations.ts",
+  "src/content/brands.ts",
 ];
 const extraImages = [
   "/images/hero-roadside.webp",

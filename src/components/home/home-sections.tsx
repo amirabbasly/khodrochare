@@ -17,6 +17,7 @@ import { AddToHomeButton } from "./add-to-home-button";
 import { HeroCarousel } from "./hero-carousel";
 import { businessFacts } from "@/content/business";
 import { persianServiceRoutes } from "@/seo/internal-links";
+import { carBrands } from "@/content/brands";
 // The site-wide header and footer live in shared site components.
 
 export function HeroSection() {
@@ -346,5 +347,33 @@ export function LegacySiteFooter() {
       </div>
       <div className="border-t border-white/10 py-3 text-center text-[10px] text-slate-500">تمام حقوق این وب‌سایت برای خودرو چاره محفوظ است.</div>
     </footer>
+  );
+}
+
+export function BrandCoverageSection() {
+  return (
+    <section className="section-shell grid gap-5 lg:grid-cols-[1.15fr_.85fr]" aria-labelledby="brand-coverage-title" dir="ltr">
+      <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card md:p-8" dir="rtl">
+        <p className="text-xs font-black text-brand-orange">امداد خودرو بر اساس برند</p>
+        <h2 id="brand-coverage-title" className="mt-3 text-2xl font-black text-ink">تخصص متناسب با برند خودروی شما</h2>
+        <p className="mt-4 text-sm leading-8 text-slate-500">خرابی هر برند داستان خودش را دارد؛ از گیربکس CVT کراس‌اوورها تا تعلیق بادی خودروهای لوکس. برند خودروی خود را انتخاب کنید تا خدمات تخصصی، نکات حمل ایمن و مدل‌های تحت پوشش را ببینید.</p>
+        <nav className="mt-6 flex flex-wrap gap-2" aria-label="امداد خودرو بر اساس برند">
+          {carBrands.map((brand) => (
+            <Link key={brand.slug} href={`/brands/${brand.slug}`} className="inline-flex min-h-10 items-center rounded-lg border border-slate-200 bg-slate-50 px-3 text-[11px] font-bold text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">امداد خودرو {brand.name}</Link>
+          ))}
+        </nav>
+        <Link href="/brands" className="mt-5 inline-flex text-xs font-black text-brand-orange">همه برندهای تحت پوشش ←</Link>
+      </article>
+      <article className="rounded-2xl bg-ink p-6 text-white shadow-card md:p-8" dir="rtl">
+        <p className="text-xs font-black text-orange-300">قیمت‌گذاری شفاف</p>
+        <h2 className="mt-3 text-2xl font-black">هزینه امداد را قبل از اعزام بدانید</h2>
+        <p className="mt-4 text-sm leading-8 text-slate-300">با محاسبه‌گر آنلاین خودرو چاره، بر اساس نوع خدمت، نوع خودرو و مسافت حمل، بازه تقریبی هزینه یدک‌کش، خودروبر، مکانیک سیار و باتری را همین حالا ببینید.</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <Link href="/cost-calculator" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-brand-orange px-5 text-sm font-black text-white shadow-orange"><Icon name="tag" size={17} /> محاسبه آنلاین هزینه</Link>
+          <Link href="/pricing" className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/25 px-5 text-sm font-black">عوامل قیمت‌گذاری</Link>
+        </div>
+        <p className="mt-4 text-[11px] leading-6 text-slate-400">برآورد ابزار آموزشی است؛ قیمت دقیق پیش از اعزام اعلام و با تأیید شما نهایی می‌شود.</p>
+      </article>
+    </section>
   );
 }

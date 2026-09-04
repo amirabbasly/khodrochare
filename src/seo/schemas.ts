@@ -1,6 +1,11 @@
 import { siteUrl } from "./metadata";
 import { businessFacts } from "@/content/business";
 
+/** Single source of truth for phone numbers lives in content/business.ts (keeps NAP consistent everywhere). */
+const toE164 = (phone: string) => (phone.startsWith("+") ? phone : `+98${phone.replace(/^0+/, "")}`);
+const emergencyPhoneE164 = toE164(businessFacts.emergencyPhone);
+const supportPhoneE164 = toE164(businessFacts.complaintPhone);
+
 const openAllWeek = {
   "@type": "OpeningHoursSpecification",
   dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -30,7 +35,7 @@ export const organizationSchema = {
     caption: "خودرو چاره",
   },
   image: [`${siteUrl}/images/og-cover.jpg`, `${siteUrl}/images/hero-roadside.webp`, `${siteUrl}/images/support-technician-night.webp`],
-  telephone: "+989123022064",
+  telephone: emergencyPhoneE164,
   email: "info@khodrochare.ir",
   sameAs: [
     "https://www.instagram.com/khodrochare",
@@ -59,8 +64,8 @@ export const organizationSchema = {
   },
   openingHoursSpecification: [openAllWeek],
   contactPoint: [
-    { "@type": "ContactPoint", telephone: "+989123022064", contactType: "emergency", areaServed: ["IR"], availableLanguage: ["fa"], hoursAvailable: openAllWeek },
-    { "@type": "ContactPoint", telephone: "+989397979861", contactType: "customer support", areaServed: ["IR"], availableLanguage: ["fa"], hoursAvailable: openAllWeek },
+    { "@type": "ContactPoint", telephone: emergencyPhoneE164, contactType: "emergency", areaServed: ["IR"], availableLanguage: ["fa"], hoursAvailable: openAllWeek },
+    { "@type": "ContactPoint", telephone: supportPhoneE164, contactType: "customer support", areaServed: ["IR"], availableLanguage: ["fa"], hoursAvailable: openAllWeek },
   ],
 };
 
@@ -105,7 +110,7 @@ export function serviceSchema({ name, description, path, area, image }: { name: 
     availableChannel: {
       "@type": "ServiceChannel",
       serviceUrl: `${siteUrl}/#request`,
-      servicePhone: { "@type": "ContactPoint", telephone: "+989123022064", contactType: "emergency", availableLanguage: ["fa"] },
+      servicePhone: { "@type": "ContactPoint", telephone: emergencyPhoneE164, contactType: "emergency", availableLanguage: ["fa"] },
       availableLanguage: ["fa"],
     },
     provider: { "@id": `${siteUrl}/#organization` },
@@ -136,6 +141,26 @@ export function itemListSchema({ name, path, items }: { name: string; path: stri
       name: item.name,
       url: `${siteUrl}${encodeURI(item.path)}`,
     })),
+  };
+}
+
+export function webAppSchema({ name, description, path }: { name: string; description: string; path: string }) {
+  const url = `${siteUrl}${encodeURI(path)}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "@id": `${url}#webapp`,
+    name,
+    description,
+    url,
+    inLanguage: "fa-IR",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    browserRequirements: "Requires a modern web browser",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: 0, priceCurrency: "IRR" },
+    provider: { "@id": `${siteUrl}/#organization` },
+    isPartOf: { "@id": `${siteUrl}/#website` },
   };
 }
 
