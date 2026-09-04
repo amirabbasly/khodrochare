@@ -3,7 +3,8 @@ import { blogContentUpdatedAtIso, blogPosts } from "@/content/blog";
 import { carBrands } from "@/content/brands";
 import { services } from "@/content/services";
 import { persianServiceRoutes } from "@/seo/internal-links";
-import { seoLocations, seoRegions } from "@/seo/locations";
+import { seoLocations, seoRegions, seoUpcomingCities } from "@/seo/locations";
+import { seoNeighborhoods } from "@/seo/neighborhoods";
 import { absoluteUrl } from "@/seo/metadata";
 
 /**
@@ -77,6 +78,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [absoluteUrl(brand.image)],
   }));
 
+  const neighborhoodPages: MetadataRoute.Sitemap = Object.values(seoNeighborhoods).map((hood) => ({
+    url: absoluteUrl(`/${hood.citySlug}/${hood.slug}`),
+    lastModified: featureLaunchedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+    images: [absoluteUrl(hood.image)],
+  }));
+
+  // Phase-2 city hubs are indexable (real roadmap content) but rank below active coverage.
+  const upcomingCityPages: MetadataRoute.Sitemap = Object.values(seoUpcomingCities).map((city) => ({
+    url: absoluteUrl(`/${city.slug}`),
+    lastModified: featureLaunchedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.55,
+  }));
+
   const postPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: absoluteUrl(`/blog/${post.slug}`),
     lastModified: new Date(post.updatedAtIso ?? post.publishedAtIso ?? blogContentUpdatedAtIso),
@@ -85,5 +102,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [absoluteUrl(post.image)],
   }));
 
-  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...brandPages, ...postPages];
+  return [...pages, ...cityPages, ...regionPages, ...neighborhoodPages, ...upcomingCityPages, ...servicePages, ...brandPages, ...postPages];
 }

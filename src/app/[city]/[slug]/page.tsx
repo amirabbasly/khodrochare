@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CityServiceLanding } from "@/components/seo/city-pages";
+import { NeighborhoodLanding } from "@/components/seo/neighborhood-pages";
 import { ExpandedRegionLanding } from "@/components/seo/regional-landing-pages";
 import { persianServiceRoutes } from "@/seo/internal-links";
 import { seoLocations, seoRegions } from "@/seo/locations";
+import { seoNeighborhoods } from "@/seo/neighborhoods";
 import { seoMetadata } from "@/seo/metadata";
 import { getService } from "@/content/services";
 
-const paramsList = [...Object.values(seoLocations).flatMap((location) => persianServiceRoutes.map((route) => ({ city: location.slug, slug: route.slug }))), ...Object.values(seoRegions).map((region) => ({ city: region.citySlug, slug: region.slug }))];
+const paramsList = [
+  ...Object.values(seoLocations).flatMap((location) => persianServiceRoutes.map((route) => ({ city: location.slug, slug: route.slug }))),
+  ...Object.values(seoRegions).map((region) => ({ city: region.citySlug, slug: region.slug })),
+  ...Object.values(seoNeighborhoods).map((hood) => ({ city: hood.citySlug, slug: hood.slug })),
+];
 export function generateStaticParams() { return paramsList; }
 
 export async function generateMetadata({ params }: { params: Promise<{ city: string; slug: string }> }): Promise<Metadata> {
@@ -17,7 +23,18 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const location = Object.values(seoLocations).find((item) => item.slug === city);
   const route = persianServiceRoutes.find((item) => item.slug === slug);
   const region = Object.values(seoRegions).find((item) => item.slug === slug);
+  const neighborhood = Object.values(seoNeighborhoods).find((item) => item.slug === slug && item.citySlug === city);
   if (!location) return {};
+  if (neighborhood) {
+    return seoMetadata({
+      title: `امداد خودرو ${neighborhood.name} ${location.name} | اعزام شبانه‌روزی`,
+      description: neighborhood.metaDescription,
+      path: `/${city}/${slug}`,
+      keywords: [`امداد خودرو ${neighborhood.name}`, `یدک کش ${neighborhood.name}`, `مکانیک سیار ${neighborhood.name}`, `امداد خودرو ${location.name}`],
+      image: neighborhood.image,
+      imageAlt: `امداد خودرو ${neighborhood.name} ${location.name}`,
+    });
+  }
   if (route) {
     const titles: Record<string, string> = {
       "پنچرگیری-سیار": `پنچرگیری سیار ${location.name} و تعویض لاستیک در محل`,
@@ -51,8 +68,10 @@ export default async function CitySlugPage({ params }: { params: Promise<{ city:
   const location = Object.values(seoLocations).find((item) => item.slug === city);
   const route = persianServiceRoutes.find((item) => item.slug === slug);
   const region = Object.values(seoRegions).find((item) => item.slug === slug);
+  const neighborhood = Object.values(seoNeighborhoods).find((item) => item.slug === slug && item.citySlug === city);
   if (!location) notFound();
   if (route) return <CityServiceLanding location={location} route={route} />;
   if (region) return <ExpandedRegionLanding location={location} region={region} />;
+  if (neighborhood) return <NeighborhoodLanding location={location} neighborhood={neighborhood} />;
   notFound();
 }
