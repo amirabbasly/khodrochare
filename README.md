@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# خودرو چاره — khodrochare.ir
 
-## Getting Started
+سایت رسمی خودرو چاره؛ سامانه امداد خودرو آنلاین و خدمات خودرو در محل (تهران و کرج).
+پروژه با **Next.js 16 (App Router)**، **React 19** و **Tailwind CSS 4** ساخته شده و صفحات به‌صورت ایستا (SSG) رندر می‌شوند.
 
-First, run the development server:
+## اجرا
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # محیط توسعه روی http://localhost:3000
+npm run build    # بیلد پروداکشن
+npm start        # اجرای بیلد
+npm run lint     # ESLint
+npm run og:images  # ساخت تصاویر اشتراک‌گذاری ۱۲۰۰×۶۳۰ (JPEG) از تصاویر محتوا
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## متغیرهای محیطی
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| متغیر | کاربرد |
+| --- | --- |
+| `NEXT_PUBLIC_GA_ID` | شناسه GA4. تنها در صورت ست‌بودن، اسکریپت گوگل آنالیتیکس لود می‌شود. |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | مقدار متا-تگ تأیید Google Search Console. |
+| `OPENAI_API_KEY` (یا کلید سرویس دستیار) | استفاده در `/api/chat` برای دستیار هوشمند. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ساختار پوشه‌ها
 
-## Learn More
+```
+src/app          صفحات App Router + robots.ts, sitemap.ts, manifest.ts, blog/feed.xml
+src/components   کامپوننت‌های سایت (home, site, seo, store, assistant)
+src/content      محتوای ساخت‌یافته: خدمات، مقالات، پرسش‌های متداول، اطلاعات کسب‌وکار
+src/seo          متادیتا، اسکیما، کلیدواژه‌ها، شهرها/مناطق و لینک‌سازی داخلی
+scripts          اسکریپت‌های کمکی (تولید تصاویر OG)
+deploy/nginx     کانفیگ Nginx پروداکشن
+docs             مستندات، از جمله گزارش کامل سئو
+```
 
-To learn more about Next.js, take a look at the following resources:
+## نکات سئو
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* همه متادیتای صفحات از `src/seo/metadata.ts` (`seoMetadata()`) ساخته می‌شود تا canonical، Open Graph و Twitter Card همیشه هماهنگ باشند.
+* آدرس‌های فارسی همه‌جا (canonical، sitemap، JSON-LD) Percent-encode می‌شوند.
+* داده‌های ساخت‌یافته در `src/seo/schemas.ts` متمرکز است: LocalBusiness، WebSite، WebPage، Service، Article، BreadcrumbList، FAQPage و ItemList.
+* تصاویر اشتراک‌گذاری در `public/images/og/*.jpg` نگهداری می‌شوند؛ بعد از افزودن تصویر جدید به محتوا، `npm run og:images` را اجرا کنید.
+* گزارش کامل ممیزی و چک‌لیست اقدامات بیرون از کد: [`docs/seo-audit.md`](docs/seo-audit.md)

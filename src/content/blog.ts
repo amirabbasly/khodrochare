@@ -1,6 +1,8 @@
 export type BlogPost = {
   slug: string;
   title: string;
+  /** Shorter title used for the <title> tag so SERP snippets are not truncated. */
+  seoTitle?: string;
   excerpt: string;
   category: string;
   readTime: string;
@@ -18,6 +20,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "online-roadside-assistance-tehran-karaj-complete-guide",
     title: "امداد خودرو آنلاین چیست؟ راهنمای کامل درخواست فوری در تهران و کرج",
+    seoTitle: "امداد خودرو آنلاین چیست؟ راهنمای کامل",
     excerpt: "راهنمای انتخاب و ثبت امداد خودرو آنلاین، اعلام لوکیشن، زمان اعزام، خدمات قابل ارائه و نکات ایمنی برای رانندگان تهران و کرج.",
     category: "امداد خودرو آنلاین",
     readTime: "۱۰ دقیقه",
@@ -40,6 +43,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "emergency-car-assistance-tehran-districts",
     title: "امداد خودرو تهران در مناطق ۲۲گانه؛ خدمات، زمان اعزام و نکات مهم",
+    seoTitle: "امداد خودرو تهران در مناطق ۲۲گانه",
     excerpt: "راهنمای دریافت امداد خودرو در شمال، شرق، غرب، مرکز و جنوب تهران با توضیح پوشش مناطق و انتخاب خدمت مناسب.",
     category: "امداد خودرو تهران",
     readTime: "۹ دقیقه",
@@ -242,6 +246,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "what-to-do-when-car-stops-on-highway",
     title: "وقتی خودرو در بزرگراه خاموش می‌شود چه کنیم؟ راهنمای امداد خودرو فوری",
+    seoTitle: "خاموش‌شدن خودرو در بزرگراه؛ چه کنیم؟",
     excerpt: "راهنمای مرحله‌به‌مرحله ایمن‌سازی خودرو در بزرگراه، اعلام موقعیت، انتخاب خدمت و تماس با امداد خودرو آنلاین در تهران و کرج.",
     category: "امداد جاده‌ای",
     readTime: "۱۱ دقیقه",
@@ -283,6 +288,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "mobile-battery-replacement-tehran-karaj",
     title: "باتری خودرو در محل تهران و کرج؛ تست، باتری به باتری یا تعویض؟",
+    seoTitle: "باتری خودرو در محل تهران و کرج",
     excerpt: "تفاوت باتری به باتری با تعویض باتری، نشانه‌های خرابی سیستم شارژ و نکات انتخاب باتری سیار برای خودروهای تهران و کرج.",
     category: "باتری و برق",
     readTime: "۱۰ دقیقه",
@@ -320,6 +326,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "car-tow-truck-price-guide",
     title: "هزینه حمل خودرو با یدک‌کش در تهران و کرج چگونه محاسبه می‌شود؟",
+    seoTitle: "هزینه حمل خودرو با یدک‌کش در تهران و کرج",
     excerpt: "راهنمای شفاف هزینه حمل خودرو با یدک‌کش، کفی و خودروبر در تهران و کرج؛ عوامل قیمت، انتخاب وسیله مناسب، استعلام و هزینه‌های احتمالی.",
     category: "حمل خودرو",
     readTime: "۹ دقیقه",
@@ -372,6 +379,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "mobile-carwash-guide",
     title: "کارواش سیار در تهران و کرج؛ چه خدماتی در محل قابل انجام است؟",
+    seoTitle: "کارواش سیار تهران و کرج؛ خدمات در محل",
     excerpt: "راهنمای انتخاب کارواش سیار، آماده‌سازی محل، تفاوت شست‌وشوی بدنه و دیتیلینگ و نکات مراقبت از رنگ خودرو.",
     category: "خدمات خودرو",
     readTime: "۸ دقیقه",
@@ -409,6 +417,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "flat-tire-roadside-assistance",
     title: "پنچرگیری سیار و تعویض لاستیک در محل؛ راهنمای ایمن رانندگان",
+    seoTitle: "پنچرگیری سیار؛ راهنمای ایمن رانندگان",
     excerpt: "در زمان پنچری خودرو چه کنیم، چه زمانی از زاپاس استفاده نکنیم و چگونه پنچرگیری سیار یا حمل خودرو را انتخاب کنیم؟",
     category: "امداد جاده‌ای",
     readTime: "۸ دقیقه",
@@ -446,6 +455,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "car-maintenance-before-long-trip",
     title: "چک‌لیست سرویس خودرو قبل از سفر؛ از باتری تا لاستیک و ترمز",
+    seoTitle: "چک‌لیست سرویس خودرو قبل از سفر",
     excerpt: "قبل از سفر جاده‌ای چه بخش‌هایی از خودرو را بررسی کنیم تا احتمال خرابی، توقف ناگهانی و نیاز به امداد خودرو کمتر شود؟",
     category: "نگهداری خودرو",
     readTime: "۱۲ دقیقه",
@@ -511,6 +521,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "online-roadside-assistance-request-guide",
     title: "امداد خودرو آنلاین چگونه کار می‌کند؟ راهنمای ثبت و پیگیری درخواست",
+    seoTitle: "امداد خودرو آنلاین چگونه کار می‌کند؟",
     excerpt: "راهنمای کامل ثبت امداد خودرو آنلاین در تهران و کرج؛ اطلاعات لازم، انتخاب خدمت، اعلام موقعیت، زمان اعزام، قیمت و پیگیری درخواست.",
     category: "امداد خودرو آنلاین",
     readTime: "۱۲ دقیقه",
@@ -536,6 +547,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "automatic-car-towing-guide",
     title: "یدک‌کش خودرو اتوماتیک؛ چه زمانی حمل با کفی ایمن‌تر است؟",
+    seoTitle: "یدک‌کش خودرو اتوماتیک و حمل با کفی",
     excerpt: "راهنمای حمل خودرو اتوماتیک با یدک‌کش، کفی و خودروبر؛ محدودیت گیربکس، وضعیت چرخ‌ها، بارگیری ایمن و عوامل هزینه در تهران و کرج.",
     category: "حمل خودرو",
     readTime: "۱۲ دقیقه",
@@ -561,6 +573,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "car-overheating-roadside-guide",
     title: "جوش آوردن خودرو در مسیر؛ چه کنیم و چه زمانی امداد بخواهیم؟",
+    seoTitle: "جوش آوردن خودرو در مسیر؛ راهنمای اقدام",
     excerpt: "اقدام‌های ایمن هنگام بالا رفتن آمپر آب و جوش آوردن خودرو؛ توقف، بررسی نشتی، خطر بازکردن در رادیاتور و درخواست مکانیک سیار یا یدک‌کش.",
     category: "امداد جاده‌ای",
     readTime: "۱۱ دقیقه",

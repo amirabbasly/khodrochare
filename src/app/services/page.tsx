@@ -5,18 +5,22 @@ import { Icon } from "@/components/home/home-ui";
 import { SubpageShell } from "@/components/site/subpage-shell";
 import { services } from "@/content/services";
 import { StructuredData } from "@/components/seo/structured-data";
-import { breadcrumbSchema } from "@/seo/schemas";
+import { breadcrumbSchema, itemListSchema, webPageSchema } from "@/seo/schemas";
+import { seoMetadata } from "@/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = seoMetadata({
   title: "خدمات امداد خودرو و خودرو در محل",
   description: "فهرست خدمات خودرو چاره در تهران و کرج؛ امداد در محل، کارواش سیار، باتری، پنچری، خودروبر، یدک‌کش، مکانیک و خدمات تکمیلی خودرو.",
-  alternates: { canonical: "/services" },
-};
+  path: "/services",
+  keywords: ["خدمات امداد خودرو", "خدمات خودرو در محل", "یدک کش", "مکانیک سیار", "کارواش سیار"],
+});
 
 export default function ServicesPage() {
   return (
     <SubpageShell>
-      <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "خدمات" }])} />
+      <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "خدمات" }], "/services")} />
+      <StructuredData data={webPageSchema({ type: "CollectionPage", name: "خدمات امداد خودرو و خدمات خودرو در محل", description: "فهرست کامل خدمات امداد خودرو، حمل خودرو و خدمات در محل خودرو چاره در تهران و کرج.", path: "/services", breadcrumb: true })} />
+      <StructuredData data={itemListSchema({ name: "خدمات خودرو چاره", path: "/services", items: services.map((service) => ({ name: service.title, path: `/services/${service.slug}` })) })} />
       <section className="site-container pb-8 pt-12 text-center md:pt-16">
         <span className="inline-flex rounded-full border border-orange-200 bg-orange-50 px-4 py-2 text-xs font-black text-brand-orange">خدمات خودرو در تهران و کرج</span>
         <h1 className="mx-auto mt-5 max-w-3xl text-3xl font-black leading-[1.55] md:text-5xl">هر مشکل خودرو، یک مسیر روشن برای حل‌شدن</h1>

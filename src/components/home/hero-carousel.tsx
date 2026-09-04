@@ -40,24 +40,35 @@ const slides = [
 
 export function HeroCarousel() {
   const [active, setActive] = useState(0);
+  // Only slides that have actually been shown are mounted, so the first paint downloads
+  // one hero image instead of three (large LCP/bandwidth win on mobile connections).
+  const [loadedSlides, setLoadedSlides] = useState(1);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return;
-    const timer = window.setInterval(() => setActive((current) => (current + 1) % slides.length), 7200);
+    const timer = window.setInterval(() => {
+      setActive((current) => {
+        const next = (current + 1) % slides.length;
+        setLoadedSlides((count) => Math.max(count, next + 1));
+        return next;
+      });
+    }, 7200);
     return () => window.clearInterval(timer);
   }, []);
 
   return (
     <section id="top" className="relative isolate overflow-hidden bg-[#07182a] text-white" aria-roledescription="carousel" aria-label="معرفی خدمات خودرو چاره">
       <div className="absolute inset-0 -z-20">
-        {slides.map((slide, index) => (
+        {slides.slice(0, loadedSlides).map((slide, index) => (
           <Image
             key={slide.image}
             src={slide.image}
             alt={index === active ? slide.alt : ""}
             fill
             priority={index === 0}
+            fetchPriority={index === 0 ? "high" : "low"}
+            quality={index === 0 ? 78 : 65}
             sizes="100vw"
             style={{ objectPosition: slide.objectPosition }}
             className={`object-cover transition-[opacity,transform,filter] duration-[1800ms] ease-[cubic-bezier(.22,.61,.36,1)] ${index === 0 ? "brightness-[.78] saturate-[.9]" : "brightness-[.46] saturate-[.78] contrast-[1.08]"} ${index === active ? "scale-100 opacity-100" : "scale-[1.075] opacity-0"}`}

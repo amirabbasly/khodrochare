@@ -6,7 +6,8 @@ import { notFound } from "next/navigation";
 import { SubpageShell } from "@/components/site/subpage-shell";
 import { blogContentUpdatedAtIso, blogPosts, getBlogPost, supplementalArticleSections } from "@/content/blog";
 import { StructuredData } from "@/components/seo/structured-data";
-import { articleSchema, breadcrumbSchema, faqSchema } from "@/seo/schemas";
+import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/seo/schemas";
+import { seoMetadata } from "@/seo/metadata";
 
 const commercialLinks: Record<string, { title: string; href: string }[]> = {
   "car-assistance-coverage-tehran-karaj": [{ title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }, { title: "مناطق تحت پوشش", href: "/coverage" }, { title: "ثبت امداد خودرو آنلاین", href: "/#request" }],
@@ -77,17 +78,28 @@ export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
+/** Converts "۱۰ دقیقه" into the ISO 8601 duration schema.org expects. */
+function readingTimeIso(readTime: string) {
+  const minutes = Number(readTime.replace(/[^\d\u06F0-\u06F9]/g, "").replace(/[\u06F0-\u06F9]/g, (digit) => String(digit.charCodeAt(0) - 0x06f0)));
+  return Number.isFinite(minutes) && minutes > 0 ? `PT${minutes}M` : undefined;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) return {};
-  return {
-    title: post.title,
+  return seoMetadata({
+    title: post.seoTitle ?? post.title,
     description: post.excerpt,
+    path: `/blog/${post.slug}`,
     keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "امداد خودرو تهران", "امداد خودرو کرج"],
-    alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: { type: "article", title: post.title, description: post.excerpt, url: `/blog/${post.slug}`, images: [{ url: post.image, alt: post.title }], publishedTime: post.publishedAtIso, modifiedTime: post.updatedAtIso ?? blogContentUpdatedAtIso, section: post.category, locale: "fa_IR" },
-  };
+    image: post.image,
+    imageAlt: post.title,
+    type: "article",
+    publishedTime: post.publishedAtIso,
+    modifiedTime: post.updatedAtIso ?? blogContentUpdatedAtIso,
+    section: post.category,
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -100,8 +112,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const serviceLinks = commercialLinks[post.slug] ?? [{ title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }];
   return (
     <SubpageShell>
-      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: post.updatedAtIso ?? blogContentUpdatedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"] })} />
-      <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مجله خودرو چاره", path: "/blog" }, { name: post.title }])} />
+      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: post.updatedAtIso ?? blogContentUpdatedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"], timeRequired: readingTimeIso(post.readTime), wordCount: allSections.reduce((total, section) => total + section.body.split(/\s+/).length, 0) })} />
+      <StructuredData data={webPageSchema({ name: post.title, description: post.excerpt, path: `/blog/${post.slug}`, breadcrumb: true })} />
+      <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مجله خودرو چاره", path: "/blog" }, { name: post.title }], `/blog/${post.slug}`)} />
       {post.faqs?.length ? <StructuredData data={faqSchema(post.faqs)} /> : null}
       <article>
         <header className="bg-[#071a2e] py-14 text-white"><div className="site-container max-w-4xl"><Link href="/blog" className="text-xs font-black text-brand-orange">بازگشت به وبلاگ</Link><p className="mt-6 text-xs text-slate-400">{post.category} · {post.readTime} · {post.publishedAt}</p><h1 className="mt-4 text-3xl font-black leading-[1.6] md:text-5xl">{post.title}</h1><p className="mt-5 max-w-3xl text-sm leading-8 text-slate-300">{post.excerpt}</p></div></header>

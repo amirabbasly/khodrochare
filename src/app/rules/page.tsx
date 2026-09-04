@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { SubpageShell } from "@/components/site/subpage-shell";
+import { StructuredData } from "@/components/seo/structured-data";
+import { breadcrumbSchema, webPageSchema } from "@/seo/schemas";
+import { seoMetadata } from "@/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "قوانین و مقررات",
-  description: "شرایط استفاده، ثبت درخواست، پرداخت، لغو، مسئولیت‌ها و حریم خصوصی در خودرو چاره.",
-  alternates: { canonical: "/rules" },
-};
+export const metadata: Metadata = seoMetadata({
+  title: "قوانین و مقررات استفاده از خدمات",
+  description: "شرایط استفاده از سامانه خودرو چاره؛ ثبت درخواست امداد خودرو، مبنای قیمت‌گذاری، پرداخت، لغو خدمت، مسئولیت‌ها، گارانتی و حریم خصوصی کاربران.",
+  path: "/rules",
+  keywords: ["قوانین خودرو چاره", "شرایط استفاده امداد خودرو", "حریم خصوصی خودرو چاره"],
+})
 
 const clauses = [
   ["۱. تعاریف و قلمرو قرارداد", "«خودرو چاره» بستر الکترونیکی هماهنگی و ارائه خدمات خودرویی است. «کاربر» شخصی است که از وب‌سایت یا راه‌های ارتباطی مجموعه استفاده می‌کند و «امدادگر» یا «ارائه‌دهنده» شخص حقیقی یا حقوقی معرفی‌شده برای اجرای خدمت است. این سند بر تمام بازدیدها، درخواست‌ها، سفارش‌ها، تماس‌ها و پرداخت‌های مرتبط حاکم است."],
@@ -27,6 +31,8 @@ const clauses = [
 export default function RulesPage() {
   return (
     <SubpageShell>
+      <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "قوانین و مقررات" }], "/rules")} />
+      <StructuredData data={webPageSchema({ name: "قوانین و مقررات خودرو چاره", description: "شرایط استفاده، ثبت درخواست، پرداخت، لغو خدمت، مسئولیت‌ها و حریم خصوصی در سامانه خودرو چاره.", path: "/rules", breadcrumb: true })} />
       <section className="bg-[#071a2e] py-16 text-white"><div className="site-container"><p className="text-xs font-black text-brand-orange">نسخه لازم‌الاجرا: ۲۰ مرداد ۱۴۰۵</p><h1 className="mt-4 text-3xl font-black md:text-5xl">قوانین و مقررات استفاده از خودرو چاره</h1><p className="mt-5 max-w-3xl text-sm leading-8 text-slate-300">این سند چارچوب قراردادی استفاده از خدمات را تعیین می‌کند. پیش از ثبت درخواست، همه بندها را با دقت مطالعه کنید.</p></div></section>
       <div className="site-container mt-8 grid gap-6 lg:grid-cols-[270px_1fr]" dir="ltr">
         <aside className="h-fit rounded-2xl border border-amber-200 bg-amber-50 p-5 text-right lg:sticky lg:top-5" dir="rtl"><strong className="text-sm">تذکر حقوقی مهم</strong><p className="mt-3 text-xs leading-7 text-amber-950/75">ثبت سفارش به معنی پذیرش این مقررات است. در وضعیت‌های جانی یا حادثه شدید، ابتدا با خدمات اضطراری رسمی تماس بگیرید.</p><a href="mailto:legal@khodrochare.ir" className="mt-4 block text-xs font-black text-brand-orange">legal@khodrochare.ir</a></aside>
