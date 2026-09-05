@@ -9,9 +9,9 @@ const slides = [
   {
     image: "/images/hero-roadside.webp",
     alt: "امداد خودرو در جاده بارانی",
-    eyebrow: "امداد هوشمند شبانه‌روزی",
-    title: "امداد خودرو آنلاین شبانه‌روزی تهران و کرج",
-    desc: "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، باتری، مکانیک سیار و یدک‌کش؛ با توسعه مرحله‌ای خدمات در شهرهای دیگر",
+    eyebrow: "هماهنگی شبانه‌روزی خدمات خودرو",
+    title: "امداد خودرو آنلاین؛ تهران، کرج و شمال",
+    desc: "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، باتری، مکانیک سیار و یدک‌کش؛ در تهران، کرج، گیلان، مازندران و گلستان",
     cta: "درخواست امداد فوری",
     icon: "truck",
     objectPosition: "48% center",
@@ -30,7 +30,7 @@ const slides = [
     image: "/images/service-mechanic.webp",
     alt: "مکانیک سیار خودرو چاره",
     eyebrow: "مکانیک و برق خودرو",
-    title: "تعمیر تخصصی، همان‌جایی که هستید",
+    title: "بررسی و تعمیرات مجاز در محل",
     desc: "عیب‌یابی، تعمیرات سبک و رفع ایراد باتری و برق خودرو در محل",
     cta: "اعزام مکانیک",
     icon: "engine",
@@ -40,13 +40,14 @@ const slides = [
 
 export function HeroCarousel() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   // Only slides that have actually been shown are mounted, so the first paint downloads
   // one hero image instead of three (large LCP/bandwidth win on mobile connections).
   const [loadedSlides, setLoadedSlides] = useState(1);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) return;
+    if (reducedMotion || paused) return;
     const timer = window.setInterval(() => {
       setActive((current) => {
         const next = (current + 1) % slides.length;
@@ -55,7 +56,7 @@ export function HeroCarousel() {
       });
     }, 7200);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [paused]);
 
   return (
     <section id="top" className="relative isolate overflow-hidden bg-[#07182a] text-white" aria-roledescription="carousel" aria-label="معرفی خدمات خودرو چاره">
@@ -82,18 +83,19 @@ export function HeroCarousel() {
           <div className="hidden items-start md:flex" dir="rtl"><TechnicianMapCard /></div>
           <div key={active} className="hero-slide-copy min-w-0 max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
             <span className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/35 bg-black/20 px-3 text-xs font-bold"><Icon name={slides[active].icon} size={16} /> {slides[active].eyebrow}</span>
-            {active === 0 ? <h1 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[active].title}</h1> : <h2 className="mt-5 max-w-[12ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[active].title}</h2>}
+            <h1 className="mt-5 max-w-[16ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[0].title}</h1>
             <p className="mt-4 max-w-md text-sm leading-7 text-slate-200 md:text-base">{slides[active].desc}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink href="#request"><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
+              <ButtonLink href="/امداد-خودرو-آنلاین#request"><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
               <a href="tel:09123022064" className="inline-flex min-h-11 items-center gap-3 rounded-lg border border-white/50 bg-black/20 px-5 text-sm font-extrabold" dir="ltr">09123022064 <Icon name="phone" size={17} /></a>
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <ButtonLink href="/app" variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
-              <span className="inline-flex items-center gap-2 text-xs font-black text-amber-300"><Image src="/images/quality-guarantee.svg" alt="نشان تضمین کیفیت و قیمت" width={38} height={44} className="h-10 w-9 drop-shadow-[0_4px_10px_rgba(245,158,11,.45)]" /> تضمین کیفیت و قیمت</span>
+              <span className="inline-flex items-center gap-2 text-xs font-black text-amber-300"><Image src="/images/quality-guarantee.svg" alt="نشان هزینه با هماهنگی قبلی" width={38} height={44} className="h-10 w-9 drop-shadow-[0_4px_10px_rgba(245,158,11,.45)]" /> هزینه با هماهنگی قبلی</span>
             </div>
+            <button type="button" className="mt-4 min-h-11 rounded-lg border border-white/30 px-3 text-xs" aria-pressed={paused} onClick={() => setPaused(!paused)}>{paused ? "ادامه نمایش معرفی خدمات" : "توقف نمایش خودکار"}</button>
             <div className="mt-6 grid max-w-md grid-cols-3 divide-x divide-x-reverse divide-white/15 text-center">
-              {[["clock", "خدمات شبانه‌روزی"], ["shield", "متخصص تأییدشده"], ["tag", "قیمت منصفانه"]].map(([icon, label]) => <div key={label} className="px-2"><Icon name={icon} size={21} className="mx-auto text-slate-200" /><p className="mt-2 text-[10px] font-bold text-slate-300">{label}</p></div>)}
+              {[["clock", "پاسخ‌گویی شبانه‌روزی"], ["shield", "خدمت متناسب"], ["tag", "قیمت منصفانه"]].map(([icon, label]) => <div key={label} className="px-2"><Icon name={icon} size={21} className="mx-auto text-slate-200" /><p className="mt-2 text-[10px] font-bold text-slate-300">{label}</p></div>)}
             </div>
           </div>
         </div>
@@ -107,11 +109,11 @@ function TechnicianMapCard() {
   return (
     <div className="mt-2 w-80 overflow-hidden rounded-2xl border border-white/40 bg-white/95 text-ink shadow-2xl xl:w-[410px]">
       <div className="flex items-center gap-3 px-4 py-4 xl:px-5">
-        <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-900 xl:h-16 xl:w-16"><Image src="/images/technician.webp" alt="تصویر امدادگر منتخب" fill sizes="64px" className="object-cover object-[18%_28%]" /></div>
-        <div><p className="text-xs font-bold text-slate-500 xl:text-sm">مهدی حسینی</p><p className="text-sm font-black xl:text-lg">امدادگر منتخب</p><p className="mt-1 text-sm font-black text-amber-500 xl:text-base">★ ۴.۹</p></div>
+        <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-900 xl:h-16 xl:w-16"><Image src="/images/technician.webp" alt="تصویر انتخاب تجهیز متناسب" fill sizes="64px" className="object-cover object-[18%_28%]" /></div>
+        <div><p className="text-xs font-bold text-slate-500 xl:text-sm">هماهنگی با اپراتور</p><p className="text-sm font-black xl:text-lg">انتخاب تجهیز متناسب</p><p className="mt-1 text-sm font-black text-amber-500 xl:text-base">اطلاعات نمایشی؛ نه رهگیری زنده</p></div>
       </div>
       <TowTruckStage compact />
-      <div className="flex items-center justify-between px-4 py-3 text-xs xl:text-sm"><span>زمان رسیدن</span><strong className="text-emerald-600">۱۸ دقیقه</strong></div>
+      <div className="flex items-center justify-between px-4 py-3 text-xs xl:text-sm"><span>زمان اعزام</span><strong className="text-emerald-600">پس از بررسی موقعیت</strong></div>
     </div>
   );
 }

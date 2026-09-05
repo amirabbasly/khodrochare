@@ -22,20 +22,20 @@ export function AnalyticsEvents() {
       const link = (event.target as Element | null)?.closest<HTMLAnchorElement>("a[href]");
       if (!link) return;
       const href = link.getAttribute("href") ?? "";
-      if (href.startsWith("tel:")) sendEvent("click_tel", { link_url: href, page_location: window.location.href, placement: link.closest("header") ? "header" : link.closest("footer") ? "footer" : "content" });
-      if (href.includes("#request")) sendEvent("service_request_start", { link_url: href, page_location: window.location.href });
-      if (href.includes("wa.me") || href.includes("whatsapp")) sendEvent("click_whatsapp", { link_url: href, page_location: window.location.href });
+      if (href.startsWith("tel:")) sendEvent("click_tel", { link_url: href, page_path: window.location.pathname, placement: link.closest("header") ? "header" : link.closest("footer") ? "footer" : "content" });
+      if (href.includes("#request")) sendEvent("service_request_start", { page_path: window.location.pathname });
+      if (href.startsWith("mailto:")) sendEvent("contact_email_intent", { page_path: window.location.pathname });
+      if (href.includes("wa.me") || href.includes("whatsapp")) sendEvent("click_whatsapp", { page_path: window.location.pathname });
     };
-    const handleSubmit = (event: SubmitEvent) => {
-      const form = event.target as HTMLFormElement | null;
-      if (form?.id === "request") sendEvent("service_request_submit", { page_location: window.location.href, form_id: form.id });
-      if (form?.id === "contact-form") sendEvent("contact_form_submit", { page_location: window.location.href, form_id: form.id });
+    const handleRequestResult = (event: Event) => {
+      const status = (event as CustomEvent<{ status: string }>).detail?.status;
+      if (["prepared", "attempt", "received"].includes(status)) sendEvent(`service_request_${status}`, { page_path: window.location.pathname });
     };
     document.addEventListener("click", handleClick);
-    document.addEventListener("submit", handleSubmit);
+    window.addEventListener("service-request-result", handleRequestResult);
     return () => {
       document.removeEventListener("click", handleClick);
-      document.removeEventListener("submit", handleSubmit);
+      window.removeEventListener("service-request-result", handleRequestResult);
     };
   }, []);
   return null;

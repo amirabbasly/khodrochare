@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ServiceRequestForm } from "@/components/requests/service-request-form";
 import Link from "next/link";
 import {
   brands,
@@ -48,22 +49,7 @@ export function ServiceStrip() {
   );
 }
 
-function RequestForm() {
-  return (
-    <form id="request" className="order-1 w-full rounded-xl bg-white p-4 text-ink shadow-2xl lg:order-2" dir="rtl" aria-label="فرم درخواست خدمت">
-      <div className="flex items-center justify-between"><h2 className="text-sm font-black">درخواست خدمت</h2><Icon name="form" size={18} className="text-brand-orange" /></div>
-      <div className="mt-3 grid gap-2">
-        <label className="sr-only" htmlFor="service">نوع خدمت</label>
-        <select id="service" defaultValue="" className="form-control"><option value="" disabled>نوع خدمت را انتخاب کنید</option><option>امداد و یدک‌کش</option><option>کارواش سیار</option><option>مکانیک سیار</option><option>باتری و برق</option></select>
-        <label className="sr-only" htmlFor="vehicle">نوع خودرو</label>
-        <select id="vehicle" defaultValue="" className="form-control"><option value="" disabled>نوع خودرو را انتخاب کنید</option><option>سواری</option><option>شاسی‌بلند</option><option>وانت</option></select>
-        <label className="sr-only" htmlFor="address">موقعیت فعلی</label>
-        <input id="address" className="form-control" placeholder="مکان شما کجاست؟" autoComplete="street-address" />
-        <button type="submit" className="min-h-11 rounded-lg bg-brand-orange text-xs font-black text-white transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange">ثبت درخواست</button>
-      </div>
-    </form>
-  );
-}
+function RequestForm() { return <ServiceRequestForm compact />; }
 
 export function FeatureBanners() {
   return (
@@ -145,9 +131,9 @@ export function AppSection() {
       <div className="grid items-center gap-8 lg:grid-cols-[.82fr_1.18fr]" dir="ltr">
         <div dir="rtl">
           <h2 className="text-2xl font-black text-ink md:text-3xl">اپلیکیشن اختصاصی خودرو چاره</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-500">تمام خدمات خودرو، دستیار هوشمند و پیگیری زنده همیشه همراه شما</p>
+          <p className="mt-3 text-sm leading-7 text-slate-500">تمام خدمات خودرو، دستیار هوشمند و راهنمای هماهنگی همیشه همراه شما</p>
           <div className="mt-5 grid grid-cols-3 gap-2">
-            {[["location", "پیگیری زنده"], ["chat", "دستیار هوشمند"], ["clock", "سوابق خدمات"]].map(([icon, title], index) => <div key={title} className="rounded-lg border border-slate-200 p-3 text-center" data-aos="zoom-in" data-aos-delay={index * 80}><Icon name={icon} size={22} className="mx-auto text-slate-600" /><p className="mt-2 text-[10px] font-bold">{title}</p></div>)}
+            {[["location", "راهنمای هماهنگی"], ["chat", "دستیار هوشمند"], ["clock", "تماس با پشتیبانی"]].map(([icon, title], index) => <div key={title} className="rounded-lg border border-slate-200 p-3 text-center" data-aos="zoom-in" data-aos-delay={index * 80}><Icon name={icon} size={22} className="mx-auto text-slate-600" /><p className="mt-2 text-[10px] font-bold">{title}</p></div>)}
           </div>
           <div className="mt-5 grid gap-2"><ButtonLink href="/app">صفحه کامل اپلیکیشن</ButtonLink><Link href="/app" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-400 text-sm font-bold text-slate-700">راهنمای نصب نسخه وب</Link></div>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-xs font-bold text-slate-600" dir="ltr"><PlatformLogo platform="android" /><PlatformLogo platform="ios" /><PlatformLogo platform="pwa" /></div>
@@ -169,19 +155,19 @@ export function CoverageSection() {
     <section id="coverage" className="section-shell overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card" data-aos="fade-up">
       <div className="grid lg:grid-cols-[.92fr_1.08fr]" dir="ltr">
         <div className="grid min-h-64 gap-3 border-slate-200 bg-slate-50 p-3 min-[460px]:grid-cols-[1.3fr_.7fr] lg:border-r" dir="ltr">
-          <div className="relative min-h-60 overflow-hidden rounded-xl border-slate-200 bg-[#071a2e] sm:border-r"><Image src="/images/coverage-iran-glass-v2.webp" alt="نقشه سه‌بعدی محدوده پوشش خودرو چاره در ایران" fill sizes="(min-width:1024px) 45vw, 100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" /><span className="absolute right-[34%] top-[38%] rounded-full border border-emerald-300/60 bg-emerald-400/20 px-2 py-1 text-[9px] font-black text-white">تهران و کرج فعال</span><span className="absolute bottom-3 right-3 rounded-lg bg-ink/70 px-3 py-2 text-[9px] text-slate-200 backdrop-blur-sm">سایر شهرها در صف فعال‌سازی</span></div>
+          <div className="relative min-h-60 overflow-hidden rounded-xl border-slate-200 bg-[#071a2e] sm:border-r"><Image src="/images/coverage-iran-glass-v2.webp" alt="نقشه سه‌بعدی محدوده پوشش خودرو چاره در ایران" fill sizes="(min-width:1024px) 45vw, 100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" /><span className="absolute right-[34%] top-[38%] rounded-full border border-emerald-300/60 bg-emerald-400/20 px-2 py-1 text-[9px] font-black text-white">تهران، کرج و شمال فعال</span><span className="absolute bottom-3 right-3 rounded-lg bg-ink/70 px-3 py-2 text-[9px] text-slate-200 backdrop-blur-sm">محدوده‌ها و زمان اعزام را پیش از خدمت بررسی کنید</span></div>
           <aside className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white p-4 text-right shadow-[0_14px_35px_rgba(15,30,48,.16)]" dir="rtl" data-aos="fade-right">
             <div className="flex items-center gap-3">
               <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-ink"><Image src="/images/technician.webp" alt="پروفایل امدادگر در مسیر" fill sizes="56px" className="object-cover object-[18%_28%]" /></div>
-              <div><strong className="block text-xs text-ink">مهدی حسینی</strong><span className="mt-1 block text-[9px] text-slate-500">امدادگر منتخب</span><span className="text-[10px] text-amber-500">★ ۴.۹</span></div>
+              <div><strong className="block text-xs text-ink">هماهنگی پذیرش</strong><span className="mt-1 block text-[9px] text-slate-500">انتخاب خدمت متناسب</span><span className="text-[10px] text-amber-500">بدون رهگیری زنده</span></div>
             </div>
             <div className="my-4 h-px bg-slate-100" />
-            <span className="text-[10px] text-slate-500">زمان رسیدن</span><strong className="mt-1 text-lg text-emerald-600">۱۸ دقیقه</strong>
+            <span className="text-[10px] text-slate-500">زمان اعزام</span><strong className="mt-1 text-lg text-emerald-600">پس از بررسی</strong>
             <dl className="mt-4 grid gap-2 text-[10px]"><div className="flex justify-between"><dt className="text-slate-400">نوع خدمت</dt><dd className="font-bold text-ink">امداد باتری</dd></div><div className="flex justify-between"><dt className="text-slate-400">خودرو</dt><dd className="font-bold text-ink">RAV4</dd></div></dl>
           </aside>
         </div>
         <div className="flex flex-col justify-center p-5 md:p-7" dir="rtl">
-          <h2 className="text-center text-xl font-black text-ink md:text-2xl">نزدیک‌ترین متخصص، در کوتاه‌ترین زمان</h2>
+          <h2 className="text-center text-xl font-black text-ink md:text-2xl">هماهنگی متخصص بر اساس خودرو و موقعیت</h2>
           <Link href="/coverage" className="mx-auto mt-4 inline-flex min-h-10 items-center justify-center rounded-lg border border-brand-orange px-4 text-xs font-black text-brand-orange transition hover:bg-orange-50">مشاهده نقشه کامل محدوده پوشش</Link>
           <div className="mt-8 grid grid-cols-3 gap-2 md:gap-5">
             {processSteps.map((step, index) => <div key={step.title} className="relative min-w-0 text-center" data-aos="fade-up" data-aos-delay={index * 90}><span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border-2 border-slate-100 bg-white text-slate-600 shadow-sm sm:h-16 sm:w-16"><Icon name={step.icon} size={24} /></span><span className="mt-3 block text-[10px] font-black sm:text-xs">{step.title}</span><p className="mx-auto mt-2 max-w-36 text-[8px] leading-4 text-slate-500 sm:text-[10px] sm:leading-5">{step.desc}</p>{index < 2 && <span className="absolute left-[-24%] top-8 hidden w-[48%] border-t border-dashed border-slate-300 md:block" />}</div>)}
@@ -210,8 +196,8 @@ export function SeoServiceHub() {
     <section className="section-shell grid gap-5 lg:grid-cols-[.78fr_1.22fr]" aria-labelledby="emergency-services-title" dir="ltr">
       <article className="rounded-2xl bg-ink p-6 text-white shadow-card md:p-8" dir="rtl">
         <p className="text-xs font-black text-orange-300">مناطق تحت پوشش</p>
-        <h2 className="mt-3 text-2xl font-black">امداد خودرو تهران و کرج</h2>
-        <p className="mt-4 text-sm leading-8 text-slate-300">پوشش عملیاتی فعلی خودرو چاره در تهران و کرج است. برای مشاهده خدمات، محدوده‌ها و روش ثبت درخواست آنلاین، صفحه شهر خود را انتخاب کنید.</p>
+        <h2 className="mt-3 text-2xl font-black">امداد خودرو تهران، کرج و شمال</h2><nav className="mt-4 flex flex-wrap gap-3 text-sm text-orange-300" aria-label="راهنماهای اصلی"><Link href="/امداد-خودرو">انتخاب خدمت امداد خودرو</Link><Link href="/امداد-خودرو-آنلاین">مراحل درخواست آنلاین</Link><Link href="/شمال">پوشش شمال کشور</Link><Link href="/brands">برندهای خودرو</Link><Link href="/pricing">قیمت خدمات</Link></nav>
+        <p className="mt-4 text-sm leading-8 text-slate-300">شبکه خودرو چاره در تهران، کرج، گیلان، مازندران و گلستان فعال است. برای مشاهده خدمات، محدوده‌ها و روش ثبت درخواست آنلاین، صفحه شهر خود را انتخاب کنید.</p>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <Link href="/تهران" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو تهران</strong><span className="mt-2 block text-xs text-slate-300">تهران و مسیرهای شهری فعال ←</span></Link>
           <Link href="/کرج" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو کرج</strong><span className="mt-2 block text-xs text-slate-300">کرج و محدوده‌های قابل هماهنگی ←</span></Link>
@@ -237,12 +223,12 @@ export function SeoServiceHub() {
 export function BusinessFactsSection() {
   const facts = [
     ["/images/facts/support-24h.webp", "پاسخ‌گویی شبانه‌روزی", "۲۴ ساعت، ۷ روز هفته", "پشتیبانی شبانه‌روزی امداد خودرو"],
-    ["/images/facts/fast-dispatch.webp", "اعزام معمولاً زیر ۳۰ دقیقه", "زمان دقیق به ترافیک و موقعیت بستگی دارد", "اعزام خودروبر و امدادگر در تهران"],
-    ["/images/facts/active-network.webp", "حدود ۱۰۰ امدادگر فعال", "شبکه امدادی تهران و کرج", "شبکه امدادگران خودرو چاره"],
-    ["/images/facts/experienced-mechanic.webp", "بیش از ۱۵ سال تجربه", "پیشینه تیم اجرایی در خدمات خودرو", "مکانیک باتجربه در حال بررسی خودرو"],
+    ["/images/facts/fast-dispatch.webp", "اعزام پس از بررسی موقعیت", "زمان دقیق به ترافیک و موقعیت بستگی دارد", "اعزام خودروبر و امدادگر در تهران"],
+    ["/images/facts/active-network.webp", "شبکه همکاران امداد", "هماهنگی تهران، کرج و شمال", "شبکه امدادگران خودرو چاره"],
+    ["/images/facts/experienced-mechanic.webp", "پیشینه اجرایی تیم", "پیشینه تیم اجرایی در خدمات خودرو", "مکانیک باتجربه در حال بررسی خودرو"],
   ] as const;
 
-  return <section className="section-shell rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-7" aria-labelledby="business-facts-title" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">خودرو چاره در یک نگاه</p><h2 id="business-facts-title" className="mt-2 text-2xl font-black">امداد گسترده در تهران و کرج</h2></div><div className="max-w-xl text-xs leading-7 text-slate-500"><p>{businessFacts.coverage}؛ شامل امداد در محل، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی.</p><Link href="/coverage" className="mt-2 inline-flex font-black text-brand-orange">مشاهده فهرست کامل مناطق تحت پوشش ←</Link></div></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{facts.map(([image, title, description, alt]) => <article key={title} className="overflow-hidden rounded-xl border border-slate-100 bg-slate-50"><div className="relative h-32"><Image src={image} alt={alt} fill sizes="(min-width:1024px) 25vw,(min-width:640px) 50vw,100vw" className="object-cover" /></div><div className="p-4"><h3 className="text-sm font-black text-ink">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p></div></article>)}</div></section>;
+  return <section className="section-shell rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-7" aria-labelledby="business-facts-title" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">خودرو چاره در یک نگاه</p><h2 id="business-facts-title" className="mt-2 text-2xl font-black">امداد خودرو در تهران، کرج و شمال</h2></div><div className="max-w-xl text-xs leading-7 text-slate-500"><p>{businessFacts.coverage}؛ شامل امداد در محل، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی.</p><Link href="/coverage" className="mt-2 inline-flex font-black text-brand-orange">مشاهده فهرست کامل مناطق تحت پوشش ←</Link></div></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{facts.map(([image, title, description, alt]) => <article key={title} className="overflow-hidden rounded-xl border border-slate-100 bg-slate-50"><div className="relative h-32"><Image src={image} alt={alt} fill sizes="(min-width:1024px) 25vw,(min-width:640px) 50vw,100vw" className="object-cover" /></div><div className="p-4"><h3 className="text-sm font-black text-ink">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p></div></article>)}</div></section>;
 }
 
 export function TrustSection() {
@@ -273,16 +259,16 @@ export function ProductsSection() {
             <div className="flex shrink-0 items-center gap-3" data-aos="fade-right">
               {["/images/import-package.svg", "/images/import-certified.svg", "/images/import-global.svg"].map((src, index) => <span key={src} className="flex h-16 w-16 items-center justify-center rounded-xl border border-white/15 bg-white/5 p-2 backdrop-blur-sm"><Image src={src} alt={["بسته‌بندی ایمن قطعات", "تضمین اصالت قطعات", "واردات مستقیم جهانی"][index]} width={52} height={52} className="h-full w-full object-contain" /></span>)}
             </div>
-            <div className="max-w-lg text-center sm:text-right" dir="rtl" data-aos="fade-left"><p className="text-xl font-black text-brand-orange md:text-2xl">واردات مستقیم، قیمت بی‌واسطه</p><h2 className="mt-2 text-sm font-black">قطعات اصلی و مصرفی با تضمین اصالت</h2><p className="mt-2 text-[10px] leading-5 text-slate-300">قطعات اصلی را مستقیم وارد می‌کنیم تا شما کمتر بپردازید.</p></div>
+            <div className="max-w-lg text-center sm:text-right" dir="rtl" data-aos="fade-left"><p className="text-xl font-black text-brand-orange md:text-2xl">انتخاب قطعه متناسب با خودرو</p><h2 className="mt-2 text-sm font-black">قطعات اصلی و مصرفی با تضمین اصالت</h2><p className="mt-2 text-[10px] leading-5 text-slate-300">نوع، مشخصات فنی، موجودی و شرایط ضمانت قطعه را پیش از خرید بررسی کنید.</p></div>
           </div>
         </div>
         <StoreStats />
       </div>
       <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_300px]" dir="ltr">
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-5" dir="rtl">
-          {products.map((item, index) => <article key={item.title} className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm" data-aos="fade-up" data-aos-delay={index * 65}><div className="relative flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#f3f0eb]"><Image src={item.image} alt={item.title} fill sizes="180px" className="object-cover" /></div><h3 className="mt-3 text-xs font-black text-ink">{item.title}</h3><p className="mt-1 text-[10px] text-amber-500">★ {item.rating}</p><div className="mt-2 flex items-center justify-between"><span className="text-xs font-black text-ink">{item.price} <small className="font-normal text-slate-500">تومان</small></span><button aria-label={`افزودن ${item.title} به سبد خرید`} className="flex h-8 w-8 items-center justify-center rounded-md bg-brand-orange text-white">+</button></div></article>)}
+          {products.map((item, index) => <article key={item.title} className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm" data-aos="fade-up" data-aos-delay={index * 65}><div className="relative flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#f3f0eb]"><Image src={item.image} alt={item.title} fill sizes="180px" className="object-cover" /></div><h3 className="mt-3 text-xs font-black text-ink">{item.title}</h3><p className="mt-1 text-[10px] text-slate-500">قیمت و موجودی با استعلام</p><div className="mt-2 flex items-center justify-between"><Link href="/store" className="min-h-11 text-xs font-black text-brand-orange">مشاهده کاتالوگ ←</Link></div></article>)}
         </div>
-        <aside className="rounded-lg border border-slate-200 bg-white p-4" dir="rtl"><h3 className="text-center text-sm font-black text-ink">برندهای مورد اعتماد</h3><div className="mt-4 grid grid-cols-4 overflow-hidden rounded-lg border border-slate-200">{brands.map((brand) => <div key={brand.key} className="flex min-h-16 items-center justify-center border-b border-l border-slate-200 bg-white p-1 last:border-l-0" title={brand.name}><BrandLogo brand={brand.key} /></div>)}</div></aside>
+        <aside className="rounded-lg border border-slate-200 bg-white p-4" dir="rtl"><h3 className="text-center text-sm font-black text-ink">راهنمای خدمات برندها</h3><div className="mt-4 grid grid-cols-4 overflow-hidden rounded-lg border border-slate-200">{brands.map((brand) => <Link href={`/brands/${brand.key === "ikco" ? "iran-khodro" : brand.key}`} key={brand.key} className="flex min-h-16 items-center justify-center border-b border-l border-slate-200 bg-white p-1 last:border-l-0" title={brand.name}><BrandLogo brand={brand.key} /></Link>)}</div></aside>
       </div>
     </section>
   );
@@ -293,7 +279,7 @@ function StoreStats() {
     <aside className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm" dir="rtl">
       <h3 className="text-sm font-black text-ink">فروشگاه قطعات منتخب</h3>
       <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-        {[["award", "۶.۸", "امتیاز"], ["check", "۵۲,۴۳۰+", "سفارش"], ["clock", "۱۸", "دقیقه"]].map(([icon, value, label]) => <div key={label}><Icon name={icon} size={20} className="mx-auto text-slate-500" /><strong className="mt-2 block text-sm text-ink">{value}</strong><span className="text-[9px] text-slate-400">{label}</span></div>)}
+        {[["phone", "تماس", "هماهنگی"], ["check", "بررسی", "نوع خدمت"], ["clock", "۲۴/۷", "پاسخ‌گویی"]].map(([icon, value, label]) => <div key={label}><Icon name={icon} size={20} className="mx-auto text-slate-500" /><strong className="mt-2 block text-sm text-ink">{value}</strong><span className="text-[9px] text-slate-400">{label}</span></div>)}
       </div>
       <Link href="/store" className="mt-4 inline-flex min-h-10 w-full items-center justify-center rounded-lg bg-ink text-xs font-black !text-white transition hover:bg-[#0b2b49]">ورود به فروشگاه کامل</Link>
     </aside>
@@ -306,7 +292,7 @@ export function ContactCta() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_50%,rgba(21,116,167,.2),transparent_25%),linear-gradient(90deg,#06172a,#031426)]" />
       <div className="relative grid items-center gap-4 p-4 text-center md:grid-cols-[280px_1fr_150px] md:p-0 md:pr-5" dir="ltr">
         <div className="relative h-44 overflow-hidden rounded-lg md:h-48 md:rounded-none" data-aos="fade-right"><Image src="/images/support-technician-night.webp" alt="تکنسین امداد خودرو در حال پاسخ‌گویی تلفنی کنار ون امدادی" fill sizes="(min-width: 768px) 280px, 100vw" className="object-cover object-[23%_38%]" /><div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-ink md:block" /></div>
-        <div className="py-2 text-center" dir="rtl" data-aos="fade-up"><h2 className="text-xl font-black">همین حالا کمک می‌خواهید؟</h2><p className="mt-2 text-xs text-slate-300">با یک تماس، نزدیک‌ترین متخصص به سمت شما می‌آید.</p><div className="mt-4 flex flex-wrap items-center justify-center gap-4"><ButtonLink href="tel:09123022064"><Icon name="phone" size={18} /> تماس فوری</ButtonLink><a href="tel:09123022064" dir="ltr" className="text-xl font-black tracking-wide text-white">09123022064</a></div></div>
+        <div className="py-2 text-center" dir="rtl" data-aos="fade-up"><h2 className="text-xl font-black">همین حالا کمک می‌خواهید؟</h2><p className="mt-2 text-xs text-slate-300">با یک تماس، موقعیت و امکان اعزام متخصص بررسی می‌شود.</p><div className="mt-4 flex flex-wrap items-center justify-center gap-4"><ButtonLink href="tel:09123022064"><Icon name="phone" size={18} /> تماس فوری</ButtonLink><a href="tel:09123022064" dir="ltr" className="text-xl font-black tracking-wide text-white">09123022064</a></div></div>
         <div className="flex items-center justify-center py-2" data-aos="zoom-in">
           <div className="relative h-32 w-32 rounded-full border-2 border-cyan-300/30 bg-[radial-gradient(circle,#123b58_0%,#071a2e_68%)] shadow-[0_0_35px_rgba(14,165,233,.2)]" aria-label="دسترسی سریع به تماس صوتی، چت و دانلود">
             <span className="absolute left-1/2 top-3 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full border border-cyan-300/40 bg-cyan-400/15"><Icon name="mic" className="text-cyan-200" /></span>

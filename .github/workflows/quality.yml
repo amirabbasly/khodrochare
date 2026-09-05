@@ -1,0 +1,43 @@
+name: Production and SEO quality
+on:
+  push:
+    branches: [main, 'arena/**']
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      NEXT_PUBLIC_GA_ID: ''
+      SERVICE_REQUEST_WEBHOOK_URL: ''
+      SERVICE_REQUEST_WEBHOOK_TOKEN: ''
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint -- --max-warnings=0
+      - run: npm run test:unit
+      - run: npm run build
+      - run: npm run test:seo
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - run: npm run indexing:export && git diff --exit-code -- docs/google-indexing-urls.txt
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-evidence
+          path: |
+            coverage/seo/production-report.json
+            coverage/browser/
+          retention-days: 14

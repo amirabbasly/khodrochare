@@ -11,16 +11,17 @@ const openAllWeek = {
 const servedCities = [
   { "@type": "City", name: "تهران", "@id": `${siteUrl}/#city-tehran` },
   { "@type": "City", name: "کرج", "@id": `${siteUrl}/#city-karaj` },
+  ...["گیلان", "مازندران", "گلستان"].map((name) => ({ "@type": "AdministrativeArea", name })),
 ];
 
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "AutoRepair", "EmergencyService"],
+  "@type": ["LocalBusiness", "AutoRepair"],
   "@id": `${siteUrl}/#organization`,
   name: "خودرو چاره",
   alternateName: ["خودروچاره", "Khodrochare"],
   description:
-    "سامانه امداد خودرو آنلاین و خدمات خودرو در محل؛ هماهنگی امدادگر، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی در تهران و کرج به‌صورت شبانه‌روزی.",
+    "سامانه امداد خودرو آنلاین و خدمات خودرو در محل؛ هماهنگی امدادگر، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی در تهران، کرج، گیلان، مازندران و گلستان با هماهنگی شبانه‌روزی.",
   url: siteUrl,
   logo: {
     "@type": "ImageObject",
@@ -34,7 +35,7 @@ export const organizationSchema = {
   email: "info@khodrochare.ir",
   sameAs: [
     "https://www.instagram.com/khodrochare",
-    "https://web.bale.ai/chat?uid=6102593448",
+    businessFacts.baleUrl,
   ],
   address: {
     "@type": "PostalAddress",
@@ -46,9 +47,8 @@ export const organizationSchema = {
   areaServed: servedCities,
   serviceArea: servedCities,
   availableLanguage: [{ "@type": "Language", name: "Persian", alternateName: "fa" }],
-  numberOfEmployees: { "@type": "QuantitativeValue", value: 100 },
   knowsAbout: [...businessFacts.services, "امداد خودرو آنلاین"],
-  slogan: "امداد خودرو آنلاین و شبانه‌روزی در تهران و کرج",
+  slogan: "امداد خودرو آنلاین در تهران، کرج و شمال کشور",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "خدمات امداد خودرو و خدمات خودرو در محل",
@@ -71,7 +71,7 @@ export const websiteSchema = {
   url: `${siteUrl}/`,
   name: "خودرو چاره",
   alternateName: ["خودروچاره", "khodrochare.ir"],
-  description: "امداد خودرو آنلاین، یدک‌کش، خودروبر، مکانیک سیار و خدمات خودرو در محل در تهران و کرج.",
+  description: "امداد خودرو آنلاین، یدک‌کش، خودروبر، مکانیک سیار و خدمات خودرو در محل در تهران، کرج و شمال کشور.",
   inLanguage: "fa-IR",
   publisher: { "@id": `${siteUrl}/#organization` },
 };
@@ -90,8 +90,8 @@ export function breadcrumbSchema(items: { name: string; path?: string }[], pageP
   };
 }
 
-export function serviceSchema({ name, description, path, area, image }: { name: string; description: string; path: string; area: string; image?: string }) {
-  const areaServed = area === "تهران و کرج" ? servedCities : [{ "@type": "City", name: area }];
+export function serviceSchema({ name, description, path, area, image, areaType = "City" }: { name: string; description: string; path: string; area: string; image?: string; areaType?: "City" | "AdministrativeArea" | "Place" }) {
+  const areaServed = area === "تهران و کرج" ? servedCities.slice(0, 2) : area === "محدوده پوشش" ? servedCities : [{ "@type": areaType, name: area }];
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -104,7 +104,7 @@ export function serviceSchema({ name, description, path, area, image }: { name: 
     areaServed,
     availableChannel: {
       "@type": "ServiceChannel",
-      serviceUrl: `${siteUrl}/#request`,
+      serviceUrl: `${siteUrl}/${encodeURIComponent("امداد-خودرو-آنلاین")}#request`,
       servicePhone: { "@type": "ContactPoint", telephone: "+989123022064", contactType: "emergency", availableLanguage: ["fa"] },
       availableLanguage: ["fa"],
     },

@@ -1,58 +1,35 @@
 import type { Metadata } from "next";
+import { decodeRouteParam } from "@/seo/route-params";
 import { notFound } from "next/navigation";
-import { CityServiceLanding } from "@/components/seo/city-pages";
+import { allCities, findCity } from "@/content/coverage";
+import { findNeighborhood, neighborhoods } from "@/content/neighborhoods";
+import { CityServiceLanding, NeighborhoodLanding } from "@/components/seo/location-landings";
 import { ExpandedRegionLanding } from "@/components/seo/regional-landing-pages";
 import { persianServiceRoutes } from "@/seo/internal-links";
-import { seoLocations, seoRegions } from "@/seo/locations";
+import { seoRegions } from "@/seo/locations";
 import { seoMetadata } from "@/seo/metadata";
 import { getService } from "@/content/services";
-
-const paramsList = [...Object.values(seoLocations).flatMap((location) => persianServiceRoutes.map((route) => ({ city: location.slug, slug: route.slug }))), ...Object.values(seoRegions).map((region) => ({ city: region.citySlug, slug: region.slug }))];
-export function generateStaticParams() { return paramsList; }
-
-export async function generateMetadata({ params }: { params: Promise<{ city: string; slug: string }> }): Promise<Metadata> {
-  const rawParams = await params;
-  const city = decodeURIComponent(rawParams.city);
-  const slug = decodeURIComponent(rawParams.slug);
-  const location = Object.values(seoLocations).find((item) => item.slug === city);
-  const route = persianServiceRoutes.find((item) => item.slug === slug);
-  const region = Object.values(seoRegions).find((item) => item.slug === slug);
-  if (!location) return {};
-  if (route) {
-    const titles: Record<string, string> = {
-      "پنچرگیری-سیار": `پنچرگیری سیار ${location.name} و تعویض لاستیک در محل`,
-      "دیاگ-سیار": `دیاگ سیار ${location.name} | عیب‌یابی خودرو در محل`,
-      "کارواش-سیار": `کارواش سیار ${location.name} | شست‌وشوی خودرو در محل`,
-      "امداد-خودرو": `امداد خودرو آنلاین ${location.name} | اعزام شبانه‌روزی`,
-    };
-    const descriptions: Record<string, string> = {
-      "پنچرگیری-سیار": `درخواست پنچرگیری سیار و تعویض لاستیک در محل ${location.name}؛ هماهنگی شبانه‌روزی، بررسی موقعیت، زمان تقریبی اعزام و عوامل مؤثر بر هزینه.`,
-      "دیاگ-سیار": `ثبت درخواست دیاگ سیار ${location.name} برای بررسی چراغ چک، خطاهای ECU و عیب‌یابی اولیه خودرو در محل با هماهنگی شبانه‌روزی.`,
-      "کارواش-سیار": `درخواست کارواش سیار ${location.name} برای شست‌وشوی خودرو در محل؛ معرفی خدمات، شرایط محل، عوامل هزینه و نحوه هماهنگی آنلاین.`,
-      "یدک-کش": `درخواست یدک کش و حمل خودرو در ${location.name}؛ انتخاب وسیله متناسب، زمان اعزام، عوامل هزینه و هماهنگی آنلاین خودرو چاره.`,
-    };
-    const service = getService(route.serviceSlug);
-    return seoMetadata({
-      title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`,
-      description: descriptions[route.slug] ?? `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام و عوامل مؤثر بر قیمت.`,
-      path: `/${city}/${slug}`,
-      keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`],
-      ...(service ? { image: service.image, imageAlt: `${route.title} در ${location.name}` } : {}),
-    });
-  }
-  if (region) return seoMetadata({ title: `امداد خودرو ${region.name} شبانه‌روزی | درخواست آنلاین`, description: region.metaDescription, path: `/${city}/${slug}`, keywords: [`امداد خودرو ${region.name}`, `یدک کش ${region.name}`, `مکانیک سیار ${region.name}`], image: region.image, imageAlt: `امداد خودرو ${region.name}` });
-  return {};
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return [...allCities.flatMap((city) => persianServiceRoutes.map((route) => ({ city: city.slug, slug: route.slug }))), ...Object.values(seoRegions).map((region) => ({ city: region.citySlug, slug: region.slug })), ...neighborhoods.map((area) => ({ city: area.citySlug, slug: area.slug }))];
 }
-
-export default async function CitySlugPage({ params }: { params: Promise<{ city: string; slug: string }> }) {
-  const rawParams = await params;
-  const city = decodeURIComponent(rawParams.city);
-  const slug = decodeURIComponent(rawParams.slug);
-  const location = Object.values(seoLocations).find((item) => item.slug === city);
+function resolve(citySlug: string, slug: string) {
+  const city = findCity(citySlug); if (!city) notFound();
   const route = persianServiceRoutes.find((item) => item.slug === slug);
-  const region = Object.values(seoRegions).find((item) => item.slug === slug);
-  if (!location) notFound();
-  if (route) return <CityServiceLanding location={location} route={route} />;
-  if (region) return <ExpandedRegionLanding location={location} region={region} />;
-  notFound();
+  const region = Object.values(seoRegions).find((item) => item.slug === slug && item.citySlug === citySlug);
+  const neighborhood = findNeighborhood(citySlug, slug);
+  if (!route && !region && !neighborhood) notFound();
+  return { city, route, region, neighborhood };
+}
+export async function generateMetadata({ params }: { params: Promise<{ city: string; slug: string }> }): Promise<Metadata> {
+  const raw = await params; const citySlug = decodeRouteParam(raw.city); const slug = decodeRouteParam(raw.slug); const { city, route, region, neighborhood } = resolve(citySlug, slug); const path = `/${citySlug}/${slug}`;
+  if (route) { const service = getService(route.serviceSlug)!; return seoMetadata({ title: `${route.title} ${city.name} | هزینه و هماهنگی`, description: `${route.title} در ${city.name}؛ اطلاعات لازم برای اعزام، شرایط دسترسی، محدودیت‌های ایمنی و عوامل هزینه با هماهنگی خودرو چاره.`, path, image: service.image }); }
+  if (region) return seoMetadata({ title: `امداد خودرو ${region.name} | خدمات و محله‌ها`, description: region.metaDescription, path, image: region.image });
+  return seoMetadata({ title: `امداد خودرو ${neighborhood!.name} | یدک‌کش و مکانیک سیار`, description: `امداد خودرو ${neighborhood!.name}؛ راهنمای دسترسی به ${neighborhood!.landmarks.slice(0, 2).join(" و ")}، تعمیر در محل، حمل خودرو و اعلام هزینه پیش از خدمت.`, path });
+}
+export default async function Page({ params }: { params: Promise<{ city: string; slug: string }> }) {
+  const raw = await params; const citySlug = decodeRouteParam(raw.city); const slug = decodeRouteParam(raw.slug); const { city, route, region, neighborhood } = resolve(citySlug, slug);
+  if (route) return <CityServiceLanding location={city} route={route} />;
+  if (region) return <ExpandedRegionLanding location={city} region={region} />;
+  return <NeighborhoodLanding city={city} area={neighborhood!} />;
 }
