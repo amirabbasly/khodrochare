@@ -1,4 +1,8 @@
 import type { MetadataRoute } from "next";
+import { northernProvinces, coverageUpdatedAt } from "@/content/coverage";
+import { neighborhoods } from "@/content/neighborhoods";
+import { brandProfiles } from "@/content/brands";
+import { roadProfiles } from "@/content/roads";
 import { blogContentUpdatedAtIso, blogPosts } from "@/content/blog";
 import { services } from "@/content/services";
 import { persianServiceRoutes } from "@/seo/internal-links";
@@ -10,8 +14,8 @@ import { absoluteUrl } from "@/seo/metadata";
  * URLs do not match the canonical tags Next.js renders and crawlers may treat them
  * as separate (or invalid) locations. `absoluteUrl()` handles the encoding.
  */
-const siteUpdatedAt = new Date("2026-09-04T00:00:00.000Z");
-const contentUpdatedAt = new Date("2026-09-04T00:00:00.000Z");
+const siteUpdatedAt = new Date("2026-09-05T00:00:00.000Z");
+const contentUpdatedAt = new Date("2026-09-05T00:00:00.000Z");
 const staticPageUpdatedAt = new Date("2026-08-27T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -25,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/assistant"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/about"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.6 },
-    { url: absoluteUrl("/pricing"), lastModified: staticPageUpdatedAt, changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/pricing"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.8 },
   ];
 
   const cityPages: MetadataRoute.Sitemap = Object.values(seoLocations).flatMap((location) => [
@@ -72,5 +76,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [absoluteUrl(post.image)],
   }));
 
-  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages];
+  const newPages = [
+    "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/شمال", "/brands", "/roads", "/editorial-policy", "/privacy",
+    ...northernProvinces.map((province) => `/${province.slug}`),
+    ...brandProfiles.map((brand) => `/brands/${brand.slug}`),
+    ...neighborhoods.map((area) => `/${area.citySlug}/${area.slug}`),
+    ...roadProfiles.map((road) => `/roads/${road.slug}`),
+  ].map((path) => ({ url: absoluteUrl(path), lastModified: new Date(`${coverageUpdatedAt}T00:00:00.000Z`) }));
+  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages];
 }

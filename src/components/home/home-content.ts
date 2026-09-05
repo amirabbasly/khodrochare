@@ -1,12 +1,11 @@
 export const navLinks = [
-  { label: "صفحه اصلی", href: "/" },
+  { label: "امداد خودرو", href: "/امداد-خودرو" },
+  { label: "امداد آنلاین", href: "/امداد-خودرو-آنلاین" },
   { label: "خدمات", href: "/services" },
-  { label: "فروشگاه", href: "/store" },
-  { label: "محدوده پوشش", href: "/coverage" },
-  { label: "اپلیکیشن", href: "/app" },
-  { label: "دستیار هوشمند", href: "/assistant" },
-  { label: "قوانین و مقررات", href: "/rules" },
-  { label: "وبلاگ", href: "/blog" },
+  { label: "پوشش مناطق", href: "/coverage" },
+  { label: "برندها", href: "/brands" },
+  { label: "هزینه خدمات", href: "/pricing" },
+  { label: "مجله", href: "/blog" },
 ] as const;
 
 export const serviceTiles = [
@@ -46,15 +45,15 @@ export const products = [
 ] as const;
 
 export const processSteps = [
-  { title: "ثبت درخواست", desc: "نوع خدمت و موقعیت خود را وارد کنید.", icon: "form" },
-  { title: "تأیید و اعزام", desc: "متخصص نزدیک شما درخواست را می‌پذیرد.", icon: "truck" },
-  { title: "پیگیری زنده", desc: "مسیر رسیدن متخصص را لحظه‌ای ببینید.", icon: "pin" },
+  { title: "آماده‌سازی اطلاعات", desc: "نوع خدمت، خودرو و محل توقف را مشخص کنید.", icon: "form" },
+  { title: "تأیید و اعزام", desc: "ظرفیت، زمان و هزینه با اپراتور هماهنگ می‌شود.", icon: "truck" },
+  { title: "پیگیری هماهنگی", desc: "برای تأیید وضعیت، با پشتیبانی در تماس باشید.", icon: "pin" },
 ] as const;
 
 export const trustItems = [
-  { title: "خدمات مطمئن", desc: "متخصصان ارزیابی‌شده", image: "/images/trust-safe.svg" },
+  { title: "خدمات مطمئن", desc: "انتخاب خدمت متناسب", image: "/images/trust-safe.svg" },
   { title: "قیمت منصفانه", desc: "اعلام هزینه پیش از شروع", image: "/images/trust-price.svg" },
-  { title: "تضمین کیفیت", desc: "گارانتی خدمت و قطعه", image: "/images/quality-guarantee.svg" },
+  { title: "پیگیری خدمت", desc: "هماهنگی رسید و شرایط ضمانت", image: "/images/quality-guarantee.svg" },
   { title: "پشتیبانی ۲۴/۷", desc: "پاسخ‌گویی شبانه‌روزی", image: "/images/trust-247.svg" },
 ] as const;
 

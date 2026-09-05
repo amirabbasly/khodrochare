@@ -1,11 +1,6 @@
-export type SeoLocation = {
-  slug: string;
-  name: string;
-  region: string;
-  description: string;
-  keywords: readonly string[];
-  areas: readonly string[];
-};
+import { cityProfiles, type CityProfile } from "@/content/coverage";
+
+export type SeoLocation = CityProfile;
 
 export type SeoRegion = {
   citySlug: "تهران";
@@ -22,10 +17,7 @@ export type SeoRegion = {
   faqs: readonly { question: string; answer: string }[];
 };
 
-export const seoLocations = {
-  tehran: { slug: "تهران", name: "تهران", region: "استان تهران", description: "امداد خودرو آنلاین و شبانه‌روزی در مناطق ۲۲گانه تهران با اعزام معمولاً کمتر از ۳۰ دقیقه، متناسب با ترافیک و موقعیت امدادگر.", keywords: ["امداد خودرو تهران", "امداد خودرو آنلاین تهران", "امداد خودرو شبانه روزی تهران"], areas: ["شمال تهران؛ مناطق ۱، ۲ و ۳", "شرق تهران؛ مناطق ۴، ۸، ۱۳ و ۱۴", "غرب تهران؛ مناطق ۵، ۹، ۲۱ و ۲۲", "مرکز تهران؛ مناطق ۶، ۷، ۱۰، ۱۱ و ۱۲", "جنوب تهران؛ مناطق ۱۵ تا ۲۰"] },
-  karaj: { slug: "کرج", name: "کرج", region: "استان البرز", description: "امداد خودرو آنلاین و شبانه‌روزی در همه مناطق کرج با خدمات امداد در محل، باتری، پنچرگیری، مکانیک سیار، یدک‌کش و خودروبر و اعزام معمولاً کمتر از ۳۰ دقیقه.", keywords: ["امداد خودرو کرج", "امداد خودرو آنلاین کرج", "امداد خودرو شبانه روزی کرج"], areas: ["مرکز کرج، جهانشهر و عظیمیه", "گوهردشت، باغستان و حصارک", "مهرشهر، کیانمهر و محمدشهر", "فردیس، کمالشهر و حومه کرج", "محور تهران–کرج و مسیرهای دسترسی اطراف"] },
-} satisfies Record<string, SeoLocation>;
+export const seoLocations = cityProfiles;
 
 export const seoRegions = {
   northTehran: {
@@ -40,7 +32,7 @@ export const seoRegions = {
     faqs: [
       { question: "امداد خودرو شمال تهران چه مناطقی را پوشش می‌دهد؟", answer: "درخواست‌ها در مناطق ۱، ۲ و ۳ و محله‌هایی مانند نیاوران، زعفرانیه، تجریش، پاسداران، ونک، سعادت‌آباد و شهرک غرب بررسی می‌شوند." },
       { question: "آیا یدک‌کش وارد پارکینگ شمال تهران می‌شود؟", answer: "به ارتفاع ورودی، شیب رمپ، فضای مانور و وضعیت خودرو بستگی دارد. این محدودیت‌ها باید هنگام ثبت درخواست اعلام شوند." },
-      { question: "زمان اعزام در شمال تهران چقدر است؟", answer: "اعزام معمولاً کمتر از ۳۰ دقیقه انجام می‌شود، اما ترافیک، محله، ساعت درخواست و فاصله امدادگر روی زمان دقیق اثر دارند." },
+      { question: "زمان اعزام در شمال تهران چقدر است؟", answer: "زمان اعزام پس از بررسی موقعیت و ظرفیت مشخص می‌شود. ترافیک، محله، ساعت درخواست و تجهیزات موردنیاز روی زمان اثر دارند؛ عدد ثابت تضمین نمی‌شود." },
     ],
   },
   eastTehran: {
@@ -104,6 +96,3 @@ export const seoRegions = {
     ],
   },
 } satisfies Record<string, SeoRegion>;
-
-// Neighborhood pages are added only after real operational details are verified.
-export const verifiedNeighborhoods: readonly string[] = [];

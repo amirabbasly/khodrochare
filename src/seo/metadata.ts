@@ -13,7 +13,7 @@ export const defaultOgImage = {
 /** Percent-encodes Persian paths so canonical/sitemap/OG URLs stay RFC 3986 valid. */
 export function absoluteUrl(path: string) {
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${siteUrl}${encodeURI(normalized)}`;
+  return new URL(normalized, siteUrl).href;
 }
 
 /**
@@ -62,9 +62,9 @@ export function seoMetadata({
     title,
     description,
     ...(keywords?.length ? { keywords: [...keywords] } : {}),
-    alternates: { canonical: path },
+    alternates: { canonical: url },
     robots: noindex
-      ? { index: false, follow: true }
+      ? { index: false, follow: true, googleBot: { index: false, follow: true } }
       : { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
     openGraph: {
       title,

@@ -55,19 +55,19 @@ export function RouteMap({ compact = false }: { compact?: boolean }) {
       <div className={`absolute inset-0 ${compact ? "p-3" : "p-4"}`}>
         <CityPin label="تهران" x="52%" y="44%" active />
         <CityPin label="کرج" x="46%" y="47%" active />
-        <CityPin label="قم" x="50%" y="58%" locked />
-        <CityPin label="اصفهان" x="57%" y="64%" locked />
-        <CityPin label="مشهد" x="76%" y="39%" locked />
+        <CityPin label="رشت" x="39%" y="36%" active />
+        <CityPin label="ساری" x="57%" y="38%" active />
+        <CityPin label="گرگان" x="67%" y="35%" active />
         <CityPin label="شیراز" x="50%" y="76%" locked />
         <CityPin label="تبریز" x="28%" y="33%" locked />
         <CityPin label="اهواز" x="31%" y="72%" locked />
 
         <div className="absolute left-4 top-4 rounded-full border border-emerald-500/30 bg-white/85 px-3 py-1.5 text-[10px] font-black text-emerald-700 shadow-sm">
-          تهران و کرج فعال
+          تهران، کرج و شمال فعال
         </div>
 
         <div className="absolute bottom-4 right-4 rounded-xl border border-white/70 bg-white/90 px-3 py-2 text-[10px] font-bold text-slate-600 shadow-sm">
-          سایر شهرها در صف فعال‌سازی
+          تصویر شماتیک؛ پوشش نهایی با بررسی موقعیت
         </div>
       </div>
     </div>
@@ -209,7 +209,7 @@ export function PhoneMockup({ assistant = false }: { assistant?: boolean }) {
             </div>
             <div className="mx-4 mt-3 flex items-center justify-between rounded-xl bg-emerald-50 p-3">
               <span className="text-[10px] font-bold text-emerald-700">امدادگر در مسیر است</span>
-              <span className="text-xs font-black text-emerald-700">۱۸ دقیقه</span>
+              <span className="text-xs font-black text-emerald-700">پس از هماهنگی</span>
             </div>
           </>
         )}

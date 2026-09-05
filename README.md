@@ -1,43 +1,67 @@
 # خودرو چاره — khodrochare.ir
 
-سایت رسمی خودرو چاره؛ سامانه امداد خودرو آنلاین و خدمات خودرو در محل (تهران و کرج).
-پروژه با **Next.js 16 (App Router)**، **React 19** و **Tailwind CSS 4** ساخته شده و صفحات به‌صورت ایستا (SSG) رندر می‌شوند.
+وب‌سایت فارسی هماهنگی خدمات و امداد خودرو در تهران، کرج، گیلان، مازندران و گلستان؛ **Next.js 16، React 19، TypeScript و Tailwind CSS 4**.
 
-## اجرا
+## اجرا و کنترل کیفیت
+
+Node.js **22** پیشنهاد می‌شود؛ CI هم روی همین نسخه است.
 
 ```bash
-npm install
-npm run dev      # محیط توسعه روی http://localhost:3000
-npm run build    # بیلد پروداکشن
-npm start        # اجرای بیلد
-npm run lint     # ESLint
-npm run og:images  # ساخت تصاویر اشتراک‌گذاری ۱۲۰۰×۶۳۰ (JPEG) از تصاویر محتوا
+npm ci
+npm run dev -- --hostname 0.0.0.0
+npm run lint -- --max-warnings=0
+npm run test:unit
+npm run build
+npm run test:seo
+npx playwright install --with-deps chromium
+npm run test:browser
+npm run indexing:export
+npm run start -- --hostname 0.0.0.0
 ```
+
+- `test:seo` به build کامل نیاز دارد؛ سرور production موقت را اجرا و در پایان می‌بندد. تمام URLهای نقشه سایت، حفظ ۶۵ URL اولیه، لینک‌ها، دارایی‌های ارجاع‌شده، canonical، robots، JSON-LD، ریدایرکت فارسی و ۴۰۴ واقعی مسیر نامعتبر بررسی می‌شوند.
+- `test:browser` هم سرور موقت جدا می‌سازد؛ نمایش RTL در موبایل/دسکتاپ، ناوبری فارسی، فرم و ماشین‌حساب را می‌آزماید. برای Chromium ازپیش‌نصب‌شده می‌توان `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` را تنظیم کرد.
+- گزارش‌های تولیدشده در `coverage/` هستند و وارد Git نمی‌شوند. فایل فهرست URLهای ایندکس عمداً در `docs/` نگهداری می‌شود.
+- هر دو سرور آزمون اتصال واقعی پذیرش را خاموش می‌کنند؛ دادهٔ آزمایشی نباید سفارش واقعی بسازد.
+- workflow در `.github/workflows/quality.yml` همین بررسی‌ها را روی push و PR تکرار می‌کند؛ انتشار GitHub به معنی deploy روی سرور نیست.
+
+## معماری محتوا و مسیرها
+
+| محل | کاربرد |
+| --- | --- |
+| `src/content/coverage.ts` | شهرها، سه استان شمالی و محتوای متمایز دسترسی/حمل |
+| `src/content/neighborhoods.ts` | محله‌های تهران و محدوده‌های کرج، با اعتبارسنجی شهر والد |
+| `src/content/brands.ts` | ۱۲ برند، تفاوت مدل/گیربکس/باتری/حمل و راهنماهای مرتبط |
+| `src/content/roads.ts` | ۵ محور اصلی شمال؛ بدون ادعای وضعیت زنده جاده |
+| `src/app/[city]` | شهرها، استان‌ها و راهنماهای اصلی فارسی، با SSG |
+| `src/app/brands`, `src/app/roads` | صفحه‌های برند و محور |
+| `src/components/pages` | صفحات اصلی «امداد خودرو»، «امداد خودرو آنلاین» و «شمال» |
+| `src/components/requests`, `src/app/api/service-requests` | فرم صادقانه و انتقال اختیاری به پذیرش |
+| `src/components/calculator`, `src/lib/pricing.ts` | محاسبه با نرخ واردشده توسط خود کاربر، بدون تعرفه ساختگی |
+| `src/seo` | متادیتا، schema، مسیرهای قدیمی و نرمال‌سازی پارامترها |
+| `tests`, `scripts` | آزمون و استخراج فهرست ایندکس |
+
+مسیرهای فارسی با پارامتر پویا تولید می‌شوند تا مشکل prerender پوشهٔ فارسی ثابت در نسخه فعلی Next دور زده شود؛ URL عمومی همچنان فارسی است. پارامترهای percent-encoded قبل از lookup نرمال می‌شوند. صرف موفقیت build برای اثبات سلامت صفحات کافی نیست؛ تست HTTP الزامی است.
 
 ## متغیرهای محیطی
 
 | متغیر | کاربرد |
 | --- | --- |
-| `NEXT_PUBLIC_GA_ID` | شناسه GA4. تنها در صورت ست‌بودن، اسکریپت گوگل آنالیتیکس لود می‌شود. |
-| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | مقدار متا-تگ تأیید Google Search Console. |
-| `OPENAI_API_KEY` (یا کلید سرویس دستیار) | استفاده در `/api/chat` برای دستیار هوشمند. |
+| `NEXT_PUBLIC_GA_ID` | اختیاری؛ بارگذاری GA4 فقط در صورت تنظیم. |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | اختیاری؛ متا‌تگ GSC. تأیید DNS نیز معتبر است. |
+| `OPENAI_API_KEY` و تنظیمات موجود سرویس دستیار | فقط سمت سرور، برای `/api/chat`. |
+| `SERVICE_REQUEST_WEBHOOK_URL` | اختیاری؛ مقصد HTTPS پذیرش واقعی، فقط سمت سرور. |
+| `SERVICE_REQUEST_WEBHOOK_TOKEN` | اختیاری؛ توکن محرمانه مقصد پذیرش، فقط سمت سرور. |
 
-## ساختار پوشه‌ها
+**پذیرش مستقیم بدون webhook فعال نیست.** فرم در این حالت فقط خلاصه تماس می‌سازد و سفارش ثبت نمی‌کند. حتی با اتصال، تحویل اطلاعات با اعزام قطعی تفاوت دارد. قرارداد، حفاظت داده و شرایط فعال‌سازی: [راهنمای پذیرش](docs/online-intake.md).
 
-```
-src/app          صفحات App Router + robots.ts, sitemap.ts, manifest.ts, blog/feed.xml
-src/components   کامپوننت‌های سایت (home, site, seo, store, assistant)
-src/content      محتوای ساخت‌یافته: خدمات، مقالات، پرسش‌های متداول، اطلاعات کسب‌وکار
-src/seo          متادیتا، اسکیما، کلیدواژه‌ها، شهرها/مناطق و لینک‌سازی داخلی
-scripts          اسکریپت‌های کمکی (تولید تصاویر OG)
-deploy/nginx     کانفیگ Nginx پروداکشن
-docs             مستندات، از جمله گزارش کامل سئو
-```
+## استقرار، سئو و ایندکس
 
-## نکات سئو
+- راهنمای استقرار کاربر و URLهای اولویت‌دار: [راهنمای انتشار و ایندکس](docs/indexing-guide-2026-09-05.md).
+- فهرست کامل: [google-indexing-urls.txt](docs/google-indexing-urls.txt).
+- خلاصه تغییرات و شواهد آزمون: [گزارش این نسخه](docs/release-2026-09-05.md).
+- ممیزی وضعیت **پیش از** این تغییرات: [ممیزی ۱۴۰۵/۰۶/۱۴](docs/seo-audit-2026-09-05.md).
 
-* همه متادیتای صفحات از `src/seo/metadata.ts` (`seoMetadata()`) ساخته می‌شود تا canonical، Open Graph و Twitter Card همیشه هماهنگ باشند.
-* آدرس‌های فارسی همه‌جا (canonical، sitemap، JSON-LD) Percent-encode می‌شوند.
-* داده‌های ساخت‌یافته در `src/seo/schemas.ts` متمرکز است: LocalBusiness، WebSite، WebPage، Service، Article، BreadcrumbList، FAQPage و ItemList.
-* تصاویر اشتراک‌گذاری در `public/images/og/*.jpg` نگهداری می‌شوند؛ بعد از افزودن تصویر جدید به محتوا، `npm run og:images` را اجرا کنید.
-* گزارش کامل ممیزی و چک‌لیست اقدامات بیرون از کد: [`docs/seo-audit.md`](docs/seo-audit.md)
+همه صفحات از HTML سمت سرور، لینک‌های قابل خزیدن، متادیتای یکتا و داده ساختاریافته هماهنگ استفاده می‌کنند. دسترسی جست‌وجوی `OAI-SearchBot` از دسترسی آموزشی `GPTBot` جدا شده است؛ Cloudflare/WAF و robots نهایی سرور باید پس از deploy جداگانه بررسی شوند. فایل یا schema خاصی برای تضمین نمایش در جست‌وجوی هوش مصنوعی وجود ندارد. انتشار محتوا و درخواست crawl، تضمین ایندکس، رتبه یا نقل‌قول در پاسخ‌های AI نیست.
+
+`/store` به‌عنوان بخش آماده‌نشده همچنان `noindex` و بیرون از sitemap است. APIها و صفحه آفلاین محتوای ایندکس‌شدنی ندارند. برای شهر خارج از محدوده تأییدشده، شعبه، آدرس، قیمت و ظرفیت ساختگی درج نکنید.
