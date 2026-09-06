@@ -79,8 +79,8 @@ export function HeroCarousel() {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_45%,rgba(16,76,126,.14),transparent_34%),linear-gradient(90deg,rgba(4,15,29,.2)_0%,rgba(4,15,29,.3)_42%,rgba(4,15,29,.94)_76%,#061426_100%)] max-lg:bg-[linear-gradient(180deg,rgba(4,15,29,.28)_0%,rgba(4,15,29,.76)_43%,#061426_82%)]" />
 
       <div className="site-container relative min-h-[620px] pb-10 pt-8 sm:min-h-[660px] lg:min-h-[720px] lg:pb-32 lg:pt-10">
-        <div className="grid gap-8 lg:grid-cols-[.8fr_1.15fr]" dir="ltr">
-          <div className="hidden items-start md:flex" dir="rtl"><TechnicianMapCard /></div>
+        <div className="grid items-start gap-8 md:grid-cols-[minmax(0,.8fr)_minmax(0,1.15fr)]" dir="ltr">
+          <div className="hidden items-start md:flex" dir="rtl"><TechnicianMapCard paused={paused} /></div>
           <div key={active} className="hero-slide-copy min-w-0 max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
             <span className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/35 bg-black/20 px-3 text-xs font-bold"><Icon name={slides[active].icon} size={16} /> {slides[active].eyebrow}</span>
             <h1 className="mt-5 max-w-[16ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[0].title}</h1>
@@ -105,14 +105,14 @@ export function HeroCarousel() {
   );
 }
 
-function TechnicianMapCard() {
+function TechnicianMapCard({ paused }: { paused: boolean }) {
   return (
-    <div className="mt-2 w-80 overflow-hidden rounded-2xl border border-white/40 bg-white/95 text-ink shadow-2xl xl:w-[410px]">
+    <div className="mt-2 w-full max-w-[410px] overflow-hidden rounded-2xl border border-white/40 bg-white/95 text-ink shadow-2xl">
       <div className="flex items-center gap-3 px-4 py-4 xl:px-5">
         <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-900 xl:h-16 xl:w-16"><Image src="/images/technician.webp" alt="تصویر انتخاب تجهیز متناسب" fill sizes="64px" className="object-cover object-[18%_28%]" /></div>
-        <div><p className="text-xs font-bold text-slate-500 xl:text-sm">هماهنگی با اپراتور</p><p className="text-sm font-black xl:text-lg">انتخاب تجهیز متناسب</p><p className="mt-1 text-sm font-black text-amber-500 xl:text-base">اطلاعات نمایشی؛ نه رهگیری زنده</p></div>
+        <div><p className="text-xs font-bold text-slate-500 xl:text-sm">هماهنگی با اپراتور</p><p className="text-sm font-black xl:text-lg">انتخاب تجهیز متناسب</p><p className="mt-1 text-sm font-black text-amber-500 xl:text-base">یک تماس، یک چاره</p></div>
       </div>
-      <TowTruckStage compact />
+      <TowTruckStage compact paused={paused} />
       <div className="flex items-center justify-between px-4 py-3 text-xs xl:text-sm"><span>زمان اعزام</span><strong className="text-emerald-600">پس از بررسی موقعیت</strong></div>
     </div>
   );

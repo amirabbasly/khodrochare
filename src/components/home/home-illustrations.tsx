@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Icon } from "./home-ui";
+import { towHighlights, towHighlightSlotSeconds } from "@/content/home-highlights";
 
 export function RouteMap({ compact = false }: { compact?: boolean }) {
   return (
@@ -106,38 +107,39 @@ function CityPin({
   );
 }
 
-export function TowTruckStage({ compact = false }: { compact?: boolean }) {
-  const bubbles = [
-    "یدک‌کش رایگان با حمل به نزدیک‌ترین تعمیرگاه",
-    "اعزام فوری، مسیر زنده و هماهنگی تلفنی",
-    "دریافت امداد با یک تماس، بدون معطلی",
-  ];
-
+export function TowTruckStage({ compact = false, paused = false }: { compact?: boolean; paused?: boolean }) {
   return (
-    <div className={`relative overflow-hidden border border-white/15 bg-[radial-gradient(circle_at_30%_20%,rgba(14,165,233,.24),transparent_26%),linear-gradient(180deg,#091a2d_0%,#06111f_100%)] text-white shadow-[0_22px_50px_rgba(2,8,20,.3)] ${compact ? "h-[250px] rounded-none p-2" : "h-[340px] rounded-[1.8rem] p-4 lg:h-[440px]"}`}>
+    <div
+      data-testid="tow-stage"
+      data-paused={paused}
+      className={`tow-stage relative overflow-hidden border border-white/15 bg-[radial-gradient(circle_at_30%_20%,rgba(14,165,233,.24),transparent_26%),linear-gradient(180deg,#091a2d_0%,#06111f_100%)] text-white shadow-[0_22px_50px_rgba(2,8,20,.3)] ${compact ? "h-[250px] rounded-none p-2" : "h-[340px] rounded-[1.8rem] p-4 lg:h-[440px]"}`}
+    >
       <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,.15),transparent)]" />
       <div className="absolute inset-x-0 bottom-0 h-20 bg-[linear-gradient(0deg,rgba(0,0,0,.25),transparent)]" />
       <div className="tow-stage-stars absolute inset-0 opacity-70" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-        <span />
+        <span /><span /><span /><span />
       </div>
 
-      <div className={`absolute left-3 right-3 flex flex-col items-center gap-2 ${compact ? "top-3" : "top-4"}`}>
-        {bubbles.map((text, index) => (
-          <div
-            key={text}
-            className={`tow-bubble inline-flex max-w-[92%] items-center rounded-full border border-cyan-300/35 bg-white/92 text-center font-black text-slate-900 shadow-lg ${compact ? "px-3 py-1.5 text-[9px]" : "px-4 py-2 text-[11px]"}`}
-            style={{ animationDelay: `${index * 3}s` }}
+      <ul
+        className={`absolute inset-x-3 z-10 h-20 ${compact ? "top-4" : "top-6"}`}
+        aria-label="ویژگی‌های خودرو چاره"
+        aria-live="off"
+      >
+        {towHighlights.map((highlight, index) => (
+          <li
+            key={highlight.text}
+            className="tow-bubble flex min-h-16 items-center justify-center gap-2 rounded-2xl border border-cyan-100/70 bg-white px-3 py-3 text-center text-xs font-black leading-6 text-slate-900 shadow-[0_10px_28px_rgba(0,0,0,.2)] sm:text-sm"
+            style={{ animationDelay: `${index * towHighlightSlotSeconds}s`, animationDuration: `${towHighlights.length * towHighlightSlotSeconds}s` }}
           >
-            {text}
-          </div>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-50 text-brand-orange"><Icon name={highlight.icon} size={18} /></span>
+            <span>{highlight.text}</span>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      <div className="absolute inset-x-0 bottom-4 flex justify-center">
-        <div className={`tow-truck relative ${compact ? "w-[260px]" : "w-[290px] lg:w-[360px]"}`} aria-label="یدک‌کش متحرک">
+      <div className="tow-road absolute inset-x-0 bottom-6 h-px bg-slate-400/30" aria-hidden="true" />
+      <div className="absolute inset-x-0 bottom-3 flex justify-center" aria-hidden="true">
+        <div className={`tow-truck relative max-w-[94%] ${compact ? "w-[260px]" : "w-[290px] lg:w-[360px]"}`}>
           <div className="tow-shadow" />
           <div className="tow-body">
             <div className="tow-bed" />
@@ -153,10 +155,7 @@ export function TowTruckStage({ compact = false }: { compact?: boolean }) {
           </div>
         </div>
       </div>
-
-      <div className={`absolute bottom-4 left-4 rounded-2xl border border-white/10 bg-white/5 px-3 py-2 font-bold text-slate-200 backdrop-blur-sm ${compact ? "text-[8px]" : "text-[10px]"}`}>
-        در مسیر نزدیک‌ترین تعمیرگاه
-      </div>
+      <p className="absolute inset-x-0 bottom-1 text-center text-[9px] font-bold text-slate-400">خودرو چاره، همراه شما در مسیر</p>
     </div>
   );
 }

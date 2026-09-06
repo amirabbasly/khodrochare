@@ -10,7 +10,7 @@
 ۲. پس از دریافت نسخه، با Node 22 اجرا کنید:
 
 ```bash
-npm ci
+npm ci --include=dev
 npm run lint -- --max-warnings=0
 npm run test:unit
 npm run build

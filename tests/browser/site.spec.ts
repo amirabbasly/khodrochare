@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 const templates = ["/app", "/coverage", "/تهران/شمال-تهران", "/", "/تهران", "/رشت", "/مازندران", "/شمال", "/تهران/سعادت-آباد", "/کرج/گوهردشت", "/رشت/یدک-کش", "/brands/toyota", "/roads/chalus", "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/pricing"];
 test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => localStorage.setItem("khodrochare:welcome-dismissed-at", String(Date.now())));
+  await page.addInitScript(() => sessionStorage.setItem("khodrochare:welcome-seen:v2", "1"));
   await page.route(/google-analytics\.com|googletagmanager\.com/, (route) => route.abort());
 });
 for (const path of templates) test(`render without overflow or hydration errors: ${path}`, async ({ page }, info) => {

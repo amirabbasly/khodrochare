@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ServiceRequestForm } from "@/components/requests/service-request-form";
+import { RequestPreviewCard } from "./request-preview-card";
 import Link from "next/link";
 import {
   brands,
@@ -27,9 +27,9 @@ export function HeroSection() {
 export function ServiceStrip() {
   const servicePaths = ["/services/tow-truck", "/services/jump-start", "/services/mobile-carwash", "/store"];
   return (
-    <section className="site-container relative z-20 -mt-5 lg:-mt-[120px]" aria-label="درخواست و دسته‌بندی خدمات" data-aos="fade-up">
-      <div className="grid items-end gap-3 lg:grid-cols-[1fr_400px]" dir="ltr">
-        <div className="order-2 grid grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
+    <section className="site-container relative z-20 -mt-5 lg:-mt-[120px]" aria-label="درخواست و دسته‌بندی خدمات" data-testid="service-strip" data-aos="fade-up">
+      <div className="grid items-start gap-3 lg:grid-cols-[minmax(0,1fr)_400px]" dir="ltr">
+        <div data-testid="service-categories" className="order-2 grid min-w-0 grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
           {serviceTiles.map((item, index) => (
             <a
               href={servicePaths[index]}
@@ -43,13 +43,12 @@ export function ServiceStrip() {
             </a>
           ))}
         </div>
-        <RequestForm />
+        <RequestPreviewCard />
       </div>
     </section>
   );
 }
 
-function RequestForm() { return <ServiceRequestForm compact />; }
 
 export function FeatureBanners() {
   return (
