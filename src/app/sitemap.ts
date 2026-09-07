@@ -1,3 +1,5 @@
+import { tools, toolsUpdatedAt } from "@/content/tools";
+import { growthUpdatedAt, growthUpdatedPaths } from "@/content/growth-updates";
 import type { MetadataRoute } from "next";
 import { northernProvinces, coverageUpdatedAt } from "@/content/coverage";
 import { neighborhoods } from "@/content/neighborhoods";
@@ -83,5 +85,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...neighborhoods.map((area) => `/${area.citySlug}/${area.slug}`),
     ...roadProfiles.map((road) => `/roads/${road.slug}`),
   ].map((path) => ({ url: absoluteUrl(path), lastModified: new Date(`${coverageUpdatedAt}T00:00:00.000Z`) }));
-  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages];
+  const toolPages: MetadataRoute.Sitemap = [
+    { url: absoluteUrl("/tools"), lastModified: new Date(toolsUpdatedAt) },
+    ...tools.map((tool) => ({ url: absoluteUrl(`/tools/${tool.slug}`), lastModified: new Date(toolsUpdatedAt), images: [absoluteUrl(tool.image)] })),
+  ];
+  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages, ...toolPages].map((page) =>
+    growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
+  );
 }

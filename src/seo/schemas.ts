@@ -139,7 +139,7 @@ export function itemListSchema({ name, path, items }: { name: string; path: stri
   };
 }
 
-export function articleSchema({ title, description, path, image, publishedAt, modifiedAt, section, keywords, timeRequired, wordCount }: { title: string; description: string; path: string; image: string; publishedAt: string; modifiedAt?: string; section?: string; keywords?: string[]; timeRequired?: string; wordCount?: number }) {
+export function articleSchema({ title, description, path, image, publishedAt, modifiedAt, section, keywords, timeRequired, wordCount, citations }: { title: string; description: string; path: string; image: string; publishedAt: string; modifiedAt?: string; section?: string; keywords?: string[]; timeRequired?: string; wordCount?: number; citations?: { title: string; url: string }[] }) {
   const url = `${siteUrl}${encodeURI(path)}`;
   return {
     "@context": "https://schema.org",
@@ -158,6 +158,7 @@ export function articleSchema({ title, description, path, image, publishedAt, mo
     ...(keywords?.length ? { keywords: keywords.join(", ") } : {}),
     ...(timeRequired ? { timeRequired } : {}),
     ...(wordCount ? { wordCount } : {}),
+    ...(citations?.length ? { citation: citations.map((source) => ({ "@type": "WebPage", name: source.title, url: source.url })) } : {}),
     author: { "@id": `${siteUrl}/#organization` },
     publisher: { "@id": `${siteUrl}/#organization` },
     inLanguage: "fa-IR",

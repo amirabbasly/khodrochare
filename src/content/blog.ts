@@ -1,3 +1,7 @@
+import { newBlogGuides } from "./blog-new-guides";
+import { blogUpdates } from "./blog-updates";
+import { sectionText, type EditorialSection, type ContentSource, type EditorialLink } from "./editorial-types";
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -10,13 +14,16 @@ export type BlogPost = {
   publishedAtIso: string;
   updatedAtIso?: string;
   image: string;
-  sections: { title: string; body: string }[];
+  sections: EditorialSection[];
+  sources?: ContentSource[];
+  links?: EditorialLink[];
+  relatedSlugs?: string[];
   faqs?: { question: string; answer: string }[];
 };
 
-export const blogContentUpdatedAtIso = "2026-09-05";
+export const blogContentUpdatedAtIso = "2026-09-07";
 
-export const blogPosts: BlogPost[] = [
+const originalBlogPosts: BlogPost[] = [
   {
     slug: "online-roadside-assistance-tehran-karaj-complete-guide",
     title: "امداد خودرو آنلاین چیست؟ راهنمای کامل درخواست فوری در تهران و کرج",
@@ -629,7 +636,7 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
-export const supplementalArticleSections: Record<string, { title: string; body: string }[]> = {
+const originalSupplementalSections: Record<string, EditorialSection[]> = {
   "car-assistance-coverage-tehran-karaj": [{ title: "چطور موقعیت دقیق را برای اعزام امدادگر ارسال کنیم؟", body: "ارسال لوکیشن، نام محله، خیابان اصلی، جهت حرکت و نزدیک‌ترین نشانه شهری، زمان هماهنگی را کوتاه‌تر می‌کند. در بزرگراه‌های تهران و محور تهران–کرج، فقط نام بزرگراه کافی نیست؛ مسیر شرق یا غرب، خروجی نزدیک و محل امن توقف را هم اعلام کنید. اگر خودرو داخل پارکینگ، مجتمع یا کوچه باریک قرار دارد، محدودیت ارتفاع و دسترسی یدک‌کش را از ابتدا توضیح دهید تا امکان اعزام وسیله مناسب بررسی شود." }],
   "car-battery-warning-signs": [{ title: "چه اطلاعاتی تشخیص باتری، دینام و استارت را دقیق‌تر می‌کند؟", body: "زمان آخرین تعویض باتری، مدت توقف خودرو، شدت نور چراغ‌ها، صدای استارت، روشن شدن چراغ باتری و سابقه باتری به باتری را اعلام کنید. اگر خودرو بعد از روشن شدن دوباره خاموش می‌شود یا تجهیزات برقی نوسان دارند، مشکل ممکن است فقط از باتری نباشد. ثبت این نشانه‌ها به امدادگر کمک می‌کند ابزار تست مناسب همراه داشته باشد و از تعویض غیرضروری قطعه جلوگیری شود." }],
   "safe-towing-guide": [{ title: "تحویل و ثبت وضعیت خودرو قبل و بعد از حمل", body: "پیش از بارگیری از بدنه، چرخ‌ها، سپرها و کیلومتر خودرو عکس بگیرید و وسایل شخصی را خارج کنید. مقصد، روش حمل و مسئول تحویل را مشخص کنید. پس از رسیدن نیز وضعیت ظاهری، محل تخلیه و مدارک را کنترل کنید. این ثبت ساده در حمل‌های شهری و بین‌شهری، اختلاف درباره وضعیت اولیه خودرو را کاهش می‌دهد و پیگیری خدمت را شفاف‌تر می‌کند." }],
@@ -663,6 +670,22 @@ export const supplementalArticleSections: Record<string, { title: string; body: 
     { title: "راهنمای هزینه و تحویل خودرو", body: "مبلغ به نوع خدمت، مسافت، شرایط بارگیری، مقصد و زمان انتظار بستگی دارد. پیش از شروع، مبنای هزینه و مسئول تحویل در مقصد مشخص شود. تصاویر وضعیت خودرو و رسید خدمت را تا پایان پیگیری نگه دارید." },
   ],
 };
+
+export const supplementalArticleSections: Record<string, EditorialSection[]> = Object.fromEntries(
+  Object.entries(originalSupplementalSections).filter(([slug]) => !blogUpdates[slug]),
+);
+
+// Keep the home magazine's existing order and artwork; append new guides to the collection.
+export const blogPosts: BlogPost[] = [
+  ...originalBlogPosts.map((post) => blogUpdates[post.slug]
+    ? { ...post, ...blogUpdates[post.slug], updatedAtIso: blogContentUpdatedAtIso }
+    : post),
+  ...newBlogGuides,
+].map((post) => {
+  const text = [...post.sections, ...(supplementalArticleSections[post.slug] ?? [])].map(sectionText).join(" ");
+  const minutes = Math.max(1, Math.ceil(text.trim().split(/\s+/u).length / 160));
+  return { ...post, readTime: `${minutes.toLocaleString("fa-IR")} دقیقه` };
+});
 
 export function getBlogPost(slug: string) {
   return blogPosts.find((post) => post.slug === slug);

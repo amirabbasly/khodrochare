@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { toolIds, type ToolId } from "@/content/tool-ids";
 
 type AnalyticsWindow = Window & {
   dataLayer?: Record<string, unknown>[];
@@ -31,9 +32,15 @@ export function AnalyticsEvents() {
       const status = (event as CustomEvent<{ status: string }>).detail?.status;
       if (["prepared", "attempt", "received"].includes(status)) sendEvent(`service_request_${status}`, { page_path: window.location.pathname });
     };
+    const handleToolResult = (event: Event) => {
+      const tool = (event as CustomEvent<{ tool?: unknown }>).detail?.tool;
+      if (typeof tool === "string" && toolIds.includes(tool as ToolId)) sendEvent("tool_used", { tool_id: tool, page_path: window.location.pathname });
+    };
+    window.addEventListener("roadside-tool-result", handleToolResult);
     document.addEventListener("click", handleClick);
     window.addEventListener("service-request-result", handleRequestResult);
     return () => {
+      window.removeEventListener("roadside-tool-result", handleToolResult);
       document.removeEventListener("click", handleClick);
       window.removeEventListener("service-request-result", handleRequestResult);
     };

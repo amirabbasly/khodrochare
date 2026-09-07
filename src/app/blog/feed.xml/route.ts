@@ -30,7 +30,7 @@ export function GET() {
     <title>مجله خودرو چاره</title>
     <link>${siteUrl}/blog</link>
     <atom:link href="${siteUrl}/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <description>راهنمای امداد خودرو، حمل خودرو، مکانیک سیار و نگهداری خودرو در تهران و کرج</description>
+    <description>راهنمای امداد خودرو، حمل خودرو، مکانیک سیار و نگهداری خودرو در تهران، کرج و شمال</description>
     <language>fa-IR</language>
     <lastBuildDate>${updatedAt}</lastBuildDate>
 ${items}

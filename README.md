@@ -7,7 +7,7 @@
 Node.js **22** پیشنهاد می‌شود؛ CI هم روی همین نسخه است.
 
 ```bash
-npm ci
+npm ci --include=dev
 npm run dev -- --hostname 0.0.0.0
 npm run lint -- --max-warnings=0
 npm run test:unit
@@ -39,6 +39,8 @@ npm run start -- --hostname 0.0.0.0
 | `src/components/requests`, `src/app/api/service-requests` | فرم صادقانه و انتقال اختیاری به پذیرش |
 | `src/components/calculator`, `src/lib/pricing.ts` | محاسبه با نرخ واردشده توسط خود کاربر، بدون تعرفه ساختگی |
 | `src/seo` | متادیتا، schema، مسیرهای قدیمی و نرمال‌سازی پارامترها |
+| `src/app/tools`, `src/components/tools`, `src/lib` | ابزار انتخاب حمل، راهنمای نشانه خرابی، معنی کد دیاگ و مقایسه هزینه؛ بدون ارسال ورودی‌ها |
+| `src/content/blog-new-guides.ts`, `blog-updates.ts` | شش راهنمای تازه و بازنویسی هشت مقاله با جدول، منابع و تاریخ ویرایش واقعی |
 | `tests`, `scripts` | آزمون و استخراج فهرست ایندکس |
 
 مسیرهای فارسی با پارامتر پویا تولید می‌شوند تا مشکل prerender پوشهٔ فارسی ثابت در نسخه فعلی Next دور زده شود؛ URL عمومی همچنان فارسی است. پارامترهای percent-encoded قبل از lookup نرمال می‌شوند. صرف موفقیت build برای اثبات سلامت صفحات کافی نیست؛ تست HTTP الزامی است.
@@ -59,6 +61,7 @@ npm run start -- --hostname 0.0.0.0
 
 - راهنمای استقرار کاربر و URLهای اولویت‌دار: [راهنمای انتشار و ایندکس](docs/indexing-guide-2026-09-05.md).
 - فهرست کامل: [google-indexing-urls.txt](docs/google-indexing-urls.txt).
+- توسعه محتوا و ابزارها با حفظ ظاهر: [گزارش انتشار ۱۶ شهریور](docs/growth-release-2026-09-07.md).
 - خلاصه تغییرات و شواهد آزمون: [گزارش توسعه صفحات](docs/release-2026-09-05.md).
 - اصلاح انیمیشن هیرو، کارت صفحهٔ اصلی و پنجرهٔ تماس: [گزارش رابط کاربری و استقرار](docs/ui-update-2026-09-06.md).
 - ممیزی وضعیت **پیش از** این تغییرات: [ممیزی ۱۴۰۵/۰۶/۱۴](docs/seo-audit-2026-09-05.md).

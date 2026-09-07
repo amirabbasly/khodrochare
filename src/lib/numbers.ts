@@ -4,9 +4,10 @@ export function normalizeDigits(value: string): string {
     .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)));
 }
 export function parseNonNegativeNumber(value: string): number | null {
-  const normalized = normalizeDigits(value.trim()).replace(/[٬,]/g, "").replace(/٫/g, ".");
-  if (!/^\d+(?:\.\d+)?$/.test(normalized)) return null;
-  const number = Number(normalized);
+  const normalized = normalizeDigits(value.trim()).replace(/٫/g, ".");
+  // Do not silently reinterpret malformed grouping such as "1,5" as fifteen.
+  if (!/^(?:\d+|\d{1,3}(?:[٬,]\d{3})+)(?:\.\d+)?$/.test(normalized)) return null;
+  const number = Number(normalized.replace(/[٬,]/g, ""));
   return Number.isFinite(number) && number >= 0 ? number : null;
 }
 
