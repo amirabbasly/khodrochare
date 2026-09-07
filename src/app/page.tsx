@@ -25,7 +25,17 @@ import {
   TrustSection,
 } from "@/components/home/home-sections";
 
-const homeTitle = "امداد خودرو آنلاین تهران و کرج | یدک کش و خودروبر | خودرو چاره";
+/**
+ * Google truncates titles by PIXEL width (≈580px desktop at a ~20px font), not by
+ * character count, so Persian titles must be measured, not counted. The previous
+ * 62-character version measured 597px and was being cut in the SERP; this one is
+ * 395px. «یدک‌کش» and «خودروبر» were dropped from the homepage title on purpose:
+ * /services/tow-truck and /services/flatbed-carrier own those queries, so keeping
+ * them here only split the signals (finding P0-5).
+ * The brand is inside this absolute title, so the layout template does not add it.
+ * Verify any change with `npm run seo:titles`.
+ */
+const homeTitle = "امداد خودرو آنلاین تهران و کرج | خودرو چاره";
 const homeDescription =
   "امداد خودرو آنلاین شبانه‌روزی در تهران و کرج؛ ثبت درخواست اینترنتی یدک‌کش، خودروبر، مکانیک سیار، باتری و امداد در محل با امکان پیگیری خدمت.";
 

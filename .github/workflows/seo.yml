@@ -1,0 +1,59 @@
+name: SEO gate
+
+# Every deployable change must keep the SEO invariants that silently broke before:
+# metadata present and unique, JSON-LD graph connected, no empty sections, footer
+# rendered on every page, and titles that fit Google's pixel budget.
+# See docs/seo-audit-live-2026-09-06.md (finding P0-1) for why this gate exists.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+
+      - name: Start production server
+        run: |
+          npm run start -- --hostname 127.0.0.1 --port 3000 &
+          for i in $(seq 1 60); do
+            if curl -sf -o /dev/null http://127.0.0.1:3000/; then echo "server up after ${i}s"; exit 0; fi
+            sleep 1
+          done
+          echo "server did not start" >&2
+          exit 1
+
+      # Technical findings must be zero. The two content-quality codes are reported but
+      # do not gate a code change: they need an editorial rewrite (see the audit report).
+      - name: Crawl and audit every page
+        run: node scripts/seo-audit.mjs --fail-on high --ignore boilerplate-heavy,near-duplicate --json out/seo-audit.json
+
+      - name: Title pixel-width check
+        run: node scripts/measure-title-width.mjs
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-audit-report
+          path: out/seo-audit.json
+          if-no-files-found: ignore

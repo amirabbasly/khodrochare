@@ -98,6 +98,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     type: "article",
     publishedTime: post.publishedAtIso,
     modifiedTime: post.updatedAtIso ?? blogContentUpdatedAtIso,
+    authorName: post.author?.name,
     section: post.category,
   });
 }
@@ -112,8 +113,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const serviceLinks = commercialLinks[post.slug] ?? [{ title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }];
   return (
     <SubpageShell>
-      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: post.updatedAtIso ?? blogContentUpdatedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"], timeRequired: readingTimeIso(post.readTime), wordCount: allSections.reduce((total, section) => total + section.body.split(/\s+/).length, 0) })} />
-      <StructuredData data={webPageSchema({ name: post.title, description: post.excerpt, path: `/blog/${post.slug}`, breadcrumb: true })} />
+      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: post.updatedAtIso ?? blogContentUpdatedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"], timeRequired: readingTimeIso(post.readTime), wordCount: allSections.reduce((total, section) => total + section.body.split(/\s+/).length, 0), author: post.author })} />
+      <StructuredData data={webPageSchema({ name: post.title, description: post.excerpt, path: `/blog/${post.slug}`, breadcrumb: true, image: post.image })} />
       <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مجله خودرو چاره", path: "/blog" }, { name: post.title }], `/blog/${post.slug}`)} />
       {post.faqs?.length ? <StructuredData data={faqSchema(post.faqs)} /> : null}
       <article>

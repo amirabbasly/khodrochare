@@ -1,18 +1,33 @@
 "use client";
 
+/**
+ * PLACEHOLDER CATALOGUE — NOT WIRED TO ANY REAL DATA, AND CURRENTLY NOT RENDERED
+ * ANYWHERE (`/store` is a `noindex` "coming soon" page).
+ *
+ * Before this component is ever mounted:
+ *  - replace `products` with real catalogue data (the Prisma models exist but nothing
+ *    in `src/` reads them yet),
+ *  - never render review stars or availability claims that are not backed by real
+ *    reviews/stock: fabricated `aggregateRating` values do not earn rich results
+ *    (Google has ignored self-serving LocalBusiness/Organization reviews since 2019)
+ *    and put the site at risk of a structured-data manual action,
+ *  - do not add `Product`/`Offer` markup until prices and availability are real.
+ * See docs/seo-audit-live-2026-09-06.md, finding P1-10.
+ */
+
 import Image from "next/image";
 import { useDeferredValue, useState } from "react";
 import { Icon } from "@/components/home/home-ui";
 
 const products = [
-  { id: 1, title: "تیغه برف‌پاک‌کن پریمیوم", category: "مصرفی", price: 750000, image: "/images/products/wiper.png", rating: "۴.۸", stock: true },
-  { id: 2, title: "روغن موتور چهار فصل", category: "روغن و فیلتر", price: 1250000, image: "/images/products/oil.png", rating: "۴.۹", stock: true },
-  { id: 3, title: "لنت ترمز جلو", category: "ترمز", price: 990000, image: "/images/products/brake.png", rating: "۴.۷", stock: true },
-  { id: 4, title: "فیلتر روغن استاندارد", category: "روغن و فیلتر", price: 320000, image: "/images/products/filter.png", rating: "۴.۹", stock: true },
-  { id: 5, title: "باتری خودرو ۶۰ آمپر", category: "باتری", price: 2460000, image: "/images/products/battery.png", rating: "۴.۸", stock: true },
-  { id: 6, title: "روغن موتور نیمه‌سنتتیک", category: "روغن و فیلتر", price: 980000, image: "/images/products/oil.png", rating: "۴.۶", stock: true },
-  { id: 7, title: "لنت ترمز سرامیکی", category: "ترمز", price: 1480000, image: "/images/products/brake.png", rating: "۴.۹", stock: false },
-  { id: 8, title: "باتری خودرو ۷۴ آمپر", category: "باتری", price: 3180000, image: "/images/products/battery.png", rating: "۴.۷", stock: true },
+  { id: 1, title: "تیغه برف‌پاک‌کن پریمیوم", category: "مصرفی", price: 750000, image: "/images/products/wiper.png", stock: true },
+  { id: 2, title: "روغن موتور چهار فصل", category: "روغن و فیلتر", price: 1250000, image: "/images/products/oil.png", stock: true },
+  { id: 3, title: "لنت ترمز جلو", category: "ترمز", price: 990000, image: "/images/products/brake.png", stock: true },
+  { id: 4, title: "فیلتر روغن استاندارد", category: "روغن و فیلتر", price: 320000, image: "/images/products/filter.png", stock: true },
+  { id: 5, title: "باتری خودرو ۶۰ آمپر", category: "باتری", price: 2460000, image: "/images/products/battery.png", stock: true },
+  { id: 6, title: "روغن موتور نیمه‌سنتتیک", category: "روغن و فیلتر", price: 980000, image: "/images/products/oil.png", stock: true },
+  { id: 7, title: "لنت ترمز سرامیکی", category: "ترمز", price: 1480000, image: "/images/products/brake.png", stock: false },
+  { id: 8, title: "باتری خودرو ۷۴ آمپر", category: "باتری", price: 3180000, image: "/images/products/battery.png", stock: true },
 ];
 
 const categories = ["همه", "مصرفی", "روغن و فیلتر", "ترمز", "باتری"];
@@ -41,8 +56,8 @@ export function StoreCatalog() {
       <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
         {visible.map((product) => (
           <article key={product.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-card">
-            <div className="relative h-40 bg-[#f3f0eb] sm:h-52"><Image src={product.image} alt={product.title} fill sizes="(min-width:1024px) 25vw,(min-width:768px) 33vw,50vw" className="object-cover"/><span className={`absolute right-3 top-3 rounded-full px-2.5 py-1 text-[9px] font-black ${product.stock ? "bg-emerald-500 text-white" : "bg-slate-800 text-white"}`}>{product.stock ? "موجود" : "به‌زودی"}</span></div>
-            <div className="p-4"><span className="text-[9px] font-bold text-slate-400">{product.category}</span><h2 className="mt-2 min-h-12 text-sm font-black leading-6">{product.title}</h2><p className="mt-1 text-[10px] font-bold text-amber-500">★ {product.rating}</p><div className="mt-4 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between"><strong className="text-sm">{product.price.toLocaleString("fa-IR")} <small className="font-normal text-slate-400">تومان</small></strong><button type="button" disabled={!product.stock} onClick={() => add(product.id)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-brand-orange px-4 text-xs font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300"><Icon name="plus" size={15}/> افزودن</button></div>{cart[product.id] ? <p className="mt-3 text-[10px] font-bold text-emerald-700" role="status">{cart[product.id].toLocaleString("fa-IR")} عدد در سبد</p> : null}</div>
+            <div className="relative h-40 bg-[#f3f0eb] sm:h-52"><Image src={product.image} alt={product.title} fill sizes="(min-width:1024px) 25vw,(min-width:768px) 33vw,50vw" className="object-cover"/></div>
+            <div className="p-4"><span className="text-[9px] font-bold text-slate-400">{product.category}</span><h2 className="mt-2 min-h-12 text-sm font-black leading-6">{product.title}</h2><div className="mt-4 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between"><strong className="text-sm">{product.price.toLocaleString("fa-IR")} <small className="font-normal text-slate-400">تومان</small></strong><button type="button" disabled={!product.stock} onClick={() => add(product.id)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-brand-orange px-4 text-xs font-black text-white disabled:cursor-not-allowed disabled:bg-slate-300"><Icon name="plus" size={15}/> افزودن</button></div>{cart[product.id] ? <p className="mt-3 text-[10px] font-bold text-emerald-700" role="status">{cart[product.id].toLocaleString("fa-IR")} عدد در سبد</p> : null}</div>
           </article>
         ))}
       </div>

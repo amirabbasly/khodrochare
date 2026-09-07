@@ -6,7 +6,7 @@ import { breadcrumbSchema, webPageSchema } from "@/seo/schemas";
 import { seoMetadata } from "@/seo/metadata";
 
 export const metadata: Metadata = seoMetadata({
-  title: "دستیار هوشمند خودرو | بررسی اولیه مشکل خودرو",
+  title: "دستیار هوشمند خودرو | عیب‌یابی اولیه",
   description: "گفت‌وگوی تخصصی با دستیار هوشمند خودرو چاره برای بررسی اولیه نشانه‌های خرابی خودرو، اقدام ایمن و انتخاب خدمت مناسب مانند مکانیک سیار، باتری یا یدک‌کش.",
   path: "/assistant",
   keywords: ["دستیار هوشمند خودرو", "عیب یابی آنلاین خودرو", "مشاوره خرابی خودرو", "هوش مصنوعی خودرو"],

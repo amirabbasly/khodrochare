@@ -29,6 +29,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // HTML documents must not sit in a shared cache for a year. The origin used to
+        // answer pages with `s-maxage=31536000`, so a bad render (a 404 carrying the
+        // homepage metadata, a page with an empty section) would have stayed on the edge
+        // for 12 months. Asset/API/sitemap paths are excluded because they have their own
+        // Cache-Control below — two Cache-Control headers would be ambiguous.
+        // deploy/nginx/khodrochare.ir.conf enforces the same policy at the edge.
+        source: "/:path((?!images/|icons/|fonts/|api/|_next/|sitemap\\.xml|robots\\.txt).*)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate, s-maxage=60, stale-while-revalidate=600" }],
+      },
+      {
         source: "/images/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },

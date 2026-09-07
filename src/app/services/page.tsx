@@ -7,6 +7,8 @@ import { services } from "@/content/services";
 import { StructuredData } from "@/components/seo/structured-data";
 import { breadcrumbSchema, itemListSchema, webPageSchema } from "@/seo/schemas";
 import { seoMetadata } from "@/seo/metadata";
+import { persianServiceRoutes } from "@/seo/internal-links";
+import { seoLocations } from "@/seo/locations";
 
 export const metadata: Metadata = seoMetadata({
   title: "خدمات امداد خودرو و خودرو در محل",
@@ -33,6 +35,26 @@ export default function ServicesPage() {
             <div className="p-5"><p className="text-[10px] font-black text-brand-orange">{service.eyebrow}</p><h2 className="mt-2 text-xl font-black">{service.shortTitle}</h2><p className="mt-3 min-h-14 text-xs leading-7 text-slate-500">{service.summary}</p><div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4 text-xs"><span className="text-slate-400">{service.eta}</span><strong className="text-brand-orange">جزئیات خدمت ←</strong></div></div>
           </Link>
         ))}
+      </section>
+      <section className="site-container mt-10 rounded-2xl bg-white p-7 shadow-card md:p-9" dir="rtl">
+        <h2 className="text-xl font-black md:text-2xl">هر خدمت در تهران و کرج</h2>
+        <p className="mt-3 text-sm leading-8 text-slate-600">صفحه شهری هر خدمت، مناطق پوشش، زمان تقریبی اعزام و عوامل مؤثر بر هزینه در همان شهر را توضیح می‌دهد.</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          {services.map((service) => {
+            const route = persianServiceRoutes.find((item) => item.serviceSlug === service.slug);
+            if (!route) return null;
+            return (
+              <div key={service.slug} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                <p className="text-sm font-black">{service.shortTitle}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {Object.values(seoLocations).map((location) => (
+                    <Link key={location.slug} href={`/${location.slug}/${route.slug}`} className="inline-flex min-h-10 items-center rounded-lg border border-slate-200 bg-white px-3 text-xs font-black text-slate-700 transition hover:border-orange-200 hover:text-brand-orange">{route.title} {location.name}</Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
       <section className="site-container mt-12 grid gap-8 rounded-2xl bg-white p-7 shadow-card md:p-10" dir="rtl">
         <div><h2 className="text-2xl font-black md:text-3xl">خدمات امداد خودرو و خدمات خودرو در محل در تهران و کرج</h2><p className="mt-4 text-sm leading-8 text-slate-600">خودرو چاره مسیر دریافت کمک را از لحظه اعلام مشکل کوتاه می‌کند: شرح نشانه‌ها، انتخاب نوع خدمت، ثبت موقعیت و هماهنگی هزینه پیش از شروع. این ساختار برای زمان‌هایی طراحی شده که خودرو در خیابان، پارکینگ، محل کار یا مسیر متوقف شده و تصمیم سریع لازم است.</p><p className="mt-3 text-sm leading-8 text-slate-600">از کارواش سیار و سرویس‌های دوره‌ای تا باتری به باتری، تعویض لاستیک، مکانیک سیار، خودروبر کفی و یدک‌کش، هر صفحه توضیح می‌دهد خدمت برای چه موقعیتی مناسب است و چه زمانی باید خودرو به تعمیرگاه منتقل شود.</p></div>

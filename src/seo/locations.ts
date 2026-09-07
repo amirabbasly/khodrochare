@@ -1,3 +1,6 @@
+/** Hero/social artwork shared by the city hub pages; keep metadata and JSON-LD in sync. */
+export const cityHubImage = "/images/support-technician-night.webp";
+
 export type SeoLocation = {
   slug: string;
   name: string;
