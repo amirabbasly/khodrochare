@@ -9,6 +9,11 @@
  *   node scripts/seo-audit.mjs                       # audit local prod build (http://127.0.0.1:3000)
  *   node scripts/seo-audit.mjs --base https://khodrochare.ir
  *   node scripts/seo-audit.mjs --json out/seo.json   # machine readable report
+ *   node scripts/seo-audit.mjs --fail-on high        # CI gate: exit 1 on high-severity issues
+ *   node scripts/seo-audit.mjs --fail-on high --ignore boilerplate-heavy,near-duplicate
+ *
+ * Severity levels are high > medium > low > info; `--fail-on <level>` fails on that
+ * level and everything worse.
  */
 
 const args = process.argv.slice(2);
@@ -20,6 +25,15 @@ const getArg = (name, fallback) => {
 const BASE = getArg("base", process.env.AUDIT_BASE || "http://127.0.0.1:3000").replace(/\/$/, "");
 const JSON_OUT = getArg("json", "");
 const CONCURRENCY = Number(getArg("concurrency", "6"));
+/** CI gate: exit non-zero when an issue of this severity (or worse) exists. */
+const FAIL_ON = getArg("fail-on", "");
+/**
+ * Codes excluded from the CI gate ONLY (they are still reported and still written to
+ * the JSON). Content-quality findings need an editorial rewrite, so they cannot gate a
+ * code change; everything technical must stay at zero.
+ *   node scripts/seo-audit.mjs --fail-on high --ignore boilerplate-heavy,near-duplicate
+ */
+const IGNORED_CODES = new Set(getArg("ignore", "").split(",").map((code) => code.trim()).filter(Boolean));
 const SITE_ORIGIN = "https://khodrochare.ir";
 
 /** ---- tiny HTML helpers (no dependencies) ---- */
@@ -460,6 +474,15 @@ async function main() {
     }
     [...idCounts.entries()].filter(([, c]) => c > 1).forEach(([id, c]) => push("medium", path, "jsonld-duplicate-id", `@id تکراری (${c} بار): ${id}`));
 
+    // A page-level node ties Breadcrumb/Article/Service/image into one graph.
+    // AboutPage, ContactPage, CollectionPage and ItemPage are WebPage SUBTYPES, so a
+    // page that emits one of those already has a page node and must not be flagged.
+    const PAGE_NODE_TYPES = ["WebPage", "AboutPage", "ContactPage", "CollectionPage", "ItemPage", "ProfilePage", "FAQPage", "SearchResultsPage", "MedicalWebPage"];
+    const pageTypes = ld.filter((b) => b.ok).flatMap((b) => (Array.isArray(b.data) ? b.data : [b.data])).map(node0Type).filter(Boolean);
+    const pageNode = pageTypes.some((t) => PAGE_NODE_TYPES.includes(t));
+    const noindex = /<meta\s+name="robots"[^>]*noindex/i.test(html);
+    if (!pageNode && !noindex) push("medium", path, "jsonld-no-page-node", "صفحه هیچ گره سطح صفحه (WebPage یا زیرنوع آن مثل AboutPage/CollectionPage) ندارد — Breadcrumb به صفحه گره نمی‌خورد");
+
     // body text volume + duplicate content
     const text = visibleText(html);
     bodies.set(path, text);
@@ -524,7 +547,7 @@ async function main() {
 
     sentences.set(path, new Set(text.split(/(?<=[.!؟])\s+/).map((x) => x.trim()).filter((x) => x.split(/\s+/).length > 4)));
 
-    p._record = { path, title, titleLen: titleLen(title), desc, descLen: titleLen(desc || ""), canonical, ogUrl, ogImage, h1: h1[0]?.text || "", words: wc, htmlKB: +(size / 1024).toFixed(1), imgs: imgs.length, ldTypes: ld.filter((b) => b.ok).flatMap((b) => (Array.isArray(b.data) ? b.data : [b.data]).map((d) => node0Type(d))).filter(Boolean), lastmod: sitemapLastmod.get([...sitemapLastmod.keys()].find((k) => normalise(k)?.key === `${SITE_ORIGIN}${path}`)) ?? null };
+    p._record = { path, title, titleLen: titleLen(title), desc, descLen: titleLen(desc || ""), canonical, ogUrl, ogImage, h1: h1[0]?.text || "", words: wc, htmlKB: +(size / 1024).toFixed(1), imgs: imgs.length, ldTypes: ld.filter((b) => b.ok).flatMap((b) => (Array.isArray(b.data) ? b.data : [b.data]).map((d) => node0Type(d))).filter(Boolean), lastmod: sitemapLastmod.get([...sitemapLastmod.keys()].find((k) => normalise(k)?.key === `${SITE_ORIGIN}${path}`)) ?? null, noindex: /<meta\s+name="robots"[^>]*noindex/i.test(html) };
   }
 
   // how much of each page is boilerplate repeated elsewhere?
@@ -693,6 +716,24 @@ async function main() {
   console.log("path | title(len) | desc(len) | words | h1 | ldTypes");
   for (const r of rows) {
     console.log(`${r.path} | ${r.titleLen} | ${r.descLen} | ${r.words} | ${r.h1.slice(0, 40)} | ${[...new Set(r.ldTypes)].join(",")}`);
+  }
+
+  if (FAIL_ON) {
+    const order = { high: 0, medium: 1, low: 2, info: 3 };
+    const threshold = order[FAIL_ON];
+    if (threshold === undefined) {
+      console.error(`--fail-on expects one of: ${Object.keys(order).join(", ")}`);
+      process.exit(2);
+    }
+    const blocking = issues.filter((issue) => order[issue.severity] <= threshold && !IGNORED_CODES.has(issue.code));
+    if (blocking.length) {
+      const byCode = blocking.reduce((acc, issue) => ((acc[issue.code] = (acc[issue.code] || 0) + 1), acc), {});
+      console.error(`\nFAIL: ${blocking.length} issue(s) at severity "${FAIL_ON}" or worse:`);
+      Object.entries(byCode).sort((a, b) => b[1] - a[1]).forEach(([code, n]) => console.error(`  ${code}: ${n}`));
+      process.exitCode = 1;
+    } else {
+      console.log(`\nOK: no issues at severity "${FAIL_ON}" or worse.`);
+    }
   }
 
   if (JSON_OUT) {

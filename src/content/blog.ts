@@ -3,6 +3,12 @@ export type BlogPost = {
   title: string;
   /** Shorter title used for the <title> tag so SERP snippets are not truncated. */
   seoTitle?: string;
+  /**
+   * Real, named author. When present the Article schema emits a `Person` instead of
+   * the Organization, which is a genuine E-E-A-T signal for safety/diagnostic topics.
+   * Never invent a name: leave it out until a real author profile exists.
+   */
+  author?: { name: string; jobTitle?: string; url?: string };
   excerpt: string;
   category: string;
   readTime: string;
@@ -63,6 +69,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "emergency-car-assistance-karaj-guide",
     title: "امداد خودرو کرج و حومه؛ راهنمای ثبت درخواست آنلاین",
+    seoTitle: "امداد خودرو کرج؛ راهنمای ثبت درخواست",
     excerpt: "پوشش امداد خودرو کرج، مهرشهر، گوهردشت، عظیمیه و مسیرهای پرتردد همراه با راهنمای انتخاب یدک کش و مکانیک سیار.",
     category: "امداد خودرو کرج",
     readTime: "۸ دقیقه",
@@ -82,6 +89,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "car-assistance-coverage-tehran-karaj",
     title: "مناطق تحت پوشش خودرو چاره؛ امداد خودرو تهران و کرج",
+    seoTitle: "راهنمای پوشش امداد خودرو تهران و کرج",
     excerpt: "راهنمای کامل محدوده فعالیت خودرو چاره در مناطق ۲۲گانه تهران و محله‌های اصلی کرج؛ از سهروردی و هفت‌تیر تا مهرشهر، گوهردشت و عظیمیه.",
     category: "محدوده پوشش",
     readTime: "۱۲ دقیقه",
@@ -166,6 +174,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "safe-towing-guide",
     title: "راهنمای یدک‌کشی ایمن؛ قبل از رسیدن امدادگر چه کنیم؟",
+    seoTitle: "یدک‌کشی ایمن خودرو؛ راهنمای عملی",
     excerpt: "اقدام‌های ضروری برای ایمن‌کردن محل، آماده‌سازی خودرو و جلوگیری از آسیب بیشتر هنگام حمل خودرو.",
     category: "امداد جاده‌ای",
     readTime: "۸ دقیقه",
@@ -497,6 +506,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "mobile-diagnostics-check-engine-guide",
     title: "چراغ چک روشن شده؛ چه زمانی به دیاگ سیار نیاز داریم؟",
+    seoTitle: "چراغ چک خودرو و زمان نیاز به دیاگ سیار",
     excerpt: "راهنمای کاربردی دیاگ سیار تهران و کرج؛ از معنی چراغ چک و کدهای ECU تا هزینه، محدودیت تشخیص و زمان درخواست عیب‌یابی خودرو در محل.",
     category: "دیاگ و عیب‌یابی",
     readTime: "۱۰ دقیقه",
@@ -599,6 +609,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "mobile-mechanic-repairs-at-location",
     title: "مکانیک سیار چه تعمیراتی را در محل انجام می‌دهد؟",
+    seoTitle: "تعمیرات در محل با مکانیک سیار",
     excerpt: "فهرست خدمات قابل بررسی توسط مکانیک سیار تهران و کرج، محدودیت تعمیر در محل، عوامل اجرت، قطعه و زمان مناسب برای انتقال خودرو به تعمیرگاه.",
     category: "مکانیک سیار",
     readTime: "۱۲ دقیقه",

@@ -1,7 +1,13 @@
+/**
+ * Main navigation. `/pricing` replaced `/store` here: the store page is a
+ * `noindex` "coming soon" placeholder, while /pricing targets the highest-intent
+ * query in this niche and previously had no link from the header, the footer or the
+ * homepage (finding P1-9). The store stays reachable from the footer.
+ */
 export const navLinks = [
   { label: "صفحه اصلی", href: "/" },
   { label: "خدمات", href: "/services" },
-  { label: "فروشگاه", href: "/store" },
+  { label: "قیمت خدمات", href: "/pricing" },
   { label: "محدوده پوشش", href: "/coverage" },
   { label: "اپلیکیشن", href: "/app" },
   { label: "دستیار هوشمند", href: "/assistant" },

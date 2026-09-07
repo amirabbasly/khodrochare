@@ -20,27 +20,27 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   if (!location) return {};
   if (route) {
     const titles: Record<string, string> = {
-      "پنچرگیری-سیار": `پنچرگیری سیار ${location.name} و تعویض لاستیک در محل`,
+      "پنچرگیری-سیار": `پنچرگیری سیار ${location.name} و تعویض لاستیک`,
       "دیاگ-سیار": `دیاگ سیار ${location.name} | عیب‌یابی خودرو در محل`,
       "کارواش-سیار": `کارواش سیار ${location.name} | شست‌وشوی خودرو در محل`,
       "امداد-خودرو": `امداد خودرو آنلاین ${location.name} | اعزام شبانه‌روزی`,
     };
     const descriptions: Record<string, string> = {
       "پنچرگیری-سیار": `درخواست پنچرگیری سیار و تعویض لاستیک در محل ${location.name}؛ هماهنگی شبانه‌روزی، بررسی موقعیت، زمان تقریبی اعزام و عوامل مؤثر بر هزینه.`,
-      "دیاگ-سیار": `ثبت درخواست دیاگ سیار ${location.name} برای بررسی چراغ چک، خطاهای ECU و عیب‌یابی اولیه خودرو در محل با هماهنگی شبانه‌روزی.`,
+      "دیاگ-سیار": `ثبت درخواست دیاگ سیار ${location.name} برای بررسی چراغ چک، خطاهای ECU و عیب‌یابی اولیه خودرو در محل؛ هماهنگی شبانه‌روزی و اعلام مبنای هزینه پیش از شروع خدمت.`,
       "کارواش-سیار": `درخواست کارواش سیار ${location.name} برای شست‌وشوی خودرو در محل؛ معرفی خدمات، شرایط محل، عوامل هزینه و نحوه هماهنگی آنلاین.`,
-      "یدک-کش": `درخواست یدک کش و حمل خودرو در ${location.name}؛ انتخاب وسیله متناسب، زمان اعزام، عوامل هزینه و هماهنگی آنلاین خودرو چاره.`,
+      "یدک-کش": `درخواست یدک کش و حمل خودرو در ${location.name}؛ انتخاب وسیله متناسب با وضعیت خودرو، زمان تقریبی اعزام، عوامل مؤثر بر هزینه و هماهنگی آنلاین خودرو چاره.`,
     };
     const service = getService(route.serviceSlug);
     return seoMetadata({
       title: titles[route.slug] ?? `${route.title} ${location.name} | درخواست آنلاین`,
-      description: descriptions[route.slug] ?? `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان اعزام و عوامل مؤثر بر قیمت.`,
+      description: descriptions[route.slug] ?? `${route.title} در ${location.name} با ثبت درخواست آنلاین خودرو چاره؛ شرح خدمات، مناطق پوشش، زمان تقریبی اعزام و عوامل مؤثر بر قیمت، همراه با هماهنگی شبانه‌روزی و اعلام مبنای هزینه پیش از شروع خدمت.`,
       path: `/${city}/${slug}`,
       keywords: [`${route.title} ${location.name}`, `امداد خودرو آنلاین ${location.name}`, `${route.title} در محل`],
       ...(service ? { image: service.image, imageAlt: `${route.title} در ${location.name}` } : {}),
     });
   }
-  if (region) return seoMetadata({ title: `امداد خودرو ${region.name} شبانه‌روزی | درخواست آنلاین`, description: region.metaDescription, path: `/${city}/${slug}`, keywords: [`امداد خودرو ${region.name}`, `یدک کش ${region.name}`, `مکانیک سیار ${region.name}`], image: region.image, imageAlt: `امداد خودرو ${region.name}` });
+  if (region) return seoMetadata({ title: `امداد خودرو در ${region.name} | اعزام شبانه‌روزی`, description: region.metaDescription, path: `/${city}/${slug}`, keywords: [`امداد خودرو ${region.name}`, `یدک کش ${region.name}`, `مکانیک سیار ${region.name}`], image: region.image, imageAlt: `امداد خودرو ${region.name}` });
   return {};
 }
 

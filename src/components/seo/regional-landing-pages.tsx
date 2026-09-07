@@ -5,7 +5,7 @@ import { SubpageShell } from "@/components/site/subpage-shell";
 import { getService } from "@/content/services";
 import { breadcrumbSchema, faqSchema, itemListSchema, serviceSchema, webPageSchema } from "@/seo/schemas";
 import { cityServicePath, persianServiceRoutes } from "@/seo/internal-links";
-import { seoRegions, type SeoLocation, type SeoRegion } from "@/seo/locations";
+import { cityHubImage, seoRegions, type SeoLocation, type SeoRegion } from "@/seo/locations";
 import { SeoBreadcrumbs } from "./seo-breadcrumbs";
 import { StructuredData } from "./structured-data";
 
@@ -31,7 +31,7 @@ export function ExpandedCityLanding({ location }: { location: SeoLocation }) {
   ];
   return <SubpageShell>
     <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: location.name }], `/${location.slug}`)} />
-    <StructuredData data={webPageSchema({ name: `امداد خودرو ${location.name}`, description: location.description, path: `/${location.slug}`, breadcrumb: true })} />
+    <StructuredData data={webPageSchema({ name: `امداد خودرو ${location.name}`, description: location.description, path: `/${location.slug}`, breadcrumb: true, image: cityHubImage })} />
     <StructuredData data={serviceSchema({ name: `امداد خودرو ${location.name}`, description: location.description, path: `/${location.slug}`, area: location.name, image: "/images/support-technician-night.webp" })} />
     <StructuredData data={itemListSchema({ name: `خدمات امداد خودرو در ${location.name}`, path: `/${location.slug}`, items: links.map((item) => ({ name: `${item.title} ${location.name}`, path: item.href })) })} />
     <StructuredData data={faqSchema(faqs)} />
@@ -52,7 +52,7 @@ export function ExpandedRegionLanding({ location, region }: { location: SeoLocat
   const path = `/${region.citySlug}/${region.slug}`;
   return <SubpageShell>
     <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "تهران", path: "/تهران" }, { name: region.name }], path)} />
-    <StructuredData data={webPageSchema({ name: `امداد خودرو ${region.name}`, description: region.metaDescription, path, breadcrumb: true })} />
+    <StructuredData data={webPageSchema({ name: `امداد خودرو ${region.name}`, description: region.metaDescription, path, breadcrumb: true, image: region.image })} />
     <StructuredData data={serviceSchema({ name: `امداد خودرو ${region.name}`, description: region.description, path, area: "تهران", image: region.image })} />
     <StructuredData data={faqSchema(region.faqs)} />
     <section className="relative overflow-hidden bg-ink text-white"><div className="site-container grid items-center gap-8 py-14 lg:grid-cols-[.9fr_1.1fr] lg:py-20" dir="ltr"><div className="relative min-h-72 overflow-hidden rounded-[1.8rem] border border-white/15 lg:min-h-[430px]"><Image src={region.image} alt={`خدمات امداد خودرو ${region.name}`} fill priority sizes="(min-width:1024px) 45vw,100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" /></div><div dir="rtl"><SeoBreadcrumbs items={[{ label: "صفحه اصلی", href: "/" }, { label: "امداد خودرو تهران", href: "/تهران" }, { label: region.name }]} /><span className="mt-6 inline-flex text-xs font-black text-orange-300">Hub منطقه‌ای خودرو چاره</span><h1 className="mt-4 text-3xl font-black leading-[1.55] md:text-5xl">امداد خودرو {region.name} شبانه‌روزی</h1><p className="mt-5 max-w-2xl text-sm leading-8 text-slate-300">{region.description} درخواست بر اساس لوکیشن، شرایط خودرو و ظرفیت همان زمان بررسی می‌شود.</p><div className="mt-7 flex flex-wrap gap-3"><Link href="/#request" className="inline-flex min-h-12 items-center rounded-lg bg-brand-orange px-6 text-sm font-black text-white shadow-orange">درخواست امداد آنلاین</Link><a href="tel:09123022064" className="inline-flex min-h-12 items-center rounded-lg border border-white/30 px-6 text-sm font-black" dir="ltr">09123022064</a></div></div></div></section>

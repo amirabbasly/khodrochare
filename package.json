@@ -10,7 +10,8 @@
     "og:images": "node scripts/generate-og-images.mjs",
     "seo:audit": "node scripts/seo-audit.mjs --json out/seo-audit.json",
     "seo:audit:live": "node scripts/seo-audit.mjs --base https://khodrochare.ir --json out/seo-audit-live.json",
-    "seo:titles": "node scripts/measure-title-width.mjs"
+    "seo:titles": "node scripts/measure-title-width.mjs",
+    "seo:check": "node scripts/seo-audit.mjs --fail-on high --ignore boilerplate-heavy,near-duplicate --json out/seo-audit.json && node scripts/measure-title-width.mjs"
   },
   "dependencies": {
     "next": "16.3.1",
