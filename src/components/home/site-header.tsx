@@ -9,7 +9,7 @@ import { BrandMark, ButtonLink, Icon } from "./home-ui";
 export function ResponsiveSiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isActive = (href: string) => href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href: string) => href === "/" ? pathname === "/" : (decodeURIComponent(pathname) === href || decodeURIComponent(pathname).startsWith(`${href}/`));
 
   useEffect(() => {
     if (!open) return;
@@ -39,7 +39,7 @@ export function ResponsiveSiteHeader() {
               <span className="h-2 w-2 rounded-full bg-emerald-400" /> خدمات ۲۴/۷
             </span>
           </div>
-          <span className="hidden lg:inline">خدمات شبانه‌روزی در سراسر تهران و کرج</span>
+          <span className="hidden lg:inline">هماهنگی شبانه‌روزی در تهران، کرج و شمال</span>
         </div>
       </div>
 
@@ -58,9 +58,9 @@ export function ResponsiveSiteHeader() {
         </nav>
 
         <div className="mr-auto hidden shrink-0 items-center gap-2 xl:flex">
-          <Link href="/app" className="inline-flex min-h-12 items-center rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5">ورود / ثبت‌نام</Link>
+          <Link href="/app" className="inline-flex min-h-12 items-center rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5">راهنمای نسخه وب</Link>
           <Link href="/app" className="inline-flex min-h-12 items-center gap-2 rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
-          <ButtonLink href="#request" className="min-h-12 px-4 text-[12px]">درخواست خدمت</ButtonLink>
+          <ButtonLink href="/امداد-خودرو-آنلاین#request" className="min-h-12 px-4 text-[12px]">درخواست خدمت</ButtonLink>
         </div>
 
         <button
@@ -80,6 +80,7 @@ export function ResponsiveSiteHeader() {
         id="mobile-navigation"
         className={`fixed inset-y-0 right-0 z-[100] flex w-[min(88vw,390px)] flex-col bg-[#061a2e] shadow-[-24px_0_60px_rgba(0,0,0,.35)] transition-transform duration-300 ease-out xl:hidden ${open ? "translate-x-0" : "translate-x-full"}`}
         aria-hidden={!open}
+        inert={!open}
       >
         <div className="flex min-h-20 items-center justify-between border-b border-white/10 px-5">
           <BrandMark />
@@ -93,9 +94,9 @@ export function ResponsiveSiteHeader() {
           ))}
         </nav>
         <div className="grid gap-2 border-t border-white/10 p-4">
-          <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold">ورود / ثبت‌نام</Link>
+          <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold">راهنمای نسخه وب</Link>
           <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
-          <ButtonLink href="#request" className="w-full" >درخواست خدمت</ButtonLink>
+          <ButtonLink href="/امداد-خودرو-آنلاین#request" className="w-full" >درخواست خدمت</ButtonLink>
           <a href="tel:09123022064" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="phone" size={17} /> تماس فوری</a>
         </div>
       </aside>

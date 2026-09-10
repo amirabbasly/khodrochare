@@ -1,0 +1,6 @@
+import { roadProfiles } from "@/content/roads";
+import { SubpageShell } from "@/components/site/subpage-shell";
+import { LandingHeader, LandingSchemas, LinkGrid, SafetyNote, Section } from "@/components/seo/landing-ui";
+import { seoMetadata } from "@/seo/metadata";
+export const metadata = seoMetadata({ title: "امداد خودرو جاده‌های شمال | مسیر و حمل ایمن", description: "راهنمای امداد خودرو جاده چالوس، هراز، فیروزکوه، آزادراه تهران–شمال و قزوین–رشت؛ اعلام موقعیت، محدودیت دسترسی و هماهنگی حمل.", path: "/roads" });
+export default function Page() { return <SubpageShell><LandingSchemas path="/roads" title="راهنمای امداد خودرو جاده‌های شمال" description="موقعیت دقیق و انتخاب خدمت در محورهای اصلی شمال کشور." collection /><LandingHeader title="امداد خودرو در جاده‌های شمال" intro="انتخاب مسیر دقیق، نخستین قدم هماهنگی کمک است. جاده چالوس، آزادراه تهران–شمال، هراز و فیروزکوه مسیرهای متفاوتی‌اند. صفحه محور را برای اطلاعات لازم، شرایط حمل و نکات ایمنی بخوانید؛ این بخش وضعیت زنده راه را نمایش نمی‌دهد." crumbs={[{ label: "محورهای شمال" }]} /><Section title="مسیر خود را انتخاب کنید"><LinkGrid links={roadProfiles.map((road) => ({ title: `امداد خودرو ${road.name}`, href: `/roads/${road.slug}`, description: road.intro }))} /></Section><SafetyNote /></SubpageShell>; }
