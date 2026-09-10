@@ -78,8 +78,8 @@ async function audit(origin: string) {
         const path = pathOf(url.href); links.push(path);
         if (url.hash) { try { anchors.push({ source: pagePath, target: path, hash: decodeURIComponent(url.hash.slice(1)) }); } catch { failures.push(`${pagePath}: invalid anchor`); } }
       });
-      assertions($("a[href='https://ble.ir/join/G627cQxSZD']").length > 0, `${pagePath}: missing required Bale channel`);
-      $("a[href*='ble.ir']").each((_i, node) => assertions($(node).attr("href") === "https://ble.ir/join/G627cQxSZD", `${pagePath}: old Bale link`));
+      assertions($("a[href='https://ble.ir/khodrochare']").length > 0, `${pagePath}: missing required Bale channel`);
+      $("a[href*='ble.ir']").each((_i, node) => assertions($(node).attr("href") === "https://ble.ir/khodrochare", `${pagePath}: old Bale link`));
       $("img").each((_i, node) => { assertions($(node).attr("alt") !== undefined, `${pagePath}: image without alt`); recordAsset($(node).attr("src"), pagePath); });
       $("script[src]").each((_i, node) => recordAsset($(node).attr("src"), pagePath));
       $("link[rel='stylesheet'],link[rel='preload'],link[rel='icon'],link[rel='apple-touch-icon'],link[rel='manifest']").each((_i, node) => recordAsset($(node).attr("href"), pagePath));

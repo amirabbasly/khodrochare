@@ -15,6 +15,7 @@ import { persianServiceRoutes } from "@/seo/internal-links";
 import { FlatbedDeepDive } from "@/components/seo/flatbed-deep-dive";
 import { serviceKnowledge } from "@/content/service-knowledge";
 import { ServiceKnowledgeSection } from "@/components/seo/service-knowledge";
+import { TestimonialsSection } from "@/components/site/trust-sections";
 
 const relatedArticles: Record<string, { title: string; slug: string }[]> = {
   "roadside-assistance": [{ title: "امداد خودرو آنلاین چگونه کار می‌کند؟", slug: "online-roadside-assistance-request-guide" }, { title: "وقتی خودرو در بزرگراه خاموش می‌شود چه کنیم؟", slug: "what-to-do-when-car-stops-on-highway" }, { title: "مناطق تحت پوشش امداد خودرو تهران و کرج", slug: "car-assistance-coverage-tehran-karaj" }],
@@ -69,6 +70,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section className="site-container mt-8 rounded-2xl border border-red-200 bg-red-50 p-6"><div className="flex gap-4"><Icon name="shield" className="shrink-0 text-red-600"/><div><h2 className="font-black text-red-900">اول ایمنی، بعد درخواست خدمت</h2><p className="mt-2 text-xs leading-7 text-red-900/70">در تصادف، آتش‌سوزی، نشت سوخت، مصدومیت یا توقف در محل پرخطر، ابتدا با پلیس و خدمات اضطراری تماس بگیرید و از خودرو فاصله امن داشته باشید.</p></div></div></section>
       <ServiceKnowledgeSection slug={service.slug} />
       {service.slug === "flatbed-carrier" ? <FlatbedDeepDive /> : null}
+      <TestimonialsSection path={`/services/${service.slug}`} />
       <Section title="انتخاب شهر و راهنمای هماهنگی"><LinkGrid links={cityRoute ? allCities.map((city) => ({ title: `${service.shortTitle} ${city.name}`, href: `/${city.slug}/${cityRoute.slug}` })) : [{ title: "پوشش همه شهرها", href: "/coverage" }]} /><LinkGrid links={[{ title: "مراحل درخواست آنلاین", href: "/امداد-خودرو-آنلاین" }, { title: "محاسبه هزینه با نرخ اعلام‌شده", href: "/pricing" }, { title: "شرایط برند خودرو", href: "/brands" }]} /></Section>
     </SubpageShell>
   );

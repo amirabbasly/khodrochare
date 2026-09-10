@@ -18,7 +18,7 @@ for (const path of pages) test(`content growth renders with the existing RTL lay
   await page.evaluate(() => document.fonts.ready);
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.locator("footer a[href='https://ble.ir/join/G627cQxSZD']")).toBeAttached();
+  await expect(page.locator("footer a[href='https://ble.ir/khodrochare']")).toBeAttached();
   if (path.startsWith("/tools/")) await expect(page.locator("#tool")).toBeVisible();
   if (path.startsWith("/blog/")) {
     await expect(page.getByRole("navigation", { name: "فهرست مطالب مقاله" })).toBeVisible();

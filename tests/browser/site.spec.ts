@@ -10,7 +10,7 @@ for (const path of templates) test(`render without overflow or hydration errors:
   page.on("pageerror", (error) => errors.push(error.message));
   const response = await page.goto(path); expect(response?.status()).toBe(200);
   await expect(page.locator("h1")).toHaveCount(1); await expect(page.locator("h1")).toBeVisible();
-  await expect(page.locator("footer a[href='https://ble.ir/join/G627cQxSZD']")).toBeAttached();
+  await expect(page.locator("footer a[href='https://ble.ir/khodrochare']")).toBeAttached();
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(1);
   await page.evaluate(() => document.fonts.ready);

@@ -1,5 +1,5 @@
 export const businessFacts = {
-  baleUrl: "https://ble.ir/join/G627cQxSZD",
+  baleUrl: "https://ble.ir/khodrochare",
   coverageSummary: "تهران، کرج، گیلان، مازندران و گلستان",
   emergencyPhone: "09123022064",
   complaintPhone: "09397979861",
@@ -19,4 +19,14 @@ export const businessFacts = {
     "سوخت‌رسانی اضطراری",
     "کارواش سیار",
   ],
+  /**
+   * Real team members shown on /about (E-E-A-T). Empty = section hidden.
+   * Only add real people with real roles; never placeholder names.
+   */
+  team: [] as readonly { name: string; role: string; bio: string; image?: string }[],
+  /**
+   * Trust-badge verification links shown in the footer. Empty string = badge hidden.
+   * Paste the real verification URLs (enamad.ir trust seal page, e-cer/union page) here.
+   */
+  trustBadges: { enamadUrl: "", unionUrl: "" },
 } as const;

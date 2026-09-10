@@ -165,6 +165,33 @@ export function articleSchema({ title, description, path, image, publishedAt, mo
   };
 }
 
+export function reviewSchema({ name, service, dateIso, rating, text, path }: { name: string; service: string; dateIso: string; rating: number; text: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    author: { "@type": "Person", name },
+    datePublished: dateIso,
+    reviewBody: text,
+    reviewRating: { "@type": "Rating", ratingValue: rating, bestRating: 5, worstRating: 1 },
+    itemReviewed: { "@id": `${siteUrl}/#organization`, name: `خودرو چاره — ${service}` },
+    url: `${siteUrl}${encodeURI(path)}`,
+    inLanguage: "fa-IR",
+  };
+}
+
+export function personSchema({ name, role, bio, image, path }: { name: string; role: string; bio: string; image?: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    jobTitle: role,
+    description: bio,
+    worksFor: { "@id": `${siteUrl}/#organization` },
+    url: `${siteUrl}${encodeURI(path)}`,
+    ...(image ? { image: `${siteUrl}${encodeURI(image)}` } : {}),
+  };
+}
+
 export function webPageSchema({ type = "WebPage", name, description, path, breadcrumb = false }: { type?: "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage" | "FAQPage"; name: string; description: string; path: string; breadcrumb?: boolean }) {
   const url = `${siteUrl}${encodeURI(path)}`;
   return {
