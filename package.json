@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "og:images": "node scripts/generate-og-images.mjs"
+    "og:images": "node scripts/generate-og-images.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test:unit": "tsx --test tests/unit/*.test.ts",
+    "test:seo": "tsx scripts/check-production-seo.ts",
+    "test:browser": "playwright test",
+    "test": "npm run test:unit && npm run test:seo && npm run test:browser",
+    "indexing:export": "tsx scripts/export-indexing-urls.ts"
   },
   "dependencies": {
     "next": "16.3.1",
@@ -15,14 +21,17 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
+    "cheerio": "^1.1.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   }
 }

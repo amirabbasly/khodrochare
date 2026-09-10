@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  allowedDevOrigins: ["*.e2b.app"],
   compress: true,
   poweredByHeader: false,
   images: {
@@ -9,7 +10,7 @@ const nextConfig: NextConfig = {
     // Source artwork is ~1600px wide, so 2048/3840 variants only upscale and waste bytes.
     deviceSizes: [360, 420, 640, 750, 828, 1080, 1200, 1600, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    qualities: [65, 75, 78, 85],
+    qualities: [65, 75, 76, 78, 85],
     minimumCacheTTL: 31536000,
   },
   async headers() {
@@ -54,23 +55,6 @@ const nextConfig: NextConfig = {
         source: "/robots.txt",
         headers: [{ key: "Cache-Control", value: "public, max-age=86400" }],
       },
-    ];
-  },
-  async redirects() {
-    return [
-      { source: "/قیمت-خدمات", destination: "/pricing", permanent: true },
-      { source: "/blog/مناطق-تحت-پوشش-خودرو-چاره", destination: "/blog/car-assistance-coverage-tehran-karaj", permanent: true },
-      { source: "/blog/نشانه-های-خرابی-باتری-خودرو", destination: "/blog/car-battery-warning-signs", permanent: true },
-      { source: "/blog/راهنمای-یدک-کشی-ایمن", destination: "/blog/safe-towing-guide", permanent: true },
-      { source: "/blog/چک-لیست-انتخاب-مکانیک-سیار", destination: "/blog/mobile-mechanic-checklist", permanent: true },
-      // Persian service slugs that used to 404 when linked without a city segment.
-      { source: "/خودروبر", destination: "/services/flatbed-carrier", permanent: true },
-      { source: "/یدک-کش", destination: "/services/tow-truck", permanent: true },
-      { source: "/امداد-خودرو", destination: "/services/roadside-assistance", permanent: true },
-      { source: "/مکانیک-سیار", destination: "/services/mobile-mechanic", permanent: true },
-      { source: "/کارواش-سیار", destination: "/services/mobile-carwash", permanent: true },
-      { source: "/feed", destination: "/blog/feed.xml", permanent: true },
-      { source: "/rss.xml", destination: "/blog/feed.xml", permanent: true },
     ];
   },
 };

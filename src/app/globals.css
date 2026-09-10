@@ -81,13 +81,15 @@ button, select { cursor: pointer; }
 .tow-siren { position: absolute; right: 20%; bottom: 99px; width: 25px; height: 8px; border-radius: 6px 6px 2px 2px; background: linear-gradient(90deg,#1db5ff 0 50%,#ff3948 50%); animation: siren-flash .65s steps(2,end) infinite; }
 .tow-line { position: absolute; left: 7%; bottom: 54px; width: 30%; height: 3px; background: #cbd5e1; transform: rotate(-28deg); transform-origin: left center; }
 .tow-hook { position: absolute; left: 4%; bottom: 46px; width: 12px; height: 15px; border: 3px solid #d7e1e9; border-top: 0; border-radius: 0 0 8px 8px; }
-.wheel { position: absolute; bottom: 15px; z-index: 4; width: 44px; height: 44px; border: 7px solid #101822; border-radius: 50%; background: repeating-conic-gradient(#94a3b8 0 12deg,#334155 12deg 25deg); box-shadow: 0 0 0 3px #dce4ea inset,0 4px 8px rgb(0 0 0 / .35); animation: wheel-spin 1s linear infinite; }
+.wheel { position: absolute; bottom: 15px; z-index: 4; width: 44px; height: 44px; border: 7px solid #101822; border-radius: 50%; background: repeating-conic-gradient(from 15deg,#e2e8f0 0deg 12deg,#64748b 12deg 24deg,#1e293b 24deg 60deg); box-shadow: 0 0 0 2px #dce4ea inset; animation: wheel-spin 1.4s linear infinite; }
+.wheel::before { content: ""; position: absolute; left: 4px; top: 3px; width: 5px; height: 5px; border-radius: 50%; background: #ffb46b; }
 .wheel::after { content: ""; position: absolute; inset: 9px; border-radius: 50%; background: #182331; border: 3px solid #aab8c5; }
 .wheel span { position: absolute; inset: 50% auto auto 50%; z-index: 2; width: 5px; height: 5px; border-radius: 50%; background: #eef4f8; transform: translate(-50%,-50%); }
 .wheel-left { left: 20%; }
 .wheel-right { right: 15%; }
-.tow-bubble { position: absolute; top: 0; opacity: 0; transform: translateY(10px) scale(.92); animation: bubble-cycle 9s ease-in-out infinite; }
-.tow-bubble::after { content: ""; position: absolute; left: 28%; bottom: -7px; width: 14px; height: 14px; background: rgb(255 255 255 / .92); transform: rotate(45deg); border-right: 1px solid rgb(103 232 249 / .35); border-bottom: 1px solid rgb(103 232 249 / .35); }
+.tow-bubble { position: absolute; inset-inline: 0; top: 0; margin-inline: auto; max-width: 360px; opacity: 0; transform: translateY(10px) scale(.94); transform-origin: 65% 100%; animation: bubble-cycle 28s ease-in-out infinite; }
+.tow-bubble::after { content: ""; position: absolute; right: 28%; bottom: -8px; width: 15px; height: 15px; background: #fff; transform: rotate(45deg); border-right: 1px solid rgb(207 250 254 / .7); border-bottom: 1px solid rgb(207 250 254 / .7); }
+.tow-stage[data-paused="true"] *, .tow-stage[data-paused="true"] *::before, .tow-stage[data-paused="true"] *::after { animation-play-state: paused !important; }
 .tow-stage-stars span { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #bae6fd; box-shadow: 0 0 10px #38bdf8; animation: star-blink 2s ease-in-out infinite alternate; }
 .tow-stage-stars span:nth-child(1) { left: 12%; top: 21%; }
 .tow-stage-stars span:nth-child(2) { left: 78%; top: 31%; animation-delay: .4s; }
@@ -106,7 +108,7 @@ button, select { cursor: pointer; }
 @keyframes tow-shadow { 0%,100% { transform: scaleX(1); opacity: .6; } 50% { transform: scaleX(.88); opacity: .38; } }
 @keyframes wheel-spin { to { transform: rotate(360deg); } }
 @keyframes siren-flash { 50% { filter: brightness(1.8); box-shadow: -8px 0 16px #38bdf8,8px 0 16px #fb7185; } }
-@keyframes bubble-cycle { 0%,4% { opacity: 0; transform: translateY(10px) scale(.92); } 8%,27% { opacity: 1; transform: translateY(0) scale(1); } 31%,100% { opacity: 0; transform: translateY(-8px) scale(.96); } }
+@keyframes bubble-cycle { 0% { opacity: 0; transform: translateY(10px) scale(.94); } 1.25%,12.25% { opacity: 1; transform: translateY(0) scale(1); } 14.25%,100% { opacity: 0; transform: translateY(-8px) scale(.97); } }
 @keyframes star-blink { to { opacity: .2; transform: scale(.65); } }
 @keyframes coverage-pulse { from { opacity: .9; transform: scale(.75); } to { opacity: 0; transform: scale(1.45); } }
 @keyframes welcome-fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -114,6 +116,9 @@ button, select { cursor: pointer; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .tow-stage *, .tow-stage *::before, .tow-stage *::after { animation: none !important; }
+  .tow-stage .tow-bubble { opacity: 0; transform: none; }
+  .tow-stage .tow-bubble:first-child { opacity: 1; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 

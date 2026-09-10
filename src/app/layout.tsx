@@ -9,9 +9,9 @@ import { AnalyticsEvents } from "@/components/site/analytics-events";
 import { Analytics } from "@/components/site/analytics";
 import { defaultOgImage, siteName, siteUrl } from "@/seo/metadata";
 
-const defaultTitle = "امداد خودرو شبانه‌روزی تهران و کرج | خودرو چاره";
+const defaultTitle = "امداد خودرو آنلاین تهران، کرج و شمال | خودرو چاره";
 const defaultDescription =
-  "خودرو چاره؛ سامانه امداد خودرو آنلاین و خدمات خودرو در محل، با هماهنگی امدادگر، یدک‌کش، مکانیک سیار و باتری در تهران و کرج و توسعه مرحله‌ای در شهرهای دیگر.";
+  "خودرو چاره؛ هماهنگی امداد خودرو آنلاین، یدک‌کش، خودروبر، مکانیک سیار و باتری در تهران، کرج، گیلان، مازندران و گلستان.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -41,13 +41,12 @@ export const metadata: Metadata = {
   keywords: ["خودرو چاره", ...primaryKeywords, "کارواش سیار", "باتری خودرو", "لوازم یدکی"],
   alternates: {
     canonical: "/",
-    languages: { "fa-IR": "/" },
     types: { "application/rss+xml": `${siteUrl}/blog/feed.xml` },
   },
   openGraph: {
     title: defaultTitle,
     description:
-      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ با تمرکز فعلی تهران و کرج و مسیر توسعه برای شهرهای دیگر.",
+      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ در تهران، کرج، گیلان، مازندران و گلستان.",
     url: siteUrl,
     siteName,
     locale: "fa_IR",
@@ -58,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: defaultTitle,
     description:
-      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ با تمرکز فعلی تهران و کرج و مسیر توسعه برای شهرهای دیگر.",
+      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ در تهران، کرج، گیلان، مازندران و گلستان.",
     images: [defaultOgImage.url],
   },
   robots: {
