@@ -2,7 +2,7 @@ export const businessFacts = {
   baleUrl: "https://ble.ir/khodrochare",
   coverageSummary: "تهران، کرج، گیلان، مازندران و گلستان",
   emergencyPhone: "09123022064",
-  complaintPhone: "09397979861",
+  complaintPhone: "09123022064",
   email: "info@khodrochare.ir",
   address: "تهران، خیابان آزادی، جنب تعمیرات یدکی چاره، پلاک ۱۲۱، واحد ۱۴",
   availability: "پاسخ‌گویی ۲۴ ساعته در تمام ۷ روز هفته",
@@ -23,7 +23,11 @@ export const businessFacts = {
    * Real team members shown on /about (E-E-A-T). Empty = section hidden.
    * Only add real people with real roles; never placeholder names.
    */
-  team: [] as readonly { name: string; role: string; bio: string; image?: string }[],
+  team: [
+    { name: "امیرعباس سلیمانی", role: "مدیر عملیات و هماهنگی امداد", bio: "مسئول هماهنگی شبکه امدادگران، استاندارد انجام خدمت و پیگیری درخواست‌ها در تهران، کرج و شمال کشور." },
+    { name: "ابوالفضل سلیمانی", role: "کارشناس فنی و پشتیبانی عملیات", bio: "بررسی فنی درخواست‌ها، راهنمایی امدادگران در محل و نظارت بر کیفیت تعمیر در محل و حمل خودرو." },
+    { name: "مهدی صالحی", role: "پشتیبانی و ارتباط با مشتریان", bio: "پاسخ‌گویی به درخواست‌ها، ثبت دقیق اطلاعات خودرو و موقعیت، و پیگیری رضایت مشتری پس از انجام خدمت." },
+  ] as readonly { name: string; role: string; bio: string; image?: string }[],
   /**
    * Trust-badge verification links shown in the footer. Empty string = badge hidden.
    * Paste the real verification URLs (enamad.ir trust seal page, e-cer/union page) here.

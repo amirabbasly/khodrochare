@@ -78,3 +78,9 @@ export const brandProfiles: readonly BrandProfile[] = [
     preparation: "کلاس و سال، نوع انتقال قدرت، وضعیت تعلیق و چرخ‌ها و امکان دسترسی به محل را اعلام کنید. برای حمل به نمایندگی یا تعمیرگاه تخصصی، تأیید پذیرش و شرایط تخلیه را پیش از شروع دریافت کنید.", guide: "safe-towing-guide" },
 ];
 export function findBrand(slug: string) { return brandProfiles.find((brand) => brand.slug === slug); }
+/** Model-specific guides per brand; rendered as a cluster section on brand pages. */
+export const brandModelGuides: Record<string, { title: string; slug: string }[]> = {
+  "iran-khodro": [{ title: "خرابی پژو ۲۰۶ و ۲۰۷", slug: "peugeot-206-207-roadside" }, { title: "دنا پلاس؛ دما و توربو", slug: "dena-plus-overheat-guide" }, { title: "پژو پارس؛ خرابی و حمل", slug: "peugeot-pars-roadside" }, { title: "سمند و سورن؛ EF7 و جاده", slug: "samand-soren-roadside" }],
+  "saipa": [{ title: "خرابی شاهین", slug: "shahin-roadside-tehran-karaj" }, { title: "کوییک و ساینا؛ باتری", slug: "quick-saina-battery-starter" }, { title: "تیبا؛ خرابی جاده‌ای", slug: "tiba-roadside-guide" }, { title: "اطلس؛ خودروی گارانتی‌دار", slug: "atlas-warranty-roadside" }],
+  "chery": [{ title: "تیگو ۷ پرو؛ CVT و کفی", slug: "tiggo-7-pro-cvt-tehran" }],
+};

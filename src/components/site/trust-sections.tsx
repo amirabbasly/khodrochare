@@ -32,6 +32,7 @@ export function TestimonialsSection({ path }: { path: string }) {
         {customerReviews.map((review, index) => (
           <figure key={index} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
             <Stars value={review.rating} />
+            {review.title ? <h3 className="mt-3 font-black text-ink">{review.title}</h3> : null}
             <blockquote className="mt-3 flex-1 text-sm leading-8 text-slate-700">{review.text}</blockquote>
             <figcaption className="mt-4 border-t border-slate-100 pt-3 text-xs leading-6 text-slate-500">
               <strong className="text-slate-800">{review.name}</strong> · {review.service} · {review.city}

@@ -1,4 +1,8 @@
 import { newBlogGuides } from "./blog-new-guides";
+import { seoBoostGuides } from "./blog-seo-boost";
+import { modelGuides } from "./blog-model-guides";
+import { northGuides } from "./blog-north-guides";
+import { depthGuides } from "./blog-depth-guides";
 import { blogUpdates } from "./blog-updates";
 import { sectionText, type EditorialSection, type ContentSource, type EditorialLink } from "./editorial-types";
 
@@ -20,6 +24,11 @@ export type BlogPost = {
   relatedSlugs?: string[];
   faqs?: { question: string; answer: string }[];
 };
+
+import { expansionSectionsA, expansionFaqsA } from "./blog-expansion-a";
+import { expansionSectionsB } from "./blog-expansion-b";
+import { expansionSectionsC } from "./blog-expansion-c";
+import { expansionSectionsD } from "./blog-expansion-d";
 
 export const blogContentUpdatedAtIso = "2026-09-07";
 
@@ -671,8 +680,12 @@ const originalSupplementalSections: Record<string, EditorialSection[]> = {
   ],
 };
 
+export const expansionUpdatedAtIso = "2026-09-23";
+const expansionSections: Record<string, EditorialSection[]> = { ...expansionSectionsA, ...expansionSectionsB, ...expansionSectionsC, ...expansionSectionsD };
+const expansionFaqs: Record<string, { question: string; answer: string }[]> = { ...expansionFaqsA };
+const baseSupplementalSections = Object.fromEntries(Object.entries(originalSupplementalSections).filter(([slug]) => !blogUpdates[slug]));
 export const supplementalArticleSections: Record<string, EditorialSection[]> = Object.fromEntries(
-  Object.entries(originalSupplementalSections).filter(([slug]) => !blogUpdates[slug]),
+  [...new Set([...Object.keys(baseSupplementalSections), ...Object.keys(expansionSections)])].map((slug): [string, EditorialSection[]] => [slug, [...(baseSupplementalSections[slug] ?? []), ...(expansionSections[slug] ?? [])]]),
 );
 
 // Keep the home magazine's existing order and artwork; append new guides to the collection.
@@ -681,10 +694,20 @@ export const blogPosts: BlogPost[] = [
     ? { ...post, ...blogUpdates[post.slug], updatedAtIso: blogContentUpdatedAtIso }
     : post),
   ...newBlogGuides,
+  ...seoBoostGuides,
+  ...modelGuides,
+  ...northGuides,
+  ...depthGuides,
 ].map((post) => {
   const text = [...post.sections, ...(supplementalArticleSections[post.slug] ?? [])].map(sectionText).join(" ");
   const minutes = Math.max(1, Math.ceil(text.trim().split(/\s+/u).length / 160));
-  return { ...post, readTime: `${minutes.toLocaleString("fa-IR")} دقیقه` };
+  const extraFaqs = expansionFaqs[post.slug] ?? [];
+  return {
+    ...post,
+    readTime: `${minutes.toLocaleString("fa-IR")} دقیقه`,
+    ...(extraFaqs.length ? { faqs: [...(post.faqs ?? []), ...extraFaqs] } : {}),
+    ...(expansionSections[post.slug] && (!post.updatedAtIso || post.updatedAtIso < expansionUpdatedAtIso) ? { updatedAtIso: expansionUpdatedAtIso } : {}),
+  };
 });
 
 export function getBlogPost(slug: string) {

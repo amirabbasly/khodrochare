@@ -72,6 +72,7 @@ async function audit(origin: string) {
       });
       assertions(schemas.length >= 2, `${pagePath}: no entity/page structured data`);
       assertions(!schemas.some((schema) => schema["@type"] === "AggregateRating" || schema.numberOfEmployees), `${pagePath}: unsupported ratings/employees`);
+      for (const schema of schemas) { const aggregate = schema.aggregateRating as { reviewCount?: unknown; ratingValue?: unknown } | undefined; if (aggregate && typeof aggregate === "object") assertions(Number(aggregate.reviewCount) >= 5 && Number(aggregate.ratingValue) >= 1 && Number(aggregate.ratingValue) <= 5, `${pagePath}: weak aggregate rating`); }
       const ids = new Set($("[id]").map((_i, node) => $(node).attr("id")!).get()); const links: string[] = [];
       $("a[href]").each((_i, node) => {
         const href = $(node).attr("href")!; const url = internal(href, pagePath); if (!url) return;

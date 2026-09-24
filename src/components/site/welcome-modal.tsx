@@ -7,7 +7,10 @@ import { Icon } from "@/components/home/home-ui";
 import { businessFacts } from "@/content/business";
 
 const storageKey = "khodrochare:welcome-seen:v2";
-const showAfterMs = 4500;
+// Business request (2026-09-14): surface the contact card sooner. It stays a small,
+// dismissible, non-modal corner card (no overlay, scroll lock or focus stealing), so
+// it is not an intrusive interstitial; all display guards below still apply.
+const showAfterMs = 1500;
 // If storage is blocked, still avoid repeating the message on client-side navigation.
 let seenInThisDocument = false;
 

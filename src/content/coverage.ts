@@ -1,5 +1,5 @@
 /** Coverage confirmed by the business owner on 2026-09-05; dispatch is still subject to access and capacity. */
-export const coverageUpdatedAt = "2026-09-05";
+export const coverageUpdatedAt = "2026-09-23";
 export type CityProfile = {
   slug: string; name: string; region: string; province: string;
   description: string; keywords: readonly string[]; areas: readonly string[];
