@@ -1,4 +1,6 @@
 import { northCityDepth } from "@/content/north-depth";
+import { northRoadDepth } from "@/content/north-roads";
+import { northCityServiceDepth } from "@/content/north-cityservice";
 import { northProvinceDepth } from "@/content/north-provinces";
 import type { LandingFaq } from "@/content/landing-expansion-cities";
 import { LinkGrid, Section, type ContentLink } from "./landing-ui";
@@ -63,6 +65,42 @@ export function NorthProvinceDepthSections({ slug }: { slug: string }) {
               ))}
             </ul>
           )}
+        </Section>
+      ))}
+    </>
+  );
+}
+
+export function northRoadDepthFaqs(slug: string): LandingFaq[] {
+  return northRoadDepth[slug]?.faqs ?? [];
+}
+
+export function NorthRoadDepthSections({ slug }: { slug: string }) {
+  const depth = northRoadDepth[slug];
+  if (!depth) return null;
+  return (
+    <>
+      {depth.sections.map((item) => (
+        <Section key={item.title} title={item.title}>
+          <p>{item.body}</p>
+        </Section>
+      ))}
+    </>
+  );
+}
+
+export function northCityServiceDepthFaqs(path: string): LandingFaq[] {
+  return northCityServiceDepth[path]?.faqs ?? [];
+}
+
+export function NorthCityServiceDepthSections({ path }: { path: string }) {
+  const depth = northCityServiceDepth[path];
+  if (!depth) return null;
+  return (
+    <>
+      {depth.sections.map((item) => (
+        <Section key={item.title} title={item.title}>
+          <p>{item.body}</p>
         </Section>
       ))}
     </>

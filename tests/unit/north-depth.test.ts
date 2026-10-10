@@ -5,6 +5,10 @@ import { northCityDepth } from "../../src/content/north-depth";
 import { northProvinceDepth } from "../../src/content/north-provinces";
 import { northFiringLinkRules, northHubLinkRules } from "../../src/content/north-link-rules";
 import { cityProfiles, northernProvinces } from "../../src/content/coverage";
+import { allCities } from "../../src/content/coverage";
+import { northRoadDepth } from "../../src/content/north-roads";
+import { northCityServiceDepth } from "../../src/content/north-cityservice";
+import { persianServiceRoutes } from "../../src/seo/internal-links";
 import { roadProfiles } from "../../src/content/roads";
 import { blogPosts, supplementalArticleSections } from "../../src/content/blog";
 import { sectionText } from "../../src/content/editorial-types";
@@ -230,5 +234,107 @@ test("north commercial strengthening is present in live link channels", async ()
     '{ title: "امداد خودرو بهشهر", href: "/بهشهر" }',
   ]) {
     assert.ok(northGuides.includes(needle), `missing post link: ${needle.slice(0, 40)}`);
+  }
+});
+
+test("round 3: all 5 roads carry 400+ new words across 2 sections and 3 FAQs", () => {
+  const roadSlugs = new Set(roadProfiles.map((road) => road.slug));
+  assert.equal(Object.keys(northRoadDepth).length, 5);
+  for (const [slug, depth] of Object.entries(northRoadDepth)) {
+    assert.ok(roadSlugs.has(slug), `bad road slug: ${slug}`);
+    assert.equal(depth.sections.length, 2, `${slug}: needs exactly 2 sections`);
+    assert.equal(depth.faqs.length, 3, `${slug}: needs exactly 3 FAQs`);
+    let total = 0;
+    for (const section of depth.sections) {
+      const n = words(section.title) + words(section.body);
+      total += n;
+      assert.ok(n >= 100, `${slug}: thin section (${n}w): ${section.title.slice(0, 30)}`);
+    }
+    for (const faq of depth.faqs) {
+      const n = words(faq.question) + words(faq.answer);
+      total += n;
+      assert.ok(n >= 40, `${slug}: thin FAQ (${n}w): ${faq.question.slice(0, 30)}`);
+    }
+    assert.ok(total >= 400, `${slug}: road depth shrank to ${total}w`);
+  }
+});
+
+test("round 3: money city-service pages carry 300+ unique words on valid routes", () => {
+  const paths = Object.keys(northCityServiceDepth);
+  assert.equal(paths.length, 10);
+  for (const must of [
+    "/محمودآباد/یدک-کش",
+    "/رشت/پنچرگیری-سیار",
+    "/رامسر/مکانیک-سیار",
+    "/رودسر/یدک-کش",
+  ]) {
+    assert.ok(northCityServiceDepth[must], `missing money page: ${must}`);
+  }
+  const citySlugs = new Set(allCities.map((city) => city.slug));
+  const svcSlugs: Set<string> = new Set(persianServiceRoutes.map((route) => route.slug));
+  const seen = new Set<string>();
+  for (const [path, depth] of Object.entries(northCityServiceDepth)) {
+    const [, city, svc] = path.split("/");
+    assert.ok(citySlugs.has(city) && svcSlugs.has(svc), `bad money path: ${path}`);
+    assert.equal(depth.sections.length, 2, `${path}: needs exactly 2 sections`);
+    assert.equal(depth.faqs.length, 2, `${path}: needs exactly 2 FAQs`);
+    let total = 0;
+    for (const section of depth.sections) {
+      const n = words(section.title) + words(section.body);
+      total += n;
+      assert.ok(n >= 100, `${path}: thin section (${n}w)`);
+      const key = section.body.replace(/\s+/g, " ").slice(0, 120);
+      assert.ok(!seen.has(key), `duplicate body prefix: ${path}`);
+      seen.add(key);
+    }
+    for (const faq of depth.faqs) {
+      const n = words(faq.question) + words(faq.answer);
+      total += n;
+      assert.ok(n >= 40, `${path}: thin FAQ (${n}w)`);
+    }
+    assert.ok(total >= 300, `${path}: depth shrank to ${total}w`);
+  }
+});
+
+test("round 3: stabilization wiring and exact-phrase FAQs are live", async () => {
+  const roadsPage = await readFile("src/app/roads/[slug]/page.tsx", "utf8");
+  assert.ok(roadsPage.includes("<NorthRoadDepthSections slug={road.slug} />"));
+  assert.ok(roadsPage.includes("...northRoadDepthFaqs(road.slug)"));
+  const landings = await readFile("src/components/seo/location-landings.tsx", "utf8");
+  assert.ok(landings.includes("<NorthCityServiceDepthSections path={path} />"));
+  assert.ok(landings.includes("...northCityServiceDepthFaqs(path)"));
+  const north = await readFile("src/components/pages/north-coverage-page.tsx", "utf8");
+  assert.ok(north.includes("شماره امداد خودرو شمال چند است؟"));
+  const pricing = await readFile("src/app/pricing/page.tsx", "utf8");
+  assert.ok(pricing.includes("محاسبه هزینه حمل خودرو با کفی چگونه انجام می‌شود؟"));
+  const knowledge = await readFile("src/content/service-knowledge.ts", "utf8");
+  assert.ok(knowledge.includes("تعمیرکار سیار همان مکانیک سیار است؟"));
+  const tehranNorth = northRoadDepth["tehran-north"];
+  assert.ok(
+    tehranNorth.faqs.some((faq) => faq.question.includes("امداد خودرو آزادراه تهران شمال")),
+    "missing exact-query FAQ for the dancing tehran-north keyword",
+  );
+  assert.ok(
+    tehranNorth.sections.some(
+      (section) => section.body.includes("آزادراه تهران–شمال") && section.body.includes("تهران شمال"),
+    ),
+    "tehran-north depth must carry both query variants",
+  );
+});
+
+test("round 3: new road and city-service depth carries no forbidden claims", () => {
+  const texts: string[] = [];
+  for (const depth of [...Object.values(northRoadDepth), ...Object.values(northCityServiceDepth)]) {
+    for (const section of depth.sections) texts.push(section.title, section.body);
+    for (const faq of depth.faqs) texts.push(faq.question, faq.answer);
+  }
+  for (const text of texts) {
+    assert.ok(!text.includes("\ufffd"), "replacement character in round-3 content");
+    assert.ok(
+      !/(?<!قابل[\s‌]|غیرقابل[\s‌])تضمین|اعزام فوری|ارسال فوری|کمتر از ۳۰|زیر ۳۰ دقیقه|نرخ مصوب|رایگان|حمل رایگان/.test(
+        text,
+      ),
+      `forbidden claim: ${text.slice(0, 60)}`,
+    );
   }
 });
