@@ -10,23 +10,24 @@ import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/seo
 import { seoMetadata } from "@/seo/metadata";
 import { sectionText } from "@/content/editorial-types";
 import { EditorialDetails, SourceList } from "@/components/seo/editorial-content";
+import { northFiringLinkRules, northHubLinkRules } from "@/content/north-link-rules";
 
 const commercialLinks: Record<string, { title: string; href: string }[]> = {
   "emergency-car-assistance-tehran-districts": [{ title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد شبانه تهران", href: "/تهران/امداد-خودرو" }, { title: "یدک‌کش تهران", href: "/تهران/یدک-کش" }, { title: "مناطق تحت پوشش", href: "/coverage" }],
   "emergency-car-assistance-karaj-guide": [{ title: "امداد خودرو کرج", href: "/کرج" }, { title: "امداد خودرو آنلاین کرج", href: "/کرج/امداد-خودرو" }, { title: "یدک‌کش کرج", href: "/کرج/یدک-کش" }, { title: "ثبت درخواست فوری", href: "/امداد-خودرو-آنلاین#request" }],
   "car-assistance-coverage-tehran-karaj": [{ title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }, { title: "مناطق تحت پوشش", href: "/coverage" }, { title: "ثبت امداد خودرو آنلاین", href: "/امداد-خودرو-آنلاین#request" }],
-  "safe-towing-guide": [{ title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }, { title: "هزینه حمل خودرو", href: "/blog/car-tow-truck-price-guide" }],
-  "car-tow-truck-price-guide": [{ title: "هزینه و درخواست یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "هزینه و درخواست یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }, { title: "قیمت خدمات امدادی", href: "/pricing" }],
-  "mobile-mechanic-checklist": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }],
+  "safe-towing-guide": [{ title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }, { title: "هزینه حمل خودرو", href: "/blog/car-tow-truck-price-guide" }, { title: "امداد خودرو شمال", href: "/شمال" }],
+  "car-tow-truck-price-guide": [{ title: "هزینه و درخواست یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "هزینه و درخواست یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر تهران و کرج", href: "/services/flatbed-carrier" }, { title: "قیمت خدمات امدادی", href: "/pricing" }, { title: "یدک کش شمال", href: "/شمال" }],
+  "mobile-mechanic-checklist": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }, { title: "مکانیک سیار رشت", href: "/رشت/مکانیک-سیار" }],
   "what-to-do-when-car-stops-on-highway": [{ title: "امداد خودرو آنلاین تهران", href: "/تهران/امداد-خودرو" }, { title: "امداد خودرو آنلاین کرج", href: "/کرج/امداد-خودرو" }, { title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "ثبت درخواست فوری", href: "/امداد-خودرو-آنلاین#request" }],
-  "car-battery-warning-signs": [{ title: "باتری خودرو تهران", href: "/تهران/باتری-خودرو" }, { title: "باتری خودرو کرج", href: "/کرج/باتری-خودرو" }, { title: "باتری به باتری", href: "/services/jump-start" }],
+  "car-battery-warning-signs": [{ title: "باتری خودرو تهران", href: "/تهران/باتری-خودرو" }, { title: "باتری خودرو کرج", href: "/کرج/باتری-خودرو" }, { title: "باتری به باتری", href: "/services/jump-start" }, { title: "باتری خودرو رشت", href: "/رشت/باتری-خودرو" }],
   "mobile-battery-replacement-tehran-karaj": [{ title: "باتری خودرو تهران", href: "/تهران/باتری-خودرو" }, { title: "باتری خودرو کرج", href: "/کرج/باتری-خودرو" }, { title: "باتری به باتری", href: "/services/jump-start" }],
   "mobile-carwash-guide": [{ title: "کارواش سیار تهران", href: "/تهران/کارواش-سیار" }, { title: "کارواش سیار کرج", href: "/کرج/کارواش-سیار" }, { title: "کارواش سیار در محل", href: "/services/mobile-carwash" }],
-  "flat-tire-roadside-assistance": [{ title: "پنچرگیری سیار تهران", href: "/تهران/پنچرگیری-سیار" }, { title: "پنچرگیری سیار کرج", href: "/کرج/پنچرگیری-سیار" }, { title: "تعویض لاستیک در محل", href: "/services/flat-tire" }],
-  "mobile-diagnostics-check-engine-guide": [{ title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }, { title: "دیاگ سیار کرج", href: "/کرج/دیاگ-سیار" }, { title: "عیب‌یابی سیار خودرو", href: "/services/mobile-diagnostics" }],
+  "flat-tire-roadside-assistance": [{ title: "پنچرگیری سیار تهران", href: "/تهران/پنچرگیری-سیار" }, { title: "پنچرگیری سیار کرج", href: "/کرج/پنچرگیری-سیار" }, { title: "تعویض لاستیک در محل", href: "/services/flat-tire" }, { title: "پنچرگیری رشت", href: "/رشت/پنچرگیری-سیار" }],
+  "mobile-diagnostics-check-engine-guide": [{ title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }, { title: "دیاگ سیار کرج", href: "/کرج/دیاگ-سیار" }, { title: "عیب‌یابی سیار خودرو", href: "/services/mobile-diagnostics" }, { title: "دیاگ سیار ساری", href: "/ساری/دیاگ-سیار" }],
   "car-maintenance-before-long-trip": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "پنچرگیری سیار", href: "/services/flat-tire" }, { title: "امداد خودرو آنلاین", href: "/services/roadside-assistance" }],
   "online-roadside-assistance-request-guide": [{ title: "امداد خودرو آنلاین تهران", href: "/تهران/امداد-خودرو" }, { title: "امداد خودرو آنلاین کرج", href: "/کرج/امداد-خودرو" }, { title: "مناطق تحت پوشش", href: "/coverage" }, { title: "ثبت درخواست آنلاین", href: "/امداد-خودرو-آنلاین#request" }],
-  "automatic-car-towing-guide": [{ title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر و حمل با کفی", href: "/services/flatbed-carrier" }, { title: "هزینه حمل خودرو", href: "/blog/car-tow-truck-price-guide" }],
+  "automatic-car-towing-guide": [{ title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر و حمل با کفی", href: "/services/flatbed-carrier" }, { title: "هزینه حمل خودرو", href: "/blog/car-tow-truck-price-guide" }, { title: "حمل خودرو چالوس", href: "/چالوس/خودروبر" }],
   "car-overheating-roadside-guide": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "یدک کش", href: "/services/tow-truck" }],
   "mobile-mechanic-repairs-at-location": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "دیاگ سیار", href: "/services/mobile-diagnostics" }, { title: "قیمت خدمات", href: "/pricing" }],
   "tehran-karaj-freeway-breakdown-guide": [{ title: "امداد خودرو تهران", href: "/تهران/امداد-خودرو" }, { title: "امداد خودرو کرج", href: "/کرج/امداد-خودرو" }, { title: "یدک‌کش و حمل از مسیر", href: "/services/tow-truck" }, { title: "ثبت درخواست فوری", href: "/امداد-خودرو-آنلاین#request" }],
@@ -168,6 +169,8 @@ const contextualLinkRules = [
   { phrase: "امداد خودرو مطمئن", href: "/امداد-خودرو" },
   { phrase: "شرکت امداد خودرو", href: "/امداد-خودرو" },
   { phrase: "امداد در محل", href: "/امداد-خودرو" },
+  ...northHubLinkRules,
+  ...northFiringLinkRules,
 ] as const;
 
 function contextualText(text: string, used: Set<string>): ReactNode[] {

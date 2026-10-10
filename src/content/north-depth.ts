@@ -1,5 +1,7 @@
 import type { LandingFaq } from "./landing-expansion-cities";
 import { northMazandaranDepth } from "./north-mazandaran";
+import { northGilanDepth } from "./north-gilan";
+import { northGolestanDepth } from "./north-golestan";
 
 export type NorthDepthSection = {
   title: string;
@@ -27,10 +29,11 @@ export type NorthCityDepth = {
 };
 
 /**
- * North domination plan, round 1: Mazandaran (12 cities).
- * Round 2 adds Gilan (8) + Golestan (4); the merger below stays the single
- * entry point consumed by components and tests.
+ * North domination plan, rounds 1+2: Mazandaran (12) + Gilan (8) + Golestan (4).
+ * The merger below stays the single entry point consumed by components and tests.
  */
 export const northCityDepth: Record<string, NorthCityDepth> = {
   ...northMazandaranDepth,
+  ...northGilanDepth,
+  ...northGolestanDepth,
 };
