@@ -66,3 +66,23 @@ export const northFiringLinkRules: NorthLinkRule[] = [
   { phrase: "قزوین–رشت", href: "/roads/qazvin-rasht" },
   { phrase: "آزادراه قزوین–رشت", href: "/roads/qazvin-rasht" },
 ];
+
+/**
+ * Round-4 exact-query firing rules (2026-10-13). Each phrase is carried
+ * NATURALLY by at least one round-4 guide (verified by test), and every href
+ * is a money page: dancing leaders get exact-anchor reinforcement.
+ */
+export const round4FiringLinkRules: NorthLinkRule[] = [
+  { phrase: "امداد خودرو آزادراه تهران شمال", href: "/roads/tehran-north" },
+  { phrase: "شماره امداد خودرو شمال", href: "/شمال" },
+  { phrase: "یدک کش آنلاین محمودآباد", href: "/محمودآباد/یدک-کش" },
+  { phrase: "یدک‌کش محمودآباد", href: "/محمودآباد/یدک-کش" },
+  { phrase: "پنچرگیری سیار رشت", href: "/رشت/پنچرگیری-سیار" },
+  { phrase: "مکانیک سیار رامسر", href: "/رامسر/مکانیک-سیار" },
+  { phrase: "هزینه حمل خودرو با کفی", href: "/pricing" },
+  { phrase: "حمل خودرو با کفی", href: "/pricing" },
+  { phrase: "تعمیرکار سیار", href: "/services/mobile-mechanic" },
+  { phrase: "شماره امداد خودرو تهران", href: "/تهران" },
+  { phrase: "امداد خودرو کندوان", href: "/roads/chalus" },
+  { phrase: "خودروبر تهران", href: "/تهران/خودروبر" },
+];

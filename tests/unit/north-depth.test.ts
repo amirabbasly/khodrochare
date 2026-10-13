@@ -4,6 +4,8 @@ import { readFile } from "node:fs/promises";
 import { northCityDepth } from "../../src/content/north-depth";
 import { northProvinceDepth } from "../../src/content/north-provinces";
 import { northFiringLinkRules, northHubLinkRules } from "../../src/content/north-link-rules";
+import { round4FiringLinkRules } from "../../src/content/north-link-rules";
+import { round4Guides } from "../../src/content/blog-round4-guides";
 import { cityProfiles, northernProvinces } from "../../src/content/coverage";
 import { allCities } from "../../src/content/coverage";
 import { northRoadDepth } from "../../src/content/north-roads";
@@ -337,4 +339,59 @@ test("round 3: new road and city-service depth carries no forbidden claims", () 
       `forbidden claim: ${text.slice(0, 60)}`,
     );
   }
+});
+
+test("round 4: twelve exact-query rules fire on valid money pages", () => {
+  assert.equal(round4FiringLinkRules.length, 12);
+  const citySlugs = new Set(Object.values(cityProfiles).map((city) => city.slug));
+  const provinceSlugs = new Set(northernProvinces.map((province) => province.slug));
+  const roadSlugs = new Set(roadProfiles.map((road) => `/roads/${road.slug}`));
+  const svcSlugs: Set<string> = new Set(persianServiceRoutes.map((route) => route.slug));
+  const cityServicePaths = new Set(
+    allCities.flatMap((city) => [...svcSlugs].map((svc) => `/${city.slug}/${svc}`)),
+  );
+  const corpus = blogPosts.map((post) =>
+    [
+      post.title,
+      post.excerpt,
+      ...post.sections.map((section) => sectionText(section)),
+      ...(supplementalArticleSections[post.slug] ?? []).map((section) => sectionText(section)),
+      ...(post.faqs ?? []).map((faq) => `${faq.question} ${faq.answer}`),
+    ].join("\n"),
+  );
+  assert.ok(corpus.length >= 58, "blog corpus shrank");
+  for (const rule of round4FiringLinkRules) {
+    const slug = rule.href.slice(1);
+    const valid =
+      citySlugs.has(slug) ||
+      provinceSlugs.has(slug) ||
+      roadSlugs.has(rule.href) ||
+      cityServicePaths.has(rule.href) ||
+      rule.href === "/شمال" ||
+      rule.href === "/pricing" ||
+      rule.href === "/services/mobile-mechanic";
+    assert.ok(valid, `bad round-4 href: ${rule.href}`);
+    const hits = corpus.filter((text) => text.includes(rule.phrase)).length;
+    assert.ok(hits >= 1, `dead round-4 rule (no post contains it): ${rule.phrase}`);
+  }
+});
+
+test("round 4: four guides registered with supplementals and money links", () => {
+  assert.equal(round4Guides.length, 4);
+  const slugs = new Set(blogPosts.map((post) => post.slug));
+  for (const post of round4Guides) {
+    assert.ok(slugs.has(post.slug), `not registered: ${post.slug}`);
+    assert.ok((supplementalArticleSections[post.slug] ?? []).length >= 2, `${post.slug}: supplemental`);
+    assert.ok((post.links ?? []).length >= 5, `${post.slug}: needs 5 money links`);
+  }
+});
+
+test("round 4: online and Tehran depth wiring is live", async () => {
+  const online = await readFile("src/components/pages/online-assistance-page.tsx", "utf8");
+  assert.ok(online.includes("امداد خودرو آنلاین در تهران؛ ترافیک، نشانی و ساعت"));
+  assert.ok(online.includes("امداد خودرو آنلاین در شمال؛ محور، اقامتگاه و آنتن"));
+  assert.ok(online.includes("هزینه درخواست آنلاین با تلفنی فرق دارد؟"));
+  const { tehranHubSections, tehranHubFaqs } = await import("../../src/content/tehran-hub-expansion");
+  assert.ok(tehranHubSections.some((s) => s.title.includes("کی آنلاین، کی تماس؟")));
+  assert.ok(tehranHubFaqs.some((f) => f.question.includes("شماره امداد خودرو تهران")));
 });

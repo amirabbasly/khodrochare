@@ -48,12 +48,12 @@ test("Tehran hub covers all 22 districts mapped to valid region pages", () => {
   assert.equal(used.size, 5);
 });
 
-test("Tehran night/plan sections and FAQs meet minimum substance", () => {
-  assert.equal(tehranHubSections.length, 2);
+test("Tehran night/plan/online sections and FAQs meet minimum substance", () => {
+  assert.equal(tehranHubSections.length, 4);
   for (const section of tehranHubSections) {
     assert.ok(words(section.body) >= 100, `thin hub section: ${section.title.slice(0, 30)}`);
   }
-  assert.equal(tehranHubFaqs.length, 2);
+  assert.equal(tehranHubFaqs.length, 4);
   for (const faq of tehranHubFaqs) {
     assert.ok(words(faq.answer) >= 25, `thin hub FAQ: ${faq.question.slice(0, 30)}`);
   }
