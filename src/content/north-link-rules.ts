@@ -86,3 +86,23 @@ export const round4FiringLinkRules: NorthLinkRule[] = [
   { phrase: "امداد خودرو کندوان", href: "/roads/chalus" },
   { phrase: "خودروبر تهران", href: "/تهران/خودروبر" },
 ];
+
+/**
+ * Round-5 exact-query rules (2026-10-14): twelve phrases lifted from Search
+ * Console winning/edge queries. Every phrase is verified present in the blog
+ * corpus (post or supplemental); tests/unit/north-depth.test.ts asserts it.
+ */
+export const round5FiringLinkRules: NorthLinkRule[] = [
+  { phrase: "شماره امداد خودرو تنکابن", href: "/تنکابن/مکانیک-سیار" },
+  { phrase: "مکانیک سیار تنکابن", href: "/تنکابن/مکانیک-سیار" },
+  { phrase: "مکانیک سیار بابلسر", href: "/بابلسر/مکانیک-سیار" },
+  { phrase: "مکانیک سیار گرگان", href: "/گرگان/مکانیک-سیار" },
+  { phrase: "یدک کش تهران", href: "/تهران/یدک-کش" },
+  { phrase: "امداد خودرو ایران خودرو", href: "/brands/iran-khodro" },
+  { phrase: "امداد خودرو گیشا", href: "/تهران/گیشا" },
+  { phrase: "تعمیرات خودرو سیار", href: "/services/mobile-mechanic" },
+  { phrase: "پنچرگیری سیار در محل", href: "/services/flat-tire" },
+  { phrase: "تعمیرکار سیار تهران", href: "/تهران/مکانیک-سیار" },
+  { phrase: "دیاگ سیار خودرو", href: "/تهران/دیاگ-سیار" },
+  { phrase: "امداد خودرو آنلاین نیاوران", href: "/تهران/نیاوران" },
+];

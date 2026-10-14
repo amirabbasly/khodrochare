@@ -10,7 +10,7 @@ import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/seo
 import { seoMetadata } from "@/seo/metadata";
 import { sectionText } from "@/content/editorial-types";
 import { EditorialDetails, SourceList } from "@/components/seo/editorial-content";
-import { northFiringLinkRules, northHubLinkRules, round4FiringLinkRules } from "@/content/north-link-rules";
+import { northFiringLinkRules, northHubLinkRules, round4FiringLinkRules, round5FiringLinkRules } from "@/content/north-link-rules";
 
 const commercialLinks: Record<string, { title: string; href: string }[]> = {
   "emergency-car-assistance-tehran-districts": [{ title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد شبانه تهران", href: "/تهران/امداد-خودرو" }, { title: "یدک‌کش تهران", href: "/تهران/یدک-کش" }, { title: "مناطق تحت پوشش", href: "/coverage" }],
@@ -172,6 +172,7 @@ const contextualLinkRules = [
   ...northHubLinkRules,
   ...northFiringLinkRules,
   ...round4FiringLinkRules,
+  ...round5FiringLinkRules,
 ] as const;
 
 function contextualText(text: string, used: Set<string>): ReactNode[] {

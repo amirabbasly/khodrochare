@@ -8,6 +8,7 @@ import { ExpandedRegionLanding } from "@/components/seo/regional-landing-pages";
 import { persianServiceRoutes } from "@/seo/internal-links";
 import { seoRegions } from "@/seo/locations";
 import { seoMetadata } from "@/seo/metadata";
+import { metaDescriptionOverrides } from "@/seo/meta-overrides";
 import { getService } from "@/content/services";
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -23,7 +24,7 @@ function resolve(citySlug: string, slug: string) {
 }
 export async function generateMetadata({ params }: { params: Promise<{ city: string; slug: string }> }): Promise<Metadata> {
   const raw = await params; const citySlug = decodeRouteParam(raw.city); const slug = decodeRouteParam(raw.slug); const { city, route, region, neighborhood } = resolve(citySlug, slug); const path = `/${citySlug}/${slug}`;
-  if (route) { const service = getService(route.serviceSlug)!; return seoMetadata({ title: `${route.title} ${city.name} | هزینه و هماهنگی`, description: `${route.title} در ${city.name}؛ اطلاعات لازم برای اعزام، شرایط دسترسی، محدودیت‌های ایمنی و عوامل هزینه با هماهنگی خودرو چاره.`, path, image: service.image, keywords: [`${route.title} ${city.name}`, `${service.shortTitle} ${city.name}`, `امداد خودرو ${city.name}`, `هزینه ${route.title} ${city.name}`] }); }
+  if (route) { const service = getService(route.serviceSlug)!; return seoMetadata({ title: `${route.title} ${city.name} | هزینه و هماهنگی`, description: metaDescriptionOverrides[path] ?? `${route.title} در ${city.name}؛ اطلاعات لازم برای اعزام، شرایط دسترسی، محدودیت‌های ایمنی و عوامل هزینه با هماهنگی خودرو چاره.`, path, image: service.image, keywords: [`${route.title} ${city.name}`, `${service.shortTitle} ${city.name}`, `امداد خودرو ${city.name}`, `هزینه ${route.title} ${city.name}`] }); }
   if (region) return seoMetadata({ title: `امداد خودرو ${region.name} | خدمات و محله‌ها`, description: region.metaDescription, path, image: region.image });
   return seoMetadata({ title: `امداد خودرو ${neighborhood!.name} | یدک‌کش و مکانیک سیار`, description: `امداد خودرو ${neighborhood!.name}؛ راهنمای دسترسی به ${neighborhood!.landmarks.slice(0, 2).join(" و ")}، تعمیر در محل، حمل خودرو و اعلام هزینه پیش از خدمت.`, path });
 }

@@ -4,6 +4,7 @@ import { modelGuides } from "./blog-model-guides";
 import { northGuides } from "./blog-north-guides";
 import { depthGuides } from "./blog-depth-guides";
 import { round4Guides } from "./blog-round4-guides";
+import { round5Guides } from "./blog-round5-guides";
 import { blogUpdates } from "./blog-updates";
 import { sectionText, type EditorialSection, type ContentSource, type EditorialLink } from "./editorial-types";
 
@@ -700,6 +701,7 @@ export const blogPosts: BlogPost[] = [
   ...northGuides,
   ...depthGuides,
   ...round4Guides,
+  ...round5Guides,
 ].map((post) => {
   const text = [...post.sections, ...(supplementalArticleSections[post.slug] ?? [])].map(sectionText).join(" ");
   const minutes = Math.max(1, Math.ceil(text.trim().split(/\s+/u).length / 160));
