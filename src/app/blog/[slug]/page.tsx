@@ -11,6 +11,7 @@ import { seoMetadata } from "@/seo/metadata";
 import { sectionText } from "@/content/editorial-types";
 import { EditorialDetails, SourceList } from "@/components/seo/editorial-content";
 import { northFiringLinkRules, northHubLinkRules, round4FiringLinkRules, round5FiringLinkRules } from "@/content/north-link-rules";
+import { findBoundedMatch } from "@/seo/link-boundaries";
 
 const commercialLinks: Record<string, { title: string; href: string }[]> = {
   "emergency-car-assistance-tehran-districts": [{ title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد شبانه تهران", href: "/تهران/امداد-خودرو" }, { title: "یدک‌کش تهران", href: "/تهران/یدک-کش" }, { title: "مناطق تحت پوشش", href: "/coverage" }],
@@ -182,7 +183,7 @@ function contextualText(text: string, used: Set<string>): ReactNode[] {
   while (remaining && used.size < 18) {
     const matches = contextualLinkRules
       .filter((rule) => !used.has(rule.phrase))
-      .map((rule) => ({ rule, index: remaining.indexOf(rule.phrase) }))
+      .map((rule) => ({ rule, index: findBoundedMatch(remaining, rule.phrase) }))
       .filter((match) => match.index >= 0)
       .sort((a, b) => a.index - b.index || b.rule.phrase.length - a.rule.phrase.length);
     const match = matches[0];
