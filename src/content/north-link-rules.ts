@@ -106,3 +106,19 @@ export const round5FiringLinkRules: NorthLinkRule[] = [
   { phrase: "دیاگ سیار خودرو", href: "/تهران/دیاگ-سیار" },
   { phrase: "امداد خودرو آنلاین نیاوران", href: "/تهران/نیاوران" },
 ];
+
+/**
+ * Round-6 exact-query rules (2026-10-15): nine phrases for seasonal carriers
+ * plus hub/money targets. Verified present in the blog corpus; tests assert it.
+ */
+export const round6FiringLinkRules: NorthLinkRule[] = [
+  { phrase: "یدک کش شمال", href: "/شمال" },
+  { phrase: "خودروبر شمال", href: "/شمال" },
+  { phrase: "امداد خودرو جاده چالوس", href: "/roads/chalus" },
+  { phrase: "مکانیک سیار شمال", href: "/شمال" },
+  { phrase: "امداد خودرو آزادراه شمال", href: "/roads/tehran-north" },
+  { phrase: "امداد خودرو شبانه روزی تهران", href: "/تهران" },
+  { phrase: "امداد خودرو شبانه روزی شمال", href: "/شمال" },
+  { phrase: "هزینه یدک کش تهران", href: "/pricing" },
+  { phrase: "یدک کش ارزان تهران", href: "/تهران/یدک-کش" },
+];

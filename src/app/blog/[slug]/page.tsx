@@ -10,7 +10,7 @@ import { articleSchema, breadcrumbSchema, faqSchema, webPageSchema } from "@/seo
 import { seoMetadata } from "@/seo/metadata";
 import { sectionText } from "@/content/editorial-types";
 import { EditorialDetails, SourceList } from "@/components/seo/editorial-content";
-import { northFiringLinkRules, northHubLinkRules, round4FiringLinkRules, round5FiringLinkRules } from "@/content/north-link-rules";
+import { northFiringLinkRules, northHubLinkRules, round4FiringLinkRules, round5FiringLinkRules, round6FiringLinkRules } from "@/content/north-link-rules";
 import { findBoundedMatch } from "@/seo/link-boundaries";
 
 const commercialLinks: Record<string, { title: string; href: string }[]> = {
@@ -174,6 +174,7 @@ const contextualLinkRules = [
   ...northFiringLinkRules,
   ...round4FiringLinkRules,
   ...round5FiringLinkRules,
+  ...round6FiringLinkRules,
 ] as const;
 
 function contextualText(text: string, used: Set<string>): ReactNode[] {

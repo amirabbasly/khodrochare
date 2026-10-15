@@ -78,3 +78,20 @@ export function TeamSection() {
     </section>
   );
 }
+
+export function FeedbackWall({ items }: { items: { city: string; service: string; text: string }[] }) {
+  return (
+    <section className="section-shell mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-card md:p-8" aria-label="بازخوردهای مشتریان">
+      <h2 className="text-xl font-extrabold text-slate-900 md:text-2xl">بازخوردهای ثبت‌شده مشتریان</h2>
+      <p className="mt-2 text-sm leading-7 text-slate-600">گزیده‌ای از بازخوردهایی که مشتریان پس از دریافت خدمت ثبت کرده‌اند؛ متن‌ها بدون ویرایش منتشر می‌شود.</p>
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((fb, i) => (
+          <figure key={i} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+            <blockquote className="text-[13px] leading-7 text-slate-700">{fb.text}</blockquote>
+            <figcaption className="mt-2 text-xs font-semibold text-slate-500">{fb.city} · {fb.service}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}

@@ -4,9 +4,10 @@ import { readFile } from "node:fs/promises";
 import { northCityDepth } from "../../src/content/north-depth";
 import { northProvinceDepth } from "../../src/content/north-provinces";
 import { northFiringLinkRules, northHubLinkRules } from "../../src/content/north-link-rules";
-import { round4FiringLinkRules, round5FiringLinkRules } from "../../src/content/north-link-rules";
+import { round4FiringLinkRules, round5FiringLinkRules, round6FiringLinkRules } from "../../src/content/north-link-rules";
 import { round4Guides } from "../../src/content/blog-round4-guides";
 import { round5Guides } from "../../src/content/blog-round5-guides";
+import { round6Guides } from "../../src/content/blog-round6-guides";
 import { neighborhoods } from "../../src/content/neighborhoods";
 import { brandProfiles } from "../../src/content/brands";
 import { services } from "../../src/content/services";
@@ -474,4 +475,67 @@ test("round 5: honesty and exact-match wiring is live", async () => {
   const hoods = await readFile("src/content/neighborhoods.ts", "utf8");
   assert.ok(hoods.includes("اگر امداد خودرو آنلاین نیاوران می‌خواهید"));
   assert.ok(hoods.includes("برای امداد خودرو گیشا، شماره خیابان فرعی"));
+});
+
+test("round 6: nine exact-query rules fire on valid money pages", () => {
+  assert.equal(round6FiringLinkRules.length, 9);
+  const citySlugs = new Set(Object.values(cityProfiles).map((city) => city.slug));
+  const provinceSlugs = new Set(northernProvinces.map((province) => province.slug));
+  const roadSlugs = new Set(roadProfiles.map((road) => `/roads/${road.slug}`));
+  const svcSlugs: Set<string> = new Set(persianServiceRoutes.map((route) => route.slug));
+  const cityServicePaths = new Set(
+    allCities.flatMap((city) => [...svcSlugs].map((svc) => `/${city.slug}/${svc}`)),
+  );
+  const servicePaths = new Set(services.map((service) => `/services/${service.slug}`));
+  const brandPaths = new Set(brandProfiles.map((brand) => `/brands/${brand.slug}`));
+  const neighborhoodPaths = new Set(neighborhoods.map((area) => `/${area.citySlug}/${area.slug}`));
+  const corpus = blogPosts.map((post) =>
+    [
+      post.title,
+      post.excerpt,
+      ...post.sections.map((section) => sectionText(section)),
+      ...(supplementalArticleSections[post.slug] ?? []).map((section) => sectionText(section)),
+      ...(post.faqs ?? []).map((faq) => `${faq.question} ${faq.answer}`),
+    ].join("\n"),
+  );
+  for (const rule of round6FiringLinkRules) {
+    const slug = rule.href.slice(1);
+    const valid =
+      citySlugs.has(slug) ||
+      provinceSlugs.has(slug) ||
+      roadSlugs.has(rule.href) ||
+      cityServicePaths.has(rule.href) ||
+      servicePaths.has(rule.href) ||
+      brandPaths.has(rule.href) ||
+      neighborhoodPaths.has(rule.href) ||
+      rule.href === "/شمال" ||
+      rule.href === "/pricing";
+    assert.ok(valid, `bad round-6 href: ${rule.href}`);
+    const hits = corpus.filter((text) => text.includes(rule.phrase)).length;
+    assert.ok(hits >= 1, `dead round-6 rule (no post contains it): ${rule.phrase}`);
+  }
+});
+
+test("round 6: two seasonal guides registered with supplementals and money links", () => {
+  assert.equal(round6Guides.length, 2);
+  const slugs = new Set(blogPosts.map((post) => post.slug));
+  for (const post of round6Guides) {
+    assert.ok(slugs.has(post.slug), `not registered: ${post.slug}`);
+    assert.ok((supplementalArticleSections[post.slug] ?? []).length >= 2, `${post.slug}: supplemental`);
+    assert.ok((post.links ?? []).length >= 5, `${post.slug}: needs 5 money links`);
+  }
+});
+
+test("round 6: city-service depth clears the raised floor and tehran-north grew", () => {
+  const words = (value: string): number =>
+    value.split(/\s+/).filter((token) => /[\u0600-\u06FF]/.test(token)).length;
+  for (const [path, extra] of Object.entries(northCityServiceDepth)) {
+    for (const section of extra.sections) assert.ok(words(section.body) >= 150, `${path}: section <150`);
+    for (const faq of extra.faqs) assert.ok(words(faq.answer) >= 60, `${path}: faq <60`);
+    const total = [...extra.sections.map((s) => s.body), ...extra.faqs.map((f) => f.answer)].map(words).reduce((a, b) => a + b, 0);
+    assert.ok(total >= 500, `${path}: total ${total} <500`);
+  }
+  const tn = northRoadDepth["tehran-north"];
+  const tnTotal = [...tn.sections.map((s) => s.body), ...tn.faqs.map((f) => f.answer)].map(words).reduce((a, b) => a + b, 0);
+  assert.ok(tnTotal >= 600, `tehran-north total ${tnTotal} <600`);
 });

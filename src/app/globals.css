@@ -81,6 +81,7 @@ button, select { cursor: pointer; }
 .tow-siren { position: absolute; right: 20%; bottom: 99px; width: 25px; height: 8px; border-radius: 6px 6px 2px 2px; background: linear-gradient(90deg,#1db5ff 0 50%,#ff3948 50%); animation: siren-flash .65s steps(2,end) infinite; }
 .tow-line { position: absolute; left: 7%; bottom: 54px; width: 30%; height: 3px; background: #cbd5e1; transform: rotate(-28deg); transform-origin: left center; }
 .tow-hook { position: absolute; left: 4%; bottom: 46px; width: 12px; height: 15px; border: 3px solid #d7e1e9; border-top: 0; border-radius: 0 0 8px 8px; }
+.tow-road { background: repeating-linear-gradient(90deg,rgb(148 163 184 / .5) 0 26px,transparent 26px 44px) !important; animation: tow-road-move .6s linear infinite; }
 .wheel { position: absolute; bottom: 15px; z-index: 4; width: 44px; height: 44px; border: 7px solid #101822; border-radius: 50%; background: repeating-conic-gradient(from 15deg,#e2e8f0 0deg 12deg,#64748b 12deg 24deg,#1e293b 24deg 60deg); box-shadow: 0 0 0 2px #dce4ea inset; animation: wheel-spin 1.4s linear infinite; }
 .wheel::before { content: ""; position: absolute; left: 4px; top: 3px; width: 5px; height: 5px; border-radius: 50%; background: #ffb46b; }
 .wheel::after { content: ""; position: absolute; inset: 9px; border-radius: 50%; background: #182331; border: 3px solid #aab8c5; }
@@ -104,7 +105,8 @@ button, select { cursor: pointer; }
 
 @keyframes voice-pulse { 0% { transform: scale(.7); opacity: .15; } 55% { opacity: .7; } 100% { transform: scale(1.15); opacity: 0; } }
 @keyframes hero-copy-in { from { opacity: 0; transform: translateX(48px); filter: blur(5px); } to { opacity: 1; transform: translateX(0); filter: blur(0); } }
-@keyframes tow-bob { 0%,100% { transform: translateY(0) rotate(-.4deg); } 50% { transform: translateY(-7px) rotate(.5deg); } }
+@keyframes tow-bob { 0%,100% { transform: translate(6px,0) rotate(-.4deg); } 50% { transform: translate(-6px,-7px) rotate(.5deg); } }
+@keyframes tow-road-move { to { background-position-x: -44px; } }
 @keyframes tow-shadow { 0%,100% { transform: scaleX(1); opacity: .6; } 50% { transform: scaleX(.88); opacity: .38; } }
 @keyframes wheel-spin { to { transform: rotate(360deg); } }
 @keyframes siren-flash { 50% { filter: brightness(1.8); box-shadow: -8px 0 16px #38bdf8,8px 0 16px #fb7185; } }

@@ -10,6 +10,7 @@ import { northGuides } from "../../src/content/blog-north-guides";
 import { depthGuides } from "../../src/content/blog-depth-guides";
 import { round4Guides } from "../../src/content/blog-round4-guides";
 import { round5Guides } from "../../src/content/blog-round5-guides";
+import { round6Guides } from "../../src/content/blog-round6-guides";
 import { blogUpdates } from "../../src/content/blog-updates";
 import { sectionText } from "../../src/content/editorial-types";
 import { localServiceGuides, serviceKnowledge } from "../../src/content/service-knowledge";
@@ -22,7 +23,7 @@ const paths = new Set(indexablePaths);
 
 test("all 374 previously published paths survive; two six-guide batches, a twenty-four-guide batch and partner/press pages are added", async () => {
   const previous = JSON.parse(await readFile(new URL("../fixtures/published-routes-2026-09-06.json", import.meta.url), "utf8")) as string[];
-  assert.equal(previous.length, 374); assert.equal(paths.size, 424);
+  assert.equal(previous.length, 374); assert.equal(paths.size, 426);
   for (const path of previous) assert.ok(paths.has(path), `lost published path ${path}`);
   assert.equal(newBlogGuides.length, 6); assert.equal(seoBoostGuides.length, 6); assert.equal(modelGuides.length, 10); assert.equal(northGuides.length, 6); assert.equal(depthGuides.length, 8); assert.equal(tools.length, 3); assert.ok(paths.has("/tools"));
   assert.ok(paths.has("/partners")); assert.ok(paths.has("/press"));
@@ -38,9 +39,9 @@ test("eight existing articles are expanded without changing their publication da
   }
 });
 test("new and updated articles have distinct sections, useful references and valid table shapes", () => {
-  assert.equal(blogPosts.length, 59);
-  const richSlugs = new Set([...Object.keys(blogUpdates), ...newBlogGuides.map((post) => post.slug), ...seoBoostGuides.map((post) => post.slug), ...modelGuides.map((post) => post.slug), ...northGuides.map((post) => post.slug), ...depthGuides.map((post) => post.slug), ...round4Guides.map((post) => post.slug), ...round5Guides.map((post) => post.slug)]);
-  assert.equal(richSlugs.size, 49);
+  assert.equal(blogPosts.length, 61);
+  const richSlugs = new Set([...Object.keys(blogUpdates), ...newBlogGuides.map((post) => post.slug), ...seoBoostGuides.map((post) => post.slug), ...modelGuides.map((post) => post.slug), ...northGuides.map((post) => post.slug), ...depthGuides.map((post) => post.slug), ...round4Guides.map((post) => post.slug), ...round5Guides.map((post) => post.slug), ...round6Guides.map((post) => post.slug)]);
+  assert.equal(richSlugs.size, 51);
   for (const post of blogPosts.filter((item) => richSlugs.has(item.slug))) {
     assert.equal(new Set(post.sections.map((section) => section.title)).size, post.sections.length, post.slug);
     assert.ok(post.sections.length >= 7 && post.sources?.length && post.links?.length, post.slug);
@@ -83,7 +84,7 @@ test("service enrichment does not introduce duplicate FAQ questions or missing l
   }
 });
 test("sitemap dates change only for substantively updated pages and each new URL is canonical", () => {
-  const entries = sitemap(); assert.equal(entries.length, 424);
+  const entries = sitemap(); assert.equal(entries.length, 426);
   const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
   for (const tool of tools) assert.ok(byUrl.has(absoluteUrl(`/tools/${tool.slug}`)));
   assert.equal(new Date(byUrl.get(absoluteUrl("/pricing"))!.lastModified!).toISOString().slice(0, 10), "2026-09-07");
@@ -114,5 +115,24 @@ test("October 14 batch ships one dated concerns guide with substantive body", ()
     assert.equal(post.publishedAt, "۲۲ مهر ۱۴۰۵");
     assert.ok(post.sections.map(sectionText).join(" ").split(/\s+/u).length >= 450, post.slug);
     assert.ok(post.faqs?.length && post.faqs.length >= 3, post.slug);
+  }
+});
+
+test("October 15 batch ships two dated seasonal guides with 1500+ words", () => {
+  assert.equal(round6Guides.length, 2);
+  const slugs = new Set(blogPosts.map((post) => post.slug));
+  for (const post of round6Guides) {
+    assert.ok(slugs.has(post.slug), `not registered: ${post.slug}`);
+    assert.equal(post.publishedAtIso, "2026-10-15"); assert.equal(post.updatedAtIso, "2026-10-15");
+    assert.equal(post.publishedAt, "۲۳ مهر ۱۴۰۵");
+    const bodyWords = post.sections.map(sectionText).join(" ").split(/\s+/u).length;
+    assert.ok(bodyWords >= 1000, `${post.slug}: sections ${bodyWords} <1000`);
+    const supp = (supplementalArticleSections[post.slug] ?? []).map(sectionText).join(" ");
+    const faq = (post.faqs ?? []).map((item) => `${item.question} ${item.answer}`).join(" ");
+    const total = `${post.sections.map(sectionText).join(" ")} ${supp} ${faq}`.split(/\s+/u).length;
+    assert.ok(total >= 1500, `${post.slug}: total ${total} <1500`);
+    assert.ok(post.faqs?.length && post.faqs.length >= 3, post.slug);
+    assert.ok((supplementalArticleSections[post.slug] ?? []).length >= 2, `${post.slug}: supplemental`);
+    assert.ok((post.links ?? []).length >= 5, `${post.slug}: needs 5 money links`);
   }
 });
