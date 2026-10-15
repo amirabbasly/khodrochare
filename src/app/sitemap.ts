@@ -16,8 +16,8 @@ import { absoluteUrl } from "@/seo/metadata";
  * URLs do not match the canonical tags Next.js renders and crawlers may treat them
  * as separate (or invalid) locations. `absoluteUrl()` handles the encoding.
  */
-const siteUpdatedAt = new Date("2026-09-05T00:00:00.000Z");
-const contentUpdatedAt = new Date("2026-09-05T00:00:00.000Z");
+const siteUpdatedAt = new Date("2026-09-23T00:00:00.000Z");
+const contentUpdatedAt = new Date("2026-09-23T00:00:00.000Z");
 const staticPageUpdatedAt = new Date("2026-08-27T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -32,6 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/about"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.6 },
     { url: absoluteUrl("/pricing"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.8 },
+    { url: absoluteUrl("/partners"), lastModified: new Date("2026-09-23T00:00:00.000Z"), changeFrequency: "monthly", priority: 0.6 },
+    { url: absoluteUrl("/press"), lastModified: new Date("2026-09-23T00:00:00.000Z"), changeFrequency: "monthly", priority: 0.5 },
   ];
 
   const cityPages: MetadataRoute.Sitemap = Object.values(seoLocations).flatMap((location) => [

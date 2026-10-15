@@ -19,8 +19,8 @@ export const dynamicParams = false;
 export function generateStaticParams() { return [...allCities, ...northernProvinces, ...Object.keys(guides).map((slug) => ({ slug }))].map((item) => ({ city: item.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
   const slug = decodeRouteParam((await params).city); const guide = findGuide(slug); if (guide) return guide.metadata; const city = findCity(slug); const province = findProvince(slug);
-  if (city) return seoMetadata({ title: `امداد خودرو ${city.name} | هماهنگی آنلاین و شبانه‌روزی`, description: city.description, path: `/${city.slug}`, image: "/images/support-technician-night.webp" });
-  if (province) return seoMetadata({ title: `امداد خودرو ${province.name} | یدک‌کش و خدمات در محل`, description: `امداد خودرو آنلاین ${province.name}؛ شهرهای تحت پوشش، خدمات در محل و حمل خودرو، شرایط مسیر، عوامل هزینه و تماس برای هماهنگی شبانه‌روزی.`, path: `/${province.slug}` });
+  if (city) return seoMetadata({ title: `امداد خودرو ${city.name} | هماهنگی آنلاین و شبانه‌روزی`, description: city.description, path: `/${city.slug}`, image: "/images/support-technician-night.webp", keywords: city.keywords });
+  if (province) return seoMetadata({ title: `امداد خودرو ${province.name} | یدک‌کش و خدمات در محل`, description: `امداد خودرو آنلاین ${province.name}؛ شهرهای تحت پوشش، خدمات در محل و حمل خودرو، شرایط مسیر، عوامل هزینه و تماس برای هماهنگی شبانه‌روزی.`, path: `/${province.slug}`, keywords: [`امداد خودرو ${province.name}`, `امداد خودرو آنلاین ${province.name}`, `یدک کش ${province.name}`, `حمل خودرو ${province.name}`, `امداد خودرو شبانه روزی ${province.name}`] });
   notFound();
 }
 export default async function Page({ params }: { params: Promise<{ city: string }> }) {

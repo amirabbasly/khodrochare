@@ -1,5 +1,6 @@
 import { siteUrl } from "./metadata";
 import { businessFacts } from "@/content/business";
+import { customerReviews } from "@/content/reviews";
 
 const openAllWeek = {
   "@type": "OpeningHoursSpecification",
@@ -14,6 +15,9 @@ const servedCities = [
   ...["گیلان", "مازندران", "گلستان"].map((name) => ({ "@type": "AdministrativeArea", name })),
 ];
 
+const averageRating = customerReviews.length ? customerReviews.reduce((sum, review) => sum + review.rating, 0) / customerReviews.length : 0;
+/** AggregateRating is only emitted with 5+ real reviews; the SEO audit enforces reviewCount >= 5. */
+const reviewsAggregate = customerReviews.length >= 5 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: Math.round(averageRating * 10) / 10, bestRating: 5, worstRating: 1, reviewCount: customerReviews.length } } : {};
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "AutoRepair"],
@@ -49,6 +53,7 @@ export const organizationSchema = {
   availableLanguage: [{ "@type": "Language", name: "Persian", alternateName: "fa" }],
   knowsAbout: [...businessFacts.services, "امداد خودرو آنلاین"],
   slogan: "امداد خودرو آنلاین در تهران، کرج و شمال کشور",
+  ...reviewsAggregate,
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "خدمات امداد خودرو و خدمات خودرو در محل",
@@ -60,7 +65,7 @@ export const organizationSchema = {
   openingHoursSpecification: [openAllWeek],
   contactPoint: [
     { "@type": "ContactPoint", telephone: "+989123022064", contactType: "emergency", areaServed: ["IR"], availableLanguage: ["fa"], hoursAvailable: openAllWeek },
-    { "@type": "ContactPoint", telephone: "+989397979861", contactType: "customer support", areaServed: ["IR"], availableLanguage: ["fa"], hoursAvailable: openAllWeek },
+    { "@type": "ContactPoint", telephone: "+989123022064", contactType: "customer support", areaServed: ["IR"], availableLanguage: ["fa"], hoursAvailable: openAllWeek },
   ],
 };
 
@@ -165,10 +170,11 @@ export function articleSchema({ title, description, path, image, publishedAt, mo
   };
 }
 
-export function reviewSchema({ name, service, dateIso, rating, text, path }: { name: string; service: string; dateIso: string; rating: number; text: string; path: string }) {
+export function reviewSchema({ name, service, dateIso, rating, text, path, title }: { name: string; service: string; dateIso: string; rating: number; text: string; path: string; title?: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "Review",
+    ...(title ? { name: title } : {}),
     author: { "@type": "Person", name },
     datePublished: dateIso,
     reviewBody: text,

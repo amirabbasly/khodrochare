@@ -11,6 +11,7 @@ export const indexablePaths = [
   "/tools", ...tools.map((tool) => `/tools/${tool.slug}`),
   "/", "/services", "/coverage", "/blog", "/rules", "/app", "/assistant", "/about", "/contact", "/pricing",
   "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/شمال", "/brands", "/roads", "/editorial-policy", "/privacy",
+  "/partners", "/press",
   ...allCities.flatMap((city) => [`/${city.slug}`, ...persianServiceRoutes.map((route) => `/${city.slug}/${route.slug}`)]),
   ...northernProvinces.map((province) => `/${province.slug}`),
   ...Object.values(seoRegions).map((region) => `/${region.citySlug}/${region.slug}`),

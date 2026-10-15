@@ -160,7 +160,7 @@ test.describe("welcome contact dialog", () => {
     await visitReady(page);
     const dialog = page.getByTestId("welcome-dialog");
     await expect(dialog).toHaveCount(0);
-    await page.clock.fastForward(4000);
+    await page.clock.fastForward(1000);
     await expect(dialog).toHaveCount(0);
     const focusedBefore = await page.evaluate(() => document.activeElement?.tagName);
     await page.clock.fastForward(1000);

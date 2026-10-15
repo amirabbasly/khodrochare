@@ -1,8 +1,8 @@
 /** Home-page slogans supplied by the business owner. Not live dispatch statuses. */
 export const towHighlights = [
-  { text: "حمل تا تعمیرگاه رایگان", icon: "truck" },
-  { text: "تضمین کمترین قیمت", icon: "tag" },
-  { text: "تضمین بالاترین کیفیت", icon: "shield" },
+  { text: "هماهنگی حمل تا تعمیرگاه", icon: "truck" },
+  { text: "اعلام شفاف هزینه پیش از خدمت", icon: "tag" },
+  { text: "بازدید و عیب‌یابی پیش از تعمیر", icon: "shield" },
   { text: "کارشناس مجرب", icon: "user" },
   { text: "پوشش سراسری", icon: "map" },
   { text: "پاسخ‌گویی ۲۴ ساعته، ۷ روز هفته", icon: "clock" },

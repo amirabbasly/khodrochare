@@ -21,7 +21,7 @@ export function ContactForm() {
     <form id="contact-form" onSubmit={submit} className="grid gap-4" aria-label="فرم تماس با خودرو چاره">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-xs font-bold text-slate-600">نام و نام خانوادگی<input name="name" required autoComplete="name" className="form-control mt-2" placeholder="نام شما" /></label>
-        <label className="text-xs font-bold text-slate-600">شماره تماس<input name="phone" required inputMode="tel" autoComplete="tel" className="form-control mt-2" placeholder="مثلاً 09121234567" dir="ltr" /></label>
+        <label className="text-xs font-bold text-slate-600">شماره تماس<input name="phone" required inputMode="tel" autoComplete="tel" className="form-control mt-2" placeholder="مثلاً 09123022064" dir="ltr" /></label>
       </div>
       <label className="text-xs font-bold text-slate-600">موضوع<select name="subject" required defaultValue="" className="form-control mt-2"><option value="" disabled>موضوع پیام را انتخاب کنید</option><option>درخواست راهنمایی</option><option>پیگیری خدمت</option><option>پیشنهاد همکاری</option><option>انتقاد یا شکایت</option><option>سایر موارد</option></select></label>
       <label className="text-xs font-bold text-slate-600">متن پیام<textarea name="message" required rows={6} className="form-control mt-2 min-h-36 py-3" placeholder="لطفاً توضیحات لازم را بنویسید." /></label>

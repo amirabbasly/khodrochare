@@ -1,0 +1,123 @@
+# اولویت‌بندی درخواست ایندکس دستی GSC — خودرو چاره (۱۰۰ آدرس، روزی ۱۰ عدد)
+# روش: URL Inspection ← وارد کردن آدرس ← Request indexing
+# بقیه ۳۱۹ آدرس نیازی به ثبت دستی ندارند؛ از طریق sitemap.xml و لینک داخلی خزیده می‌شوند.
+
+## روز ۱ — هاب‌های اصلی
+https://khodrochare.ir/
+https://khodrochare.ir/امداد-خودرو
+https://khodrochare.ir/امداد-خودرو-آنلاین
+https://khodrochare.ir/شمال
+https://khodrochare.ir/تهران
+https://khodrochare.ir/کرج
+https://khodrochare.ir/services
+https://khodrochare.ir/blog
+https://khodrochare.ir/pricing
+https://khodrochare.ir/coverage
+
+## روز ۲ — خدمات تهران
+https://khodrochare.ir/تهران/امداد-خودرو
+https://khodrochare.ir/تهران/یدک-کش
+https://khodrochare.ir/تهران/خودروبر
+https://khodrochare.ir/تهران/مکانیک-سیار
+https://khodrochare.ir/تهران/باتری-خودرو
+https://khodrochare.ir/تهران/پنچرگیری-سیار
+https://khodrochare.ir/تهران/کارواش-سیار
+https://khodrochare.ir/تهران/دیاگ-سیار
+https://khodrochare.ir/تهران/سوخت-رسانی-اضطراری
+https://khodrochare.ir/تهران/شمال-تهران
+
+## روز ۳ — خدمات کرج + هاب برندها
+https://khodrochare.ir/کرج/امداد-خودرو
+https://khodrochare.ir/کرج/یدک-کش
+https://khodrochare.ir/کرج/خودروبر
+https://khodrochare.ir/کرج/مکانیک-سیار
+https://khodrochare.ir/کرج/باتری-خودرو
+https://khodrochare.ir/کرج/پنچرگیری-سیار
+https://khodrochare.ir/کرج/کارواش-سیار
+https://khodrochare.ir/کرج/دیاگ-سیار
+https://khodrochare.ir/کرج/سوخت-رسانی-اضطراری
+https://khodrochare.ir/brands
+
+## روز ۴ — استان‌ها و شهرهای کلیدی شمال
+https://khodrochare.ir/گیلان
+https://khodrochare.ir/مازندران
+https://khodrochare.ir/گلستان
+https://khodrochare.ir/رشت
+https://khodrochare.ir/ساری
+https://khodrochare.ir/چالوس
+https://khodrochare.ir/آمل
+https://khodrochare.ir/بابل
+https://khodrochare.ir/لاهیجان
+https://khodrochare.ir/گرگان
+
+## روز ۵ — برندها (۱)
+https://khodrochare.ir/brands/iran-khodro
+https://khodrochare.ir/brands/saipa
+https://khodrochare.ir/brands/toyota
+https://khodrochare.ir/brands/hyundai
+https://khodrochare.ir/brands/kia
+https://khodrochare.ir/brands/mazda
+https://khodrochare.ir/brands/mvm
+https://khodrochare.ir/brands/chery
+https://khodrochare.ir/brands/renault
+https://khodrochare.ir/brands/nissan
+
+## روز ۶ — برندها (۲) + جاده‌ها + اعتماد
+https://khodrochare.ir/brands/bmw
+https://khodrochare.ir/brands/mercedes-benz
+https://khodrochare.ir/roads
+https://khodrochare.ir/roads/chalus
+https://khodrochare.ir/roads/haraz
+https://khodrochare.ir/roads/qazvin-rasht
+https://khodrochare.ir/roads/firuzkuh
+https://khodrochare.ir/roads/tehran-north
+https://khodrochare.ir/about
+https://khodrochare.ir/contact
+
+## روز ۷ — شهرهای شمال (۱)
+https://khodrochare.ir/بندر-انزلی
+https://khodrochare.ir/لنگرود
+https://khodrochare.ir/رودسر
+https://khodrochare.ir/آستارا
+https://khodrochare.ir/تالش
+https://khodrochare.ir/فومن
+https://khodrochare.ir/قائم-شهر
+https://khodrochare.ir/نوشهر
+https://khodrochare.ir/نور
+https://khodrochare.ir/محمودآباد
+
+## روز ۸ — شهرهای شمال (۲) + محله‌های رشت
+https://khodrochare.ir/بابلسر
+https://khodrochare.ir/رامسر
+https://khodrochare.ir/تنکابن
+https://khodrochare.ir/بهشهر
+https://khodrochare.ir/گنبد-کاووس
+https://khodrochare.ir/بندر-ترکمن
+https://khodrochare.ir/علی-آباد-کتول
+https://khodrochare.ir/رشت/گلسار
+https://khodrochare.ir/رشت/معلم
+https://khodrochare.ir/رشت/منظریه
+
+## روز ۹ — راهنماهای پول‌ساز
+https://khodrochare.ir/blog/automatic-car-towing-guide
+https://khodrochare.ir/blog/safe-towing-guide
+https://khodrochare.ir/blog/mobile-diagnostics-check-engine-guide
+https://khodrochare.ir/blog/car-battery-warning-signs
+https://khodrochare.ir/blog/car-overheating-roadside-guide
+https://khodrochare.ir/blog/mobile-mechanic-checklist
+https://khodrochare.ir/blog/haima-s7-tow-guide
+https://khodrochare.ir/blog/fidelity-roadside-guide
+https://khodrochare.ir/blog/dignity-roadside-guide
+https://khodrochare.ir/blog/samand-soren-roadside
+
+## روز ۱۰ — خدمات پول‌ساز شمال
+https://khodrochare.ir/رشت/یدک-کش
+https://khodrochare.ir/رشت/مکانیک-سیار
+https://khodrochare.ir/چالوس/یدک-کش
+https://khodrochare.ir/چالوس/امداد-خودرو
+https://khodrochare.ir/آمل/یدک-کش
+https://khodrochare.ir/ساری/مکانیک-سیار
+https://khodrochare.ir/نوشهر/یدک-کش
+https://khodrochare.ir/رامسر/یدک-کش
+https://khodrochare.ir/گرگان/یدک-کش
+https://khodrochare.ir/بابل/مکانیک-سیار

@@ -1,5 +1,5 @@
 /** Coverage confirmed by the business owner on 2026-09-05; dispatch is still subject to access and capacity. */
-export const coverageUpdatedAt = "2026-09-05";
+export const coverageUpdatedAt = "2026-09-23";
 export type CityProfile = {
   slug: string; name: string; region: string; province: string;
   description: string; keywords: readonly string[]; areas: readonly string[];
@@ -17,7 +17,7 @@ export const northernProvinces: readonly ProvinceProfile[] = [
 function city(slug: string, name: string, province: string, areas: string[], roads: string[], access: string, scenario: string, handover: string): CityProfile {
   return { slug, name, province, region: `استان ${province}`, areas, roads, access, scenario, handover,
     description: `امداد خودرو ${name} برای هماهنگی یدک‌کش، خودروبر، مکانیک سیار و خدمات باتری و تایر؛ اعلام هزینه و زمان اعزام پس از بررسی موقعیت و وضعیت خودرو.`,
-    keywords: [`امداد خودرو ${name}`, `امداد خودرو آنلاین ${name}`, `یدک کش ${name}`] };
+    keywords: [`امداد خودرو ${name}`, `امداد خودرو آنلاین ${name}`, `یدک کش ${name}`, `یدک کش آنلاین ${name}`, `مکانیک سیار ${name}`, `خودروبر ${name}`, `امداد خودرو شبانه روزی ${name}`, `باتری خودرو ${name}`, `پنچرگیری سیار ${name}`] };
 }
 export const cityProfiles: Record<string, CityProfile> = {
   tehran: city("تهران", "تهران", "تهران", ["شمال تهران", "شرق تهران", "غرب تهران", "مرکز تهران", "جنوب تهران"], ["همت و حکیم", "چمران و مدرس", "آزادگان و امام علی"], "در تهران، جهت حرکت بزرگراه و محل دوربرگردان روی دسترسی امدادگر اثر دارد. در محدوده‌های مرکزی، محدودیت توقف و طرح‌های ترافیکی را نیز در نظر بگیرید. برای کوچه یک‌طرفه یا پارکینگ، ورودی قابل دسترس را جداگانه مشخص کنید.", "اگر خودرو در رمپ پارکینگ روشن نمی‌شود، تلاش برای هل‌دادن آن به خیابان می‌تواند خطرناک باشد. ارتفاع ورودی، شیب رمپ، امکان خلاص‌شدن گیربکس و وضعیت فرمان را توضیح دهید تا ابتدا امکان تعمیر در محل یا تجهیزات جابه‌جایی بررسی شود.", "در حمل داخل تهران، مقصد را پیش از بارگیری قطعی کنید؛ از پذیرش تعمیرگاه، فضای تخلیه و حضور تحویل‌گیرنده مطمئن شوید. برای تردد در بزرگراه، نام خروجی و جهت حرکت از نام محله مهم‌تر است."),

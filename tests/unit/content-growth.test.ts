@@ -4,6 +4,13 @@ import { readFile } from "node:fs/promises";
 import { indexablePaths } from "../../scripts/lib/route-inventory";
 import { blogPosts, supplementalArticleSections } from "../../src/content/blog";
 import { newBlogGuides } from "../../src/content/blog-new-guides";
+import { seoBoostGuides } from "../../src/content/blog-seo-boost";
+import { modelGuides } from "../../src/content/blog-model-guides";
+import { northGuides } from "../../src/content/blog-north-guides";
+import { depthGuides } from "../../src/content/blog-depth-guides";
+import { round4Guides } from "../../src/content/blog-round4-guides";
+import { round5Guides } from "../../src/content/blog-round5-guides";
+import { round6Guides } from "../../src/content/blog-round6-guides";
 import { blogUpdates } from "../../src/content/blog-updates";
 import { sectionText } from "../../src/content/editorial-types";
 import { localServiceGuides, serviceKnowledge } from "../../src/content/service-knowledge";
@@ -14,25 +21,28 @@ import { absoluteUrl } from "../../src/seo/metadata";
 import { articleSchema } from "../../src/seo/schemas";
 const paths = new Set(indexablePaths);
 
-test("all 374 previously published paths survive; exactly six guides and four tool URLs are added", async () => {
+test("all 374 previously published paths survive; two six-guide batches, a twenty-four-guide batch and partner/press pages are added", async () => {
   const previous = JSON.parse(await readFile(new URL("../fixtures/published-routes-2026-09-06.json", import.meta.url), "utf8")) as string[];
-  assert.equal(previous.length, 374); assert.equal(paths.size, 384);
+  assert.equal(previous.length, 374); assert.equal(paths.size, 426);
   for (const path of previous) assert.ok(paths.has(path), `lost published path ${path}`);
-  assert.equal(newBlogGuides.length, 6); assert.equal(tools.length, 3); assert.ok(paths.has("/tools"));
+  assert.equal(newBlogGuides.length, 6); assert.equal(seoBoostGuides.length, 6); assert.equal(modelGuides.length, 10); assert.equal(northGuides.length, 6); assert.equal(depthGuides.length, 8); assert.equal(tools.length, 3); assert.ok(paths.has("/tools"));
+  assert.ok(paths.has("/partners")); assert.ok(paths.has("/press"));
 });
 test("eight existing articles are expanded without changing their publication dates", () => {
   assert.equal(Object.keys(blogUpdates).length, 8);
   for (const slug of Object.keys(blogUpdates)) {
     const post = blogPosts.find((item) => item.slug === slug)!;
-    assert.equal(post.updatedAtIso, "2026-09-07");
+    assert.equal(post.updatedAtIso, "2026-09-23");
     assert.ok(post.publishedAtIso < post.updatedAtIso);
-    assert.equal(supplementalArticleSections[slug], undefined);
+    assert.ok((supplementalArticleSections[slug] ?? []).length >= 3, slug);
     assert.ok(post.sections.map(sectionText).join(" ").split(/\s+/u).length >= 450, slug);
   }
 });
 test("new and updated articles have distinct sections, useful references and valid table shapes", () => {
-  assert.equal(blogPosts.length, 24);
-  for (const post of blogPosts.filter((item) => item.updatedAtIso === "2026-09-07")) {
+  assert.equal(blogPosts.length, 61);
+  const richSlugs = new Set([...Object.keys(blogUpdates), ...newBlogGuides.map((post) => post.slug), ...seoBoostGuides.map((post) => post.slug), ...modelGuides.map((post) => post.slug), ...northGuides.map((post) => post.slug), ...depthGuides.map((post) => post.slug), ...round4Guides.map((post) => post.slug), ...round5Guides.map((post) => post.slug), ...round6Guides.map((post) => post.slug)]);
+  assert.equal(richSlugs.size, 51);
+  for (const post of blogPosts.filter((item) => richSlugs.has(item.slug))) {
     assert.equal(new Set(post.sections.map((section) => section.title)).size, post.sections.length, post.slug);
     assert.ok(post.sections.length >= 7 && post.sources?.length && post.links?.length, post.slug);
     for (const source of post.sources!) assert.equal(new URL(source.url).protocol, "https:");
@@ -41,30 +51,88 @@ test("new and updated articles have distinct sections, useful references and val
     for (const slug of post.relatedSlugs ?? []) assert.ok(blogPosts.some((item) => item.slug === slug), slug);
   }
 });
+test("September 14 batch ships six dated guides with unique slugs and substantive bodies", () => {
+  assert.equal(new Set(blogPosts.map((post) => post.slug)).size, blogPosts.length);
+  assert.equal(new Set(blogPosts.map((post) => post.seoTitle ?? post.title)).size, blogPosts.length);
+  for (const post of seoBoostGuides) {
+    assert.equal(post.publishedAtIso, "2026-09-14"); assert.equal(post.updatedAtIso, "2026-09-14");
+    assert.equal(post.publishedAt, "۲۳ شهریور ۱۴۰۵");
+    assert.ok(post.sections.map(sectionText).join(" ").split(/\s+/u).length >= 450, post.slug);
+    assert.ok(post.faqs?.length && post.faqs.length >= 3, post.slug);
+  }
+});
+test("September 23 batch ships twenty-four dated guides with unique slugs and substantive bodies", () => {
+  assert.equal(modelGuides.length + northGuides.length + depthGuides.length, 24);
+  for (const post of [...modelGuides, ...northGuides, ...depthGuides]) {
+    assert.equal(post.publishedAtIso, "2026-09-23"); assert.equal(post.updatedAtIso, "2026-09-23");
+    assert.equal(post.publishedAt, "۱ مهر ۱۴۰۵");
+    assert.ok(post.sections.map(sectionText).join(" ").split(/\s+/u).length >= 450, post.slug);
+    assert.ok(post.faqs?.length && post.faqs.length >= 3, post.slug);
+  }
+});
 test("service enrichment does not introduce duplicate FAQ questions or missing links", () => {
-  assert.equal(Object.keys(serviceKnowledge).length, 7);
+  assert.equal(Object.keys(serviceKnowledge).length, 12);
   for (const [slug, guide] of Object.entries(serviceKnowledge)) {
     const service = services.find((item) => item.slug === slug)!;
     assert.ok(service); assert.equal(new Set([...service.faqs, ...guide.faqs].map((faq) => faq.question)).size, service.faqs.length + guide.faqs.length);
     for (const link of guide.links) assert.ok(paths.has(link.href.split("#")[0]), link.href);
   }
-  assert.equal(Object.keys(localServiceGuides).length, 3);
+  assert.equal(Object.keys(localServiceGuides).length, 6);
   for (const [path, guide] of Object.entries(localServiceGuides)) {
     assert.ok(paths.has(path)); assert.ok(guide.paragraphs.length >= 3);
     for (const link of guide.links) assert.ok(paths.has(link.href.split("#")[0]), link.href);
   }
 });
 test("sitemap dates change only for substantively updated pages and each new URL is canonical", () => {
-  const entries = sitemap(); assert.equal(entries.length, 384);
+  const entries = sitemap(); assert.equal(entries.length, 426);
   const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
   for (const tool of tools) assert.ok(byUrl.has(absoluteUrl(`/tools/${tool.slug}`)));
   assert.equal(new Date(byUrl.get(absoluteUrl("/pricing"))!.lastModified!).toISOString().slice(0, 10), "2026-09-07");
   assert.equal(new Date(byUrl.get(absoluteUrl("/تهران/دیاگ-سیار"))!.lastModified!).toISOString().slice(0, 10), "2026-09-07");
-  assert.equal(new Date(byUrl.get(absoluteUrl("/رشت/یدک-کش"))!.lastModified!).toISOString().slice(0, 10), "2026-09-05");
+  assert.equal(new Date(byUrl.get(absoluteUrl("/رشت/یدک-کش"))!.lastModified!).toISOString().slice(0, 10), "2026-09-23");
 });
 test("article references in structured data describe the same visible sources", () => {
   const post = newBlogGuides[0];
   const schema = articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: post.updatedAtIso, citations: post.sources });
   assert.deepEqual(schema.citation?.map((item) => item.url), post.sources?.map((item) => item.url));
   assert.equal(schema.datePublished, post.publishedAtIso); assert.equal(schema.dateModified, post.updatedAtIso);
+});
+
+test("October 13 batch ships four dated guides with unique slugs and substantive bodies", () => {
+  assert.equal(round4Guides.length, 4);
+  for (const post of round4Guides) {
+    assert.equal(post.publishedAtIso, "2026-10-13"); assert.equal(post.updatedAtIso, "2026-10-13");
+    assert.equal(post.publishedAt, "۲۱ مهر ۱۴۰۵");
+    assert.ok(post.sections.map(sectionText).join(" ").split(/\s+/u).length >= 450, post.slug);
+    assert.ok(post.faqs?.length && post.faqs.length >= 3, post.slug);
+  }
+});
+
+test("October 14 batch ships one dated concerns guide with substantive body", () => {
+  assert.equal(round5Guides.length, 1);
+  for (const post of round5Guides) {
+    assert.equal(post.publishedAtIso, "2026-10-14"); assert.equal(post.updatedAtIso, "2026-10-14");
+    assert.equal(post.publishedAt, "۲۲ مهر ۱۴۰۵");
+    assert.ok(post.sections.map(sectionText).join(" ").split(/\s+/u).length >= 450, post.slug);
+    assert.ok(post.faqs?.length && post.faqs.length >= 3, post.slug);
+  }
+});
+
+test("October 15 batch ships two dated seasonal guides with 1500+ words", () => {
+  assert.equal(round6Guides.length, 2);
+  const slugs = new Set(blogPosts.map((post) => post.slug));
+  for (const post of round6Guides) {
+    assert.ok(slugs.has(post.slug), `not registered: ${post.slug}`);
+    assert.equal(post.publishedAtIso, "2026-10-15"); assert.equal(post.updatedAtIso, "2026-10-15");
+    assert.equal(post.publishedAt, "۲۳ مهر ۱۴۰۵");
+    const bodyWords = post.sections.map(sectionText).join(" ").split(/\s+/u).length;
+    assert.ok(bodyWords >= 1000, `${post.slug}: sections ${bodyWords} <1000`);
+    const supp = (supplementalArticleSections[post.slug] ?? []).map(sectionText).join(" ");
+    const faq = (post.faqs ?? []).map((item) => `${item.question} ${item.answer}`).join(" ");
+    const total = `${post.sections.map(sectionText).join(" ")} ${supp} ${faq}`.split(/\s+/u).length;
+    assert.ok(total >= 1500, `${post.slug}: total ${total} <1500`);
+    assert.ok(post.faqs?.length && post.faqs.length >= 3, post.slug);
+    assert.ok((supplementalArticleSections[post.slug] ?? []).length >= 2, `${post.slug}: supplemental`);
+    assert.ok((post.links ?? []).length >= 5, `${post.slug}: needs 5 money links`);
+  }
 });
