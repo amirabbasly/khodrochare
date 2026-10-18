@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { AssistanceMegaMenu } from "./assistance-mega-menu";
 import { navLinks } from "./home-content";
 import { BrandMark, ButtonLink, Icon } from "./home-ui";
 
@@ -46,7 +47,8 @@ export function ResponsiveSiteHeader() {
       <div className="header-container flex min-h-[76px] items-center gap-4 xl:min-h-[92px] xl:gap-5">
         <BrandMark />
         <nav className="hidden min-w-0 flex-1 items-center justify-center gap-3 xl:flex 2xl:gap-5" aria-label="منوی اصلی">
-          {navLinks.map((item) => (
+          <AssistanceMegaMenu />
+          {navLinks.filter(item => item.href !== "/امداد-خودرو").map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -87,7 +89,8 @@ export function ResponsiveSiteHeader() {
           <button type="button" className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/20 text-2xl" aria-label="بستن منو" onClick={() => setOpen(false)}>×</button>
         </div>
         <nav className="flex-1 overflow-y-auto px-4 py-4" aria-label="منوی موبایل">
-          {navLinks.map((item) => (
+          <AssistanceMegaMenu mobile onNavigate={() => setOpen(false)} />
+          {navLinks.filter(item => item.href !== "/امداد-خودرو").map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={`flex min-h-12 items-center justify-between border-b border-white/10 px-3 text-sm font-black ${isActive(item.href) ? "text-brand-orange" : "text-slate-100"}`}>
               {item.label}<span className="text-slate-500" aria-hidden="true">←</span>
             </Link>

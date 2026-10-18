@@ -1,7 +1,8 @@
+import { assistanceRegions, regionalBrandPath } from "@/content/assistance-regions";
 import { tools, toolsUpdatedAt } from "@/content/tools";
 import { growthUpdatedAt, growthUpdatedPaths } from "@/content/growth-updates";
 import type { MetadataRoute } from "next";
-import { northernProvinces, coverageUpdatedAt } from "@/content/coverage";
+import { allCities, northernProvinces, coverageUpdatedAt } from "@/content/coverage";
 import { neighborhoods } from "@/content/neighborhoods";
 import { brandProfiles } from "@/content/brands";
 import { roadProfiles } from "@/content/roads";
@@ -91,7 +92,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl("/tools"), lastModified: new Date(toolsUpdatedAt) },
     ...tools.map((tool) => ({ url: absoluteUrl(`/tools/${tool.slug}`), lastModified: new Date(toolsUpdatedAt), images: [absoluteUrl(tool.image)] })),
   ];
-  return [...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages, ...toolPages].map((page) =>
-    growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
+  const regionalPages = assistanceRegions.flatMap(region => [
+    { url: absoluteUrl(`/${region.slug}/brands`), lastModified: new Date("2026-10-18") },
+    ...brandProfiles.map(brand => ({ url: absoluteUrl(regionalBrandPath(region.slug, brand.slug)), lastModified: new Date("2026-10-18") })),
+  ]);
+  const regionallyUpdatedPaths = new Set([
+    "/شمال", "/brands", ...brandProfiles.map(brand => `/brands/${brand.slug}`), ...allCities.map(city => `/${city.slug}`),
+  ]);
+  return [...regionalPages, ...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages, ...toolPages].map((page) =>
+    regionallyUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-18") } : growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
   );
 }

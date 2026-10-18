@@ -1,3 +1,4 @@
+import { regionalGrowthGuides } from "./blog-regional-growth";
 import { newBlogGuides } from "./blog-new-guides";
 import { seoBoostGuides } from "./blog-seo-boost";
 import { modelGuides } from "./blog-model-guides";
@@ -704,6 +705,7 @@ export const blogPosts: BlogPost[] = [
   ...round4Guides,
   ...round5Guides,
   ...round6Guides,
+  ...regionalGrowthGuides,
 ].map((post) => {
   const text = [...post.sections, ...(supplementalArticleSections[post.slug] ?? [])].map(sectionText).join(" ");
   const minutes = Math.max(1, Math.ceil(text.trim().split(/\s+/u).length / 160));

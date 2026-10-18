@@ -94,7 +94,7 @@ test("customer reviews are genuine, complete, and back the organization aggregat
 });
 
 test("every blog post has 1000+ visible words with full expansion coverage", () => {
-  assert.equal(blogPosts.length, 61);
+  assert.equal(blogPosts.length, 67);
   assert.equal(Object.keys(supplementalArticleSections).length, 61);
   for (const post of blogPosts) {
     const sectionWords = [...post.sections, ...(supplementalArticleSections[post.slug] ?? [])].map(sectionText).join(" ").trim().split(/\s+/u).length;

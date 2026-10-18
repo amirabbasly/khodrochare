@@ -1,3 +1,4 @@
+import { assistanceRegions, regionalBrandPath } from "../../src/content/assistance-regions";
 import { tools } from "../../src/content/tools";
 import { allCities, northernProvinces } from "../../src/content/coverage";
 import { brandProfiles } from "../../src/content/brands";
@@ -8,6 +9,7 @@ import { services } from "../../src/content/services";
 import { persianServiceRoutes } from "../../src/seo/internal-links";
 import { seoRegions } from "../../src/seo/locations";
 export const indexablePaths = [
+  ...assistanceRegions.flatMap(region => [`/${region.slug}/brands`, ...brandProfiles.map(brand => regionalBrandPath(region.slug, brand.slug))]),
   "/tools", ...tools.map((tool) => `/tools/${tool.slug}`),
   "/", "/services", "/coverage", "/blog", "/rules", "/app", "/assistant", "/about", "/contact", "/pricing",
   "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/شمال", "/brands", "/roads", "/editorial-policy", "/privacy",
@@ -24,6 +26,7 @@ export const indexablePaths = [
 export const nonindexablePaths = ["/store"];
 export const invalidPaths = [
   "/tools/not-a-tool", "/tools/Transport-Selector",
+  "/رشت/brands", "/شمال/brands/missing-brand", "/تهران/brands/Toyota",
   "/not-a-real-page", "/کرج/شمال-تهران", "/رشت/شمال-تهران", "/گیلان/یدک-کش",
   "/تهران/گوهردشت", "/کرج/سعادت-آباد", "/تهران/خدمت-نامعتبر", "/چالوس/شمال-تهران",
   "/brands/missing-brand", "/brands/Toyota", "/roads/missing-road", "/services/missing-service", "/blog/missing-post",
