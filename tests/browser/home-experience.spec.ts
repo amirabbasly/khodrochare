@@ -138,14 +138,13 @@ test.describe("home presentation", () => {
     await expect(page.locator(".tow-speed-lines span")).toHaveCount(3);
   });
 
-  test("reduced motion leaves one readable slogan and stationary wheels", async ({ page }) => {
+  test("requested decorative loops remain enabled under reduced motion without controls", async ({ page }) => {
     await page.setViewportSize({ width: 1100, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await visitReady(page);
-    await expect(page.locator(".tow-bubble").first()).toHaveCSS("opacity", "1");
-    const visible = await page.locator(".tow-bubble").evaluateAll((items) => items.filter((item) => Number(getComputedStyle(item).opacity) > 0.9).length);
-    expect(visible).toBe(1);
-    for (const wheel of await page.locator(".wheel").all()) await expect(wheel).toHaveCSS("animation-name", "none");
+    for (const wheel of await page.locator(".wheel").all()) await expect(wheel).toHaveCSS("animation-name", "wheel-spin");
+    await expect(page.locator(".tow-bubble").first()).toHaveCSS("animation-iteration-count", "infinite");
+    await expect(page.locator(".motion-toggle")).toHaveCount(0);
   });
 });
 

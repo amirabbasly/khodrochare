@@ -17,7 +17,7 @@ import { AiChat } from "./ai-chat";
 import { AddToHomeButton } from "./add-to-home-button";
 import { HeroCarousel } from "./hero-carousel";
 import { businessFacts } from "@/content/business";
-import { persianServiceRoutes } from "@/seo/internal-links";
+import { homeLocalLinkGroups } from "@/content/home-local-links";
 // The site-wide header and footer live in shared site components.
 
 export function HeroSection() {
@@ -55,21 +55,21 @@ export function ServiceStrip() {
 
 export function FeatureBanners() {
   return (
-    <section id="services" className="section-shell grid gap-3 lg:grid-cols-2" data-aos="fade-up">
+    <section id="services" className="mt-4 w-full" data-aos="fade-up"><div className="site-container grid gap-4 lg:grid-cols-2">
       <div data-aos="fade-left"><ServiceBanner href="/services/tow-truck" image="/images/service-tow.webp" title="امداد خودرو و یدک‌کش" desc="امداد سریع در محل، حمل ایمن خودرو و پشتیبانی تا رسیدن به مقصد" /></div>
       <div data-aos="fade-right"><ServiceBanner href="/services/mobile-carwash" image="/images/service-carwash.webp" title="کارواش سیار" desc="شست‌وشوی حرفه‌ای خودرو در محل با تجهیزات کامل و مواد استاندارد" /></div>
-    </section>
+    </div></section>
   );
 }
 
 function ServiceBanner({ href, image, title, desc }: { href: string; image: string; title: string; desc: string }) {
   return (
-    <article className="home-glass-dark relative min-h-48 overflow-hidden rounded-xl bg-ink text-white shadow-card">
-      <Image src={image} alt={title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-right" />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/72 to-transparent" />
-      <div className="home-glass-dark relative flex min-h-48 w-[56%] flex-col justify-center p-5" dir="rtl">
+    <article className="relative isolate min-h-64 overflow-hidden rounded-2xl border border-white/30 bg-ink text-white shadow-card">
+      <Image src={image} alt={title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="-z-20 object-cover object-center" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-l from-ink/90 via-ink/55 to-ink/10" />
+      <div className="relative flex min-h-64 w-full flex-col justify-center p-6 md:p-8" dir="rtl">
         <h2 className="text-xl font-black md:text-2xl">{title}</h2>
-        <p className="mt-2 text-xs leading-6 text-slate-200">{desc}</p>
+        <p className="mt-3 max-w-sm text-sm leading-7 text-slate-200">{desc}</p>
             <Link href={href} className="mt-4 inline-flex min-h-10 w-fit items-center gap-2 rounded-lg border border-white/45 px-4 text-xs font-bold">جزئیات خدمت <span aria-hidden="true">←</span></Link>
       </div>
     </article>
@@ -175,12 +175,7 @@ export function SeoServiceHub() {
     ["خودروبر تهران و کرج", "/services/flatbed-carrier", "حمل ایمن خودروهای لوکس، صفر، تصادفی یا غیرقابل حرکت"],
     ["مکانیک سیار تهران و کرج", "/services/mobile-mechanic", "اعزام مکانیک برای عیب‌یابی و تعمیرات مجاز در محل"],
   ] as const;
-  const cityLandingLinks = ["تهران", "کرج"].flatMap((city) =>
-    persianServiceRoutes.map((route) => ({
-      title: `${route.title} ${city}`,
-      href: `/${city}/${route.slug}`,
-    })),
-  );
+
 
   return (
     <section className="section-shell grid gap-5 lg:grid-cols-[.78fr_1.22fr]" aria-labelledby="emergency-services-title" dir="ltr">
@@ -208,8 +203,8 @@ export function SeoServiceHub() {
         </div>
         <div className="mt-6 border-t border-slate-200 pt-5">
           <h3 className="text-sm font-black text-ink">خدمات امداد خودرو در تهران و کرج</h3>
-          <nav className="mt-3 flex flex-wrap gap-2" aria-label="لندینگ‌های محلی خدمات امداد خودرو">
-            {cityLandingLinks.map((item) => <Link key={item.href} href={item.href} className="inline-flex min-h-10 items-center rounded-lg border border-slate-200 bg-slate-50 px-3 text-[11px] font-bold text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">{item.title}</Link>)}
+          <nav className="mt-4 space-y-5" aria-label="لندینگ‌های محلی خدمات امداد خودرو" data-testid="home-local-directory">
+            {homeLocalLinkGroups.map(group => <div key={group.title}><h4 className="mb-3 flex items-center gap-2 text-xs font-black text-slate-600"><span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />{group.title}</h4><div className="grid grid-cols-2 gap-2 lg:grid-cols-3">{group.links.map(item => <Link key={item.href} href={item.href} className="flex min-h-9 items-center justify-between gap-1 rounded-lg border border-slate-200/80 bg-white/50 px-2.5 py-2 text-[10px] font-bold leading-5 text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">{item.title}<span aria-hidden="true" className="text-orange-400">←</span></Link>)}</div></div>)}
           </nav>
         </div>
       </article>

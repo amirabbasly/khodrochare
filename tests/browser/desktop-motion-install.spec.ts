@@ -25,29 +25,23 @@ test("motion continues while hovered; ticker never creates a horizontal scroll a
   await expect.poll(() => truck.evaluate(element => getComputedStyle(element).translate)).not.toBe(position);
 });
 
-test("reduced-motion users can explicitly enable both animations without overflow", async ({ page }) => {
+test("both loops run by default even with reduced motion and an old saved off switch", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.addInitScript(() => localStorage.setItem("khodrochare:motion", "off"));
   await page.goto("/");
   const slider = page.getByTestId("home-brand-carousel");
   const truck = page.locator(".tow-truck");
-  await expect(truck).toHaveCSS("animation-name", "none");
-  await expect(slider.locator(".brand-marquee-track")).toHaveCSS("animation-name", "none");
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
-  await slider.getByRole("button", { name: "فعال کردن انیمیشن‌ها", exact: true }).click();
-  await expect(page.locator("html")).toHaveAttribute("data-site-motion", "on");
+  await expect(page.getByRole("button", { name: /فعال کردن انیمیشن|کاهش حرکت انیمیشن/ })).toHaveCount(0);
   await expect(truck).toHaveCSS("animation-name", "tow-bob, tow-drive");
+  const position = await truck.evaluate(element => getComputedStyle(element).translate);
+  await expect.poll(() => truck.evaluate(element => getComputedStyle(element).translate)).not.toBe(position);
   const track = slider.locator(".brand-marquee-track");
   await expect(track).toHaveCSS("animation-iteration-count", "infinite");
   const first = await track.evaluate(element => getComputedStyle(element).transform);
   await expect.poll(() => track.evaluate(element => getComputedStyle(element).transform)).not.toBe(first);
-  expect(await page.evaluate(() => localStorage.getItem("khodrochare:motion"))).toBe("on");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-site-motion", "on");
   await expect(truck).toHaveCSS("animation-name", "tow-bob, tow-drive");
-  // The saved explicit choice may also be turned off again.
-  await slider.getByRole("button", { name: "کاهش حرکت انیمیشن‌ها", exact: true }).click();
-  await expect(truck).toHaveCSS("animation-name", "none");
-  await expect(track).toHaveCSS("animation-name", "none");
 });
 
 test("home app has one install action and no QR or add-to-home promotional cards", async ({ page }) => {
@@ -68,4 +62,23 @@ test("home app has one install action and no QR or add-to-home promotional cards
   await install.click();
   await expect(app.getByRole("status")).toContainText("به صفحه اصلی اضافه شد");
   await expect(app).toHaveCSS("backdrop-filter", "blur(20px)");
+});
+
+test("service backgrounds cover each whole card and local directory is expanded", async ({ page }) => {
+  await page.goto("/");
+  const cards = page.locator("#services article");
+  await expect(cards).toHaveCount(2);
+  for (const card of await cards.all()) {
+    const geometry = await card.evaluate(element => {
+      const card = element.getBoundingClientRect();
+      const img = element.querySelector("img")!.getBoundingClientRect();
+      return { cardWidth: card.width, imgWidth: img.width, cardHeight: card.height, imgHeight: img.height };
+    });
+    expect(Math.abs(geometry.cardWidth - geometry.imgWidth)).toBeLessThan(3);
+    expect(Math.abs(geometry.cardHeight - geometry.imgHeight)).toBeLessThan(3);
+    await expect(card.locator(".home-glass-dark")).toHaveCount(0);
+  }
+  const directory = page.getByTestId("home-local-directory");
+  expect(await directory.getByRole("link").count()).toBeGreaterThanOrEqual(59);
+  await expect(directory.getByRole("link", { name: "تویوتا تهران", exact: false })).toHaveAttribute("href", "/تهران/brands/toyota");
 });
