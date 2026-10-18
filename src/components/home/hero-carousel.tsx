@@ -1,5 +1,7 @@
 "use client";
 
+import { MotionToggle } from "./motion-preference";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TowTruckStage } from "./home-illustrations";
@@ -108,10 +110,10 @@ export function HeroCarousel() {
 function TechnicianMapCard() {
   return (
     <div className="mt-2 w-full max-w-[410px] overflow-hidden rounded-2xl border border-white/60 bg-white/80 text-ink shadow-2xl backdrop-blur-xl">
-      <div className="flex items-center gap-3 px-4 py-4 xl:px-5">
+      <div className="flex flex-wrap items-center gap-3 px-4 py-4 xl:px-5">
         <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-900 xl:h-16 xl:w-16"><Image src="/images/technician.webp" alt="تصویر انتخاب تجهیز متناسب" fill sizes="64px" className="object-cover object-[18%_28%]" /></div>
         <div><p className="text-xs font-bold text-slate-500 xl:text-sm">هماهنگی با اپراتور</p><p className="text-sm font-black xl:text-lg">انتخاب تجهیز متناسب</p><p className="mt-1 text-sm font-black text-amber-500 xl:text-base">یک تماس، یک چاره</p></div>
-      </div>
+      <MotionToggle /></div>
       <TowTruckStage compact />
       <div className="flex items-center justify-between px-4 py-3 text-xs xl:text-sm"><span>زمان اعزام</span><strong className="text-emerald-600">پس از بررسی موقعیت</strong></div>
     </div>

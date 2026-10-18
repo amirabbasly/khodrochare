@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main id="main-content" className="min-h-screen overflow-hidden">
+    <main id="main-content" className="home-landing min-h-screen overflow-hidden">
       <StructuredData data={webPageSchema({ name: "امداد خودرو آنلاین تهران، کرج و شمال", description: "راهنمای امداد خودرو، یدک‌کش، خودروبر، مکانیک سیار و باتری در تهران، کرج و شمال.", path: "/" })} />
       <StructuredData data={serviceSchema({ name: "امداد خودرو آنلاین شبانه‌روزی", description: "هماهنگی امداد خودرو، یدک‌کش، خودروبر، مکانیک سیار و امداد در محل در تهران، کرج و شمال", path: "/", area: "محدوده پوشش", image: "/images/hero-roadside.webp" })} />
       <StructuredData data={itemListSchema({ name: "خدمات امداد خودرو خودرو چاره", path: "/", items: services.map((service) => ({ name: service.title, path: `/services/${service.slug}` })) })} />

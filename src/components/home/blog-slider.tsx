@@ -24,7 +24,7 @@ export function BlogSlider({ posts }: { posts: BlogPost[] }) {
           {slides.map((slide, slideIndex) => (
             <div key={slideIndex} className="grid w-full shrink-0 gap-5 md:grid-cols-2 lg:grid-cols-5" dir="rtl">
               {slide.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`} className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-card">
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="home-glass group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-card">
                   <div className="relative h-44 overflow-hidden">
                     <Image src={post.image} alt={post.title} fill sizes="(min-width:1024px) 20vw,(min-width:768px) 50vw,100vw" className="object-cover transition duration-500 group-hover:scale-105" />
                   </div>
