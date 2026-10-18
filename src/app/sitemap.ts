@@ -82,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const newPages = [
-    "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/شمال", "/brands", "/roads", "/editorial-policy", "/privacy",
+    "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/شمال", "/brands", "/roads", "/editorial-policy", "/privacy", "/licenses",
     ...northernProvinces.map((province) => `/${province.slug}`),
     ...brandProfiles.map((brand) => `/brands/${brand.slug}`),
     ...neighborhoods.map((area) => `/${area.citySlug}/${area.slug}`),
@@ -97,7 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...brandProfiles.map(brand => ({ url: absoluteUrl(regionalBrandPath(region.slug, brand.slug)), lastModified: new Date("2026-10-18") })),
   ]);
   const regionallyUpdatedPaths = new Set([
-    "/شمال", "/brands", ...brandProfiles.map(brand => `/brands/${brand.slug}`), ...allCities.map(city => `/${city.slug}`),
+    "/licenses", ...northernProvinces.map(province => `/${province.slug}`), ...roadProfiles.map(road => `/roads/${road.slug}`), "/شمال", "/brands", ...brandProfiles.map(brand => `/brands/${brand.slug}`), ...allCities.map(city => `/${city.slug}`),
   ]);
   return [...regionalPages, ...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages, ...toolPages].map((page) =>
     regionallyUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-18") } : growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
