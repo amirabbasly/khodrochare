@@ -15,12 +15,8 @@ export function AssistanceMegaMenu({ mobile = false, onNavigate }: { mobile?: bo
   const [active, setActive] = useState<string | null>(null);
   const root = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
-  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const id = mobile ? "mobile-assistance-menu" : "desktop-assistance-menu";
-  const cancelClose = () => { if (leaveTimer.current) clearTimeout(leaveTimer.current); };
-  const close = () => { cancelClose(); setOpen(false); setActive(null); };
-  const delayClose = () => { cancelClose(); leaveTimer.current = setTimeout(() => { setOpen(false); setActive(null); }, 160); };
-  useEffect(() => () => { if (leaveTimer.current) clearTimeout(leaveTimer.current); }, []);
+  const close = () => { setOpen(false); setActive(null); };
   useEffect(() => {
     if (!open) return;
     const outside = (event: PointerEvent) => {
@@ -28,7 +24,6 @@ export function AssistanceMegaMenu({ mobile = false, onNavigate }: { mobile?: bo
     };
     const escape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        if (leaveTimer.current) clearTimeout(leaveTimer.current);
         setOpen(false); setActive(null); trigger.current?.focus();
       }
     };
@@ -46,19 +41,15 @@ export function AssistanceMegaMenu({ mobile = false, onNavigate }: { mobile?: bo
   </section>;
 
   return <div ref={root} dir="rtl" className={mobile ? "border-b border-white/10" : "static"}
-    onMouseEnter={() => { if (!mobile) { cancelClose(); setOpen(true); } }}
-    onMouseLeave={() => { if (!mobile) delayClose(); }}
-    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) close(); }}
     onKeyDown={event => { if (event.key === "Escape" && open) { event.preventDefault(); event.stopPropagation(); close(); trigger.current?.focus(); } }}>
-    <button ref={trigger} type="button" aria-expanded={open} aria-controls={id} onClick={() => { if (mobile && open) close(); else { cancelClose(); setOpen(true); } }} className={`relative z-[60] flex items-center justify-between gap-2 rounded-lg font-black transition-colors hover:text-orange-400 focus-visible:outline-2 focus-visible:outline-orange-400 ${mobile ? "min-h-12 w-full px-3 text-sm" : `min-h-14 whitespace-nowrap text-[12px] 2xl:text-[13px] ${open ? "text-orange-400" : "text-slate-200"}`}`}>امداد خودرو <span className={`transition-transform ${open ? "rotate-180" : ""}`}><Chevron down /></span></button>
-    {!mobile && <button type="button" aria-label="بستن مگامنو" tabIndex={-1} aria-hidden={!open} onClick={close} onMouseEnter={delayClose} className={`fixed inset-0 z-40 cursor-default bg-[#020b18]/55 backdrop-blur-[4px] transition-opacity duration-300 ${open ? "opacity-100" : "pointer-events-none opacity-0"}`} />}
-    <div id={id} aria-hidden={!open} inert={!open} className={mobile ? `${open ? "" : "hidden"} pb-4` : `absolute inset-x-4 top-full z-[60] mx-auto max-w-[1160px] origin-top transition-[opacity,transform,visibility] duration-300 ease-out ${open ? "visible translate-y-0 scale-100 opacity-100" : "invisible pointer-events-none -translate-y-3 scale-[.98] opacity-0"}`}
-      onMouseEnter={() => { if (!mobile) cancelClose(); }}>
+    <button ref={trigger} type="button" aria-expanded={open} aria-controls={id} onClick={() => { if (open) close(); else { setActive("تهران"); setOpen(true); } }} className={`relative z-[60] flex items-center justify-between gap-2 rounded-lg font-black transition-colors hover:text-orange-400 focus-visible:outline-2 focus-visible:outline-orange-400 ${mobile ? "min-h-12 w-full px-3 text-sm" : `min-h-14 whitespace-nowrap text-[12px] 2xl:text-[13px] ${open ? "text-orange-400" : "text-slate-200"}`}`}>امداد خودرو <span className={`transition-transform ${open ? "rotate-180" : ""}`}><Chevron down /></span></button>
+    {!mobile && <button type="button" aria-label="بستن مگامنو" tabIndex={-1} aria-hidden={!open} onClick={close} className={`fixed inset-0 z-40 cursor-default bg-[#020b18]/55 backdrop-blur-[4px] transition-opacity duration-300 ${open ? "opacity-100" : "pointer-events-none opacity-0"}`} />}
+    <div id={id} aria-hidden={!open} inert={!open} className={mobile ? `${open ? "" : "hidden"} pb-4` : `absolute inset-x-4 top-full z-[60] mx-auto max-w-[1160px] origin-top transition-[opacity,transform,visibility] duration-300 ease-out ${open ? "visible translate-y-0 scale-100 opacity-100" : "invisible pointer-events-none -translate-y-3 scale-[.98] opacity-0"}`}>
       <div className={mobile ? "space-y-2 rounded-2xl border border-white/10 bg-white/[.04] p-2" : "grid grid-cols-[235px_minmax(0,1fr)_250px] overflow-hidden rounded-b-[28px] rounded-t-xl border border-white/80 bg-white text-ink shadow-[0_35px_100px_-15px_rgba(0,0,0,.55)]"}>
         <div className={mobile ? "" : "border-l border-slate-100 bg-slate-50/80 p-4"}>
           <p className={`px-3 pb-1 pt-3 text-[10px] font-bold ${mobile ? "text-slate-400" : "text-slate-400"}`}>یک تماس، یک چاره</p><p className={`mb-4 px-3 text-sm font-black ${mobile ? "text-white" : "text-ink"}`}>کجا به کمک نیاز دارید؟</p>
           {assistanceRegions.map((region, index) => <div key={region.slug}>
-            <button type="button" aria-expanded={active === region.slug} aria-controls={`${id}-region-${index}`} onMouseEnter={() => { if (!mobile) setActive(region.slug); }} onFocus={() => { if (!mobile) setActive(region.slug); }} onClick={() => setActive(mobile && active === region.slug ? null : region.slug)} className={`mb-2 flex min-h-[80px] w-full items-center gap-3 rounded-2xl border px-3 text-right transition-all focus-visible:outline-2 focus-visible:outline-orange-400 ${active === region.slug ? "border-orange-200 bg-white text-ink shadow-[0_5px_20px_-10px_#f97316]" : mobile ? "border-transparent text-white hover:bg-white/5" : "border-transparent text-slate-700 hover:bg-white"}`}><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${active === region.slug ? "bg-brand-orange text-white" : "bg-orange-100 text-brand-orange"}`}><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="h-5 w-5"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></svg></span><span className="flex-1"><span className="block text-sm font-black">{region.name}</span><span className="mt-1 block text-[9px] text-slate-400">{descriptions[index]}</span></span><Chevron down={mobile} /></button>
+            <button type="button" aria-expanded={active === region.slug} aria-controls={`${id}-region-${index}`} onClick={() => setActive(region.slug)} className={`mb-2 flex min-h-[80px] w-full items-center gap-3 rounded-2xl border px-3 text-right transition-all focus-visible:outline-2 focus-visible:outline-orange-400 ${active === region.slug ? "border-orange-200 bg-white text-ink shadow-[0_5px_20px_-10px_#f97316]" : mobile ? "border-transparent text-white hover:bg-white/5" : "border-transparent text-slate-700 hover:bg-white"}`}><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${active === region.slug ? "bg-brand-orange text-white" : "bg-orange-100 text-brand-orange"}`}><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="h-5 w-5"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></svg></span><span className="flex-1"><span className="block text-sm font-black">{region.name}</span><span className="mt-1 block text-[9px] text-slate-400">{descriptions[index]}</span></span><Chevron down={mobile} /></button>
             {mobile && <div hidden={active !== region.slug} className="rounded-xl bg-white p-3">{brandsPanel(region, index)}</div>}
           </div>)}
           <Link href="/امداد-خودرو" onClick={navigate} className={`mt-3 flex min-h-12 items-center justify-between border-t px-3 text-[11px] font-bold ${mobile ? "border-white/10 text-orange-300" : "border-slate-200 text-slate-500 hover:text-brand-orange"}`}>راهنمای جامع امداد خودرو<Chevron /></Link>

@@ -31,7 +31,7 @@ export function ServiceStrip() {
     <section className="site-container relative z-20 -mt-5 lg:-mt-[120px]" aria-label="درخواست و دسته‌بندی خدمات" data-testid="service-strip" data-aos="fade-up">
       <div className="grid items-start gap-3 lg:grid-cols-[minmax(0,1fr)_400px]" dir="ltr">
         <div className="order-2 min-w-0 space-y-3 lg:order-1">
-        <div data-testid="service-categories" className="grid min-w-0 grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
+        <div data-testid="service-categories" className="landing-glass grid min-w-0 grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
           {serviceTiles.map((item, index) => (
             <a
               href={servicePaths[index]}
@@ -157,17 +157,9 @@ export function CoverageSection() {
   return (
     <section id="coverage" className="section-shell overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card" data-aos="fade-up">
       <div className="grid lg:grid-cols-[.92fr_1.08fr]" dir="ltr">
-        <div className="grid min-h-64 gap-3 border-slate-200 bg-slate-50 p-3 min-[460px]:grid-cols-[1.3fr_.7fr] lg:border-r" dir="ltr">
+        <div className="grid min-h-64 gap-3 border-slate-200 bg-slate-50 p-3 lg:border-r" dir="ltr">
           <div className="relative min-h-60 overflow-hidden rounded-xl border-slate-200 bg-[#071a2e] sm:border-r"><Image src="/images/coverage-iran-glass-v2.webp" alt="نقشه سه‌بعدی محدوده پوشش خودرو چاره در ایران" fill sizes="(min-width:1024px) 45vw, 100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" /><span className="absolute right-[34%] top-[38%] rounded-full border border-emerald-300/60 bg-emerald-400/20 px-2 py-1 text-[9px] font-black text-white">تهران، کرج و شمال فعال</span><span className="absolute bottom-3 right-3 rounded-lg bg-ink/70 px-3 py-2 text-[9px] text-slate-200 backdrop-blur-sm">محدوده‌ها و زمان اعزام را پیش از خدمت بررسی کنید</span></div>
-          <aside className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white p-4 text-right shadow-[0_14px_35px_rgba(15,30,48,.16)]" dir="rtl" data-aos="fade-right">
-            <div className="flex items-center gap-3">
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-ink"><Image src="/images/technician.webp" alt="پروفایل امدادگر در مسیر" fill sizes="56px" className="object-cover object-[18%_28%]" /></div>
-              <div><strong className="block text-xs text-ink">هماهنگی پذیرش</strong><span className="mt-1 block text-[9px] text-slate-500">انتخاب خدمت متناسب</span><span className="text-[10px] text-amber-500">بدون رهگیری زنده</span></div>
-            </div>
-            <div className="my-4 h-px bg-slate-100" />
-            <span className="text-[10px] text-slate-500">زمان اعزام</span><strong className="mt-1 text-lg text-emerald-600">پس از بررسی</strong>
-            <dl className="mt-4 grid gap-2 text-[10px]"><div className="flex justify-between"><dt className="text-slate-400">نوع خدمت</dt><dd className="font-bold text-ink">امداد باتری</dd></div><div className="flex justify-between"><dt className="text-slate-400">خودرو</dt><dd className="font-bold text-ink">RAV4</dd></div></dl>
-          </aside>
+
         </div>
         <div className="flex flex-col justify-center p-5 md:p-7" dir="rtl">
           <h2 className="text-center text-xl font-black text-ink md:text-2xl">هماهنگی متخصص بر اساس خودرو و موقعیت</h2>
@@ -205,8 +197,15 @@ export function SeoServiceHub() {
           <Link href="/تهران" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو تهران</strong><span className="mt-2 block text-xs text-slate-300">تهران و مسیرهای شهری فعال ←</span></Link>
           <Link href="/کرج" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو کرج</strong><span className="mt-2 block text-xs text-slate-300">کرج و محدوده‌های قابل هماهنگی ←</span></Link>
         </div>
+        <section data-testid="home-north-hub" className="mt-5 rounded-2xl border border-cyan-200/20 bg-gradient-to-br from-cyan-400/10 via-white/5 to-orange-400/10 p-5 shadow-lg backdrop-blur-xl">
+          <div className="flex items-center justify-between gap-3"><h3 className="text-xl font-black">امداد خودرو شمال</h3><Link href="/شمال" className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-[11px] font-bold text-cyan-100">همه مناطق ←</Link></div>
+          <p className="mt-3 text-xs leading-7 text-slate-300">از شهرهای ساحلی تا محورهای ورودی شمال؛ شهر، مسیر یا برند خودروی خود را انتخاب کنید.</p>
+          <nav aria-label="استان‌های شمال" className="mt-4 grid grid-cols-3 gap-2">{["گیلان", "مازندران", "گلستان"].map(name => <Link key={name} href={`/${name}`} className="rounded-xl border border-white/15 bg-white/10 p-3 text-center text-xs font-bold transition hover:bg-white/20">{name}</Link>)}</nav>
+          <nav aria-label="شهرهای شمال" className="mt-4 grid grid-cols-2 gap-2 text-[11px] sm:grid-cols-3">{["محمودآباد", "آمل", "چالوس", "نوشهر", "نور", "بابلسر", "رامسر", "رشت", "ساری", "گرگان", "بندر-انزلی", "تنکابن"].map(name => <Link key={name} href={`/${name}`} className="rounded-lg border border-white/10 bg-white/5 px-2 py-2.5 text-slate-200 transition hover:border-orange-300/50 hover:text-orange-200">{name.replaceAll("-", " ")} ←</Link>)}</nav>
+          <nav aria-label="محورها و برندهای شمال" className="mt-4 flex flex-wrap gap-2 border-t border-white/10 pt-4">{[{name:"آزادراه تهران–شمال",href:"/roads/tehran-north"},{name:"جاده چالوس",href:"/roads/chalus"},{name:"هراز",href:"/roads/haraz"},{name:"برندهای خودرو در شمال",href:"/شمال/brands"}].map(item => <Link key={item.href} href={item.href} className="rounded-lg bg-orange-400/10 px-3 py-2 text-[10px] font-bold text-orange-200 hover:bg-orange-400/20">{item.name}</Link>)}</nav>
+        </section>
       </article>
-      <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card md:p-8" dir="rtl">
+      <article className="landing-glass rounded-2xl border border-slate-200 bg-white p-6 shadow-card md:p-8" dir="rtl">
         <p className="text-xs font-black text-brand-orange">خدمات امدادی</p>
         <h2 id="emergency-services-title" className="mt-3 text-2xl font-black text-ink">خدمت مناسب را مستقیم انتخاب کنید</h2>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">

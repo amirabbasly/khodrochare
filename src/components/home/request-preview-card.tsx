@@ -14,7 +14,7 @@ export function RequestPreviewCard() {
     <section
       id="request"
       data-testid="home-request-card"
-      className="order-1 min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-slate-200 bg-white text-ink shadow-card lg:order-2"
+      className="landing-glass order-1 min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-slate-200 bg-white text-ink shadow-card lg:order-2"
       dir="rtl"
       aria-labelledby="home-request-title"
     >

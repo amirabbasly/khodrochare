@@ -80,8 +80,8 @@ export function HeroCarousel() {
 
       <div className="site-container relative min-h-[620px] pb-10 pt-8 sm:min-h-[660px] lg:min-h-[720px] lg:pb-32 lg:pt-10">
         <div className="grid items-start gap-8 md:grid-cols-[minmax(0,.8fr)_minmax(0,1.15fr)]" dir="ltr">
-          <div className="hidden items-start md:flex" dir="rtl"><TechnicianMapCard paused={paused} /></div>
-          <div key={active} className="hero-slide-copy min-w-0 max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
+          <div className="order-2 flex items-start justify-center md:order-none md:justify-start" dir="rtl"><TechnicianMapCard /></div>
+          <div key={active} className="hero-slide-copy order-1 min-w-0 md:order-none max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
             <span className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/35 bg-black/20 px-3 text-xs font-bold"><Icon name={slides[active].icon} size={16} /> {slides[active].eyebrow}</span>
             <h1 className="mt-5 max-w-[16ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[0].title}</h1>
             <p className="mt-4 max-w-md text-sm leading-7 text-slate-200 md:text-base">{slides[active].desc}</p>
@@ -105,14 +105,14 @@ export function HeroCarousel() {
   );
 }
 
-function TechnicianMapCard({ paused }: { paused: boolean }) {
+function TechnicianMapCard() {
   return (
-    <div className="mt-2 w-full max-w-[410px] overflow-hidden rounded-2xl border border-white/40 bg-white/95 text-ink shadow-2xl">
+    <div className="mt-2 w-full max-w-[410px] overflow-hidden rounded-2xl border border-white/60 bg-white/80 text-ink shadow-2xl backdrop-blur-xl">
       <div className="flex items-center gap-3 px-4 py-4 xl:px-5">
         <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-900 xl:h-16 xl:w-16"><Image src="/images/technician.webp" alt="تصویر انتخاب تجهیز متناسب" fill sizes="64px" className="object-cover object-[18%_28%]" /></div>
         <div><p className="text-xs font-bold text-slate-500 xl:text-sm">هماهنگی با اپراتور</p><p className="text-sm font-black xl:text-lg">انتخاب تجهیز متناسب</p><p className="mt-1 text-sm font-black text-amber-500 xl:text-base">یک تماس، یک چاره</p></div>
       </div>
-      <TowTruckStage compact paused={paused} />
+      <TowTruckStage compact />
       <div className="flex items-center justify-between px-4 py-3 text-xs xl:text-sm"><span>زمان اعزام</span><strong className="text-emerald-600">پس از بررسی موقعیت</strong></div>
     </div>
   );

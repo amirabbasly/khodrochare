@@ -140,3 +140,21 @@ button, select { cursor: pointer; }
 .tow-speed-lines span:nth-child(2) { top: 46%; animation-delay: -.4s; width: 18%; }
 .tow-speed-lines span:nth-child(3) { top: 80%; animation-delay: -.8s; width: 32%; }
 @keyframes tow-speed { to { transform: translateX(-550%); } }
+
+/* Continuous, seamless two-copy ticker, on every viewport. */
+.brand-marquee-track { animation: brand-ticker 28s linear infinite; will-change: transform; }
+.brand-marquee:hover .brand-marquee-track, .brand-marquee:focus-within .brand-marquee-track { animation-play-state: paused; }
+@keyframes brand-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.landing-surface { background: radial-gradient(ellipse at 5% 12%,rgba(56,189,248,.16),transparent 42%), radial-gradient(ellipse at 95% 65%,rgba(251,146,60,.12),transparent 42%), #edf3f8; }
+.landing-glass { border: 1px solid rgba(255,255,255,.88); background: linear-gradient(125deg,rgba(255,255,255,.8),rgba(255,255,255,.48)); backdrop-filter: blur(18px); box-shadow: 0 12px 40px -18px rgba(30,65,100,.2), inset 0 1px 0 rgba(255,255,255,.95); }
+.landing-glass-answer { background: linear-gradient(125deg,rgba(255,247,237,.85),rgba(255,255,255,.55)); border-color: rgba(254,215,170,.8); }
+@media (prefers-reduced-motion: no-preference) {
+  .tow-truck { animation: tow-bob 1.8s ease-in-out infinite, tow-drive 3.4s ease-in-out infinite; }
+  .tow-road { height: 3px; opacity: .85; animation-duration: .35s; }
+}
+@keyframes tow-drive { 0%,100% { translate: -25px 0; } 50% { translate: 25px 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee-track { animation: none; transform: none; }
+  .brand-marquee-viewport { overflow-x: auto; }
+  .brand-marquee-track > ul[aria-hidden="true"] { display: none; }
+}
