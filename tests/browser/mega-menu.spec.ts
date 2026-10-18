@@ -17,6 +17,7 @@ test("regional mega menu works by keyboard, closes on Escape and navigates", asy
   await page.keyboard.press("Escape");
   await expect(panel).toBeHidden(); await expect(trigger).toBeFocused();
   await trigger.click();
+  await panel.getByRole("button", { name: /شمال/ }).click();
   await panel.locator('a[href="/شمال/brands/toyota"]').click();
   await expect(page).toHaveURL(/brands\/toyota$/);
   await expect(page.locator("h1")).toHaveText("امداد خودرو تویوتا شمال");
@@ -29,4 +30,23 @@ test("regional brand pages provide reciprocal area and brand links", async ({ pa
   await expect(main.locator('a[href="/brands/bmw"]')).toBeVisible();
   await expect(main.locator('a[href="/تهران/brands/bmw"]')).toBeVisible();
   await expect(main.locator('a[href="/شمال/brands/iran-khodro"]')).toBeVisible();
+});
+
+test("desktop cascade reveals only the hovered region and remains within the viewport", async ({ page }, info) => {
+  test.skip(info.project.name === "mobile");
+  await page.goto("/");
+  await page.getByRole("navigation", { name: "منوی اصلی", exact: true }).getByRole("button", { name: "امداد خودرو", exact: true }).hover();
+  const panel = page.locator("#desktop-assistance-menu");
+  await expect(panel).toBeVisible();
+  await expect(panel.locator('a[href="/تهران/brands/toyota"]')).toBeHidden();
+  await panel.getByRole("button", { name: /تهران/ }).hover();
+  const toyota = panel.locator('a[href="/تهران/brands/toyota"]');
+  await expect(toyota).toBeVisible();
+  await expect(panel.locator('a[href="/کرج/brands/toyota"]')).toBeHidden();
+  await toyota.hover();
+  await expect(toyota).toBeVisible();
+  const box = await toyota.boundingBox();
+  expect(box!.x).toBeGreaterThanOrEqual(0);
+  await page.locator("h1").hover();
+  await expect(panel).toBeHidden();
 });
