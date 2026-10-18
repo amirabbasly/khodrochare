@@ -137,6 +137,7 @@ export function TowTruckStage({ compact = false, paused = false }: { compact?: b
         ))}
       </ul>
 
+      <div className="tow-speed-lines absolute inset-x-0 bottom-14 h-16" aria-hidden="true"><span /><span /><span /></div>
       <div className="tow-road absolute inset-x-0 bottom-6 h-px bg-slate-400/30" aria-hidden="true" />
       <div className="absolute inset-x-0 bottom-3 flex justify-center" aria-hidden="true">
         <div className={`tow-truck relative max-w-[94%] ${compact ? "w-[260px]" : "w-[290px] lg:w-[360px]"}`}>

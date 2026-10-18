@@ -59,7 +59,7 @@ export function HeroCarousel() {
   }, [paused]);
 
   return (
-    <section id="top" className="relative isolate overflow-hidden bg-[#07182a] text-white" aria-roledescription="carousel" aria-label="معرفی خدمات خودرو چاره">
+    <section id="top" className="relative isolate overflow-hidden bg-[#07182a] text-white" aria-roledescription="carousel" aria-label="معرفی خدمات خودرو چاره" onFocusCapture={() => setPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false); }}>
       <div className="absolute inset-0 -z-20">
         {slides.slice(0, loadedSlides).map((slide, index) => (
           <Image
@@ -93,7 +93,7 @@ export function HeroCarousel() {
               <ButtonLink href="/app" variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
               <span className="inline-flex items-center gap-2 text-xs font-black text-amber-300"><Image src="/images/quality-guarantee.svg" alt="نشان هزینه با هماهنگی قبلی" width={38} height={44} className="h-10 w-9 drop-shadow-[0_4px_10px_rgba(245,158,11,.45)]" /> هزینه با هماهنگی قبلی</span>
             </div>
-            <button type="button" className="mt-4 min-h-11 rounded-lg border border-white/30 px-3 text-xs" aria-pressed={paused} onClick={() => setPaused(!paused)}>{paused ? "ادامه نمایش معرفی خدمات" : "توقف نمایش خودکار"}</button>
+
             <div className="mt-6 grid max-w-md grid-cols-3 divide-x divide-x-reverse divide-white/15 text-center">
               {[["clock", "پاسخ‌گویی شبانه‌روزی"], ["shield", "خدمت متناسب"], ["tag", "قیمت منصفانه"]].map(([icon, label]) => <div key={label} className="px-2"><Icon name={icon} size={21} className="mx-auto text-slate-200" /><p className="mt-2 text-[10px] font-bold text-slate-300">{label}</p></div>)}
             </div>

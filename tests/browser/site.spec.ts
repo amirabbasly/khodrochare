@@ -81,8 +81,8 @@ test("responsive navigation reaches brands and mobile menu supports Escape", asy
 test("main heading remains when the carousel advances", async ({ page }) => {
   await page.goto("/"); const heading = await page.locator("h1").textContent();
   await expect.poll(() => page.locator("#top").textContent(), { timeout: 15000 }).toContain("شست‌وشوی حرفه‌ای");
-  await expect(page.locator("h1")).toHaveText(heading!); await page.getByRole("button", { name: "توقف نمایش خودکار" }).click();
-  await expect(page.getByRole("button", { name: "ادامه نمایش معرفی خدمات" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("h1")).toHaveText(heading!);
+  await expect(page.getByRole("button", { name: "توقف نمایش خودکار" })).toHaveCount(0);
 });
 
 test("client-side Persian navigation follows province, city and service without 404", async ({ page }) => {

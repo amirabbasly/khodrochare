@@ -1,3 +1,4 @@
+import { BrandCarousel } from "./brand-carousel";
 import Image from "next/image";
 import { RequestPreviewCard } from "./request-preview-card";
 import Link from "next/link";
@@ -29,7 +30,8 @@ export function ServiceStrip() {
   return (
     <section className="site-container relative z-20 -mt-5 lg:-mt-[120px]" aria-label="درخواست و دسته‌بندی خدمات" data-testid="service-strip" data-aos="fade-up">
       <div className="grid items-start gap-3 lg:grid-cols-[minmax(0,1fr)_400px]" dir="ltr">
-        <div data-testid="service-categories" className="order-2 grid min-w-0 grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
+        <div className="order-2 min-w-0 space-y-3 lg:order-1">
+        <div data-testid="service-categories" className="grid min-w-0 grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
           {serviceTiles.map((item, index) => (
             <a
               href={servicePaths[index]}
@@ -42,6 +44,8 @@ export function ServiceStrip() {
               <span className="text-sm font-black text-ink">{item.title}</span>
             </a>
           ))}
+        </div>
+        <BrandCarousel />
         </div>
         <RequestPreviewCard />
       </div>

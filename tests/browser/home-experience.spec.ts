@@ -112,7 +112,7 @@ test.describe("home presentation", () => {
     }
   });
 
-  test("both wheels visibly rotate and the existing pause button also pauses truck animations", async ({ page }) => {
+  test("both wheels visibly rotate without a visible autoplay stop button", async ({ page }) => {
     await page.setViewportSize({ width: 1100, height: 900 });
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await visitReady(page);
@@ -133,14 +133,9 @@ test.describe("home presentation", () => {
       expect(positions.running).toBe("running");
       expect(positions.first).not.toBe(positions.second);
     }
-    await page.getByRole("button", { name: "توقف نمایش خودکار" }).click();
-    await expect(page.getByTestId("tow-stage")).toHaveAttribute("data-paused", "true");
-    for (const item of await page.locator(".tow-stage .wheel, .tow-stage .tow-bubble, .tow-stage .tow-truck").all()) {
-      await expect(item).toHaveCSS("animation-play-state", "paused");
-    }
-    await page.getByRole("button", { name: "ادامه نمایش معرفی خدمات" }).click();
+    await expect(page.getByRole("button", { name: "توقف نمایش خودکار" })).toHaveCount(0);
     await expect(page.getByTestId("tow-stage")).toHaveAttribute("data-paused", "false");
-    await expect(wheels.first()).toHaveCSS("animation-play-state", "running");
+    await expect(page.locator(".tow-speed-lines span")).toHaveCount(3);
   });
 
   test("reduced motion leaves one readable slogan and stationary wheels", async ({ page }) => {

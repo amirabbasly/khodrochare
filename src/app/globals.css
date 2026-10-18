@@ -105,7 +105,7 @@ button, select { cursor: pointer; }
 
 @keyframes voice-pulse { 0% { transform: scale(.7); opacity: .15; } 55% { opacity: .7; } 100% { transform: scale(1.15); opacity: 0; } }
 @keyframes hero-copy-in { from { opacity: 0; transform: translateX(48px); filter: blur(5px); } to { opacity: 1; transform: translateX(0); filter: blur(0); } }
-@keyframes tow-bob { 0%,100% { transform: translate(6px,0) rotate(-.4deg); } 50% { transform: translate(-6px,-7px) rotate(.5deg); } }
+@keyframes tow-bob { 0%,100% { transform: translate(-9px,0) rotate(-.4deg); } 25% { transform: translate(0,-3px) rotate(.2deg); } 50% { transform: translate(9px,-1px) rotate(.5deg); } 75% { transform: translate(0,-4px) rotate(-.2deg); } }
 @keyframes tow-road-move { to { background-position-x: -44px; } }
 @keyframes tow-shadow { 0%,100% { transform: scaleX(1); opacity: .6; } 50% { transform: scaleX(.88); opacity: .38; } }
 @keyframes wheel-spin { to { transform: rotate(360deg); } }
@@ -128,3 +128,15 @@ button, select { cursor: pointer; }
   .site-container, .header-container, .section-shell { width: min(calc(100% - 1rem), 1160px); }
   .section-shell { margin-top: 8px; }
 }
+
+/* Subtle motion in the navigation and roadside scene; reduced-motion overrides above apply. */
+.mega-brand-reveal:not([hidden]) { animation: mega-brand-in .25s ease-out both; }
+@keyframes mega-brand-in { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+.brand-carousel-viewport { scrollbar-width: none; }
+.brand-carousel-viewport::-webkit-scrollbar { display: none; }
+.tow-speed-lines { overflow: hidden; pointer-events: none; }
+.tow-speed-lines span { position: absolute; right: -35%; width: 28%; height: 2px; background: linear-gradient(90deg,transparent,rgba(186,230,253,.45),transparent); animation: tow-speed 1.2s linear infinite; }
+.tow-speed-lines span:nth-child(1) { top: 15%; }
+.tow-speed-lines span:nth-child(2) { top: 46%; animation-delay: -.4s; width: 18%; }
+.tow-speed-lines span:nth-child(3) { top: 80%; animation-delay: -.8s; width: 32%; }
+@keyframes tow-speed { to { transform: translateX(-550%); } }

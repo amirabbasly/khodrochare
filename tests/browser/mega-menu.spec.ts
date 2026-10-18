@@ -47,6 +47,36 @@ test("desktop cascade reveals only the hovered region and remains within the vie
   await expect(toyota).toBeVisible();
   const box = await toyota.boundingBox();
   expect(box!.x).toBeGreaterThanOrEqual(0);
-  await page.locator("h1").hover();
+  await page.getByRole("button", { name: "بستن مگامنو", exact: true }).click({ position: { x: 20, y: 750 } });
   await expect(panel).toBeHidden();
+});
+
+test("large menu dims the page and includes an image", async ({ page }, info) => {
+  test.skip(info.project.name === "mobile");
+  await page.goto("/");
+  await page.getByRole("navigation", { name: "منوی اصلی", exact: true }).getByRole("button", { name: "امداد خودرو", exact: true }).hover();
+  const panel = page.locator("#desktop-assistance-menu");
+  await expect(panel).toBeVisible();
+  await expect(panel.locator("img")).toBeVisible();
+  await expect(page.getByRole("button", { name: "بستن مگامنو", exact: true })).toHaveCSS("opacity", "1");
+  expect((await panel.boundingBox())!.width).toBeGreaterThan(1000);
+  await page.keyboard.press("Escape");
+  await expect(panel).toBeHidden();
+});
+test("desktop brand carousel fills the service gap with linked original marks", async ({ page }, info) => {
+  test.skip(info.project.name === "mobile");
+  await page.goto("/");
+  const slider = page.getByTestId("home-brand-carousel");
+  await expect(slider).toBeVisible();
+  await expect(slider.locator("img")).toHaveCount(8);
+  const categories = (await page.getByTestId("service-categories").boundingBox())!;
+  const box = (await slider.boundingBox())!;
+  expect(box.y).toBeGreaterThanOrEqual(categories.y + categories.height);
+  expect(Math.abs(box.x - categories.x)).toBeLessThan(2);
+  const track = slider.getByLabel("فهرست قابل پیمایش برندها");
+  await slider.getByRole("button", { name: "برندهای بعدی" }).click();
+  await expect.poll(() => track.evaluate(element => element.scrollLeft)).toBeGreaterThan(0);
+  await slider.locator('a[href="/brands/toyota"]').focus();
+  await slider.locator('a[href="/brands/toyota"]').click();
+  await expect(page).toHaveURL(/brands\/toyota$/);
 });
