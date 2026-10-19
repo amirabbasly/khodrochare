@@ -10,6 +10,7 @@ import {
   serviceTiles,
   trustItems,
 } from "./home-content";
+import { latestHomeArticles } from "@/content/home-articles";
 import { blogPosts } from "@/content/blog";
 import { BlogSlider } from "./blog-slider";
 import { BrandLogo, BrandMark, ButtonLink, Icon, PlatformLogo, SectionTitle } from "./home-ui";
@@ -204,7 +205,7 @@ export function SeoServiceHub() {
         <div className="mt-6 border-t border-slate-200 pt-5">
           <h3 className="text-sm font-black text-ink">خدمات امداد خودرو در تهران و کرج</h3>
           <nav className="mt-4 space-y-5" aria-label="لندینگ‌های محلی خدمات امداد خودرو" data-testid="home-local-directory">
-            {homeLocalLinkGroups.map(group => <div key={group.title}><h4 className="mb-3 flex items-center gap-2 text-xs font-black text-slate-600"><span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />{group.title}</h4><div className="grid grid-cols-2 gap-2 lg:grid-cols-3">{group.links.map(item => <Link key={item.href} href={item.href} className="flex min-h-9 items-center justify-between gap-1 rounded-lg border border-slate-200/80 bg-white/50 px-2.5 py-2 text-[10px] font-bold leading-5 text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">{item.title}<span aria-hidden="true" className="text-orange-400">←</span></Link>)}</div></div>)}
+            {homeLocalLinkGroups.map(group => <div key={group.title}><h4 className="mb-3 flex items-center gap-2 text-xs font-black text-slate-600"><span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />{group.title}</h4><div className="grid grid-cols-2 gap-2 lg:grid-cols-3">{group.links.map(item => <Link key={item.href} href={item.href} prefetch={false} className="flex min-h-9 items-center justify-between gap-1 rounded-lg border border-slate-200/80 bg-white/50 px-2.5 py-2 text-[10px] font-bold leading-5 text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">{item.title}<span aria-hidden="true" className="text-orange-400">←</span></Link>)}</div></div>)}
           </nav>
         </div>
       </article>
@@ -301,7 +302,7 @@ export function MagazineSection() {
   return (
     <section className="home-glass section-shell rounded-2xl bg-[#f3f5f7] px-4 py-6 md:py-8" aria-labelledby="magazine-title" data-aos="fade-up">
       <div className="flex items-center justify-between gap-4 px-1" dir="rtl"><h2 id="magazine-title" className="text-2xl font-black text-ink md:text-3xl">مجله خودرو چاره</h2><Link href="/blog" className="text-sm font-black text-brand-orange">موارد بیشتر ←</Link></div>
-      <BlogSlider posts={blogPosts} />
+      <BlogSlider posts={latestHomeArticles(blogPosts)} />
     </section>
   );
 }
