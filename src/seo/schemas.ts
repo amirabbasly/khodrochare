@@ -22,7 +22,10 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "AutoRepair"],
   "@id": `${siteUrl}/#organization`,
-  name: "خودرو چاره",
+  name: businessFacts.registeredBrand,
+  legalName: businessFacts.legalName,
+  brand: { "@type": "Brand", name: businessFacts.registeredBrand },
+  employee: { "@type": "Person", name: businessFacts.managingDirector, jobTitle: "مدیرعامل" },
   alternateName: ["خودروچاره", "Khodrochare"],
   description:
     "سامانه امداد خودرو آنلاین و خدمات خودرو در محل؛ هماهنگی امدادگر، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی در تهران، کرج، گیلان، مازندران و گلستان با هماهنگی شبانه‌روزی.",

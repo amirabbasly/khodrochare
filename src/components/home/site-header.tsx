@@ -1,5 +1,7 @@
 "use client";
 
+import { customerAppUrl } from "@/content/app-links";
+
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -61,8 +63,8 @@ export function ResponsiveSiteHeader() {
 
         <div className="mr-auto hidden shrink-0 items-center gap-2 xl:flex">
           <Link href="/app" className="inline-flex min-h-12 items-center rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5">راهنمای نسخه وب</Link>
-          <Link href="/app" className="inline-flex min-h-12 items-center gap-2 rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
-          <ButtonLink href="/امداد-خودرو-آنلاین#request" className="min-h-12 px-4 text-[12px]">درخواست خدمت</ButtonLink>
+          <Link href={customerAppUrl} className="inline-flex min-h-12 items-center gap-2 rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
+          <ButtonLink href={customerAppUrl} className="min-h-12 px-4 text-[12px]">درخواست خدمت</ButtonLink>
         </div>
 
         <button
@@ -98,8 +100,8 @@ export function ResponsiveSiteHeader() {
         </nav>
         <div className="grid gap-2 border-t border-white/10 p-4">
           <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold">راهنمای نسخه وب</Link>
-          <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
-          <ButtonLink href="/امداد-خودرو-آنلاین#request" className="w-full" >درخواست خدمت</ButtonLink>
+          <Link href={customerAppUrl} onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
+          <ButtonLink href={customerAppUrl} className="w-full" >درخواست خدمت</ButtonLink>
           <a href="tel:09123022064" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="phone" size={17} /> تماس فوری</a>
         </div>
       </aside>

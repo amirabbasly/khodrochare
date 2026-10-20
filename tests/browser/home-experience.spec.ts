@@ -31,10 +31,10 @@ test.describe("home presentation", () => {
     });
     await visitReady(page);
     const card = page.getByTestId("home-request-card");
-    await expect(card.getByRole("heading")).toHaveText("آماده‌سازی درخواست امداد خودرو");
+    await expect(card.getByRole("heading")).toHaveText("درخواست امداد خودرو آنلاین");
     await expect(card.locator("form, input, select, textarea, button[type='submit']")).toHaveCount(0);
     await expect(card).not.toContainText(/نمایشی|فعال نیست|سفارش ثبت نمی‌کند|در حال بررسی/);
-    await expect(card.getByRole("link")).toHaveAttribute("href", "tel:09123022064");
+    await expect(card.getByRole("link", { name: /تماس برای امداد/ })).toHaveAttribute("href", "tel:09123022064");
     await expect(card.locator("dt")).toHaveCount(4);
     expect(intakeRequests).toEqual([]);
     const data = await page.evaluate(() => JSON.stringify((window as Window & { dataLayer?: unknown[] }).dataLayer ?? []));
@@ -164,7 +164,7 @@ test.describe("welcome contact dialog", () => {
     await expect(dialog).toContainText("برای ارتباط سریع با ما تماس بگیرید");
     await expect(dialog.getByRole("link", { name: /تماس سریع/ })).toHaveAttribute("href", "tel:09123022064");
     await expect(dialog.getByRole("link", { name: /تماس سریع/ })).toContainText("09123022064");
-    await expect(dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" })).toHaveAttribute("href", "/app");
+    await expect(dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" })).toHaveAttribute("href", "https://app.khodrochare.ir/");
     expect(await page.evaluate(() => document.activeElement?.tagName)).toBe(focusedBefore);
     expect(await page.evaluate(() => getComputedStyle(document.body).overflowY)).not.toBe("hidden");
     await page.clock.runFor(400);
@@ -185,10 +185,11 @@ test.describe("welcome contact dialog", () => {
     const dialog = page.getByTestId("welcome-dialog");
     await expect(dialog).toBeVisible();
     await page.clock.runFor(400);
+    await page.route("https://app.khodrochare.ir/**", route => route.fulfill({ contentType: "text/html", body: "<h1>App entry mock</h1>" }));
     await dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" }).click();
-    await expect(page).toHaveURL(/\/app$/);
+    await expect(page).toHaveURL("https://app.khodrochare.ir/");
     await expect(dialog).toHaveCount(0);
-    await expect(page.getByRole("button", { name: "افزودن به صفحه اصلی" })).toBeVisible();
+
     await page.clock.fastForward(6000);
     await expect(dialog).toHaveCount(0);
   });
@@ -227,20 +228,10 @@ test.describe("welcome contact dialog", () => {
     await expect(dialog).toHaveCount(0);
   });
 
-  test("typing in the independent request form is not interrupted", async ({ page }) => {
-    await freezeBeforeVisit(page);
+  test("online entry points to the customer app, not the old intake form", async ({ page }) => {
     await visitReady(page, "/امداد-خودرو-آنلاین");
-    await expect(page.locator("#request-status")).toContainText("فعال نیست");
-    const vehicle = page.locator("#request-vehicle");
-    await vehicle.fill("خودروی تست");
-    await page.clock.fastForward(7000);
-    await expect(page.getByTestId("welcome-dialog")).toHaveCount(0);
-    await expect(vehicle).toBeFocused();
-    await expect(vehicle).toHaveValue("خودروی تست");
-    await vehicle.evaluate((input) => (input as HTMLInputElement).blur());
-    await page.clock.fastForward(1500);
-    await expect(page.getByTestId("welcome-dialog")).toBeVisible();
-    await expect(vehicle).toHaveValue("خودروی تست");
+    await expect(page.locator('#request [data-app-entry="customer"]')).toHaveAttribute("href", "https://app.khodrochare.ir/");
+    await expect(page.locator("#request form")).toHaveCount(0);
   });
 
   test("blocked browser storage does not break the dialog or navigation", async ({ page }) => {
@@ -255,8 +246,9 @@ test.describe("welcome contact dialog", () => {
     const dialog = page.getByTestId("welcome-dialog");
     await expect(dialog).toBeVisible();
     await page.clock.runFor(400);
+    await page.route("https://app.khodrochare.ir/**", route => route.fulfill({ contentType: "text/html", body: "<h1>App entry mock</h1>" }));
     await dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" }).click();
-    await expect(page).toHaveURL(/\/app$/);
+    await expect(page).toHaveURL("https://app.khodrochare.ir/");
     await page.clock.fastForward(6000);
     await expect(dialog).toHaveCount(0);
     expect(errors).toEqual([]);

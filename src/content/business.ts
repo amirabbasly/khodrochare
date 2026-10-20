@@ -1,4 +1,8 @@
 export const businessFacts = {
+  legalName: "پیشرو امدادگران هوانیروز",
+  registeredBrand: "خودرو چاره",
+  managingDirector: "علیرضا سلیمانی",
+  licenseDescription: "جواز یکتا و فعالیت کشوری امداد خودرو",
   baleUrl: "https://ble.ir/khodrochare",
   coverageSummary: "تهران، کرج، گیلان، مازندران و گلستان",
   emergencyPhone: "09123022064",

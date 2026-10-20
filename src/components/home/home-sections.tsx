@@ -138,7 +138,7 @@ export function AppSection() {
           <div className="mt-5 grid grid-cols-3 gap-2">
             {[["location", "راهنمای هماهنگی"], ["chat", "دستیار هوشمند"], ["clock", "تماس با پشتیبانی"]].map(([icon, title], index) => <div key={title} className="home-glass rounded-xl border border-slate-200 p-3 text-center" data-aos="zoom-in" data-aos-delay={index * 80}><Icon name={icon} size={22} className="mx-auto text-slate-600" /><p className="mt-2 text-[10px] font-bold">{title}</p></div>)}
           </div>
-          <div className="mt-6 max-w-sm"><AddToHomeButton label="دانلود و نصب وب‌اپلیکیشن" light /><p className="mt-3 text-xs leading-7 text-slate-600">نصب نسخه وب از طریق مرورگر؛ بدون نیاز به فایل APK. اگر نصب مستقیم پشتیبانی نشود، راهنمای نصب نمایش داده می‌شود.</p><Link href="/app" className="mt-3 inline-flex min-h-10 items-center gap-2 text-xs font-bold text-brand-orange">راهنمای نصب و امکانات وب‌اپ ←</Link></div>
+          <div className="mt-6 max-w-sm"><AddToHomeButton label="دانلود و نصب وب‌اپلیکیشن" light /><p className="mt-3 text-xs leading-7 text-slate-600">ورود به اپلیکیشن اصلی مشتریان؛ برای نصب نسخه وب از منوی مرورگر داخل همان اپ استفاده کنید.</p><Link href="/app" className="mt-3 inline-flex min-h-10 items-center gap-2 text-xs font-bold text-brand-orange">راهنمای نصب و امکانات وب‌اپ ←</Link></div>
           <div className="mt-4 flex flex-wrap items-center justify-start gap-x-7 gap-y-3 text-xs font-bold text-slate-600" dir="ltr"><PlatformLogo platform="android" /><PlatformLogo platform="ios" /><PlatformLogo platform="pwa" /></div>
         </div>
         <div className="relative min-h-[360px] overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_50%_50%,#fff_40%,#eef3f6_100%)] sm:min-h-[500px]" data-aos="fade-right">

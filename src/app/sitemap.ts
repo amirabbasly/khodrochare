@@ -19,16 +19,18 @@ import { absoluteUrl } from "@/seo/metadata";
  */
 const siteUpdatedAt = new Date("2026-09-23T00:00:00.000Z");
 const contentUpdatedAt = new Date("2026-09-23T00:00:00.000Z");
+const appContentUpdatedAt = new Date("2026-10-20T00:00:00.000Z");
 const staticPageUpdatedAt = new Date("2026-08-27T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [
+    { url: absoluteUrl("/battery"), lastModified: appContentUpdatedAt, changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/"), lastModified: siteUpdatedAt, changeFrequency: "daily", priority: 1, images: [absoluteUrl("/images/hero-roadside.webp")] },
     { url: absoluteUrl("/services"), lastModified: contentUpdatedAt, changeFrequency: "weekly", priority: 0.9 },
     { url: absoluteUrl("/coverage"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/blog"), lastModified: contentUpdatedAt, changeFrequency: "weekly", priority: 0.8 },
     { url: absoluteUrl("/rules"), lastModified: staticPageUpdatedAt, changeFrequency: "yearly", priority: 0.3 },
-    { url: absoluteUrl("/app"), lastModified: staticPageUpdatedAt, changeFrequency: "monthly", priority: 0.7 },
+    { url: absoluteUrl("/app"), lastModified: appContentUpdatedAt, changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/assistant"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/about"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.5 },
     { url: absoluteUrl("/contact"), lastModified: siteUpdatedAt, changeFrequency: "monthly", priority: 0.6 },
@@ -99,7 +101,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const regionallyUpdatedPaths = new Set([
     "/licenses", ...northernProvinces.map(province => `/${province.slug}`), ...roadProfiles.map(road => `/roads/${road.slug}`), "/شمال", "/brands", ...brandProfiles.map(brand => `/brands/${brand.slug}`), ...allCities.map(city => `/${city.slug}`),
   ]);
+  const revised = new Set(["/", "/privacy", "/app", "/about", "/licenses", "/partners", "/امداد-خودرو-آنلاین", ...brandProfiles.map(b => `/brands/${b.slug}`), ...roadProfiles.map(r => `/roads/${r.slug}`), ...assistanceRegions.flatMap(r => brandProfiles.map(b => regionalBrandPath(r.slug,b.slug)))]);
   return [...regionalPages, ...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages, ...toolPages].map((page) =>
-    regionallyUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-18") } : growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
+    revised.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: appContentUpdatedAt } : regionallyUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-18") } : growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
   );
 }

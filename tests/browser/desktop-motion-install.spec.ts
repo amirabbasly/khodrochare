@@ -51,16 +51,9 @@ test("home app has one install action and no QR or add-to-home promotional cards
   await expect(app).not.toContainText("دوربین موبایل را روی کد بگیرید");
   await expect(app).not.toContainText("خودرو چاره را به صفحه اصلی اضافه کنید");
   await expect(app.locator('img[src*="app-qr"]')).toHaveCount(0);
-  const install = app.getByRole("button", { name: "دانلود و نصب وب‌اپلیکیشن", exact: true });
-  await install.click();
-  await expect(app.getByRole("status")).toContainText("از منوی مرورگر");
-  await page.evaluate(() => {
-    const event = new Event("beforeinstallprompt");
-    Object.assign(event, { prompt: async () => {}, userChoice: Promise.resolve({ outcome: "accepted" }) });
-    window.dispatchEvent(event);
-  });
-  await install.click();
-  await expect(app.getByRole("status")).toContainText("به صفحه اصلی اضافه شد");
+  const install = app.getByRole("link", { name: "دانلود و نصب وب‌اپلیکیشن", exact: true });
+  await expect(install).toHaveAttribute("href", "https://app.khodrochare.ir/");
+  await expect(app).toContainText("نصب از امکانات مرورگر همان اپ");
   await expect(app).toHaveCSS("backdrop-filter", "blur(20px)");
 });
 

@@ -1,4 +1,4 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 const templates = ["/app", "/coverage", "/تهران/شمال-تهران", "/", "/تهران", "/رشت", "/مازندران", "/شمال", "/تهران/سعادت-آباد", "/کرج/گوهردشت", "/رشت/یدک-کش", "/brands/toyota", "/roads/chalus", "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/pricing"];
 test.beforeEach(async ({ page }) => {
@@ -17,47 +17,13 @@ for (const path of templates) test(`render without overflow or hydration errors:
   expect(errors).toEqual([]);
   if (path === "/" || path === "/شمال") { await mkdir("coverage/browser/screenshots", { recursive: true }); await page.screenshot({ path: `coverage/browser/screenshots/${info.project.name}-${path === "/" ? "home" : "north"}.png` }); }
 });
-async function fillRequest(page: Page, online = false) {
-  await page.locator("#request-service").selectOption("tow-truck");
-  await page.locator("#request-region").selectOption("گیلان");
-  await page.locator("#request-vehicle").fill("خودروی تست اتوماتیک");
-  await page.locator("#request-location").fill("نشانی آزمایشی؛ درخواست واقعی نیست");
-  if (online) { await page.locator("#request-phone").fill("۰۹۱۲۰۰۰۰۰۰۰"); await page.locator("#request input[name='consent']").check(); }
-}
-test("offline intake prepares a summary but never sends or counts a conversion", async ({ page }) => {
-  let posts = 0; page.on("request", (request) => { if (request.url().includes("/api/service-requests") && request.method() === "POST") posts++; });
-  await page.goto("/امداد-خودرو-آنلاین"); await expect(page.locator("#request-status")).toContainText("فعال نیست");
-  await fillRequest(page); await page.locator("#request button[type='submit']").click();
-  await expect(page.locator("#request [role='status']")).toContainText("هیچ درخواستی");
-  await expect(page.locator("#request-summary")).toHaveValue(/نشانی آزمایشی/);
-  await expect(page.locator("#request-phone")).toHaveCount(0); expect(posts).toBe(0);
-  const data = await page.evaluate(() => JSON.stringify((window as Window & { dataLayer?: unknown[] }).dataLayer ?? []));
-  expect(data).toContain("service_request_prepared"); expect(data).not.toContain("service_request_received"); expect(data).not.toContain("نشانی آزمایشی");
-  expect(new URL(page.url()).search).toBe("");
-});
-test("accepted acknowledgment is the only received event; retries reuse request ID", async ({ page }) => {
-  const ids: string[] = [];
-  await page.route("**/api/service-requests", async (route) => {
-    if (route.request().method() === "GET") return route.fulfill({ json: { enabled: true } });
-    ids.push(route.request().postDataJSON().requestId);
-    return ids.length === 1 ? route.fulfill({ status: 502, json: { error: "acceptance_not_confirmed" } }) : route.fulfill({ status: 201, json: { status: "received", reference: "LOCAL-TEST-001" } });
-  });
-  await page.goto("/امداد-خودرو-آنلاین"); await expect(page.locator("#request-status")).toContainText("فعال است");
-  await fillRequest(page, true); await page.locator("#request button[type='submit']").click();
-  await expect(page.locator("#request [role='status']")).toContainText("تأیید نشد");
-  await page.locator("#request button[type='submit']").click();
-  await expect(page.locator("#request [role='status']")).toContainText("LOCAL-TEST-001");
-  expect(ids).toHaveLength(2); expect(ids[0]).toBe(ids[1]);
-  const data = await page.evaluate(() => JSON.stringify((window as Window & { dataLayer?: unknown[] }).dataLayer ?? []));
-  expect(data.match(/service_request_received/g)).toHaveLength(1); expect(data).not.toContain("09120000000"); expect(data).not.toContain("نشانی آزمایشی");
-});
-test("a generic 200 response does not fake a received request", async ({ page }) => {
-  await page.route("**/api/service-requests", (route) => route.fulfill({ json: route.request().method() === "GET" ? { enabled: true } : { ok: true } }));
-  await page.goto("/امداد-خودرو-آنلاین"); await expect(page.locator("#request-status")).toContainText("فعال است");
-  await fillRequest(page, true); await page.locator("#request button[type='submit']").click();
-  await expect(page.locator("#request [role='status']")).toContainText("تأیید نشد");
-  const data = await page.evaluate(() => JSON.stringify((window as Window & { dataLayer?: unknown[] }).dataLayer ?? []));
-  expect(data).not.toContain("service_request_received");
+test("online requests use the real customer app without calling legacy intake", async ({ page }) => {
+  const requests: string[] = [];
+  page.on("request", r => { if (r.url().includes("/api/service-requests")) requests.push(r.method()); });
+  await page.goto("/امداد-خودرو-آنلاین");
+  await expect(page.locator('#request [data-app-entry="customer"]')).toHaveAttribute("href", "https://app.khodrochare.ir/");
+  await expect(page.locator("#request form")).toHaveCount(0);
+  expect(requests).toEqual([]);
 });
 test("calculator supports Persian rates and resets stale results on edits", async ({ page }) => {
   await page.goto("/pricing");

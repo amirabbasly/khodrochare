@@ -1,5 +1,7 @@
 "use client";
 
+import { customerAppUrl } from "@/content/app-links";
+
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -11,7 +13,7 @@ const slides = [
     image: "/images/hero-roadside.webp",
     alt: "امداد خودرو در جاده بارانی",
     eyebrow: "هماهنگی شبانه‌روزی خدمات خودرو",
-    title: "امداد خودرو آنلاین؛ تهران، کرج و شمال",
+    title: "امداد خودرو؛ تهران، کرج و شمال",
     desc: "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، باتری، مکانیک سیار و یدک‌کش؛ در تهران، کرج، گیلان، مازندران و گلستان",
     cta: "درخواست امداد فوری",
     icon: "truck",
@@ -87,11 +89,11 @@ export function HeroCarousel() {
             <h1 className="mt-5 max-w-[16ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[0].title}</h1>
             <p className="mt-4 max-w-md text-sm leading-7 text-slate-200 md:text-base">{slides[active].desc}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink href="/امداد-خودرو-آنلاین#request"><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
+              <ButtonLink href={customerAppUrl}><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
               <a href="tel:09123022064" className="inline-flex min-h-11 items-center gap-3 rounded-lg border border-white/50 bg-black/20 px-5 text-sm font-extrabold" dir="ltr">09123022064 <Icon name="phone" size={17} /></a>
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <ButtonLink href="/app" variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
+              <ButtonLink href={customerAppUrl} variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
               <span className="inline-flex items-center gap-2 text-xs font-black text-amber-300"><Image src="/images/quality-guarantee.svg" alt="نشان هزینه با هماهنگی قبلی" width={38} height={44} className="h-10 w-9 drop-shadow-[0_4px_10px_rgba(245,158,11,.45)]" /> هزینه با هماهنگی قبلی</span>
             </div>
 

@@ -43,8 +43,10 @@ test("license page is discoverable and does not invent verification credentials"
   assert.ok(paths.has("/licenses"));
   assert.ok(sitemap().some(page => page.url === absoluteUrl("/licenses")));
   const source = await readFile("src/app/licenses/page.tsx", "utf8");
-  assert.ok(source.includes("طبق اعلام مدیریت مجموعه"));
-  assert.ok(source.includes("هنوز در سایت منتشر نشده"));
+  assert.ok(source.includes("طبق اطلاعات اعلام‌شده مجموعه"));
+  assert.ok(source.includes("businessFacts.legalName"));
+  assert.ok(source.includes("businessFacts.managingDirector"));
+  assert.ok(!source.includes("<Image") && !source.includes("<img"));
   assert.ok(!source.includes("hasCredential"));
   const footer = await readFile("src/components/site/site-footer.tsx", "utf8");
   assert.ok(footer.includes('"/licenses"'));
