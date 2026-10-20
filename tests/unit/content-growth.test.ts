@@ -23,7 +23,7 @@ const paths = new Set(indexablePaths);
 
 test("all 374 previously published paths survive; two six-guide batches, a twenty-four-guide batch and partner/press pages are added", async () => {
   const previous = JSON.parse(await readFile(new URL("../fixtures/published-routes-2026-09-06.json", import.meta.url), "utf8")) as string[];
-  assert.equal(previous.length, 374); assert.equal(paths.size, 473);
+  assert.equal(previous.length, 374); assert.equal(paths.size, 474);
   for (const path of previous) assert.ok(paths.has(path), `lost published path ${path}`);
   assert.equal(newBlogGuides.length, 6); assert.equal(seoBoostGuides.length, 6); assert.equal(modelGuides.length, 10); assert.equal(northGuides.length, 6); assert.equal(depthGuides.length, 8); assert.equal(tools.length, 3); assert.ok(paths.has("/tools"));
   assert.ok(paths.has("/licenses")); assert.ok(paths.has("/partners")); assert.ok(paths.has("/press"));
@@ -84,7 +84,7 @@ test("service enrichment does not introduce duplicate FAQ questions or missing l
   }
 });
 test("sitemap dates change only for substantively updated pages and each new URL is canonical", () => {
-  const entries = sitemap(); assert.equal(entries.length, 473);
+  const entries = sitemap(); assert.equal(entries.length, 474);
   const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
   for (const tool of tools) assert.ok(byUrl.has(absoluteUrl(`/tools/${tool.slug}`)));
   assert.equal(new Date(byUrl.get(absoluteUrl("/pricing"))!.lastModified!).toISOString().slice(0, 10), "2026-09-07");

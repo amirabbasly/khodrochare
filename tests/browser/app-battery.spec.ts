@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-for (const path of ["/app", "/battery", "/امداد-خودرو-آنلاین", "/licenses"]) {
+for (const path of ["/app", "/battery", "/امداد-خودرو-آنلاین", "/licenses", "/safir"]) {
   test(`app release page is usable with canonical and no overflow: ${path}`, async ({page}) => {
     await page.addInitScript(() => sessionStorage.setItem("khodrochare:welcome-seen:v2", "1"));
     const errors:string[]=[];page.on("pageerror",e=>errors.push(e.message));
@@ -11,6 +11,11 @@ for (const path of ["/app", "/battery", "/امداد-خودرو-آنلاین", "
     if (path==="/app") {
       await expect(page.locator('main a[href="https://safir.khodrochare.ir/"]').first()).toBeVisible();
       await expect(page.locator('main a[href="https://app.khodrochare.ir/"]').first()).toBeVisible();
+    }
+    if (path==="/safir") {
+      await expect(page.locator("[data-fleet-benefit]")).toHaveCount(7);
+      await expect(page.locator('[data-app-entry="fleet"]').first()).toHaveAttribute("href", "https://safir.khodrochare.ir/");
+      await expect(page.locator("#install")).toContainText("Add to Home Screen");
     }
     if (path==="/battery") {
       await expect(page.locator('[id^="battery-"]')).toHaveCount(12);
