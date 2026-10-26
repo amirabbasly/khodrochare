@@ -25,9 +25,9 @@ import {
   TrustSection,
 } from "@/components/home/home-sections";
 
-const homeTitle = "امداد خودرو آنلاین تهران، کرج و شمال | خودرو چاره";
+const homeTitle = "امداد خودرو تهران، کرج و شمال | یدک‌کش و مکانیک سیار";
 const homeDescription =
-  "امداد خودرو آنلاین در تهران، کرج و شمال؛ راهنمای انتخاب یدک‌کش، خودروبر، مکانیک سیار و باتری، استعلام هزینه و هماهنگی شبانه‌روزی خودرو چاره.";
+  "خودرو چاره؛ امداد خودرو، یدک‌کش، خودروبر، مکانیک سیار و باتری در تهران، کرج و شمال. درخواست از اپلیکیشن مشتریان، استعلام هزینه و هماهنگی شبانه‌روزی.";
 
 export const metadata: Metadata = {
   title: { absolute: homeTitle },
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main id="main-content" className="min-h-screen overflow-hidden">
-      <StructuredData data={webPageSchema({ name: "امداد خودرو آنلاین تهران، کرج و شمال", description: "راهنمای امداد خودرو، یدک‌کش، خودروبر، مکانیک سیار و باتری در تهران، کرج و شمال.", path: "/" })} />
+    <main id="main-content" className="home-landing min-h-screen overflow-hidden">
+      <StructuredData data={webPageSchema({ name: "امداد خودرو تهران، کرج و شمال", description: "راهنمای امداد خودرو، یدک‌کش، خودروبر، مکانیک سیار و باتری در تهران، کرج و شمال.", path: "/" })} />
       <StructuredData data={serviceSchema({ name: "امداد خودرو آنلاین شبانه‌روزی", description: "هماهنگی امداد خودرو، یدک‌کش، خودروبر، مکانیک سیار و امداد در محل در تهران، کرج و شمال", path: "/", area: "محدوده پوشش", image: "/images/hero-roadside.webp" })} />
       <StructuredData data={itemListSchema({ name: "خدمات امداد خودرو خودرو چاره", path: "/", items: services.map((service) => ({ name: service.title, path: `/services/${service.slug}` })) })} />
       <StructuredData data={faqSchema(faqItems)} />

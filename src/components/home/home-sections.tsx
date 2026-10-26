@@ -1,3 +1,4 @@
+import { BrandCarousel } from "./brand-carousel";
 import Image from "next/image";
 import { RequestPreviewCard } from "./request-preview-card";
 import Link from "next/link";
@@ -9,7 +10,7 @@ import {
   serviceTiles,
   trustItems,
 } from "./home-content";
-import { QrCode } from "./home-illustrations";
+import { latestHomeArticles } from "@/content/home-articles";
 import { blogPosts } from "@/content/blog";
 import { BlogSlider } from "./blog-slider";
 import { BrandLogo, BrandMark, ButtonLink, Icon, PlatformLogo, SectionTitle } from "./home-ui";
@@ -17,7 +18,7 @@ import { AiChat } from "./ai-chat";
 import { AddToHomeButton } from "./add-to-home-button";
 import { HeroCarousel } from "./hero-carousel";
 import { businessFacts } from "@/content/business";
-import { persianServiceRoutes } from "@/seo/internal-links";
+import { homeLocalLinkGroups } from "@/content/home-local-links";
 // The site-wide header and footer live in shared site components.
 
 export function HeroSection() {
@@ -29,7 +30,8 @@ export function ServiceStrip() {
   return (
     <section className="site-container relative z-20 -mt-5 lg:-mt-[120px]" aria-label="درخواست و دسته‌بندی خدمات" data-testid="service-strip" data-aos="fade-up">
       <div className="grid items-start gap-3 lg:grid-cols-[minmax(0,1fr)_400px]" dir="ltr">
-        <div data-testid="service-categories" className="order-2 grid min-w-0 grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
+        <div className="order-2 min-w-0 space-y-3 lg:order-1">
+        <div data-testid="service-categories" className="landing-glass grid min-w-0 grid-cols-2 rounded-xl border border-slate-200 bg-white p-2 shadow-card md:grid-cols-4 lg:order-1" dir="rtl">
           {serviceTiles.map((item, index) => (
             <a
               href={servicePaths[index]}
@@ -43,6 +45,8 @@ export function ServiceStrip() {
             </a>
           ))}
         </div>
+        <BrandCarousel />
+        </div>
         <RequestPreviewCard />
       </div>
     </section>
@@ -52,21 +56,21 @@ export function ServiceStrip() {
 
 export function FeatureBanners() {
   return (
-    <section id="services" className="section-shell grid gap-3 lg:grid-cols-2" data-aos="fade-up">
+    <section id="services" className="mt-4 w-full" data-aos="fade-up"><div className="site-container grid gap-4 lg:grid-cols-2">
       <div data-aos="fade-left"><ServiceBanner href="/services/tow-truck" image="/images/service-tow.webp" title="امداد خودرو و یدک‌کش" desc="امداد سریع در محل، حمل ایمن خودرو و پشتیبانی تا رسیدن به مقصد" /></div>
       <div data-aos="fade-right"><ServiceBanner href="/services/mobile-carwash" image="/images/service-carwash.webp" title="کارواش سیار" desc="شست‌وشوی حرفه‌ای خودرو در محل با تجهیزات کامل و مواد استاندارد" /></div>
-    </section>
+    </div></section>
   );
 }
 
 function ServiceBanner({ href, image, title, desc }: { href: string; image: string; title: string; desc: string }) {
   return (
-    <article className="relative min-h-48 overflow-hidden rounded-xl bg-ink text-white shadow-card">
-      <Image src={image} alt={title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-right" />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/72 to-transparent" />
-      <div className="relative flex min-h-48 w-[56%] flex-col justify-center p-5" dir="rtl">
+    <article className="relative isolate min-h-64 overflow-hidden rounded-2xl border border-white/30 bg-ink text-white shadow-card">
+      <Image src={image} alt={title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="-z-20 object-cover object-center" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-l from-ink/90 via-ink/55 to-ink/10" />
+      <div className="relative flex min-h-64 w-full flex-col justify-center p-6 md:p-8" dir="rtl">
         <h2 className="text-xl font-black md:text-2xl">{title}</h2>
-        <p className="mt-2 text-xs leading-6 text-slate-200">{desc}</p>
+        <p className="mt-3 max-w-sm text-sm leading-7 text-slate-200">{desc}</p>
             <Link href={href} className="mt-4 inline-flex min-h-10 w-fit items-center gap-2 rounded-lg border border-white/45 px-4 text-xs font-bold">جزئیات خدمت <span aria-hidden="true">←</span></Link>
       </div>
     </article>
@@ -78,7 +82,7 @@ export function MiniServices() {
   return (
     <section className="section-shell grid gap-3 md:grid-cols-3" data-aos="fade-up">
       {miniServices.map((item, index) => (
-        <article key={item.title} className="grid min-h-44 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm sm:grid-cols-[.9fr_1.1fr] md:grid-cols-1 xl:grid-cols-[.9fr_1.1fr]" dir="ltr" data-aos="fade-up" data-aos-delay={index * 80}>
+        <article key={item.title} className="home-glass grid min-h-44 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm sm:grid-cols-[.9fr_1.1fr] md:grid-cols-1 xl:grid-cols-[.9fr_1.1fr]" dir="ltr" data-aos="fade-up" data-aos-delay={index * 80}>
           <div className="flex flex-col justify-center p-4" dir="rtl">
             <h2 className="text-xl font-black text-ink">{item.title}</h2>
             <p className="mt-2 text-xs leading-6 text-slate-600">{item.desc}</p>
@@ -95,10 +99,10 @@ export function MiniServices() {
 
 export function ChatSection() {
   return (
-    <section id="assistant" className="section-shell relative isolate overflow-hidden rounded-xl border-2 border-cyan-500/45 bg-[#03172b] text-white shadow-card" data-aos="fade-up">
+    <section id="assistant" className="home-glass-dark section-shell relative isolate overflow-hidden rounded-xl border-2 border-cyan-500/45 bg-[#03172b] text-white shadow-card" data-aos="fade-up">
       <Image src="/images/assistant-bg.webp" alt="" fill sizes="100vw" className="-z-20 object-cover" />
       <div className="absolute inset-0 -z-10 bg-[#03172b]/25" />
-      <div className="px-5 pt-6"><SectionTitle light title="دستیار هوشمند خودرو چاره" desc="مشکل خودرو را بگویید تا دستیار هوشمند، راهکار مناسب و نزدیک‌ترین متخصص را پیشنهاد کند" /><Link href="/assistant" className="mx-auto mt-4 flex min-h-10 w-fit items-center rounded-lg border border-cyan-300/35 bg-cyan-300/10 px-4 text-xs font-black text-cyan-100">ورود به صفحه کامل دستیار</Link></div>
+      <div className="px-5 pt-6"><SectionTitle light title="دستیار هوشمند خودرو چاره" desc="نشانه‌های خرابی را بگویید؛ راهنمایی اولیه جای بررسی حضوری متخصص یا تأیید اعزام نیست" /><Link href="/assistant" className="mx-auto mt-4 flex min-h-10 w-fit items-center rounded-lg border border-cyan-300/35 bg-cyan-300/10 px-4 text-xs font-black text-cyan-100">ورود به صفحه کامل دستیار</Link></div>
       <div className="grid gap-4 p-4 pt-5 lg:grid-cols-2" dir="ltr">
         <div dir="rtl"><AiChat embedded /></div>
         <VoicePanel />
@@ -108,14 +112,14 @@ export function ChatSection() {
           <div key={title} className="flex min-h-20 items-center justify-center gap-3 border-white/10 p-4 md:border-r first:md:border-0"><Icon name={icon} className="text-cyan-300" /><span className="text-xs font-bold">{title}</span></div>
         ))}
       </div>
-      <p className="border-t border-white/10 py-2 text-center text-[10px] text-slate-400">حریم خصوصی شما برای خودرو چاره مهم است و مکالمات با امنیت کامل پردازش می‌شوند.</p>
+      <p className="border-t border-white/10 py-2 text-center text-[10px] text-slate-400">رمز، کد ورود و اطلاعات حساس را در گفتگو وارد نکنید؛ شرایط پردازش داده را در سیاست حریم خصوصی بخوانید.</p>
     </section>
   );
 }
 
 function VoicePanel() {
   return (
-    <div className="rounded-xl border border-cyan-400/30 bg-[#061526]/88 p-5 text-center" dir="rtl">
+    <div className="home-glass-dark rounded-xl border border-cyan-400/30 bg-[#061526]/88 p-5 text-center" dir="rtl">
       <div className="mx-auto flex h-14 max-w-xs items-center justify-center gap-1" aria-hidden="true">{[18, 28, 42, 62, 36, 24, 50, 70, 40, 25, 16].map((height, index) => <span key={index} className={`w-1 rounded-full ${index < 6 ? "bg-cyan-400" : "bg-orange-500"}`} style={{ height }} />)}</div>
       <div className="relative mx-auto flex h-44 w-44 items-center justify-center"><div className="voice-ring absolute inset-0 rounded-full border border-cyan-400/30" /><div className="voice-ring voice-ring-delay absolute inset-6 rounded-full border border-orange-400/30" /><span className="relative flex h-24 w-24 items-center justify-center rounded-full bg-[radial-gradient(circle,#1e9bd1,#08304f)] shadow-[0_0_50px_rgba(24,180,225,.45)]"><Icon name="mic" size={42} /></span></div>
       <p className="text-xs text-slate-300">در حال شنیدن...</p>
@@ -126,20 +130,16 @@ function VoicePanel() {
 
 export function AppSection() {
   return (
-    <section id="app" className="section-shell overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-8" data-aos="fade-up">
+    <section id="app" className="home-glass section-shell overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-8" data-aos="fade-up">
       <div className="grid items-center gap-8 lg:grid-cols-[.82fr_1.18fr]" dir="ltr">
         <div dir="rtl">
           <h2 className="text-2xl font-black text-ink md:text-3xl">اپلیکیشن اختصاصی خودرو چاره</h2>
           <p className="mt-3 text-sm leading-7 text-slate-500">تمام خدمات خودرو، دستیار هوشمند و راهنمای هماهنگی همیشه همراه شما</p>
           <div className="mt-5 grid grid-cols-3 gap-2">
-            {[["location", "راهنمای هماهنگی"], ["chat", "دستیار هوشمند"], ["clock", "تماس با پشتیبانی"]].map(([icon, title], index) => <div key={title} className="rounded-lg border border-slate-200 p-3 text-center" data-aos="zoom-in" data-aos-delay={index * 80}><Icon name={icon} size={22} className="mx-auto text-slate-600" /><p className="mt-2 text-[10px] font-bold">{title}</p></div>)}
+            {[["location", "راهنمای هماهنگی"], ["chat", "دستیار هوشمند"], ["clock", "تماس با پشتیبانی"]].map(([icon, title], index) => <div key={title} className="home-glass rounded-xl border border-slate-200 p-3 text-center" data-aos="zoom-in" data-aos-delay={index * 80}><Icon name={icon} size={22} className="mx-auto text-slate-600" /><p className="mt-2 text-[10px] font-bold">{title}</p></div>)}
           </div>
-          <div className="mt-5 grid gap-2"><ButtonLink href="/app">صفحه کامل اپلیکیشن</ButtonLink><Link href="/app" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-400 text-sm font-bold text-slate-700">راهنمای نصب نسخه وب</Link></div>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-xs font-bold text-slate-600" dir="ltr"><PlatformLogo platform="android" /><PlatformLogo platform="ios" /><PlatformLogo platform="pwa" /></div>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm"><QrCode /><div><strong className="text-sm text-ink">اسکن و نصب سریع</strong><p className="mt-1 text-[10px] leading-5 text-slate-500">دوربین موبایل را روی کد بگیرید</p></div></div>
-            <div className="flex items-start gap-3 rounded-xl bg-ink p-4 text-white"><span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-4 border-white/20 text-3xl font-black text-brand-orange">+</span><div className="min-w-0 flex-1"><strong className="text-sm">خودرو چاره را به صفحه اصلی اضافه کنید</strong><p className="mt-2 text-[10px] text-slate-300">بدون نیاز به دانلود، همیشه در دسترس</p><AddToHomeButton /></div></div>
-          </div>
+          <div className="mt-6 max-w-sm"><AddToHomeButton label="دانلود و نصب وب‌اپلیکیشن" light /><p className="mt-3 text-xs leading-7 text-slate-600">ورود به اپلیکیشن اصلی مشتریان؛ برای نصب نسخه وب از منوی مرورگر داخل همان اپ استفاده کنید.</p><Link href="/app" className="mt-3 inline-flex min-h-10 items-center gap-2 text-xs font-bold text-brand-orange">راهنمای نصب و امکانات وب‌اپ ←</Link></div>
+          <div className="mt-4 flex flex-wrap items-center justify-start gap-x-7 gap-y-3 text-xs font-bold text-slate-600" dir="ltr"><PlatformLogo platform="android" /><PlatformLogo platform="ios" /><PlatformLogo platform="pwa" /></div>
         </div>
         <div className="relative min-h-[360px] overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_50%_50%,#fff_40%,#eef3f6_100%)] sm:min-h-[500px]" data-aos="fade-right">
           <Image src="/images/app-premium-mockup.webp" alt="دموی اپلیکیشن خودرو چاره شامل درخواست خدمت، رهگیری امدادگر و دستیار هوشمند" fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-contain object-center p-1 sm:p-3" />
@@ -151,19 +151,11 @@ export function AppSection() {
 
 export function CoverageSection() {
   return (
-    <section id="coverage" className="section-shell overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card" data-aos="fade-up">
+    <section id="coverage" className="home-glass section-shell overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card" data-aos="fade-up">
       <div className="grid lg:grid-cols-[.92fr_1.08fr]" dir="ltr">
-        <div className="grid min-h-64 gap-3 border-slate-200 bg-slate-50 p-3 min-[460px]:grid-cols-[1.3fr_.7fr] lg:border-r" dir="ltr">
+        <div className="grid min-h-64 gap-3 border-slate-200 bg-slate-50 p-3 lg:border-r" dir="ltr">
           <div className="relative min-h-60 overflow-hidden rounded-xl border-slate-200 bg-[#071a2e] sm:border-r"><Image src="/images/coverage-iran-glass-v2.webp" alt="نقشه سه‌بعدی محدوده پوشش خودرو چاره در ایران" fill sizes="(min-width:1024px) 45vw, 100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" /><span className="absolute right-[34%] top-[38%] rounded-full border border-emerald-300/60 bg-emerald-400/20 px-2 py-1 text-[9px] font-black text-white">تهران، کرج و شمال فعال</span><span className="absolute bottom-3 right-3 rounded-lg bg-ink/70 px-3 py-2 text-[9px] text-slate-200 backdrop-blur-sm">محدوده‌ها و زمان اعزام را پیش از خدمت بررسی کنید</span></div>
-          <aside className="flex flex-col justify-center rounded-xl border border-slate-200 bg-white p-4 text-right shadow-[0_14px_35px_rgba(15,30,48,.16)]" dir="rtl" data-aos="fade-right">
-            <div className="flex items-center gap-3">
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-ink"><Image src="/images/technician.webp" alt="پروفایل امدادگر در مسیر" fill sizes="56px" className="object-cover object-[18%_28%]" /></div>
-              <div><strong className="block text-xs text-ink">هماهنگی پذیرش</strong><span className="mt-1 block text-[9px] text-slate-500">انتخاب خدمت متناسب</span><span className="text-[10px] text-amber-500">بدون رهگیری زنده</span></div>
-            </div>
-            <div className="my-4 h-px bg-slate-100" />
-            <span className="text-[10px] text-slate-500">زمان اعزام</span><strong className="mt-1 text-lg text-emerald-600">پس از بررسی</strong>
-            <dl className="mt-4 grid gap-2 text-[10px]"><div className="flex justify-between"><dt className="text-slate-400">نوع خدمت</dt><dd className="font-bold text-ink">امداد باتری</dd></div><div className="flex justify-between"><dt className="text-slate-400">خودرو</dt><dd className="font-bold text-ink">RAV4</dd></div></dl>
-          </aside>
+
         </div>
         <div className="flex flex-col justify-center p-5 md:p-7" dir="rtl">
           <h2 className="text-center text-xl font-black text-ink md:text-2xl">هماهنگی متخصص بر اساس خودرو و موقعیت</h2>
@@ -184,12 +176,7 @@ export function SeoServiceHub() {
     ["خودروبر تهران و کرج", "/services/flatbed-carrier", "حمل ایمن خودروهای لوکس، صفر، تصادفی یا غیرقابل حرکت"],
     ["مکانیک سیار تهران و کرج", "/services/mobile-mechanic", "اعزام مکانیک برای عیب‌یابی و تعمیرات مجاز در محل"],
   ] as const;
-  const cityLandingLinks = ["تهران", "کرج"].flatMap((city) =>
-    persianServiceRoutes.map((route) => ({
-      title: `${route.title} ${city}`,
-      href: `/${city}/${route.slug}`,
-    })),
-  );
+
 
   return (
     <section className="section-shell grid gap-5 lg:grid-cols-[.78fr_1.22fr]" aria-labelledby="emergency-services-title" dir="ltr">
@@ -201,8 +188,15 @@ export function SeoServiceHub() {
           <Link href="/تهران" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو تهران</strong><span className="mt-2 block text-xs text-slate-300">تهران و مسیرهای شهری فعال ←</span></Link>
           <Link href="/کرج" className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:border-orange-300/60"><strong className="block">امداد خودرو کرج</strong><span className="mt-2 block text-xs text-slate-300">کرج و محدوده‌های قابل هماهنگی ←</span></Link>
         </div>
+        <section data-testid="home-north-hub" className="mt-5 rounded-2xl border border-cyan-200/20 bg-gradient-to-br from-cyan-400/10 via-white/5 to-orange-400/10 p-5 shadow-lg backdrop-blur-xl">
+          <div className="flex items-center justify-between gap-3"><h3 className="text-xl font-black">امداد خودرو شمال</h3><Link href="/شمال" className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-[11px] font-bold text-cyan-100">همه مناطق ←</Link></div>
+          <p className="mt-3 text-xs leading-7 text-slate-300">از شهرهای ساحلی تا محورهای ورودی شمال؛ شهر، مسیر یا برند خودروی خود را انتخاب کنید.</p>
+          <nav aria-label="استان‌های شمال" className="mt-4 grid grid-cols-3 gap-2">{["گیلان", "مازندران", "گلستان"].map(name => <Link key={name} href={`/${name}`} className="rounded-xl border border-white/15 bg-white/10 p-3 text-center text-xs font-bold transition hover:bg-white/20">{name}</Link>)}</nav>
+          <nav aria-label="شهرهای شمال" className="mt-4 grid grid-cols-2 gap-2 text-[11px] sm:grid-cols-3">{["محمودآباد", "آمل", "چالوس", "نوشهر", "نور", "بابلسر", "رامسر", "رشت", "ساری", "گرگان", "بندر-انزلی", "تنکابن"].map(name => <Link key={name} href={`/${name}`} className="rounded-lg border border-white/10 bg-white/5 px-2 py-2.5 text-slate-200 transition hover:border-orange-300/50 hover:text-orange-200">{name.replaceAll("-", " ")} ←</Link>)}</nav>
+          <nav aria-label="محورها و برندهای شمال" className="mt-4 flex flex-wrap gap-2 border-t border-white/10 pt-4">{[{name:"آزادراه تهران–شمال",href:"/roads/tehran-north"},{name:"جاده چالوس",href:"/roads/chalus"},{name:"هراز",href:"/roads/haraz"},{name:"برندهای خودرو در شمال",href:"/شمال/brands"}].map(item => <Link key={item.href} href={item.href} className="rounded-lg bg-orange-400/10 px-3 py-2 text-[10px] font-bold text-orange-200 hover:bg-orange-400/20">{item.name}</Link>)}</nav>
+        </section>
       </article>
-      <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card md:p-8" dir="rtl">
+      <article className="landing-glass rounded-2xl border border-slate-200 bg-white p-6 shadow-card md:p-8" dir="rtl">
         <p className="text-xs font-black text-brand-orange">خدمات امدادی</p>
         <h2 id="emergency-services-title" className="mt-3 text-2xl font-black text-ink">خدمت مناسب را مستقیم انتخاب کنید</h2>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -210,8 +204,8 @@ export function SeoServiceHub() {
         </div>
         <div className="mt-6 border-t border-slate-200 pt-5">
           <h3 className="text-sm font-black text-ink">خدمات امداد خودرو در تهران و کرج</h3>
-          <nav className="mt-3 flex flex-wrap gap-2" aria-label="لندینگ‌های محلی خدمات امداد خودرو">
-            {cityLandingLinks.map((item) => <Link key={item.href} href={item.href} className="inline-flex min-h-10 items-center rounded-lg border border-slate-200 bg-slate-50 px-3 text-[11px] font-bold text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">{item.title}</Link>)}
+          <nav className="mt-4 space-y-5" aria-label="لندینگ‌های محلی خدمات امداد خودرو" data-testid="home-local-directory">
+            {homeLocalLinkGroups.map(group => <div key={group.title}><h4 className="mb-3 flex items-center gap-2 text-xs font-black text-slate-600"><span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />{group.title}</h4><div className="grid grid-cols-2 gap-2 lg:grid-cols-3">{group.links.map(item => <Link key={item.href} href={item.href} prefetch={false} className="flex min-h-9 items-center justify-between gap-1 rounded-lg border border-slate-200/80 bg-white/50 px-2.5 py-2 text-[10px] font-bold leading-5 text-slate-700 transition hover:border-orange-200 hover:bg-orange-50 hover:text-brand-orange">{item.title}<span aria-hidden="true" className="text-orange-400">←</span></Link>)}</div></div>)}
           </nav>
         </div>
       </article>
@@ -227,12 +221,12 @@ export function BusinessFactsSection() {
     ["/images/facts/experienced-mechanic.webp", "پیشینه اجرایی تیم", "پیشینه تیم اجرایی در خدمات خودرو", "مکانیک باتجربه در حال بررسی خودرو"],
   ] as const;
 
-  return <section className="section-shell rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-7" aria-labelledby="business-facts-title" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">خودرو چاره در یک نگاه</p><h2 id="business-facts-title" className="mt-2 text-2xl font-black">امداد خودرو در تهران، کرج و شمال</h2></div><div className="max-w-xl text-xs leading-7 text-slate-500"><p>{businessFacts.coverage}؛ شامل امداد در محل، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی.</p><Link href="/coverage" className="mt-2 inline-flex font-black text-brand-orange">مشاهده فهرست کامل مناطق تحت پوشش ←</Link></div></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{facts.map(([image, title, description, alt]) => <article key={title} className="overflow-hidden rounded-xl border border-slate-100 bg-slate-50"><div className="relative h-32"><Image src={image} alt={alt} fill sizes="(min-width:1024px) 25vw,(min-width:640px) 50vw,100vw" className="object-cover" /></div><div className="p-4"><h3 className="text-sm font-black text-ink">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p></div></article>)}</div></section>;
+  return <section className="home-glass section-shell rounded-2xl border border-slate-200 bg-white p-5 shadow-card md:p-7" aria-labelledby="business-facts-title" dir="rtl"><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-xs font-black text-brand-orange">خودرو چاره در یک نگاه</p><h2 id="business-facts-title" className="mt-2 text-2xl font-black">امداد خودرو در تهران، کرج و شمال</h2></div><div className="max-w-xl text-xs leading-7 text-slate-500"><p>{businessFacts.coverage}؛ شامل امداد در محل، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی.</p><Link href="/coverage" className="mt-2 inline-flex font-black text-brand-orange">مشاهده فهرست کامل مناطق تحت پوشش ←</Link></div></div><div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{facts.map(([image, title, description, alt]) => <article key={title} className="home-glass overflow-hidden rounded-xl border border-slate-100 bg-slate-50"><div className="relative h-32"><Image src={image} alt={alt} fill sizes="(min-width:1024px) 25vw,(min-width:640px) 50vw,100vw" className="object-cover" /></div><div className="p-4"><h3 className="text-sm font-black text-ink">{title}</h3><p className="mt-2 text-xs leading-6 text-slate-500">{description}</p></div></article>)}</div></section>;
 }
 
 export function TrustSection() {
   return (
-    <section id="trust" className="section-shell relative overflow-hidden rounded-xl bg-ink text-white shadow-card" data-aos="fade-up">
+    <section id="trust" className="home-glass-dark section-shell relative overflow-hidden rounded-xl bg-ink text-white shadow-card" data-aos="fade-up">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_22%,rgba(13,86,132,.26),transparent_34%),linear-gradient(125deg,#031326,#08233c)]" />
       <div className="relative grid lg:grid-cols-[220px_1fr]" dir="ltr">
         <div className="relative min-h-44 lg:min-h-60"><Image src="/images/technician.webp" alt="تکنسین مورد اعتماد خودرو چاره" fill sizes="220px" className="object-cover object-[18%_25%]" /><div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-ink" /></div>
@@ -265,9 +259,9 @@ export function ProductsSection() {
       </div>
       <div className="mt-3 grid gap-3 lg:grid-cols-[1fr_300px]" dir="ltr">
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-5" dir="rtl">
-          {products.map((item, index) => <article key={item.title} className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm" data-aos="fade-up" data-aos-delay={index * 65}><div className="relative flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#f3f0eb]"><Image src={item.image} alt={item.title} fill sizes="180px" className="object-cover" /></div><h3 className="mt-3 text-xs font-black text-ink">{item.title}</h3><p className="mt-1 text-[10px] text-slate-500">قیمت و موجودی با استعلام</p><div className="mt-2 flex items-center justify-between"><Link href="/store" className="min-h-11 text-xs font-black text-brand-orange">مشاهده کاتالوگ ←</Link></div></article>)}
+          {products.map((item, index) => <article key={item.title} className="home-glass rounded-lg border border-slate-200 bg-white p-3 shadow-sm" data-aos="fade-up" data-aos-delay={index * 65}><div className="relative flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#f3f0eb]"><Image src={item.image} alt={item.title} fill sizes="180px" className="object-cover" /></div><h3 className="mt-3 text-xs font-black text-ink">{item.title}</h3><p className="mt-1 text-[10px] text-slate-500">قیمت و موجودی با استعلام</p><div className="mt-2 flex items-center justify-between"><Link href="/store" className="min-h-11 text-xs font-black text-brand-orange">مشاهده کاتالوگ ←</Link></div></article>)}
         </div>
-        <aside className="rounded-lg border border-slate-200 bg-white p-4" dir="rtl"><h3 className="text-center text-sm font-black text-ink">راهنمای خدمات برندها</h3><div className="mt-4 grid grid-cols-4 overflow-hidden rounded-lg border border-slate-200">{brands.map((brand) => <Link href={`/brands/${brand.key === "ikco" ? "iran-khodro" : brand.key}`} key={brand.key} className="flex min-h-16 items-center justify-center border-b border-l border-slate-200 bg-white p-1 last:border-l-0" title={brand.name}><BrandLogo brand={brand.key} /></Link>)}</div></aside>
+        <aside className="home-glass rounded-lg border border-slate-200 bg-white p-4" dir="rtl"><h3 className="text-center text-sm font-black text-ink">راهنمای خدمات برندها</h3><div className="mt-4 grid grid-cols-4 overflow-hidden rounded-lg border border-slate-200">{brands.map((brand) => <Link href={`/brands/${brand.key === "ikco" ? "iran-khodro" : brand.key}`} key={brand.key} className="flex min-h-16 items-center justify-center border-b border-l border-slate-200 bg-white p-1 last:border-l-0" title={brand.name}><BrandLogo brand={brand.key} /></Link>)}</div></aside>
       </div>
     </section>
   );
@@ -275,7 +269,7 @@ export function ProductsSection() {
 
 function StoreStats() {
   return (
-    <aside className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm" dir="rtl">
+    <aside className="home-glass rounded-xl border border-slate-200 bg-white p-4 shadow-sm" dir="rtl">
       <h3 className="text-sm font-black text-ink">فروشگاه قطعات منتخب</h3>
       <div className="mt-4 grid grid-cols-3 gap-2 text-center">
         {[["phone", "تماس", "هماهنگی"], ["check", "بررسی", "نوع خدمت"], ["clock", "۲۴/۷", "پاسخ‌گویی"]].map(([icon, value, label]) => <div key={label}><Icon name={icon} size={20} className="mx-auto text-slate-500" /><strong className="mt-2 block text-sm text-ink">{value}</strong><span className="text-[9px] text-slate-400">{label}</span></div>)}
@@ -287,7 +281,7 @@ function StoreStats() {
 
 export function ContactCta() {
   return (
-    <section id="contact" className="section-shell relative overflow-hidden rounded-xl bg-ink text-white shadow-card" data-aos="fade-up">
+    <section id="contact" className="home-glass-dark section-shell relative overflow-hidden rounded-xl bg-ink text-white shadow-card" data-aos="fade-up">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_90%_50%,rgba(21,116,167,.2),transparent_25%),linear-gradient(90deg,#06172a,#031426)]" />
       <div className="relative grid items-center gap-4 p-4 text-center md:grid-cols-[280px_1fr_150px] md:p-0 md:pr-5" dir="ltr">
         <div className="relative h-44 overflow-hidden rounded-lg md:h-48 md:rounded-none" data-aos="fade-right"><Image src="/images/support-technician-night.webp" alt="تکنسین امداد خودرو در حال پاسخ‌گویی تلفنی کنار ون امدادی" fill sizes="(min-width: 768px) 280px, 100vw" className="object-cover object-[23%_38%]" /><div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-ink md:block" /></div>
@@ -306,9 +300,9 @@ export function ContactCta() {
 
 export function MagazineSection() {
   return (
-    <section className="section-shell rounded-2xl bg-[#f3f5f7] py-6 md:py-8" aria-labelledby="magazine-title" data-aos="fade-up">
+    <section className="home-glass section-shell rounded-2xl bg-[#f3f5f7] px-4 py-6 md:py-8" aria-labelledby="magazine-title" data-aos="fade-up">
       <div className="flex items-center justify-between gap-4 px-1" dir="rtl"><h2 id="magazine-title" className="text-2xl font-black text-ink md:text-3xl">مجله خودرو چاره</h2><Link href="/blog" className="text-sm font-black text-brand-orange">موارد بیشتر ←</Link></div>
-      <BlogSlider posts={blogPosts} />
+      <BlogSlider posts={latestHomeArticles(blogPosts)} />
     </section>
   );
 }

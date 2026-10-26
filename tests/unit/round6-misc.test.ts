@@ -17,7 +17,7 @@ test("round 6: thirty display-only service feedbacks ship verbatim without ident
 test("round 6: hero truck reads as driving via road + travel motion", async () => {
   const css = await readFile("src/app/globals.css", "utf8");
   assert.ok(css.includes("tow-road-move"), "road animation missing");
-  assert.ok(css.includes("translate(-6px,-7px)"), "travel sway missing");
+  assert.ok(css.includes("translate(9px,-1px)") && css.includes("tow-speed"), "travel sway missing");
   assert.ok(css.includes('[data-paused="true"]'), "pause switch must survive");
 });
 

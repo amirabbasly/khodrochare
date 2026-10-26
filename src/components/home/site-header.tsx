@@ -1,8 +1,11 @@
 "use client";
 
+import { customerAppUrl, fleetAppUrl } from "@/content/app-links";
+
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { AssistanceMegaMenu } from "./assistance-mega-menu";
 import { navLinks } from "./home-content";
 import { BrandMark, ButtonLink, Icon } from "./home-ui";
 
@@ -46,7 +49,8 @@ export function ResponsiveSiteHeader() {
       <div className="header-container flex min-h-[76px] items-center gap-4 xl:min-h-[92px] xl:gap-5">
         <BrandMark />
         <nav className="hidden min-w-0 flex-1 items-center justify-center gap-3 xl:flex 2xl:gap-5" aria-label="منوی اصلی">
-          {navLinks.map((item) => (
+          <AssistanceMegaMenu />
+          {navLinks.filter(item => item.href !== "/امداد-خودرو").map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -57,11 +61,6 @@ export function ResponsiveSiteHeader() {
           ))}
         </nav>
 
-        <div className="mr-auto hidden shrink-0 items-center gap-2 xl:flex">
-          <Link href="/app" className="inline-flex min-h-12 items-center rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5">راهنمای نسخه وب</Link>
-          <Link href="/app" className="inline-flex min-h-12 items-center gap-2 rounded-lg border border-white/35 px-3 text-[12px] font-extrabold transition hover:border-white/60 hover:bg-white/5"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
-          <ButtonLink href="/امداد-خودرو-آنلاین#request" className="min-h-12 px-4 text-[12px]">درخواست خدمت</ButtonLink>
-        </div>
 
         <button
           type="button"
@@ -73,6 +72,15 @@ export function ResponsiveSiteHeader() {
         >
           <span className="grid gap-1.5" aria-hidden="true"><span className="h-0.5 w-6 bg-white" /><span className="h-0.5 w-6 bg-white" /><span className="h-0.5 w-6 bg-white" /></span>
         </button>
+      </div>
+
+      <div className="hidden border-t border-white/10 xl:block">
+        <nav className="header-container flex flex-wrap items-center justify-end gap-3 py-2" aria-label="اپلیکیشن‌های خودرو چاره">
+          <Link href="/app#features" className="inline-flex min-h-11 items-center rounded-lg border border-white/25 px-4 text-xs font-bold hover:bg-white/10">قابلیت‌های اپلیکیشن‌ها</Link>
+          <Link href={customerAppUrl} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/35 px-4 text-xs font-bold hover:bg-white/10"><Icon name="download" size={17} /> اپلیکیشن خودرو چاره</Link>
+          <Link href={fleetAppUrl} className="inline-flex min-h-11 items-center rounded-lg border border-white/35 px-4 text-xs font-bold hover:bg-white/10">اپلیکیشن سفیران</Link>
+          <ButtonLink href={customerAppUrl} className="min-h-11 px-4 text-xs">درخواست خدمت</ButtonLink>
+        </nav>
       </div>
 
       <div className={`fixed inset-0 z-[90] bg-black/60 transition-opacity duration-300 xl:hidden ${open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`} onClick={() => setOpen(false)} aria-hidden="true" />
@@ -87,16 +95,18 @@ export function ResponsiveSiteHeader() {
           <button type="button" className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/20 text-2xl" aria-label="بستن منو" onClick={() => setOpen(false)}>×</button>
         </div>
         <nav className="flex-1 overflow-y-auto px-4 py-4" aria-label="منوی موبایل">
-          {navLinks.map((item) => (
+          <AssistanceMegaMenu mobile onNavigate={() => setOpen(false)} />
+          {navLinks.filter(item => item.href !== "/امداد-خودرو").map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={`flex min-h-12 items-center justify-between border-b border-white/10 px-3 text-sm font-black ${isActive(item.href) ? "text-brand-orange" : "text-slate-100"}`}>
               {item.label}<span className="text-slate-500" aria-hidden="true">←</span>
             </Link>
           ))}
         </nav>
         <div className="grid gap-2 border-t border-white/10 p-4">
-          <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold">راهنمای نسخه وب</Link>
-          <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="download" size={17} /> نصب اپلیکیشن</Link>
-          <ButtonLink href="/امداد-خودرو-آنلاین#request" className="w-full" >درخواست خدمت</ButtonLink>
+          <Link href="/app#features" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold">قابلیت‌های اپلیکیشن‌ها</Link>
+          <Link href={customerAppUrl} onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="download" size={17} /> اپلیکیشن خودرو چاره</Link>
+          <Link href={fleetAppUrl} onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold">اپلیکیشن سفیران</Link>
+          <ButtonLink href={customerAppUrl} className="w-full" >درخواست خدمت</ButtonLink>
           <a href="tel:09123022064" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="phone" size={17} /> تماس فوری</a>
         </div>
       </aside>

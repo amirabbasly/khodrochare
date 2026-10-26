@@ -31,10 +31,10 @@ test.describe("home presentation", () => {
     });
     await visitReady(page);
     const card = page.getByTestId("home-request-card");
-    await expect(card.getByRole("heading")).toHaveText("آماده‌سازی درخواست امداد خودرو");
+    await expect(card.getByRole("heading")).toHaveText("درخواست امداد خودرو آنلاین");
     await expect(card.locator("form, input, select, textarea, button[type='submit']")).toHaveCount(0);
     await expect(card).not.toContainText(/نمایشی|فعال نیست|سفارش ثبت نمی‌کند|در حال بررسی/);
-    await expect(card.getByRole("link")).toHaveAttribute("href", "tel:09123022064");
+    await expect(card.getByRole("link", { name: /تماس برای امداد/ })).toHaveAttribute("href", "tel:09123022064");
     await expect(card.locator("dt")).toHaveCount(4);
     expect(intakeRequests).toEqual([]);
     const data = await page.evaluate(() => JSON.stringify((window as Window & { dataLayer?: unknown[] }).dataLayer ?? []));
@@ -112,7 +112,7 @@ test.describe("home presentation", () => {
     }
   });
 
-  test("both wheels visibly rotate and the existing pause button also pauses truck animations", async ({ page }) => {
+  test("both wheels visibly rotate without a visible autoplay stop button", async ({ page }) => {
     await page.setViewportSize({ width: 1100, height: 900 });
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await visitReady(page);
@@ -133,24 +133,18 @@ test.describe("home presentation", () => {
       expect(positions.running).toBe("running");
       expect(positions.first).not.toBe(positions.second);
     }
-    await page.getByRole("button", { name: "توقف نمایش خودکار" }).click();
-    await expect(page.getByTestId("tow-stage")).toHaveAttribute("data-paused", "true");
-    for (const item of await page.locator(".tow-stage .wheel, .tow-stage .tow-bubble, .tow-stage .tow-truck").all()) {
-      await expect(item).toHaveCSS("animation-play-state", "paused");
-    }
-    await page.getByRole("button", { name: "ادامه نمایش معرفی خدمات" }).click();
+    await expect(page.getByRole("button", { name: "توقف نمایش خودکار" })).toHaveCount(0);
     await expect(page.getByTestId("tow-stage")).toHaveAttribute("data-paused", "false");
-    await expect(wheels.first()).toHaveCSS("animation-play-state", "running");
+    await expect(page.locator(".tow-speed-lines span")).toHaveCount(3);
   });
 
-  test("reduced motion leaves one readable slogan and stationary wheels", async ({ page }) => {
+  test("requested decorative loops remain enabled under reduced motion without controls", async ({ page }) => {
     await page.setViewportSize({ width: 1100, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await visitReady(page);
-    await expect(page.locator(".tow-bubble").first()).toHaveCSS("opacity", "1");
-    const visible = await page.locator(".tow-bubble").evaluateAll((items) => items.filter((item) => Number(getComputedStyle(item).opacity) > 0.9).length);
-    expect(visible).toBe(1);
-    for (const wheel of await page.locator(".wheel").all()) await expect(wheel).toHaveCSS("animation-name", "none");
+    for (const wheel of await page.locator(".wheel").all()) await expect(wheel).toHaveCSS("animation-name", "wheel-spin");
+    await expect(page.locator(".tow-bubble").first()).toHaveCSS("animation-iteration-count", "infinite");
+    await expect(page.locator(".motion-toggle")).toHaveCount(0);
   });
 });
 
@@ -170,7 +164,7 @@ test.describe("welcome contact dialog", () => {
     await expect(dialog).toContainText("برای ارتباط سریع با ما تماس بگیرید");
     await expect(dialog.getByRole("link", { name: /تماس سریع/ })).toHaveAttribute("href", "tel:09123022064");
     await expect(dialog.getByRole("link", { name: /تماس سریع/ })).toContainText("09123022064");
-    await expect(dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" })).toHaveAttribute("href", "/app");
+    await expect(dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" })).toHaveAttribute("href", "https://app.khodrochare.ir/");
     expect(await page.evaluate(() => document.activeElement?.tagName)).toBe(focusedBefore);
     expect(await page.evaluate(() => getComputedStyle(document.body).overflowY)).not.toBe("hidden");
     await page.clock.runFor(400);
@@ -191,10 +185,11 @@ test.describe("welcome contact dialog", () => {
     const dialog = page.getByTestId("welcome-dialog");
     await expect(dialog).toBeVisible();
     await page.clock.runFor(400);
+    await page.route("https://app.khodrochare.ir/**", route => route.fulfill({ contentType: "text/html", body: "<h1>App entry mock</h1>" }));
     await dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" }).click();
-    await expect(page).toHaveURL(/\/app$/);
+    await expect(page).toHaveURL("https://app.khodrochare.ir/");
     await expect(dialog).toHaveCount(0);
-    await expect(page.getByRole("button", { name: "افزودن به صفحه اصلی" })).toBeVisible();
+
     await page.clock.fastForward(6000);
     await expect(dialog).toHaveCount(0);
   });
@@ -233,20 +228,10 @@ test.describe("welcome contact dialog", () => {
     await expect(dialog).toHaveCount(0);
   });
 
-  test("typing in the independent request form is not interrupted", async ({ page }) => {
-    await freezeBeforeVisit(page);
+  test("online entry points to the customer app, not the old intake form", async ({ page }) => {
     await visitReady(page, "/امداد-خودرو-آنلاین");
-    await expect(page.locator("#request-status")).toContainText("فعال نیست");
-    const vehicle = page.locator("#request-vehicle");
-    await vehicle.fill("خودروی تست");
-    await page.clock.fastForward(7000);
-    await expect(page.getByTestId("welcome-dialog")).toHaveCount(0);
-    await expect(vehicle).toBeFocused();
-    await expect(vehicle).toHaveValue("خودروی تست");
-    await vehicle.evaluate((input) => (input as HTMLInputElement).blur());
-    await page.clock.fastForward(1500);
-    await expect(page.getByTestId("welcome-dialog")).toBeVisible();
-    await expect(vehicle).toHaveValue("خودروی تست");
+    await expect(page.locator('#request [data-app-entry="customer"]')).toHaveAttribute("href", "https://app.khodrochare.ir/");
+    await expect(page.locator("#request form")).toHaveCount(0);
   });
 
   test("blocked browser storage does not break the dialog or navigation", async ({ page }) => {
@@ -261,8 +246,9 @@ test.describe("welcome contact dialog", () => {
     const dialog = page.getByTestId("welcome-dialog");
     await expect(dialog).toBeVisible();
     await page.clock.runFor(400);
+    await page.route("https://app.khodrochare.ir/**", route => route.fulfill({ contentType: "text/html", body: "<h1>App entry mock</h1>" }));
     await dialog.getByRole("link", { name: "ادامه برای نصب اپلیکیشن و مراجعه به سایت" }).click();
-    await expect(page).toHaveURL(/\/app$/);
+    await expect(page).toHaveURL("https://app.khodrochare.ir/");
     await page.clock.fastForward(6000);
     await expect(dialog).toHaveCount(0);
     expect(errors).toEqual([]);

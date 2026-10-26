@@ -4,7 +4,7 @@ export const towHighlights = [
   { text: "اعلام شفاف هزینه پیش از خدمت", icon: "tag" },
   { text: "بازدید و عیب‌یابی پیش از تعمیر", icon: "shield" },
   { text: "کارشناس مجرب", icon: "user" },
-  { text: "پوشش سراسری", icon: "map" },
+  { text: "پوشش تهران، کرج و شمال", icon: "map" },
   { text: "پاسخ‌گویی ۲۴ ساعته، ۷ روز هفته", icon: "clock" },
   { text: "سیستم پیگیری شکایات ایمن", icon: "lock" },
 ] as const;

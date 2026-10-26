@@ -1,5 +1,8 @@
 "use client";
 
+import { customerAppUrl } from "@/content/app-links";
+
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TowTruckStage } from "./home-illustrations";
@@ -10,7 +13,7 @@ const slides = [
     image: "/images/hero-roadside.webp",
     alt: "امداد خودرو در جاده بارانی",
     eyebrow: "هماهنگی شبانه‌روزی خدمات خودرو",
-    title: "امداد خودرو آنلاین؛ تهران، کرج و شمال",
+    title: "امداد خودرو؛ تهران، کرج و شمال",
     desc: "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، باتری، مکانیک سیار و یدک‌کش؛ در تهران، کرج، گیلان، مازندران و گلستان",
     cta: "درخواست امداد فوری",
     icon: "truck",
@@ -59,7 +62,7 @@ export function HeroCarousel() {
   }, [paused]);
 
   return (
-    <section id="top" className="relative isolate overflow-hidden bg-[#07182a] text-white" aria-roledescription="carousel" aria-label="معرفی خدمات خودرو چاره">
+    <section id="top" className="relative isolate overflow-hidden bg-[#07182a] text-white" aria-roledescription="carousel" aria-label="معرفی خدمات خودرو چاره" onFocusCapture={() => setPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false); }}>
       <div className="absolute inset-0 -z-20">
         {slides.slice(0, loadedSlides).map((slide, index) => (
           <Image
@@ -80,20 +83,20 @@ export function HeroCarousel() {
 
       <div className="site-container relative min-h-[620px] pb-10 pt-8 sm:min-h-[660px] lg:min-h-[720px] lg:pb-32 lg:pt-10">
         <div className="grid items-start gap-8 md:grid-cols-[minmax(0,.8fr)_minmax(0,1.15fr)]" dir="ltr">
-          <div className="hidden items-start md:flex" dir="rtl"><TechnicianMapCard paused={paused} /></div>
-          <div key={active} className="hero-slide-copy min-w-0 max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
+          <div className="order-2 flex items-start justify-center md:order-none md:justify-start" dir="rtl"><TechnicianMapCard /></div>
+          <div key={active} className="hero-slide-copy order-1 min-w-0 md:order-none max-w-full px-2 pt-4 text-right sm:max-w-xl sm:px-0 lg:justify-self-end lg:pt-0" dir="rtl">
             <span className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/35 bg-black/20 px-3 text-xs font-bold"><Icon name={slides[active].icon} size={16} /> {slides[active].eyebrow}</span>
             <h1 className="mt-5 max-w-[16ch] text-3xl font-black leading-[1.5] text-white sm:text-4xl md:text-5xl">{slides[0].title}</h1>
             <p className="mt-4 max-w-md text-sm leading-7 text-slate-200 md:text-base">{slides[active].desc}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <ButtonLink href="/امداد-خودرو-آنلاین#request"><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
+              <ButtonLink href={customerAppUrl}><Icon name="user" size={17} /> {slides[active].cta}</ButtonLink>
               <a href="tel:09123022064" className="inline-flex min-h-11 items-center gap-3 rounded-lg border border-white/50 bg-black/20 px-5 text-sm font-extrabold" dir="ltr">09123022064 <Icon name="phone" size={17} /></a>
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <ButtonLink href="/app" variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
+              <ButtonLink href={customerAppUrl} variant="outline"><Icon name="download" size={17} /> نصب اپلیکیشن</ButtonLink>
               <span className="inline-flex items-center gap-2 text-xs font-black text-amber-300"><Image src="/images/quality-guarantee.svg" alt="نشان هزینه با هماهنگی قبلی" width={38} height={44} className="h-10 w-9 drop-shadow-[0_4px_10px_rgba(245,158,11,.45)]" /> هزینه با هماهنگی قبلی</span>
             </div>
-            <button type="button" className="mt-4 min-h-11 rounded-lg border border-white/30 px-3 text-xs" aria-pressed={paused} onClick={() => setPaused(!paused)}>{paused ? "ادامه نمایش معرفی خدمات" : "توقف نمایش خودکار"}</button>
+
             <div className="mt-6 grid max-w-md grid-cols-3 divide-x divide-x-reverse divide-white/15 text-center">
               {[["clock", "پاسخ‌گویی شبانه‌روزی"], ["shield", "خدمت متناسب"], ["tag", "قیمت منصفانه"]].map(([icon, label]) => <div key={label} className="px-2"><Icon name={icon} size={21} className="mx-auto text-slate-200" /><p className="mt-2 text-[10px] font-bold text-slate-300">{label}</p></div>)}
             </div>
@@ -105,14 +108,14 @@ export function HeroCarousel() {
   );
 }
 
-function TechnicianMapCard({ paused }: { paused: boolean }) {
+function TechnicianMapCard() {
   return (
-    <div className="mt-2 w-full max-w-[410px] overflow-hidden rounded-2xl border border-white/40 bg-white/95 text-ink shadow-2xl">
-      <div className="flex items-center gap-3 px-4 py-4 xl:px-5">
+    <div className="mt-2 w-full max-w-[410px] overflow-hidden rounded-2xl border border-white/60 bg-white/80 text-ink shadow-2xl backdrop-blur-xl">
+      <div className="flex flex-wrap items-center gap-3 px-4 py-4 xl:px-5">
         <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-900 xl:h-16 xl:w-16"><Image src="/images/technician.webp" alt="تصویر انتخاب تجهیز متناسب" fill sizes="64px" className="object-cover object-[18%_28%]" /></div>
         <div><p className="text-xs font-bold text-slate-500 xl:text-sm">هماهنگی با اپراتور</p><p className="text-sm font-black xl:text-lg">انتخاب تجهیز متناسب</p><p className="mt-1 text-sm font-black text-amber-500 xl:text-base">یک تماس، یک چاره</p></div>
       </div>
-      <TowTruckStage compact paused={paused} />
+      <TowTruckStage compact />
       <div className="flex items-center justify-between px-4 py-3 text-xs xl:text-sm"><span>زمان اعزام</span><strong className="text-emerald-600">پس از بررسی موقعیت</strong></div>
     </div>
   );

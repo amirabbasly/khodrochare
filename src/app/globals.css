@@ -105,7 +105,7 @@ button, select { cursor: pointer; }
 
 @keyframes voice-pulse { 0% { transform: scale(.7); opacity: .15; } 55% { opacity: .7; } 100% { transform: scale(1.15); opacity: 0; } }
 @keyframes hero-copy-in { from { opacity: 0; transform: translateX(48px); filter: blur(5px); } to { opacity: 1; transform: translateX(0); filter: blur(0); } }
-@keyframes tow-bob { 0%,100% { transform: translate(6px,0) rotate(-.4deg); } 50% { transform: translate(-6px,-7px) rotate(.5deg); } }
+@keyframes tow-bob { 0%,100% { transform: translate(-9px,0) rotate(-.4deg); } 25% { transform: translate(0,-3px) rotate(.2deg); } 50% { transform: translate(9px,-1px) rotate(.5deg); } 75% { transform: translate(0,-4px) rotate(-.2deg); } }
 @keyframes tow-road-move { to { background-position-x: -44px; } }
 @keyframes tow-shadow { 0%,100% { transform: scaleX(1); opacity: .6; } 50% { transform: scaleX(.88); opacity: .38; } }
 @keyframes wheel-spin { to { transform: rotate(360deg); } }
@@ -116,15 +116,43 @@ button, select { cursor: pointer; }
 @keyframes welcome-fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes welcome-card-in { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
+/* The two explicitly requested decorative loops run by default, independently
+   of old saved switches. Other interface motion still respects the OS setting. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tow-stage *, .tow-stage *::before, .tow-stage *::after { animation: none !important; }
-  .tow-stage .tow-bubble { opacity: 0; transform: none; }
-  .tow-stage .tow-bubble:first-child { opacity: 1; }
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  *:not(.always-motion):not(.always-motion *), *:not(.always-motion):not(.always-motion *)::before, *:not(.always-motion):not(.always-motion *)::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
 @media (max-width: 640px) {
   .site-container, .header-container, .section-shell { width: min(calc(100% - 1rem), 1160px); }
   .section-shell { margin-top: 8px; }
 }
+
+/* Subtle motion in the navigation and roadside scene; reduced-motion overrides above apply. */
+.mega-brand-reveal:not([hidden]) { animation: mega-brand-in .25s ease-out both; }
+@keyframes mega-brand-in { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+.brand-carousel-viewport { scrollbar-width: none; }
+.brand-carousel-viewport::-webkit-scrollbar { display: none; }
+.tow-speed-lines { overflow: hidden; pointer-events: none; }
+.tow-speed-lines span { position: absolute; right: -35%; width: 28%; height: 2px; background: linear-gradient(90deg,transparent,rgba(186,230,253,.45),transparent); animation: tow-speed 1.2s linear infinite; }
+.tow-speed-lines span:nth-child(1) { top: 15%; }
+.tow-speed-lines span:nth-child(2) { top: 46%; animation-delay: -.4s; width: 18%; }
+.tow-speed-lines span:nth-child(3) { top: 80%; animation-delay: -.8s; width: 32%; }
+@keyframes tow-speed { to { transform: translateX(-550%); } }
+
+/* Continuous, seamless two-copy ticker, on every viewport. */
+.brand-marquee-track { animation: brand-ticker 28s linear infinite; will-change: transform; }
+.brand-marquee:has(a:focus-visible) .brand-marquee-track { animation-play-state: paused; }
+@keyframes brand-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.landing-surface { background: radial-gradient(ellipse at 5% 12%,rgba(56,189,248,.16),transparent 42%), radial-gradient(ellipse at 95% 65%,rgba(251,146,60,.12),transparent 42%), #edf3f8; }
+.landing-glass { border: 1px solid rgba(255,255,255,.88); background: linear-gradient(125deg,rgba(255,255,255,.8),rgba(255,255,255,.48)); backdrop-filter: blur(18px); box-shadow: 0 12px 40px -18px rgba(30,65,100,.2), inset 0 1px 0 rgba(255,255,255,.95); }
+.landing-glass-answer { background: linear-gradient(125deg,rgba(255,247,237,.85),rgba(255,255,255,.55)); border-color: rgba(254,215,170,.8); }
+.tow-truck { animation: tow-bob 1.8s ease-in-out infinite, tow-drive 3.4s ease-in-out infinite; }
+.tow-road { height: 3px; opacity: .85; animation-duration: .35s; }
+@keyframes tow-drive { 0%,100% { translate: -25px 0; } 50% { translate: 25px 0; } }
+/* Named surfaces avoid changing form fields, pictures, or the header's stacking context. */
+.home-landing { background: radial-gradient(ellipse at 0% 25%,rgba(14,165,233,.12),transparent 30%), radial-gradient(ellipse at 100% 58%,rgba(251,146,60,.1),transparent 32%), #eef3f8; }
+.home-glass { border: 1px solid rgba(255,255,255,.9); background: linear-gradient(135deg,rgba(255,255,255,.8),rgba(244,249,255,.52)); backdrop-filter: blur(20px); box-shadow: 0 18px 44px -25px rgba(15,55,85,.28), inset 0 1px 0 rgba(255,255,255,.95); }
+.home-glass-dark { border: 1px solid rgba(186,230,253,.2); background-color: rgba(4,23,41,.8); backdrop-filter: blur(16px); box-shadow: 0 20px 50px -25px rgba(3,18,35,.4), inset 0 1px 0 rgba(255,255,255,.12); }
+.brand-marquee { contain: inline-size; }
+.brand-marquee-viewport { overflow: clip; }

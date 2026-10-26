@@ -112,7 +112,7 @@ export function TowTruckStage({ compact = false, paused = false }: { compact?: b
     <div
       data-testid="tow-stage"
       data-paused={paused}
-      className={`tow-stage relative overflow-hidden border border-white/15 bg-[radial-gradient(circle_at_30%_20%,rgba(14,165,233,.24),transparent_26%),linear-gradient(180deg,#091a2d_0%,#06111f_100%)] text-white shadow-[0_22px_50px_rgba(2,8,20,.3)] ${compact ? "h-[250px] rounded-none p-2" : "h-[340px] rounded-[1.8rem] p-4 lg:h-[440px]"}`}
+      className={`always-motion tow-stage relative overflow-hidden border border-white/15 bg-[radial-gradient(circle_at_30%_20%,rgba(14,165,233,.24),transparent_26%),linear-gradient(180deg,#091a2d_0%,#06111f_100%)] text-white shadow-[0_22px_50px_rgba(2,8,20,.3)] ${compact ? "h-[250px] rounded-none p-2" : "h-[340px] rounded-[1.8rem] p-4 lg:h-[440px]"}`}
     >
       <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,.15),transparent)]" />
       <div className="absolute inset-x-0 bottom-0 h-20 bg-[linear-gradient(0deg,rgba(0,0,0,.25),transparent)]" />
@@ -137,6 +137,7 @@ export function TowTruckStage({ compact = false, paused = false }: { compact?: b
         ))}
       </ul>
 
+      <div className="tow-speed-lines absolute inset-x-0 bottom-14 h-16" aria-hidden="true"><span /><span /><span /></div>
       <div className="tow-road absolute inset-x-0 bottom-6 h-px bg-slate-400/30" aria-hidden="true" />
       <div className="absolute inset-x-0 bottom-3 flex justify-center" aria-hidden="true">
         <div className={`tow-truck relative max-w-[94%] ${compact ? "w-[260px]" : "w-[290px] lg:w-[360px]"}`}>
