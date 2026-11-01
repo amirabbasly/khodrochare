@@ -1,3 +1,4 @@
+import { importedBrandGuides, importedBrandUpdatedAt } from "@/content/imported-brand-guides";
 import { intentRelease } from "@/content/search-intent-guides";
 import { assistanceRegions, regionalBrandPath } from "@/content/assistance-regions";
 import { tools, toolsUpdatedAt } from "@/content/tools";
@@ -105,8 +106,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]);
   const revised = new Set(["/", "/privacy", "/app", "/about", "/licenses", "/partners", "/امداد-خودرو-آنلاین", ...brandProfiles.map(b => `/brands/${b.slug}`), ...roadProfiles.map(r => `/roads/${r.slug}`), ...assistanceRegions.flatMap(r => brandProfiles.map(b => regionalBrandPath(r.slug,b.slug)))]);
   const onlineReleasePaths = new Set(["/", "/app", "/about", "/امداد-خودرو-آنلاین", ...services.map(service => `/services/${service.slug}`)]);
+  const importedBrandPaths = new Set(Object.keys(importedBrandGuides).map(slug => `/brands/${slug}`));
   const intentUpdatedPaths = new Set(["/امداد-خودرو-آنلاین", "/pricing", "/battery", "/شمال", "/roads/tehran-north"]);
   return [...regionalPages, ...pages, ...cityPages, ...regionPages, ...servicePages, ...postPages, ...newPages, ...toolPages].map((page) =>
-    intentUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(intentRelease.iso) } : onlineReleasePaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-26T00:00:00.000Z") } : revised.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: appContentUpdatedAt } : regionallyUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-18") } : growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
+    importedBrandPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(importedBrandUpdatedAt.iso) } : intentUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(intentRelease.iso) } : onlineReleasePaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-26T00:00:00.000Z") } : revised.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: appContentUpdatedAt } : regionallyUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date("2026-10-18") } : growthUpdatedPaths.has(decodeURIComponent(new URL(page.url).pathname)) ? { ...page, lastModified: new Date(growthUpdatedAt) } : page,
   );
 }
