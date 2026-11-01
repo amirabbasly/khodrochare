@@ -12,7 +12,7 @@ test("online request action precedes long guidance and keeps the real customer d
 
 test("five clusters expose server-rendered decision tables without widening the mobile page", async ({ page }) => {
   for (const [path, caption] of [
-    ["/pricing", "حساب نمونه با اعداد فرضی و بدون هزینه اضافه"],
+    ["/pricing", "نرخ حمل ۱۴۰۵ تهران و البرز؛ مبالغ به تومان"],
     ["/battery", "چه نتیجه‌ای را پیش از تأیید تعویض بپرسیم؟"],
     ["/roads/tehran-north", "نمونه شرح موقعیت؛ جای خالی‌ها را با اطلاعات واقعی پر کنید"],
     ["/شمال", "کدام اطلاعات در سفر شمال تعیین‌کننده‌اند؟"],
