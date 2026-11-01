@@ -2,6 +2,7 @@ export const navLinks = [
   { label: "امداد خودرو", href: "/امداد-خودرو" },
   { label: "امداد آنلاین", href: "/امداد-خودرو-آنلاین" },
   { label: "خدمات", href: "/services" },
+  { label: "برق و باتری", href: "/battery" },
   { label: "پوشش مناطق", href: "/coverage" },
   { label: "برندها", href: "/brands" },
   { label: "هزینه خدمات", href: "/pricing" },
@@ -71,6 +72,7 @@ export const brands = [
 export const legalNavLinks = [
   { label: "صفحه اصلی", href: "/" },
   { label: "خدمات", href: "/services" },
+  { label: "برق و باتری", href: "/battery" },
   { label: "فروشگاه", href: "/store" },
   { label: "قوانین و مقررات", href: "/rules" },
   { label: "تماس", href: "/#contact" },
