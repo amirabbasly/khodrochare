@@ -9,7 +9,7 @@ test("home mounts only five recent cards, loads the next five on demand, and ret
   await page.goto("/");
   const magazine=page.getByTestId("home-latest-articles");
   await expect(magazine.locator("h3")).toHaveText(cards.slice(0,5).map(card=>card.title));
-  await expect(magazine.locator("img")).toHaveCount(5);
+  await expect(magazine.locator("img")).toHaveCount(cards.slice(0,5).filter(card => card.image).length);
   await expect(magazine.getByRole("button",{name:"مقالات قبلی"})).toBeDisabled();
   await magazine.getByRole("button",{name:"مقالات بعدی"}).click();
   await expect(magazine.getByRole("link")).toHaveCount(5);

@@ -32,7 +32,7 @@ test("eight existing articles are expanded without changing their publication da
   assert.equal(Object.keys(blogUpdates).length, 8);
   for (const slug of Object.keys(blogUpdates)) {
     const post = blogPosts.find((item) => item.slug === slug)!;
-    assert.equal(post.updatedAtIso, "2026-09-23");
+    assert.equal(post.updatedAtIso, blogUpdates[slug].updatedAtIso ?? "2026-09-23");
     assert.ok(post.publishedAtIso < post.updatedAtIso);
     assert.ok((supplementalArticleSections[slug] ?? []).length >= 3, slug);
     assert.ok(post.sections.map(sectionText).join(" ").split(/\s+/u).length >= 450, slug);

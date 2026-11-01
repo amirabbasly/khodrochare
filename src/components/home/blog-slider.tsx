@@ -25,15 +25,15 @@ export function BlogSlider({ posts }: { posts: HomeArticleCard[] }) {
           {slides.map((slide, slideIndex) => (
             <div key={slideIndex} aria-hidden={slideIndex !== activeSlide} inert={slideIndex !== activeSlide} className="grid w-full shrink-0 gap-5 md:grid-cols-2 lg:grid-cols-5" dir="rtl">
               {slideIndex <= lastMountedSlide && slide.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`} prefetch={false} className="home-glass group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-card">
-                  <div className="relative h-44 overflow-hidden">
+                <Link key={post.slug} href={`/blog/${post.slug}`} prefetch={false} className="home-glass group flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-card">
+                  {post.image && <div className="relative h-44 overflow-hidden">
                     <Image src={post.image} alt={post.title} fill sizes="(min-width:1024px) 20vw,(min-width:768px) 50vw,100vw" className="object-cover transition duration-500 group-hover:scale-105" />
-                  </div>
-                  <div className="p-4">
+                  </div>}
+                  <div className="flex h-full flex-col p-5">
                     <div className="flex items-center justify-between text-[10px]"><span className="font-black text-brand-orange">{post.category}</span><span className="text-slate-400">{post.readTime}</span></div>
-                    <h3 className="mt-3 line-clamp-2 text-sm font-black leading-7 text-ink">{post.title}</h3>
-                    <p className="mt-2 line-clamp-2 text-[11px] leading-6 text-slate-500">{post.excerpt}</p>
-                    <span className="mt-3 inline-flex text-[11px] font-black text-brand-orange">مطالعه مقاله ←</span>
+                    <h3 className="mt-3 text-base font-black leading-8 text-ink">{post.title}</h3>
+                    <p className="mt-3 text-xs leading-7 text-slate-500">{post.excerpt}</p>
+                    <span className="mt-auto inline-flex min-h-11 items-end pt-4 text-xs font-black text-brand-orange">مطالعه مقاله ←</span>
                   </div>
                 </Link>
               ))}

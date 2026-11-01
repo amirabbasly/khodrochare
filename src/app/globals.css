@@ -272,3 +272,10 @@ html[data-theme="dark"] .home-glass { background:linear-gradient(135deg,#192d43,
 html[data-theme="light"] .hero-scene-button { color:#425d74; border-color:#c5d4e1; background:#ffffff80; }
 html[data-theme="light"] .hero-scene-button.is-active { color:#a83c0d; border-color:#f1ad8d; background:#fff2e9; }
 @media(max-width:767px) { .hero-scene-controls { justify-content:center; } .hero-scene-button { padding:8px 10px; font-size:10px; } }
+/* Reading-first articles; archive artwork remains unchanged. */
+html[data-theme="light"] .article-reading-header { background:linear-gradient(135deg,#f8fafc,#edf4fa); color:#15324b; border-bottom:1px solid var(--line); }
+html[data-theme="light"] .article-reading-header :is(.text-slate-300,.text-slate-400) { color:#526479; }
+.article-reading-body { text-wrap:pretty; }
+.article-reading-body section > p { max-width:72ch; line-height:2.2; }
+.article-reading-layout nav ol a { min-height:44px; }
+@media(max-width:767px) { .article-reading-header h1 { font-size:1.7rem; line-height:1.9; } .article-reading-body { padding:22px 18px; } }

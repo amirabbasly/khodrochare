@@ -695,7 +695,7 @@ export const supplementalArticleSections: Record<string, EditorialSection[]> = O
 // Keep the home magazine's existing order and artwork; append new guides to the collection.
 export const blogPosts: BlogPost[] = [
   ...originalBlogPosts.map((post) => blogUpdates[post.slug]
-    ? { ...post, ...blogUpdates[post.slug], updatedAtIso: blogContentUpdatedAtIso }
+    ? { ...post, ...blogUpdates[post.slug], updatedAtIso: blogUpdates[post.slug].updatedAtIso ?? blogContentUpdatedAtIso }
     : post),
   ...newBlogGuides,
   ...seoBoostGuides,
