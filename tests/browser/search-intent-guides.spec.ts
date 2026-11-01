@@ -22,6 +22,12 @@ test("five clusters expose server-rendered decision tables without widening the 
   ]) {
     await page.goto(path);
     await expect(page.getByText(caption, { exact: true })).toBeVisible();
+    if (path === "/pricing") {
+      const tariffImage = page.locator('figure img[src*="transport-tariff-1405"]');
+      await expect(tariffImage).toBeVisible();
+      await expect.poll(() => tariffImage.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+      await expect(page.getByRole("link", { name: "مشاهده تصویر در اندازه اصلی", exact: true })).toHaveAttribute("href", "/images/pricing/transport-tariff-1405.jpg");
+    }
     await expect(page.locator("h1")).toHaveCount(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), path).toBe(true);
     const errors = await page.locator('script[type="application/ld+json"]').evaluateAll(nodes => nodes.flatMap(node => {
