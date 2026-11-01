@@ -86,8 +86,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fa" dir="rtl" className="h-full antialiased">
+    <html lang="fa" dir="rtl" data-theme="light" suppressHydrationWarning className="h-full antialiased">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('khodrochare:theme');t=t==='dark'?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t}catch(e){}})()` }} />
         <link rel="preload" href="/fonts/Vazir.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Vazir-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
