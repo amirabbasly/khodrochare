@@ -87,7 +87,7 @@ test("sitemap dates change only for substantively updated pages and each new URL
   const entries = sitemap(); assert.equal(entries.length, 474);
   const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
   for (const tool of tools) assert.ok(byUrl.has(absoluteUrl(`/tools/${tool.slug}`)));
-  assert.equal(new Date(byUrl.get(absoluteUrl("/pricing"))!.lastModified!).toISOString().slice(0, 10), "2026-09-07");
+  assert.equal(new Date(byUrl.get(absoluteUrl("/pricing"))!.lastModified!).toISOString().slice(0, 10), "2026-11-01");
   assert.equal(new Date(byUrl.get(absoluteUrl("/تهران/دیاگ-سیار"))!.lastModified!).toISOString().slice(0, 10), "2026-09-07");
   assert.equal(new Date(byUrl.get(absoluteUrl("/رشت/یدک-کش"))!.lastModified!).toISOString().slice(0, 10), "2026-09-23");
 });
