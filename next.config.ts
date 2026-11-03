@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   images: {
-    formats: ["image/avif", "image/webp"],
+    // WebP avoids expensive on-demand AVIF encoding after a cold deployment.
+    formats: ["image/webp"],
     // Source artwork is ~1600px wide, so 2048/3840 variants only upscale and waste bytes.
     deviceSizes: [360, 420, 640, 750, 828, 1080, 1200, 1600, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
