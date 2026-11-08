@@ -2,6 +2,7 @@ export const navLinks = [
   { label: "امداد خودرو", href: "/امداد-خودرو" },
   { label: "امداد آنلاین", href: "/امداد-خودرو-آنلاین" },
   { label: "خدمات", href: "/services" },
+  { label: "برق و باتری", href: "/battery" },
   { label: "پوشش مناطق", href: "/coverage" },
   { label: "برندها", href: "/brands" },
   { label: "هزینه خدمات", href: "/pricing" },
@@ -9,10 +10,10 @@ export const navLinks = [
 ] as const;
 
 export const serviceTiles = [
-  { title: "امداد و یدک‌کش", icon: "truck" },
-  { title: "باتری و برق", icon: "battery" },
-  { title: "کارواش سیار", icon: "car" },
-  { title: "لوازم یدکی", icon: "gear" },
+  { title: "امداد و یدک‌کش", image: "/images/service-tiles/towing.webp" },
+  { title: "باتری و برق", image: "/images/service-tiles/battery.webp" },
+  { title: "کارواش سیار", image: "/images/service-tiles/carwash.webp" },
+  { title: "لوازم یدکی", image: "/images/service-tiles/parts.webp" },
 ] as const;
 
 export const miniServices = [
@@ -71,6 +72,7 @@ export const brands = [
 export const legalNavLinks = [
   { label: "صفحه اصلی", href: "/" },
   { label: "خدمات", href: "/services" },
+  { label: "برق و باتری", href: "/battery" },
   { label: "فروشگاه", href: "/store" },
   { label: "قوانین و مقررات", href: "/rules" },
   { label: "تماس", href: "/#contact" },
