@@ -1,3 +1,4 @@
+import { ScrollAnimations } from "@/components/site/scroll-animations";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { RouteProgress } from "@/components/site/route-progress";
@@ -80,18 +81,18 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  colorScheme: "light",
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#071a2e" }, { media: "(prefers-color-scheme: dark)", color: "#031224" }],
+  colorScheme: "dark",
+  themeColor: "#091321",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fa" dir="rtl" className="h-full antialiased">
+    <html lang="fa" dir="rtl" data-theme="dark" style={{ colorScheme: "dark" }} className="h-full antialiased">
       <head>
         <link rel="preload" href="/fonts/Vazir.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Vazir-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-full flex flex-col"><a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:right-4 focus:top-4 focus:z-[300] focus:rounded-lg focus:bg-brand-orange focus:px-4 focus:py-3 focus:text-sm focus:font-black focus:text-white">رفتن به محتوای اصلی</a><StructuredData data={organizationSchema} /><StructuredData data={websiteSchema} /><Analytics /><AnalyticsEvents /><RouteProgress />{children}<WelcomeModal /></body>
+      <body className="min-h-full flex flex-col"><a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:right-4 focus:top-4 focus:z-[300] focus:rounded-lg focus:bg-brand-orange focus:px-4 focus:py-3 focus:text-sm focus:font-black focus:text-white">رفتن به محتوای اصلی</a><StructuredData data={organizationSchema} /><StructuredData data={websiteSchema} /><Analytics /><AnalyticsEvents /><RouteProgress /><ScrollAnimations />{children}<WelcomeModal /></body>
     </html>
   );
 }

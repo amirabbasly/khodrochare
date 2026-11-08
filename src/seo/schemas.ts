@@ -1,6 +1,5 @@
 import { siteUrl } from "./metadata";
 import { businessFacts } from "@/content/business";
-import { customerReviews } from "@/content/reviews";
 
 const openAllWeek = {
   "@type": "OpeningHoursSpecification",
@@ -15,14 +14,14 @@ const servedCities = [
   ...["گیلان", "مازندران", "گلستان"].map((name) => ({ "@type": "AdministrativeArea", name })),
 ];
 
-const averageRating = customerReviews.length ? customerReviews.reduce((sum, review) => sum + review.rating, 0) / customerReviews.length : 0;
-/** AggregateRating is only emitted with 5+ real reviews; the SEO audit enforces reviewCount >= 5. */
-const reviewsAggregate = customerReviews.length >= 5 ? { aggregateRating: { "@type": "AggregateRating", ratingValue: Math.round(averageRating * 10) / 10, bestRating: 5, worstRating: 1, reviewCount: customerReviews.length } } : {};
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "AutoRepair"],
   "@id": `${siteUrl}/#organization`,
-  name: "خودرو چاره",
+  name: businessFacts.registeredBrand,
+  legalName: businessFacts.legalName,
+  brand: { "@type": "Brand", name: businessFacts.registeredBrand },
+  employee: { "@type": "Person", name: businessFacts.managingDirector, jobTitle: "مدیرعامل" },
   alternateName: ["خودروچاره", "Khodrochare"],
   description:
     "سامانه امداد خودرو آنلاین و خدمات خودرو در محل؛ هماهنگی امدادگر، یدک‌کش، خودروبر، مکانیک سیار، باتری، پنچرگیری و سوخت‌رسانی در تهران، کرج، گیلان، مازندران و گلستان با هماهنگی شبانه‌روزی.",
@@ -53,7 +52,6 @@ export const organizationSchema = {
   availableLanguage: [{ "@type": "Language", name: "Persian", alternateName: "fa" }],
   knowsAbout: [...businessFacts.services, "امداد خودرو آنلاین"],
   slogan: "امداد خودرو آنلاین در تهران، کرج و شمال کشور",
-  ...reviewsAggregate,
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "خدمات امداد خودرو و خدمات خودرو در محل",
