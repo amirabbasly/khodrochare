@@ -81,12 +81,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   colorScheme: "light",
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#071a2e" }, { media: "(prefers-color-scheme: dark)", color: "#031224" }],
+  themeColor: "#091321",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fa" dir="rtl" className="h-full antialiased">
+    <html lang="fa" dir="rtl" data-theme="dark" style={{ colorScheme: "dark" }} className="h-full antialiased">
       <head>
         <link rel="preload" href="/fonts/Vazir.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Vazir-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
