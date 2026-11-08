@@ -1,3 +1,4 @@
+import { NorthJourneyDepth } from "./north-journey-depth";
 import { northCityDepth } from "@/content/north-depth";
 import { northRoadDepth } from "@/content/north-roads";
 import { northCityServiceDepth } from "@/content/north-cityservice";
@@ -26,6 +27,7 @@ export function NorthDepthSections({ slug }: { slug: string }) {
           )}
         </Section>
       ))}
+      <NorthJourneyDepth slug={slug} />
     </>
   );
 }
@@ -67,6 +69,7 @@ export function NorthProvinceDepthSections({ slug }: { slug: string }) {
           )}
         </Section>
       ))}
+      <NorthJourneyDepth slug={slug} />
     </>
   );
 }
