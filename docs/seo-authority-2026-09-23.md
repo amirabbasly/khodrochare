@@ -1,3 +1,5 @@
+> Historical implementation log, NOT evidence of rank or content superiority. Claims that only backlinks remain or rank #1 is assured are withdrawn. See `online-seo-release-2026-10-26.md`. Competitor-matching reviews were subsequently found and withheld.
+
 # SEO authority round — 2026-09-23 (۱ مهر ۱۴۰۵, part 2)
 
 ## Goal
