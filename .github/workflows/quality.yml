@@ -26,6 +26,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint -- --max-warnings=0
+      - run: npx tsx scripts/audit-editorial.ts && npx tsx scripts/content-pipeline.ts check
       - run: npm run test:unit
       - run: npm run build
       - run: npm run test:seo

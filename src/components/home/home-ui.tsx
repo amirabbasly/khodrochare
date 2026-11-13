@@ -89,7 +89,7 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
         src="/images/khodrochare-logo-compact.webp"
         alt="لوگوی سه‌بعدی خودرو چاره"
         fill
-        priority
+        loading="eager"
         sizes={compact ? "144px" : "(min-width: 1280px) 192px, 176px"}
         className="object-contain object-center"
       />
