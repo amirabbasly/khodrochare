@@ -43,3 +43,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Signed app releases are uploaded separately; do not store APK binaries in Git.
+/public/downloads/*.apk
+
+# Optional private durable community storage; production path must be external.
+/var/community/

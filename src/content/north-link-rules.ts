@@ -42,7 +42,7 @@ export const northHubLinkRules: NorthLinkRule[] = [
 export const northFiringLinkRules: NorthLinkRule[] = [
   { phrase: "شمال تهران", href: "/تهران/شمال-تهران" },
   { phrase: "تهران–شمال", href: "/roads/tehran-north" },
-  { phrase: "شمال", href: "/شمال" },
+  { phrase: "شمال کشور", href: "/شمال" },
   { phrase: "رشت", href: "/رشت" },
   { phrase: "چالوس", href: "/چالوس" },
   { phrase: "ساری", href: "/ساری" },

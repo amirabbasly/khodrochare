@@ -1,3 +1,9 @@
+import { tehranArticleIntents, tehranArticleSeoTitles } from "@/content/tehran-article-intents";
+import { Section } from "@/components/seo/landing-ui";
+import { tehranRevision, tehranArticleSlugs } from "@/content/tehran-seo";
+import { onlinePath } from "@/content/online-assistance";
+import { sharedArticleImages } from "@/content/article-presentation";
+import { customerAppUrl } from "@/content/app-links";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -26,7 +32,7 @@ const commercialLinks: Record<string, { title: string; href: string }[]> = {
   "mobile-carwash-guide": [{ title: "کارواش سیار تهران", href: "/تهران/کارواش-سیار" }, { title: "کارواش سیار کرج", href: "/کرج/کارواش-سیار" }, { title: "کارواش سیار در محل", href: "/services/mobile-carwash" }],
   "flat-tire-roadside-assistance": [{ title: "پنچرگیری سیار تهران", href: "/تهران/پنچرگیری-سیار" }, { title: "پنچرگیری سیار کرج", href: "/کرج/پنچرگیری-سیار" }, { title: "تعویض لاستیک در محل", href: "/services/flat-tire" }, { title: "پنچرگیری رشت", href: "/رشت/پنچرگیری-سیار" }],
   "mobile-diagnostics-check-engine-guide": [{ title: "دیاگ سیار تهران", href: "/تهران/دیاگ-سیار" }, { title: "دیاگ سیار کرج", href: "/کرج/دیاگ-سیار" }, { title: "عیب‌یابی سیار خودرو", href: "/services/mobile-diagnostics" }, { title: "دیاگ سیار ساری", href: "/ساری/دیاگ-سیار" }],
-  "car-maintenance-before-long-trip": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "پنچرگیری سیار", href: "/services/flat-tire" }, { title: "امداد خودرو آنلاین", href: "/services/roadside-assistance" }],
+  "car-maintenance-before-long-trip": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "باتری خودرو در محل", href: "/services/battery-replacement" }, { title: "پنچرگیری سیار", href: "/services/flat-tire" }, { title: "امداد خودرو آنلاین", href: onlinePath }],
   "online-roadside-assistance-request-guide": [{ title: "امداد خودرو آنلاین تهران", href: "/تهران/امداد-خودرو" }, { title: "امداد خودرو آنلاین کرج", href: "/کرج/امداد-خودرو" }, { title: "مناطق تحت پوشش", href: "/coverage" }, { title: "ثبت درخواست آنلاین", href: "/امداد-خودرو-آنلاین#request" }],
   "automatic-car-towing-guide": [{ title: "یدک کش تهران", href: "/تهران/یدک-کش" }, { title: "یدک کش کرج", href: "/کرج/یدک-کش" }, { title: "خودروبر و حمل با کفی", href: "/services/flatbed-carrier" }, { title: "هزینه حمل خودرو", href: "/blog/car-tow-truck-price-guide" }, { title: "حمل خودرو چالوس", href: "/چالوس/خودروبر" }],
   "car-overheating-roadside-guide": [{ title: "مکانیک سیار تهران", href: "/تهران/مکانیک-سیار" }, { title: "مکانیک سیار کرج", href: "/کرج/مکانیک-سیار" }, { title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "یدک کش", href: "/services/tow-truck" }],
@@ -160,8 +166,8 @@ const contextualLinkRules = [
   { phrase: "راهنمای نشانه‌ها", href: "/tools/breakdown-guide" },
   { phrase: "انتخاب خدمت", href: "/tools/breakdown-guide" },
   { phrase: "کد پذیرش", href: "/blog/online-roadside-assistance-request-guide" },
-  { phrase: "هزینه امداد خودرو", href: "/امداد-خودرو" },
-  { phrase: "درخواست امداد خودرو", href: "/امداد-خودرو" },
+  { phrase: "هزینه امداد خودرو", href: "/pricing" },
+  { phrase: "درخواست امداد خودرو", href: "/امداد-خودرو-آنلاین" },
   { phrase: "تماس با امداد خودرو", href: "/امداد-خودرو" },
   { phrase: "امداد جاده‌ای", href: "/امداد-خودرو" },
   { phrase: "یدک‌کش و خودروبر", href: "/امداد-خودرو" },
@@ -177,13 +183,13 @@ const contextualLinkRules = [
   ...round6FiringLinkRules,
 ] as const;
 
-function contextualText(text: string, used: Set<string>): ReactNode[] {
+function contextualText(text: string, used: Set<string>, currentPath: string): ReactNode[] {
   const output: ReactNode[] = [];
   let remaining = text;
   let key = 0;
   while (remaining && used.size < 18) {
     const matches = contextualLinkRules
-      .filter((rule) => !used.has(rule.phrase))
+      .filter((rule) => rule.href.split("#")[0] !== currentPath && !used.has(rule.href.split("#")[0]))
       .map((rule) => ({ rule, index: findBoundedMatch(remaining, rule.phrase) }))
       .filter((match) => match.index >= 0)
       .sort((a, b) => a.index - b.index || b.rule.phrase.length - a.rule.phrase.length);
@@ -191,7 +197,7 @@ function contextualText(text: string, used: Set<string>): ReactNode[] {
     if (!match) break;
     if (match.index) output.push(remaining.slice(0, match.index));
     output.push(<Link key={`${match.rule.href}-${key++}`} href={match.rule.href} className="font-bold text-brand-orange underline decoration-orange-200 decoration-2 underline-offset-4 transition hover:text-orange-700">{match.rule.phrase}</Link>);
-    used.add(match.rule.phrase);
+    used.add(match.rule.href.split("#")[0]);
     remaining = remaining.slice(match.index + match.rule.phrase.length);
   }
   if (remaining) output.push(remaining);
@@ -214,7 +220,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = getBlogPost(slug);
   if (!post) notFound();
   return seoMetadata({
-    title: post.seoTitle ?? post.title,
+    title: tehranArticleSeoTitles[post.slug] ?? post.seoTitle ?? post.title,
     description: post.excerpt,
     path: `/blog/${post.slug}`,
     keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "امداد خودرو تهران", "امداد خودرو کرج"],
@@ -222,30 +228,34 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     imageAlt: post.title,
     type: "article",
     publishedTime: post.publishedAtIso,
-    modifiedTime: post.updatedAtIso ?? post.publishedAtIso ?? blogContentUpdatedAtIso,
+    modifiedTime: tehranArticleSlugs.has(post.slug) ? [post.publishedAtIso, tehranRevision.iso].sort().at(-1) : post.updatedAtIso ?? post.publishedAtIso ?? blogContentUpdatedAtIso,
     section: post.category,
   });
 }
+
+const sharedImages = sharedArticleImages(blogPosts);
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) notFound();
+  const isOnlineGuide = ["online-roadside-assistance-tehran-karaj-complete-guide", "online-roadside-assistance-request-guide"].includes(post.slug);
   const allSections = [...post.sections, ...(supplementalArticleSections[post.slug] ?? [])];
   const usedContextualLinks = new Set<string>();
   const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug && (post.relatedSlugs ? post.relatedSlugs.includes(item.slug) : item.category === post.category)).slice(0, 3);
   const serviceLinks = post.links ?? commercialLinks[post.slug] ?? [{ title: "امداد خودرو در محل", href: "/services/roadside-assistance" }, { title: "امداد خودرو تهران", href: "/تهران" }, { title: "امداد خودرو کرج", href: "/کرج" }];
   return (
-    <SubpageShell>
-      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: post.updatedAtIso ?? post.publishedAtIso ?? blogContentUpdatedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"], timeRequired: readingTimeIso(post.readTime), wordCount: allSections.reduce((total, section) => total + sectionText(section).split(/\s+/u).length, 0) + (post.faqs ?? []).reduce((total, faq) => total + `${faq.question} ${faq.answer}`.trim().split(/\s+/u).length, 0), citations: post.sources })} />
+    <SubpageShell showGeneralFaq={!isOnlineGuide && !tehranArticleSlugs.has(post.slug)}>
+      <StructuredData data={articleSchema({ title: post.title, description: post.excerpt, path: `/blog/${post.slug}`, image: post.image, publishedAt: post.publishedAtIso, modifiedAt: tehranArticleSlugs.has(post.slug) ? [post.publishedAtIso, tehranRevision.iso].sort().at(-1) : post.updatedAtIso ?? post.publishedAtIso ?? blogContentUpdatedAtIso, section: post.category, keywords: [post.title, post.category, "امداد خودرو", "امداد خودرو آنلاین", "خودرو چاره"], timeRequired: readingTimeIso(post.readTime), wordCount: allSections.reduce((total, section) => total + sectionText(section).split(/\s+/u).length, 0) + (post.faqs ?? []).reduce((total, faq) => total + `${faq.question} ${faq.answer}`.trim().split(/\s+/u).length, 0), citations: post.sources })} />
       <StructuredData data={webPageSchema({ name: post.title, description: post.excerpt, path: `/blog/${post.slug}`, breadcrumb: true })} />
       <StructuredData data={breadcrumbSchema([{ name: "صفحه اصلی", path: "/" }, { name: "مجله خودرو چاره", path: "/blog" }, { name: post.title }], `/blog/${post.slug}`)} />
       {post.faqs?.length ? <StructuredData data={faqSchema(post.faqs)} /> : null}
       <article>
-        <header className="bg-[#071a2e] py-14 text-white"><div className="site-container max-w-4xl"><Link href="/blog" className="text-xs font-black text-brand-orange">بازگشت به وبلاگ</Link><p className="mt-6 text-xs text-slate-400">{post.category} · {post.readTime} · <time dateTime={post.publishedAtIso}>{post.publishedAt}</time>{post.updatedAtIso && post.updatedAtIso !== post.publishedAtIso ? <> · به‌روزرسانی: <time dateTime={post.updatedAtIso}>{new Intl.DateTimeFormat("fa-IR", { dateStyle: "long", timeZone: "UTC" }).format(new Date(post.updatedAtIso))}</time></> : null} · تحریریه خودرو چاره</p><h1 className="mt-4 text-3xl font-black leading-[1.6] md:text-5xl">{post.title}</h1><p className="mt-5 max-w-3xl text-sm leading-8 text-slate-300">{post.excerpt}</p></div></header>
-        <div className="site-container max-w-4xl -mt-5 relative z-10"><div className="relative h-64 overflow-hidden rounded-2xl shadow-card md:h-[430px]"><Image src={post.image} alt={post.title} fill priority sizes="900px" className="object-cover" /></div><nav className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" dir="rtl" aria-label="فهرست مطالب مقاله"><h2 className="text-lg font-black">در این مقاله می‌خوانید</h2><ol className="mt-4 grid gap-2 md:grid-cols-2">{allSections.map((section, index) => <li key={section.title}><Link href={`#section-${index + 1}`} className="block rounded-lg bg-slate-50 px-4 py-3 text-xs font-bold leading-6 text-slate-600 transition hover:bg-orange-50 hover:text-brand-orange">{(index + 1).toLocaleString("fa-IR")}. {section.title}</Link></li>)}</ol></nav><div className="mt-6 rounded-2xl bg-white p-6 shadow-card md:p-10">{allSections.map((section, index) => <section id={`section-${index + 1}`} key={section.title} className="mb-10 scroll-mt-24 border-b border-slate-100 pb-10 last:mb-0 last:border-0 last:pb-0"><h2 className="text-xl font-black leading-9 md:text-2xl">{section.title}</h2><p className="mt-4 max-w-prose text-base leading-9 text-slate-600">{contextualText(section.body, usedContextualLinks)}</p><EditorialDetails section={section} /></section>)}{post.faqs?.length ? <section className="mt-10 border-t border-slate-100 pt-8" aria-labelledby="article-faq"><h2 id="article-faq" className="text-xl font-black md:text-2xl">سؤالات متداول</h2><div className="mt-5 space-y-3">{post.faqs.map((faq) => <details key={faq.question} className="group rounded-xl border border-slate-200 bg-slate-50 p-4"><summary className="cursor-pointer list-none text-sm font-black text-ink marker:hidden">{faq.question}<span className="float-left text-brand-orange transition group-open:rotate-45">+</span></summary><p className="mt-3 text-sm leading-8 text-slate-600">{faq.answer}</p></details>)}</div></section> : null}{post.sources?.length ? <SourceList sources={post.sources} /> : null}</div>{relatedPosts.length ? <aside className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" dir="rtl"><h2 className="text-lg font-black">مطالب مرتبط</h2><div className="mt-4 grid gap-3 md:grid-cols-3">{relatedPosts.map((related) => <Link key={related.slug} href={`/blog/${related.slug}`} className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-sm font-black leading-7 text-ink transition hover:border-orange-200 hover:text-brand-orange">{related.title}<span className="mt-2 block text-[10px] font-normal text-slate-400">مطالعه مقاله ←</span></Link>)}</div></aside> : null}<div className="mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-6 text-center"><strong className="text-lg">نیاز به بررسی خودرو در محل دارید؟</strong><p className="mt-2 text-xs leading-7 text-slate-600">تشخیص قطعی ایراد فنی باید توسط متخصص و پس از بازدید انجام شود.</p><Link href="/امداد-خودرو-آنلاین#request" className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-brand-orange px-6 text-sm font-black text-white">آماده‌سازی اطلاعات درخواست</Link></div></div>
+        <header className="article-reading-header bg-[#071a2e] py-10 text-white md:py-14"><div className="site-container max-w-4xl"><Link href="/blog" className="text-xs font-black text-brand-orange">بازگشت به وبلاگ</Link><p className="mt-6 text-xs text-slate-400">{post.category} · {post.readTime} · <time dateTime={post.publishedAtIso}>{post.publishedAt}</time>{post.updatedAtIso && post.updatedAtIso !== post.publishedAtIso ? <> · به‌روزرسانی: <time dateTime={post.updatedAtIso}>{new Intl.DateTimeFormat("fa-IR", { dateStyle: "long", timeZone: "UTC" }).format(new Date(post.updatedAtIso))}</time></> : null} · تحریریه خودرو چاره</p><h1 className="mt-4 text-3xl font-black leading-[1.6] md:text-5xl">{post.title}</h1><p className="mt-5 max-w-3xl text-sm leading-8 text-slate-300">{post.excerpt}</p></div></header>
+        <div className="article-reading-layout site-container max-w-4xl mt-6 relative z-10">{isOnlineGuide && <aside aria-label="شروع خدمت آنلاین" className="mb-6 rounded-2xl border border-orange-200 bg-orange-50 p-5 text-sm leading-8"><p>این مقاله راهنمای آماده‌سازی یا پیگیری است. برای دریافت خدمت، نوع نیاز و محدوده را در صفحه اصلی خدمت انتخاب کنید.</p><Link href={onlinePath} className="inline-flex min-h-11 items-center font-black text-brand-orange underline">امداد خودرو آنلاین؛ انتخاب خدمت و شروع درخواست</Link></aside>}{!sharedImages.has(post.image) && <div data-article-illustration className="relative h-64 overflow-hidden rounded-2xl shadow-card md:h-[430px]"><Image src={post.image} alt={post.title} fill priority sizes="900px" className="object-cover" /></div>}<nav className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" dir="rtl" aria-label="فهرست مطالب مقاله"><h2 className="text-lg font-black">در این مقاله می‌خوانید</h2><ol className="mt-4 grid gap-2 md:grid-cols-2">{allSections.map((section, index) => <li key={section.title}><Link href={`#section-${index + 1}`} className="block rounded-lg bg-slate-50 px-4 py-3 text-xs font-bold leading-6 text-slate-600 transition hover:bg-orange-50 hover:text-brand-orange">{(index + 1).toLocaleString("fa-IR")}. {section.title}</Link></li>)}</ol></nav><div className="article-reading-body mt-6 rounded-2xl bg-white p-6 shadow-card md:p-10">{allSections.map((section, index) => <section id={`section-${index + 1}`} key={section.title} className="mb-10 scroll-mt-24 border-b border-slate-100 pb-10 last:mb-0 last:border-0 last:pb-0"><h2 className="text-xl font-black leading-9 md:text-2xl">{section.title}</h2><p className="mt-4 max-w-prose text-base leading-9 text-slate-600">{contextualText(section.body, usedContextualLinks, `/blog/${post.slug}`)}</p><EditorialDetails section={section} /></section>)}{post.faqs?.length ? <section className="mt-10 border-t border-slate-100 pt-8" aria-labelledby="article-faq"><h2 id="article-faq" className="text-xl font-black md:text-2xl">سؤالات متداول</h2><div className="mt-5 space-y-3">{post.faqs.map((faq) => <details key={faq.question} className="group rounded-xl border border-slate-200 bg-slate-50 p-4"><summary className="cursor-pointer list-none text-sm font-black text-ink marker:hidden">{faq.question}<span className="float-left text-brand-orange transition group-open:rotate-45">+</span></summary><p className="mt-3 text-sm leading-8 text-slate-600">{faq.answer}</p></details>)}</div></section> : null}{post.sources?.length ? <SourceList sources={post.sources} /> : null}</div>{relatedPosts.length ? <aside className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm" dir="rtl"><h2 className="text-lg font-black">مطالب مرتبط</h2><div className="mt-4 grid gap-3 md:grid-cols-3">{relatedPosts.map((related) => <Link key={related.slug} href={`/blog/${related.slug}`} className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-sm font-black leading-7 text-ink transition hover:border-orange-200 hover:text-brand-orange">{related.title}<span className="mt-2 block text-[10px] font-normal text-slate-400">مطالعه مقاله ←</span></Link>)}</div></aside> : null}<div className="mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-6 text-center"><strong className="text-lg">نیاز به بررسی خودرو در محل دارید؟</strong><p className="mt-2 text-xs leading-7 text-slate-600">تشخیص قطعی ایراد فنی باید توسط متخصص و پس از بازدید انجام شود.</p><Link href={customerAppUrl} className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-brand-orange px-6 text-sm font-black text-white">آماده‌سازی اطلاعات درخواست</Link></div></div>
         <aside className="site-container max-w-4xl mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-6" dir="rtl" aria-label="خدمات مرتبط"><h2 className="text-lg font-black">خدمات مرتبط خودرو چاره</h2><div className="mt-4 flex flex-wrap gap-3">{serviceLinks.map((item) => <Link key={item.href} href={item.href} className="rounded-lg bg-white px-4 py-3 text-sm font-black text-brand-orange shadow-sm">{item.title} ←</Link>)}</div></aside>
       </article>
+      {tehranArticleIntents[post.slug] && !isOnlineGuide && <Section title="این راهنما چه تصمیمی را روشن می‌کند؟"><p>{tehranArticleIntents[post.slug].purpose}</p><p className="text-xs">بازبینی مسیر خدمت و لینک‌ها: <time dateTime={tehranRevision.iso}>{tehranRevision.label}</time></p><Link prefetch={false} href={tehranArticleIntents[post.slug].href} className="font-bold text-brand-orange underline">{tehranArticleIntents[post.slug].label}</Link></Section>}
     </SubpageShell>
   );
 }

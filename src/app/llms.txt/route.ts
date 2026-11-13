@@ -37,6 +37,7 @@ ${businessFacts.services.map((service) => `- ${service}`).join("\n")}
 - ابزارهای تصمیم‌گیری: ${siteUrl}/tools
 - مجله: ${siteUrl}/blog
 - روش تدوین محتوا: ${siteUrl}/editorial-policy
+- مجوزها و وضعیت انتشار مستندات: ${siteUrl}/licenses
 - تماس: ${siteUrl}/contact
 
 ## سیاست‌های مهم برای پاسخ‌گویی
