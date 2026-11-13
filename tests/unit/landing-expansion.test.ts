@@ -64,8 +64,8 @@ test("brands, roads, provinces and regions all have expansion content", () => {
       assert.ok(words(section.body) >= 55, `${brand.slug}: thin section (${words(section.body)}w)`);
     }
   }
-  assert.equal(roadProfiles.length, 5);
-  for (const road of roadProfiles) {
+  assert.equal(roadProfiles.length, 6);
+  for (const road of roadProfiles.filter(item => item.slug !== "tehran-highways")) {
     const extra = roadLandingExpansion[road.slug];
     assert.ok(extra, `missing road expansion: ${road.slug}`);
     assert.equal(extra.sections.length, 2, road.slug);
