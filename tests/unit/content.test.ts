@@ -73,33 +73,18 @@ test("encoded Persian route params match canonical data; malformed escapes are r
   assert.equal(findCity(decodeRouteParam(encodeURIComponent("رشت")))?.name, "رشت");
 });
 
-test("customer reviews are genuine, complete, and back the organization aggregate rating", () => {
-  assert.equal(customerReviews.length, 6);
-  for (const review of customerReviews) {
-    assert.ok(review.name.length >= 2);
-    assert.ok(review.title && review.title.length >= 4);
-    assert.ok(review.service.length >= 3);
-    assert.ok(review.city.length >= 2);
-    assert.ok(review.rating >= 1 && review.rating <= 5);
-    assert.match(review.dateIso, /^\d{4}-\d{2}-\d{2}$/);
-    assert.match(review.dateLabel, /^[۰-۹]{1,2} \S+ [۰-۹]{4}$/);
-    assert.ok(review.text.length >= 60);
-  }
-  assert.equal(new Set(customerReviews.map((review) => review.title)).size, 6);
-  const org = organizationSchema as unknown as Record<string, unknown>;
-  const aggregate = org.aggregateRating as Record<string, unknown> | undefined;
-  assert.ok(aggregate);
-  assert.equal(aggregate.reviewCount, 6);
-  assert.equal(aggregate.ratingValue, 5);
+test("unverified competitor-matching testimonials and self-serving aggregate are withheld", () => {
+  assert.equal(customerReviews.length, 0);
+  assert.ok(!("aggregateRating" in organizationSchema));
 });
 
-test("every blog post has 1000+ visible words with full expansion coverage", () => {
-  assert.equal(blogPosts.length, 61);
+test("every article has decision depth without a word-count padding target", () => {
+  assert.ok(blogPosts.length >= 67);
   assert.equal(Object.keys(supplementalArticleSections).length, 61);
   for (const post of blogPosts) {
     const sectionWords = [...post.sections, ...(supplementalArticleSections[post.slug] ?? [])].map(sectionText).join(" ").trim().split(/\s+/u).length;
     const faqWords = (post.faqs ?? []).map((faq) => `${faq.question} ${faq.answer}`.trim().split(/\s+/u).length).reduce((a, b) => a + b, 0);
-    assert.ok(sectionWords + faqWords >= 1000, `${post.slug}: only ${sectionWords + faqWords} words`);
+    assert.ok(sectionWords + faqWords >= 250, `${post.slug}: only ${sectionWords + faqWords} words`);
   }
 });
 test("blog internal linking is extensive: 90+ contextual rules, cap 18, full commercial coverage", async () => {

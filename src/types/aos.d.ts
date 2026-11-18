@@ -1,6 +1,9 @@
 declare module "aos" {
   type AosOptions = {
     duration?: number;
+    startEvent?: string;
+    disableMutationObserver?: boolean;
+    throttleDelay?: number;
     easing?: string;
     once?: boolean;
     offset?: number;

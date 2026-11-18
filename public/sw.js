@@ -1,4 +1,4 @@
-const CACHE_NAME = "khodrochare-shell-v2-20260905";
+const CACHE_NAME = "khodrochare-shell-v3-brand-20261017";
 const APP_SHELL = ["/offline.html", "/app-icon.svg"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
