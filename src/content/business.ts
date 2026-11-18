@@ -1,4 +1,9 @@
 export const businessFacts = {
+  // Legal identity and existing director/license/address confirmed by the owner.
+  legalName: "سیما رایگان ایرانیان",
+  registeredBrand: "خودرو چاره",
+  managingDirector: "علیرضا سلیمانی",
+  licenseDescription: "جواز یکتا و فعالیت کشوری امداد خودرو",
   baleUrl: "https://ble.ir/khodrochare",
   coverageSummary: "تهران، کرج، گیلان، مازندران و گلستان",
   emergencyPhone: "09123022064",
