@@ -1,5 +1,7 @@
 "use client";
 
+import { customerAppUrl } from "@/content/app-links";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -86,7 +88,7 @@ export function WelcomeModal() {
 
         <div className="flex items-center gap-3 pl-10">
           <div className="relative h-12 w-14 shrink-0 rounded-xl border border-white/15 bg-white/10">
-            <Image src="/images/khodrochare-logo-compact.webp" alt="" fill sizes="56px" className="object-contain p-1" />
+            <Image src="/images/khodrochare-brand-wordmark.webp" alt="" fill sizes="56px" className="object-contain p-1" />
           </div>
           <div className="min-w-0">
             <p className="text-[10px] font-bold text-orange-300">به خودرو چاره خوش آمدید</p>
@@ -108,7 +110,7 @@ export function WelcomeModal() {
             <bdi>{businessFacts.emergencyPhone}</bdi>
           </a>
           <Link
-            href="/app"
+            href={customerAppUrl}
             onClick={dismiss}
             className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-3 py-3 text-center text-xs font-bold leading-6 text-white transition hover:border-orange-300/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
           >

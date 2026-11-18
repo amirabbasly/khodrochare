@@ -67,7 +67,7 @@ export function AiChat({ embedded = false }: { embedded?: boolean }) {
   if (embedded) return chatPanel;
 
   return (
-    <div className="fixed bottom-5 left-4 z-[80] sm:bottom-6 sm:left-6">
+    <div className="floating-support fixed bottom-5 left-4 z-[80] sm:bottom-6 sm:left-6">
       <div className={`absolute bottom-16 left-0 origin-bottom-left transition duration-300 ${open ? "pointer-events-auto translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-4 scale-95 opacity-0"}`}>{chatPanel}</div>
       <button type="button" onClick={() => setOpen((current) => !current)} className="relative flex h-14 w-14 items-center justify-center rounded-full bg-brand-orange text-white shadow-[0_12px_35px_rgba(255,83,21,.42)] transition hover:scale-105" aria-label={open ? "بستن پشتیبانی هوشمند" : "باز کردن پشتیبانی هوشمند"} aria-expanded={open}>
         <span className="absolute inset-0 animate-ping rounded-full bg-brand-orange/25" aria-hidden="true" /><Icon name={open ? "chat" : "headset"} size={25} />

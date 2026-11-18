@@ -86,10 +86,10 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
     <Link href="/" className={`relative block shrink-0 overflow-hidden ${compact ? "h-12 w-36" : "h-14 w-40 sm:w-44 xl:h-16 xl:w-48"}`} aria-label="خودرو چاره، صفحه اصلی">
       <Image
-        src="/images/khodrochare-logo-compact.webp"
-        alt="لوگوی سه‌بعدی خودرو چاره"
+        src="/images/khodrochare-brand-wordmark.webp"
+        alt="لوگوی خودرو چاره"
         fill
-        priority
+        loading="eager"
         sizes={compact ? "144px" : "(min-width: 1280px) 192px, 176px"}
         className="object-contain object-center"
       />
