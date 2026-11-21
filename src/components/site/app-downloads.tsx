@@ -1,6 +1,7 @@
+import Link from "next/link";
 import Image from "next/image";
 import { getAppDownload, type DownloadApp } from "@/lib/app-downloads";
-import { customerAppUrl, fleetAppUrl, customerMyketUrl } from "@/content/app-links";
+import { customerMyketUrl } from "@/content/app-links";
 
 /** Static server output; upload signed releases BEFORE building to enable their links. */
 export function AppDownloads({ apps = ["customer", "fleet"] }: { apps?: DownloadApp[] }) {
@@ -14,7 +15,7 @@ export function AppDownloads({ apps = ["customer", "fleet"] }: { apps?: Download
         <h3 className="font-black text-ink">{release.name}</h3>
         {release.available ? <><a href={release.href} download={release.filename} className="mt-4 inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-5 py-3 text-sm font-black text-white">{label}</a><p className="mt-2 text-xs leading-7 text-slate-600">اندروید · {new Intl.NumberFormat("fa-IR", { maximumFractionDigits: 1 }).format(release.bytes / 1048576)} مگابایت</p></> : <><button type="button" disabled aria-describedby={`download-status-${app}`} className="mt-4 inline-flex min-h-12 cursor-not-allowed items-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-black opacity-60">{label}</button><p id={`download-status-${app}`} className="mt-2 text-xs leading-7 text-slate-600">فایل اندروید هنوز منتشر نشده است؛ فعلاً از نسخه وب استفاده کنید.</p></>}
         {app === "customer" && <a href={customerMyketUrl} target="_blank" rel="noopener noreferrer" className="mt-3 flex min-h-11 w-fit items-center rounded-xl border border-brand-orange px-4 py-2 text-sm font-bold text-brand-orange"><Image src="/images/social/myket.svg" alt="" width={28} height={28} className="ml-2" />دانلود اپلیکیشن از مایکت</a>}
-        <a href={app === "customer" ? customerAppUrl : fleetAppUrl} className="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-brand-orange underline">ورود به نسخه وب {release.name}</a>
+        <Link href="/app" className="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-brand-orange underline">ورود به نسخه وب {release.name}</Link>
       </article>;
     })}</div>
     <p className="mt-4 text-xs leading-7 text-slate-600">برای نصب، فقط به مرورگری که همین فایل رسمی را دانلود کرده مجوز نصب بدهید. حفاظت دستگاه یا Play Protect را خاموش نکنید. کد ورود و رمز را در اختیار دیگران نگذارید.</p>

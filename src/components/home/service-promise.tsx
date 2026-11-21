@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { assistanceComparison, requestJourney } from "@/content/home-service-promise";
-import { customerAppUrl } from "@/content/app-links";
+
 
 export function RequestJourneySection() {
   return <section id="request-process" className="section-shell request-journey" aria-labelledby="request-journey-title" dir="rtl" data-aos="fade-up">
-    <div className="promise-section-heading"><div><p className="promise-eyebrow">از درخواست تا پایان خدمت</p><h2 id="request-journey-title">مراحل دریافت امداد از خودرو چاره</h2></div><a href={customerAppUrl} className="promise-action">ثبت درخواست آنلاین ←</a></div>
+    <div className="promise-section-heading"><div><p className="promise-eyebrow">از درخواست تا پایان خدمت</p><h2 id="request-journey-title">مراحل دریافت امداد از خودرو چاره</h2></div><Link href="/app" className="promise-action">ثبت درخواست آنلاین ←</Link></div>
     <ol className="request-journey-grid">{requestJourney.map((step, index) => <li key={step.title} className="request-journey-card" data-aos="fade-up" data-aos-delay={index * 80}>
       <div className="request-journey-image"><Image src={step.image} alt={step.alt} fill sizes="(min-width:1024px) 25vw,(min-width:640px) 50vw,100vw" className="object-cover" /><span className="request-journey-number" aria-hidden="true">{(index + 1).toLocaleString("fa-IR")}</span></div>
       <div className="request-journey-copy"><h3>{step.title}</h3><p>{step.description}</p></div>

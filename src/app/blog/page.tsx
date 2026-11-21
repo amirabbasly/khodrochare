@@ -1,5 +1,5 @@
 import { ArticlePagination } from "@/components/seo/article-pagination";
-import { customerAppUrl } from "@/content/app-links";
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,7 +46,7 @@ export default function BlogPage() {
       </section>
       <section className="site-container grid gap-8 lg:grid-cols-[1fr_320px]">
         <div><div className="flex items-center justify-between border-b-2 border-ink pb-3"><h2 className="text-2xl font-black">تازه‌ترین راهنماها</h2><Link href="/services" className="text-xs font-black text-brand-orange">همه خدمات ←</Link></div><ArticlePagination posts={posts.map(({ slug, title, excerpt, category, publishedAt, readTime }) => ({ slug, title, excerpt, category, publishedAt, readTime }))} /></div>
-        <aside><div className="sticky top-24 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><h2 className="border-b-2 border-brand-orange pb-3 text-lg font-black">راهنمای خدمات فوری</h2><div className="mt-4 space-y-3">{topics.slice(0, 5).map(([label, href], index) => <Link key={href} href={href} className="flex items-center gap-3 rounded-xl bg-slate-50 p-3 hover:bg-orange-50"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-ink text-xs font-black text-white">{(index + 1).toLocaleString("fa-IR")}</span><strong className="text-xs leading-6">{label}</strong></Link>)}</div><div className="mt-6 rounded-xl bg-ink p-5 text-white"><strong>خودرو در مسیر متوقف شده؟</strong><p className="mt-2 text-xs leading-7 text-slate-300">راهنمای هماهنگی آنلاین را ببینید یا مستقیم تماس بگیرید.</p><Link href={customerAppUrl} className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-brand-orange px-4 text-xs font-black">راهنمای درخواست فوری</Link></div></div></aside>
+        <aside><div className="sticky top-24 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"><h2 className="border-b-2 border-brand-orange pb-3 text-lg font-black">راهنمای خدمات فوری</h2><div className="mt-4 space-y-3">{topics.slice(0, 5).map(([label, href], index) => <Link key={href} href={href} className="flex items-center gap-3 rounded-xl bg-slate-50 p-3 hover:bg-orange-50"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-ink text-xs font-black text-white">{(index + 1).toLocaleString("fa-IR")}</span><strong className="text-xs leading-6">{label}</strong></Link>)}</div><div className="mt-6 rounded-xl bg-ink p-5 text-white"><strong>خودرو در مسیر متوقف شده؟</strong><p className="mt-2 text-xs leading-7 text-slate-300">راهنمای هماهنگی آنلاین را ببینید یا مستقیم تماس بگیرید.</p><Link href="/app" className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-brand-orange px-4 text-xs font-black">راهنمای درخواست فوری</Link></div></div></aside>
       </section>
     </div>
   </SubpageShell>;

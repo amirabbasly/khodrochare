@@ -1,6 +1,6 @@
 "use client";
 
-import { customerAppUrl } from "@/content/app-links";
+
 
 import Image from "next/image";
 import Link from "next/link";
@@ -96,7 +96,7 @@ export function WelcomeModal() {
             <bdi>{businessFacts.emergencyPhone}</bdi>
           </a>
           <Link
-            href={customerAppUrl}
+            href="/app"
             onClick={dismiss}
             className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-3 py-3 text-center text-xs font-bold leading-6 text-white transition hover:border-orange-300/60 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-orange"
           >

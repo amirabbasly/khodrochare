@@ -14,7 +14,7 @@ const description = "ورود و نصب اپلیکیشن سفیران خودرو
 export const metadata = seoMetadata({ title, description, path: "/safir" });
 
 function FleetAction() {
-  return <a href={fleetAppUrl} data-app-entry="fleet" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-brand-orange px-6 py-3 text-sm font-black text-white shadow-orange transition hover:brightness-110">ورود، ثبت‌نام و نصب اپلیکیشن سفیران</a>;
+  return <Link href="/app" data-app-entry="fleet" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-brand-orange px-6 py-3 text-sm font-black text-white shadow-orange transition hover:brightness-110">ورود، ثبت‌نام و نصب اپلیکیشن سفیران</Link>;
 }
 
 export default function Page() {

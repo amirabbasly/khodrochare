@@ -1,5 +1,6 @@
+import Link from "next/link";
 import Image from "next/image";
-import { fleetAppUrl } from "@/content/app-links";
+
 
 export function FleetShowcase() {
   return <section className="site-container mt-10" dir="rtl" aria-labelledby="fleet-showcase-title">
@@ -11,7 +12,7 @@ export function FleetShowcase() {
         <ul className="mt-6 grid gap-3 text-sm">{["ثبت‌نام و بررسی مدارک", "انتخاب محدوده و نوع فعالیت", "بررسی فرصت‌های همکاری", "هماهنگی خدمت و پیگیری"].map((item, i) => <li key={item} className="rounded-xl border border-white/15 bg-white/5 p-3"><span className="ml-3 text-orange-300">{(i + 1).toLocaleString("fa-IR")}</span>{item}</li>)}</ul>
         <p className="mt-5 text-center text-[10px] text-slate-400">نمای معرفی مسیر همکاری؛ تصویر محیط واقعی اپ نیست</p>
       </div>
-      <div><p className="text-xs font-bold text-orange-300">مهارت شما، فرصت همکاری بیشتر</p><h2 id="fleet-showcase-title" className="mt-4 text-2xl font-black leading-loose md:text-3xl">اپلیکیشن سفیران خودرو چاره؛ مسیر کسب درآمد از خدمات خودرو</h2><p className="mt-5 text-sm leading-8 text-slate-200">اگر امدادگر، مکانیک سیار یا مالک یدک‌کش و خودروبر هستید، از مسیر اختصاصی سفیران برای معرفی توانایی و محدوده فعالیت خود اقدام کنید. فرصت‌های متناسب با تجهیزات و ظرفیت شما پس از بررسی شرایط همکاری پیگیری می‌شوند.</p><a href={fleetAppUrl} className="mt-6 inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-6 text-sm font-black text-white">ثبت نام و ورود سفیران خودرو چاره</a><p className="mt-4 text-xs leading-7 text-slate-300">درآمد ثابت یا تعداد مشخص مأموریت تضمین نمی‌شود؛ تقاضای منطقه، زمان فعالیت، هزینه سوخت و استهلاک و شرایط تسویه بر درآمد خالص مؤثرند.</p></div>
+      <div><p className="text-xs font-bold text-orange-300">مهارت شما، فرصت همکاری بیشتر</p><h2 id="fleet-showcase-title" className="mt-4 text-2xl font-black leading-loose md:text-3xl">اپلیکیشن سفیران خودرو چاره؛ مسیر کسب درآمد از خدمات خودرو</h2><p className="mt-5 text-sm leading-8 text-slate-200">اگر امدادگر، مکانیک سیار یا مالک یدک‌کش و خودروبر هستید، از مسیر اختصاصی سفیران برای معرفی توانایی و محدوده فعالیت خود اقدام کنید. فرصت‌های متناسب با تجهیزات و ظرفیت شما پس از بررسی شرایط همکاری پیگیری می‌شوند.</p><Link href="/app" className="mt-6 inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-6 text-sm font-black text-white">ثبت نام و ورود سفیران خودرو چاره</Link><p className="mt-4 text-xs leading-7 text-slate-300">درآمد ثابت یا تعداد مشخص مأموریت تضمین نمی‌شود؛ تقاضای منطقه، زمان فعالیت، هزینه سوخت و استهلاک و شرایط تسویه بر درآمد خالص مؤثرند.</p></div>
     </div>
   </section>;
 }

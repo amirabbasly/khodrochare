@@ -23,5 +23,5 @@ test("header exposes both official app destinations and accessible feature links
   const navigation = await readFile("src/components/home/home-content.ts", "utf8");
   assert.ok(navigation.includes("جمعه بازار لوازم یدکی") && navigation.includes("تالار خرید و فروش خودرو"));
   const page = await readFile("src/app/app/page.tsx", "utf8");
-  assert.ok(page.includes('id="features"'));
+  assert.ok(page.includes("<AppShowcaseBanner />"));
 });

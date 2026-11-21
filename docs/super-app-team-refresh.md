@@ -10,3 +10,9 @@
 - Added /team to sitemap and route inventory. Kept Person structured data and added the current screenshot OG derivative.
 
 Validation: lint, production build, 159 unit tests, 12 focused desktop/mobile browser tests, production SEO audit (476 indexable routes, zero failures). Browser tests cover refreshed welcome, three secondary links, customer/fleet/team content, footer icons and overflow.
+
+## Follow-up: simplified reference landing and app-entry rule
+
+/app now contains exactly two visible content sections: a warm yellow reference-inspired hero using the actual supplied customer screen (not the other brand's app), followed by the super-app showcase. Previous editorial header, answer box, feature/install/download/FAQ blocks were removed as requested. Legacy #features/#downloads anchors resolve to the showcase for existing inbound links. Standalone /team omits the general FAQ and uses the navy/white reference gallery treatment. Official team portraits are still required.
+
+All customer and fleet direct-entry CTAs across services, articles, homepage, welcome, fleet and shared landing components now go to /app. Only clearly labeled PWA entry links may point directly to the app domain. Store links and APK downloads retain their own destinations. Android download is now a direct APK link when a release exists; absent a real signed APK it is disabled, never a guide link or fake download.

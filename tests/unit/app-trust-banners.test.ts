@@ -7,7 +7,7 @@ test("app and trust banners use exact supplied previews and genuine image wordma
   for(const name of ["khodrochare-wordmark.webp","trust-vehicles.webp"]) assert.ok(existsSync(`public/images/${name}`));
   const code=readFileSync("src/components/home/app-trust-banners.tsx","utf8");
   assert.ok(code.includes('getAppDownload("customer")') && code.includes("release.available"));
-  assert.ok(code.includes("customerAppUrl") && code.includes('href="/app#downloads"'));
+  assert.ok(code.includes("customerAppUrl") && code.includes("release.href") && code.includes("disabled"));
   assert.ok(!code.includes("bazaar.ir") && !code.includes("app-premium-mockup"));
   assert.ok(code.includes("تصویر ارسالی") && !code.includes("بازسازی نمایشی"));
   assert.ok(code.includes("download-button-art") && existsSync("scripts/prepare-exact-app-previews.mjs"));

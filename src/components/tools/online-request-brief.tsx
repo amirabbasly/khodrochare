@@ -1,8 +1,9 @@
 "use client";
+import Link from "next/link";
 
 import { useState } from "react";
 import { buildOnlineBrief, onlineServices } from "@/content/online-assistance";
-import { customerAppUrl } from "@/content/app-links";
+
 
 export function OnlineRequestBrief() {
   const [input, setInput] = useState({ service: "unknown", location: "", vehicle: "", symptom: "", access: "" });
@@ -33,7 +34,7 @@ export function OnlineRequestBrief() {
     <label htmlFor="brief-result" className="block font-bold">شرح آماده برای کپی<textarea id="brief-result" readOnly rows={8} value={text} className={`${fieldClass} text-sm leading-8`} /></label>
     <div className="flex flex-wrap gap-3">
       <button type="button" onClick={copy} className="min-h-12 rounded-xl border border-slate-300 px-5 font-bold text-ink">کپی شرح درخواست</button>
-      <a href={customerAppUrl} className="inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-5 font-black text-white">شروع درخواست در اپ مشتریان</a>
+      <Link href="/app" className="inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-5 font-black text-white">شروع درخواست در اپ مشتریان</Link>
     </div>
     <p role="status" aria-live="polite">{copyStatus}</p>
     <noscript><p>ابزار تعاملی به جاوااسکریپت نیاز دارد. برای درخواست، مدل، نشانه خرابی و نشانی را آماده کنید و از لینک اپ مشتریان یا تماس تلفنی استفاده کنید.</p></noscript>

@@ -21,8 +21,8 @@ test("new contact and customer Myket links are visible without horizontal overfl
 
 test("Myket belongs to customer downloads, not the fleet package", async ({ page }) => {
   await page.goto("/app#downloads");
-  const section = page.locator("#downloads");
-  await expect(section.locator('[data-download-app="customer"]').getByRole("link", { name: "دانلود اپلیکیشن از مایکت" })).toHaveAttribute("href", customerMyketUrl);
+  const section = page.locator("#app");
+  await expect(section.getByRole("link", { name: /دریافت از مایکت/ })).toHaveAttribute("href", customerMyketUrl);
   await expect(section.locator(`[data-download-app="fleet"] a[href="${customerMyketUrl}"]`)).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
 });

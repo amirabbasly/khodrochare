@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SubpageShell } from "@/components/site/subpage-shell";
 import { AnswerBox, FinalContact, LandingHeader, LandingSchemas, LinkGrid, Questions, SafetyNote, Section } from "@/components/seo/landing-ui";
 import { OnlineRequestBrief } from "@/components/tools/online-request-brief";
@@ -12,7 +13,7 @@ export default function Page() {
   return <SubpageShell showGeneralFaq={false}>
     <LandingSchemas path={onlinePath} title={onlineTitle} description={onlineDescription} area={businessFacts.coverageSummary} areaType="Place" />
     <LandingHeader title={onlineTitle} intro="امداد خودرو آنلاین، مسیر شروع درخواست و هماهنگی کمک برای خودروی متوقف یا خراب است؛ از عیب‌یابی در محل و خدمات باتری تا تعویض چرخ و حمل با یدک‌کش یا کفی. در خودرو چاره درخواست را از اپ مشتریان، بدون نصب اجباری، شروع کنید. خدمت، هزینه و امکان اعزام در تهران، کرج و شمال برای موقعیت همان خودرو بررسی می‌شوند." crumbs={[{ label: "امداد خودرو آنلاین" }]} primaryAction={{ label: "شروع درخواست امداد آنلاین", href: customerAppUrl }} />
-    <AnswerBox updatedAt={onlineContentRelease}><p>برای درخواست امداد خودرو آنلاین، نوع نیاز، مدل و سال خودرو، نشانه خرابی و محل توقف را آماده کنید. از <a href={customerAppUrl} className="font-bold text-brand-orange underline">اپ مشتریان خودرو چاره</a> وارد مسیر درخواست شوید؛ ورود یا ساخت حساب، دریافت درخواست و تأیید اعزام مراحل جدا هستند. پیش از شروع کار، نوع خدمت و اجزای هزینه را هماهنگ کنید. اگر اینترنت ندارید یا وضعیت فوری است، با <a href={`tel:${businessFacts.emergencyPhone}`} className="font-bold underline" dir="ltr">{businessFacts.emergencyPhone}</a> تماس بگیرید.</p></AnswerBox>
+    <AnswerBox updatedAt={onlineContentRelease}><p>برای درخواست امداد خودرو آنلاین، نوع نیاز، مدل و سال خودرو، نشانه خرابی و محل توقف را آماده کنید. از <Link href="/app" className="font-bold text-brand-orange underline">اپ مشتریان خودرو چاره</Link> وارد مسیر درخواست شوید؛ ورود یا ساخت حساب، دریافت درخواست و تأیید اعزام مراحل جدا هستند. پیش از شروع کار، نوع خدمت و اجزای هزینه را هماهنگ کنید. اگر اینترنت ندارید یا وضعیت فوری است، با <a href={`tel:${businessFacts.emergencyPhone}`} className="font-bold underline" dir="ltr">{businessFacts.emergencyPhone}</a> تماس بگیرید.</p></AnswerBox>
     <nav aria-label="بخش‌های امداد آنلاین" className="site-container mt-6 flex flex-wrap gap-3 text-sm font-bold">
       {[["request", "شروع درخواست"], ["choose-service", "انتخاب خدمت"], ["request-checklist", "آماده‌سازی شرح خرابی"], ["request-cost", "هزینه"], ["online-coverage", "پوشش مناطق"], ["online-help", "ورود و پیگیری"]].map(([id, label]) => <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center rounded-xl border border-slate-300 px-4 text-ink hover:underline">{label}</a>)}
     </nav>
@@ -22,7 +23,7 @@ export default function Page() {
         <li className="rounded-xl border border-slate-200 p-4"><strong>شرح نیاز و موقعیت</strong><p>مدل و سال، رفتار خودرو و نشانی قابل دسترسی را اعلام کنید. برای حمل، گیربکس، وضعیت چرخ‌ها و مقصد؛ در بزرگراه، جهت حرکت و خروجی نزدیک مهم‌اند.</p></li>
         <li className="rounded-xl border border-slate-200 p-4"><strong>هماهنگی خدمت</strong><p>پیام نتیجه را بررسی کنید و درباره خدمت، مبلغ و زمان تقریبی هماهنگ شوید. دریافت اطلاعات به معنی اعزام قطعی نیست؛ در ابهام، همان درخواست را پیگیری کنید.</p></li>
       </ol>
-      <a href={customerAppUrl} data-app-entry="customer" className="inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-5 font-black text-white">شروع درخواست در اپ مشتریان</a>
+      <Link href="/app" data-app-entry="customer" className="inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-5 font-black text-white">شروع درخواست در اپ مشتریان</Link>
     </Section>
     <Section id="choose-service" title="کدام خدمت را آنلاین درخواست کنم؟">
       <p>برای انتخاب خدمت، رفتار خودرو مهم‌تر از حدس نام قطعه است: «استارت کند است»، «موتور می‌چرخد اما روشن نمی‌شود» و «خودرو روشن است اما حرکت نمی‌کند» وضعیت‌های متفاوت‌اند. اگر مطمئن نیستید، نشانه را توضیح دهید. انتخاب اولیه فقط مسیر بررسی را روشن می‌کند؛ تشخیص و امکان تعمیر به ارزیابی متخصص نیاز دارند.</p>
