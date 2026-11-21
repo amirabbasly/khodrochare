@@ -16,7 +16,8 @@ test("app page contains only the new hero and app showcase; APK never falls back
   await expect(page.locator("main")).not.toContainText("پاسخ کوتاه");
   await expect(page.locator("main")).not.toContainText("به‌روزرسانی محتوای صفحه");
   await expect(page.locator(".super-app-hero").getByRole("link", { name: "ورود به اپلیکیشن PWA" })).toHaveAttribute("href", "https://app.khodrochare.ir/");
-  await expect(page.locator(".super-app-hand")).toBeVisible();
+  if (info.project.name === "mobile") await expect(page.locator(".super-app-hand")).toBeHidden();
+  else await expect(page.locator(".super-app-hand")).toBeVisible();
   await expect(page.locator(".super-app-highlights strong")).toHaveText(["4.8", "50000", "+1000"]);
   await expect(page.locator("#app .app-device")).toHaveCount(2);
   const apk = page.locator("#app .app-showcase-actions").getByRole("button", { name: /دریافت نسخه اندروید/ });
@@ -34,4 +35,22 @@ test("team route is a dedicated director-and-team gallery without general FAQ", 
   await expect(page.locator("main")).not.toContainText("پرسش‌های متداول");
   await expect(page.locator(".team-showcase article").first()).toHaveCSS("background-image", /linear-gradient/);
   await page.locator(".team-showcase").screenshot({ path: `coverage/browser/team-reference-${info.project.name}.png` });
+});
+
+test("app and fleet hide only hero art on mobile and restore it on tablet", async ({ page }) => {
+  for (const path of ["/app", "/safir"]) {
+    await page.goto(path);
+    for (const width of [320, 390, 767, 768, 1366]) {
+      await page.setViewportSize({ width, height: 900 });
+      const art = page.locator(".super-app-hero-art");
+      if (width < 768) {
+        await expect(art).toBeHidden();
+        expect(await art.evaluate(el => el.getBoundingClientRect().height)).toBe(0);
+      } else await expect(art).toBeVisible();
+      await expect(page.locator(".super-app-hero h1")).toBeVisible();
+      await expect(page.locator(".super-app-highlights")).toBeVisible();
+      await expect(page.locator("#app .app-phone-front")).toHaveCount(1);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+    }
+  }
 });
