@@ -32,6 +32,6 @@ test("team route is a dedicated director-and-team gallery without general FAQ", 
   await expect(page.locator(".team-showcase article")).toHaveCount(4);
   await expect(page.locator("main")).toContainText("خانواده خودرو چاره");
   await expect(page.locator("main")).not.toContainText("پرسش‌های متداول");
-  await expect(page.locator(".team-showcase article").first()).toHaveCSS("background-color", "rgb(255, 255, 255)");
+  await expect(page.locator(".team-showcase article").first()).toHaveCSS("background-image", /linear-gradient/);
   await page.locator(".team-showcase").screenshot({ path: `coverage/browser/team-reference-${info.project.name}.png` });
 });
