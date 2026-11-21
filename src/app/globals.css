@@ -1160,15 +1160,15 @@ footer { background-color:#040b19!important; border-top:1px solid var(--line); }
 }
 
 /* Dedicated app landing: reference-inspired warm hero and exact product screen. */
-.super-app-hero{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1.15fr 1fr;align-items:center;min-height:580px;max-width:1366px;margin:24px auto 0;border-radius:0 0 48px 48px;background:linear-gradient(110deg,#ffc80c,#ffe17a);color:#202020}
+.super-app-hero{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1.15fr 1fr;align-items:center;min-height:580px;max-width:1366px;margin:24px auto 0;border-radius:0 0 48px 48px;background:radial-gradient(ellipse at 90% 0,#164581 0,transparent 65%),linear-gradient(110deg,#0c2038,#0B2D6B);color:#fff}
 .super-app-hero-copy{padding:55px 52px 0;z-index:2}
 .super-app-kicker{font-size:30px;font-weight:950}
-.super-app-hero h1{margin-top:20px;font-size:clamp(28px,3.1vw,46px);font-weight:950;line-height:1.8;color:#202020}
+.super-app-hero h1{margin-top:20px;font-size:clamp(28px,3.1vw,46px);font-weight:950;line-height:1.8;color:#fff}
 .super-app-lead{margin-top:22px;font-size:19px;line-height:2.2}
 .super-app-hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
 .super-app-primary,.super-app-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:12px 27px;border-radius:16px;font-size:14px;font-weight:800}
-.super-app-primary{background:#0b2d6b;color:white;box-shadow:0 5px 12px #0b2d6b25}
-.super-app-secondary{border:1px solid #0b2d6b;color:#0b2d6b}
+.super-app-primary{background:#ff7a00;color:#07152f;box-shadow:0 5px 12px #0b2d6b25}
+.super-app-secondary{border:1px solid #adc7eb99;color:#fff}
 .super-app-highlights{display:flex;gap:0;justify-content:space-around;margin:40px -52px 0 -20px;padding:28px 24px;border-radius:70px 0 0 0;background:#202020;color:#fff;font-size:13px;font-weight:800}
 .super-app-highlights span{padding:10px 16px;border-left:1px solid #ffffff35}.super-app-highlights span:last-child{border:0}
 .super-app-hero-art{position:relative;display:flex;align-items:flex-end;justify-content:center;height:580px;padding-top:40px}
@@ -1192,3 +1192,15 @@ footer { background-color:#040b19!important; border-top:1px solid var(--line); }
 .team-showcase>div.grid article{border-radius:14px;padding:10px}
 .team-showcase>div.grid article p:last-child{display:none}
 @media(max-width:767px){.team-showcase.site-container{padding-top:32px;padding-bottom:35px}.team-showcase>article{grid-template-columns:1fr;padding:20px;gap:22px}.team-showcase>article>div.relative{order:0;height:230px}.team-showcase>div.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.team-showcase>div.grid article .h-64{height:190px}.team-showcase article span.absolute{font-size:8px;right:6px;bottom:8px;padding:4px 8px}.team-showcase article h3{font-size:12px}.team-showcase article p{font-size:10px}}
+
+/* Handheld product visual; original supplied app pixels composited into the phone. */
+.super-app-kicker{color:#ffb16a;font-size:22px}
+.super-app-hero-art{align-items:flex-end}
+.super-app-hand{position:relative;z-index:2;width:390px;height:auto;max-width:95%;margin-bottom:-55px;mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent)}
+.super-app-highlights{position:relative;flex-wrap:wrap;row-gap:14px;background:#061326e8;border-top:1px solid #ffffff20;padding:24px 24px 14px}
+.super-app-highlights>div{flex:1;text-align:center;border-left:1px solid #ffffff30;padding:0 12px}
+.super-app-highlights>div:nth-child(3){border-left:0}
+.super-app-highlights strong{display:block;font-size:32px;line-height:1.4;font-weight:950;color:#fff}
+.super-app-highlights span{display:block;border:0!important;font-size:12px;font-weight:400;color:#dce7f7;padding:6px 0!important}
+.super-app-highlights small{flex-basis:100%;text-align:center;font-size:9px;font-weight:400;color:#9daec7}
+@media(max-width:767px){.super-app-kicker{font-size:16px}.super-app-hand{width:300px;margin-bottom:-90px}.super-app-highlights{padding:18px 7px 12px}.super-app-highlights>div{padding:0 6px}.super-app-highlights strong{font-size:25px}.super-app-highlights span{font-size:10px}}

@@ -19,7 +19,7 @@ test("welcome reappears after refresh even with a previous session marker", asyn
 });
 
 test("app, fleet and team pages show current content without overflow or broken images", async ({ page }) => {
-  for (const [path, title] of [["/app", "دستیار هوشمند خودروی شما"], ["/safir", "اپلیکیشن سفیران خودرو چاره؛ فرصت‌های بیشتر برای همکاری"], ["/team", "تیم ما؛ خودرو چاره"]]) {
+  for (const [path, title] of [["/app", "سوپر اپلیکیشن خودرو چاره"], ["/safir", "اپلیکیشن سفیران خودرو چاره؛ فرصت‌های بیشتر برای همکاری"], ["/team", "تیم ما؛ خودرو چاره"]]) {
     await page.goto(path);
     await expect(page.locator("h1")).toHaveText(title);
     if (path === "/app") {

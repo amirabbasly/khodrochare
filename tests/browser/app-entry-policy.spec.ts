@@ -12,10 +12,12 @@ test("only explicitly named PWA links enter the app directly", async ({ page }) 
 test("app page contains only the new hero and app showcase; APK never falls back to a guide", async ({ page }, info) => {
   await page.goto("/app");
   await expect(page.locator("main > section")).toHaveCount(2);
-  await expect(page.locator("h1")).toHaveText("دستیار هوشمند خودروی شما");
+  await expect(page.locator("h1")).toHaveText("سوپر اپلیکیشن خودرو چاره");
   await expect(page.locator("main")).not.toContainText("پاسخ کوتاه");
   await expect(page.locator("main")).not.toContainText("به‌روزرسانی محتوای صفحه");
   await expect(page.locator(".super-app-hero").getByRole("link", { name: "ورود به اپلیکیشن PWA" })).toHaveAttribute("href", "https://app.khodrochare.ir/");
+  await expect(page.locator(".super-app-hand")).toBeVisible();
+  await expect(page.locator(".super-app-highlights strong")).toHaveText(["4.8", "50000", "+1000"]);
   await expect(page.locator("#app .app-device")).toHaveCount(2);
   const apk = page.locator("#app .app-showcase-actions").getByRole("button", { name: /دریافت نسخه اندروید/ });
   const download = page.locator('#app a[download]');
