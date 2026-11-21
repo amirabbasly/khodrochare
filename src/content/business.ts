@@ -1,8 +1,13 @@
 export const businessFacts = {
+  // Legal identity and existing director/license/address confirmed by the owner.
+  legalName: "سیما رایگان ایرانیان",
+  registeredBrand: "خودرو چاره",
+  managingDirector: "علیرضا سلیمانی",
+  licenseDescription: "جواز یکتا و فعالیت کشوری امداد خودرو",
   baleUrl: "https://ble.ir/khodrochare",
   coverageSummary: "تهران، کرج، گیلان، مازندران و گلستان",
-  emergencyPhone: "09123022064",
-  complaintPhone: "09123022064",
+  emergencyPhone: "02182801043",
+  complaintPhone: "02182801043",
   email: "info@khodrochare.ir",
   address: "تهران، خیابان آزادی، جنب تعمیرات یدکی چاره، پلاک ۱۲۱، واحد ۱۴",
   availability: "پاسخ‌گویی ۲۴ ساعته در تمام ۷ روز هفته",

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const GAPGPT_API_URL = "https://api.gapgpt.app/v1/chat/completions";
 const GAPGPT_API_KEY = process.env.GAPGPT_API_KEY;
-const SUPPORT_PHONE_NUMBER = "09123022064";
+const SUPPORT_PHONE_NUMBER = "02182801043";
 const SUPPORT_SUFFIX = `بهتر است برای پشتیبانی بهتر با شماره تماس ${SUPPORT_PHONE_NUMBER} تماس بگیرید.`;
 
 const SYSTEM_PROMPT = `

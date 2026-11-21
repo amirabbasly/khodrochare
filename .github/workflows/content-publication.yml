@@ -1,0 +1,60 @@
+name: Reviewed content publication
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 5 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: reviewed-content-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: vars.CONTENT_PUBLICATION_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: arena/c49e5954-khodrochare
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/content-pipeline.ts publish
+      - run: npm run lint && npm run test:unit && npm run build && npm run test:seo
+      - run: npm run indexing:export
+      - name: Publish only tested content on the configured branch
+        run: |
+          git add src/content/generated/articles.json docs/google-indexing-urls.txt
+          if ! git diff --cached --quiet; then
+            git config user.name 'Content publication'
+            git config user.email 'content-publication@users.noreply.github.com'
+            git commit -m 'Publish reviewed scheduled content'
+            git push origin HEAD:arena/c49e5954-khodrochare
+          fi
+  draft:
+    if: vars.CONTENT_AI_ENABLED == 'true'
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: arena/c49e5954-khodrochare
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/content-pipeline.ts draft
+        env:
+          CONTENT_AI_URL: ${{ secrets.CONTENT_AI_URL }}
+          CONTENT_AI_KEY: ${{ secrets.CONTENT_AI_KEY }}
+          CONTENT_AI_MODEL: ${{ vars.CONTENT_AI_MODEL }}
+          CONTENT_TOPIC: ${{ vars.CONTENT_TOPIC }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: editorial-draft-for-source-review
+          path: content/queue/*.json
+          retention-days: 14
