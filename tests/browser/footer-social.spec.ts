@@ -5,7 +5,7 @@ test("footer social links use app icons with accessible names and unchanged dest
   await page.goto("/");
   const nav = page.locator("footer").getByRole("navigation", { name: "شبکه‌های اجتماعی خودرو چاره" });
   await nav.scrollIntoViewIfNeeded();
-  for (const [name, href] of [["اینستاگرام خودرو چاره", "https://www.instagram.com/khodrochare"], ["کانال خودرو چاره در بله", "https://ble.ir/khodrochare"]]) {
+  for (const [name, href] of [["دانلود اپلیکیشن از مایکت", "https://myket.ir/app/com.khodrochare.app"], ["اینستاگرام خودرو چاره", "https://www.instagram.com/khodrochare_official/"], ["کانال خودرو چاره در بله", "https://ble.ir/khodrochare"]]) {
     const link = nav.getByRole("link", { name, exact: true });
     await expect(link).toHaveAttribute("href", href);
     await expect(link).toHaveAttribute("target", "_blank");

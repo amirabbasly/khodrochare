@@ -11,7 +11,7 @@ test("new contact and customer Myket links are visible without horizontal overfl
   await expect(page.locator('a[href="tel:09123022064"]')).toHaveCount(0);
   const footer = page.locator("footer");
   await footer.scrollIntoViewIfNeeded();
-  await expect(footer.getByRole("link", { name: "دانلود از مایکت", exact: true })).toHaveAttribute("href", customerMyketUrl);
+  await expect(footer.getByRole("link", { name: "دانلود اپلیکیشن از مایکت", exact: true })).toHaveAttribute("href", customerMyketUrl);
   await expect(page.locator(`#app a[href="${customerMyketUrl}"]`)).toHaveCount(1);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   const schema = await page.locator('script[type="application/ld+json"]').allTextContents();

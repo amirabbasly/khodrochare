@@ -1,3 +1,4 @@
+import { AppShowcaseBanner } from "@/components/home/app-trust-banners";
 import { AppDownloads } from "@/components/site/app-downloads";
 import { onlineContentRelease } from "@/content/online-assistance";
 import { customerAppFeatures, fleetAppFeatures } from "@/content/app-features";
@@ -7,14 +8,15 @@ import { StructuredData } from "@/components/seo/structured-data";
 import { SubpageShell } from "@/components/site/subpage-shell";
 import { AnswerBox, FinalContact, LandingHeader, LandingSchemas, LinkGrid, Questions, Section } from "@/components/seo/landing-ui";
 import { seoMetadata, siteUrl } from "@/seo/metadata";
-export const metadata = seoMetadata({ title: "اپلیکیشن خودرو چاره | ورود مشتریان و ناوگان سفیران", description: "دسترسی به اپلیکیشن اصلی خودرو چاره برای درخواست امداد آنلاین و سامانه ناوگان سفیران؛ لینک‌های رسمی، راهنمای ورود و نصب نسخه وب روی Android و iPhone.", path: "/app", image: "/images/app-premium-mockup.webp" });
+export const metadata = seoMetadata({ title: "سوپر اپلیکیشن خودرو چاره | امکانات، دانلود و نصب", description: "دسترسی به اپلیکیشن اصلی خودرو چاره برای درخواست امداد آنلاین و سامانه ناوگان سفیران؛ لینک‌های رسمی، راهنمای ورود و نصب نسخه وب روی Android و iPhone.", path: "/app", image: "/images/app-screens/customer-home-20261121.webp" });
 export default function Page() {
   return <SubpageShell>
     <LandingSchemas path="/app" title="اپلیکیشن خودرو چاره؛ مشتریان و سفیران" description="دو مسیر رسمی و مجزا برای مشتریان خدمات خودرو و ناوگان سفیران." />
     <StructuredData data={{ "@context": "https://schema.org", "@type": "WebApplication", name: "اپلیکیشن مشتریان خودرو چاره", url: customerAppUrl, operatingSystem: "Web", applicationCategory: "UtilitiesApplication", description: "ورود مشتریان برای ادامه درخواست خدمات خودرو در اپلیکیشن خودرو چاره.", publisher: { "@id": `${siteUrl}/#organization` } }} />
-    <LandingHeader title="اپلیکیشن خودرو چاره؛ مسیر مشتریان و سفیران" intro="مشتری هستید و به امداد نیاز دارید؟ اپلیکیشن اصلی را باز کنید. امدادگر، خودروبر یا همکار ناوگان هستید؟ وارد سامانه سفیران شوید. هر دو مسیر روی دامنه رسمی خودرو چاره و با ورود یا ثبت‌نام در دسترس‌اند." image="/images/app-premium-mockup.webp" crumbs={[{ label: "اپلیکیشن‌ها" }]} primaryAction={{ label: "ورود به اپلیکیشن اصلی", href: customerAppUrl }} />
+    <LandingHeader title="سوپر اپلیکیشن خودرو چاره" intro="مشتری هستید و به امداد نیاز دارید؟ اپلیکیشن اصلی را باز کنید. امدادگر، خودروبر یا همکار ناوگان هستید؟ وارد سامانه سفیران شوید. هر دو مسیر روی دامنه رسمی خودرو چاره و با ورود یا ثبت‌نام در دسترس‌اند." image="/images/app-screens/customer-home-20261121.webp" crumbs={[{ label: "اپلیکیشن‌ها" }]} primaryAction={{ label: "ورود به اپلیکیشن اصلی", href: customerAppUrl }} />
     <AnswerBox updatedAt={onlineContentRelease}><p>اپلیکیشن اصلی مشتریان در <a href={customerAppUrl} className="font-bold text-brand-orange underline">app.khodrochare.ir</a> و اپلیکیشن ناوگان در <a href={fleetAppUrl} className="font-bold text-brand-orange underline">safir.khodrochare.ir</a> فعال‌اند. نصب میان‌بر روی دامنه سایت معرفی، جای ورود به این اپلیکیشن‌ها را نمی‌گیرد. بخش دانلود مستقیم اندروید در پایین همین معرفی قرار دارد؛ نسخه وب روی Android و iPhone قابل استفاده است.</p></AnswerBox>
-    <AppDownloads />
+    <AppShowcaseBanner />
+    <AppDownloads apps={["customer"]} />
     <Section title="اپ مناسب خود را انتخاب کنید"><div className="grid gap-5 md:grid-cols-2"><article className="rounded-xl border border-slate-200 bg-white/60 p-5"><h3 className="text-lg font-black text-ink">اپلیکیشن اصلی مشتریان</h3><p className="mt-3">برای شروع درخواست امداد خودرو آنلاین، انتخاب نیاز خودرو و ادامه هماهنگی از حساب مشتری استفاده کنید. موقعیت، مدل و نشانه خرابی را آماده داشته باشید؛ شرایط و وضعیت قابل مشاهده در خود اپلیکیشن ملاک است.</p><a href={customerAppUrl} className="mt-4 inline-flex min-h-12 items-center rounded-lg bg-brand-orange px-4 font-black text-white">ورود و نصب اپلیکیشن مشتریان</a></article><article className="rounded-xl border border-slate-200 bg-white/60 p-5"><h3 className="text-lg font-black text-ink">اپلیکیشن ناوگان سفیران</h3><p className="mt-3">برای ورود یا ثبت‌نام امدادگران و همکاران ناوگان، سامانه سفیران را انتخاب کنید. ساخت حساب به معنی تأیید همکاری یا تضمین تعداد مأموریت نیست؛ شرایط عضویت و بررسی مدارک در مسیر همکاری مشخص می‌شوند.</p><a href={fleetAppUrl} className="mt-4 inline-flex min-h-12 items-center rounded-lg border border-slate-300 px-4 font-black text-ink">ورود و ثبت‌نام سفیران</a></article></div></Section>
     <Section id="features" title="قابلیت‌های اپلیکیشن خودرو چاره و سفیران">
       <p>اپ مشتریان برای دریافت خدمت و سامانه سفیران برای همکاری ناوگان است. امکانات قابل مشاهده حساب و شرایط طرح‌ها را در همان سامانه بررسی کنید.</p>

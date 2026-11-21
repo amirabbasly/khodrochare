@@ -1,3 +1,4 @@
+import { FleetShowcase } from "@/components/site/fleet-showcase";
 import { AppDownloads } from "@/components/site/app-downloads";
 import Link from "next/link";
 import { fleetAppUrl } from "@/content/app-links";
@@ -31,6 +32,8 @@ export default function Page() {
         <p className="mt-4 text-xs leading-7 text-slate-300">نسخه وب روی دامنه رسمی safir.khodrochare.ir باز می‌شود؛ ثبت‌نام و بررسی شرایط همکاری در همان سامانه انجام می‌شود.</p>
       </div>
     </section>
+    <FleetShowcase />
+    <Section title="چطور از همکاری درآمد کسب کنید؟"><ol className="list-inside list-decimal space-y-3"><li>حساب سفیر بسازید و مدارک، تجهیزات و شهر فعالیت را اعلام کنید.</li><li>پس از بررسی و تأیید همکاری، فرصت متناسب با توان و محدوده خود را بررسی کنید.</li><li>پیش از پذیرش، شرح خدمت، هزینه‌ها و شرایط انجام و تسویه را مشخص کنید.</li><li>خدمت را با رعایت ایمنی انجام دهید و وضعیت و رسیدهای مرتبط را ثبت و پیگیری کنید.</li></ol><p>برای برآورد درآمد خالص، هزینه رفت‌وبرگشت، سوخت، تعمیرات، بیمه و هر کارمزد توافق‌شده را از دریافتی کم کنید. مبلغ و زمان تسویه تابع توافق همان همکاری است.</p></Section>
     <Section id="benefits" title="با نصب اپلیکیشن سفیران چه مزایایی دارید؟">
       <p>مزایای زیر بر اساس طرح اعلام‌شده خودرو چاره معرفی می‌شوند. بهره‌مندی از هر مورد به تأیید همکاری، شرایط همان طرح و مدارک موردنیاز بستگی دارد؛ جزئیات و هزینه احتمالی را پیش از اقدام از پشتیبانی دریافت کنید.</p>
       <div className="grid gap-4 md:grid-cols-2">{fleetBenefits.map((benefit, index) => <article key={benefit.title} data-fleet-benefit className="rounded-2xl border border-orange-100 bg-white/70 p-6 shadow-sm backdrop-blur-md">

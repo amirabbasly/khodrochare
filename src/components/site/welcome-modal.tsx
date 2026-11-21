@@ -8,29 +8,20 @@ import { useEffect, useState } from "react";
 import { Icon } from "@/components/home/home-ui";
 import { businessFacts } from "@/content/business";
 
-const storageKey = "khodrochare:welcome-seen:v2";
-// Business request (2026-09-14): surface the contact card sooner. It stays a small,
-// dismissible, non-modal corner card (no overlay, scroll lock or focus stealing), so
-// it is not an intrusive interstitial; all display guards below still apply.
+// Show once per document load, including refresh; client navigation does not repeat.
 const showAfterMs = 1500;
 // If storage is blocked, still avoid repeating the message on client-side navigation.
 let seenInThisDocument = false;
 
 /**
  * Small, non-blocking welcome dialog: no full-screen overlay, scroll lock or focus
- * stealing. Display once per tab session, after a delay, without interrupting forms.
+ * stealing. Display once per document load, after a delay, without interrupting forms.
  */
 export function WelcomeModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (seenInThisDocument) return;
-    try {
-      if (window.sessionStorage.getItem(storageKey) === "1") return;
-    } catch {
-      // The in-memory guard above also works when browser storage is unavailable.
-    }
-
     let timer: number;
     const revealWhenIdle = () => {
       const editing = document.activeElement?.matches("input, textarea, select, [contenteditable='true'], [role='textbox']");
@@ -40,11 +31,6 @@ export function WelcomeModal() {
         return;
       }
       seenInThisDocument = true;
-      try {
-        window.sessionStorage.setItem(storageKey, "1");
-      } catch {
-        // Showing and dismissing the dialog must not depend on storage permissions.
-      }
       setOpen(true);
     };
 

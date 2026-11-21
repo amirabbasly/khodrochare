@@ -29,6 +29,7 @@ const staticPageUpdatedAt = new Date("2026-08-27T00:00:00.000Z");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [
+    { url: absoluteUrl("/team"), changeFrequency: "monthly", priority: 0.5 },
     { url: absoluteUrl("/safir"), lastModified: appContentUpdatedAt, changeFrequency: "monthly", priority: 0.7 },
     { url: absoluteUrl("/battery"), lastModified: appContentUpdatedAt, changeFrequency: "monthly", priority: 0.8 },
     { url: absoluteUrl("/"), lastModified: siteUpdatedAt, changeFrequency: "daily", priority: 1, images: [absoluteUrl("/images/hero-roadside.webp")] },

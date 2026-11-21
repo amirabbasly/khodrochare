@@ -84,7 +84,7 @@ test("service enrichment does not introduce duplicate FAQ questions or missing l
   }
 });
 test("sitemap dates change only for substantively updated pages and each new URL is canonical", () => {
-  const entries = sitemap(); assert.equal(entries.length, 475);
+  const entries = sitemap(); assert.equal(entries.length, 476); assert.ok(entries.some(entry => entry.url === absoluteUrl("/team")));
   const byUrl = new Map(entries.map((entry) => [entry.url, entry]));
   for (const tool of tools) assert.ok(byUrl.has(absoluteUrl(`/tools/${tool.slug}`)));
   assert.equal(new Date(byUrl.get(absoluteUrl("/pricing"))!.lastModified!).toISOString().slice(0, 10), "2026-11-01");

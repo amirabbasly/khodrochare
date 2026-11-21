@@ -5,9 +5,9 @@ import { customerAppFeatures, fleetAppFeatures } from "../../src/content/app-fea
 import { onlineHubFaqs as onlineRequestFaqs } from "../../src/content/online-assistance";
 
 test("separate app features have no fabricated dispatch or tracking promises", () => {
-  assert.equal(customerAppFeatures.length, 3);
+  assert.equal(customerAppFeatures.length, 6);
   assert.equal(fleetAppFeatures.length, 3);
-  assert.equal(new Set([...customerAppFeatures, ...fleetAppFeatures].map(f => f.title)).size, 6);
+  assert.equal(new Set([...customerAppFeatures, ...fleetAppFeatures].map(f => f.title)).size, 9);
   assert.ok(fleetAppFeatures.some(f => f.description.includes("تأیید مدارک")));
 });
 test("online FAQs answer real intake questions without duplicate entries", () => {
@@ -17,8 +17,8 @@ test("online FAQs answer real intake questions without duplicate entries", () =>
 });
 test("header exposes both official app destinations and accessible feature links", async () => {
   const header = await readFile("src/components/home/site-header.tsx", "utf8");
-  assert.equal((header.match(/href=\{fleetAppUrl\}/g) ?? []).length, 2);
-  assert.equal((header.match(/href="\/app#features"/g) ?? []).length, 2);
+  assert.equal((header.match(/href="\/safir"/g) ?? []).length, 2);
+  assert.equal((header.match(/href="\/app"/g) ?? []).length, 2);
   assert.ok(!header.includes("<AssistanceMegaMenu"));
   const navigation = await readFile("src/components/home/home-content.ts", "utf8");
   assert.ok(navigation.includes("جمعه بازار لوازم یدکی") && navigation.includes("تالار خرید و فروش خودرو"));

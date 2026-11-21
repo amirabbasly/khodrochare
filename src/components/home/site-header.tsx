@@ -1,13 +1,12 @@
 "use client";
 
-import { customerAppUrl, fleetAppUrl } from "@/content/app-links";
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { NavAmbientLight } from "./nav-ambient-light";
 import { navLinks } from "./home-content";
-import { BrandMark, ButtonLink, Icon } from "./home-ui";
+import { BrandMark, Icon } from "./home-ui";
 
 export function ResponsiveSiteHeader() {
   const [open, setOpen] = useState(false);
@@ -91,11 +90,9 @@ export function ResponsiveSiteHeader() {
 
       <div className="hidden border-t border-white/10 xl:block">
         <nav className="app-navigation header-container flex flex-wrap items-center justify-start gap-3 py-2" aria-label="اپلیکیشن‌های خودرو چاره">
-          <Link href="/app#features" className="inline-flex min-h-11 items-center rounded-lg border border-white/25 px-4 text-xs font-bold hover:bg-white/10">قابلیت‌های اپلیکیشن‌ها</Link>
-          <Link href={customerAppUrl} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/35 px-4 text-xs font-bold hover:bg-white/10"><Icon name="download" size={17} /> اپلیکیشن خودرو چاره</Link>
-          <Link href={fleetAppUrl} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/35 px-4 text-xs font-bold hover:bg-white/10"><Icon name="truck" size={17} /> اپلیکیشن سفیران</Link>
-          <Link href="/app#downloads" className="inline-flex min-h-11 items-center rounded-lg border border-white/25 px-4 text-xs font-bold">دانلود اندروید مشتریان و سفیران</Link>
-          <ButtonLink href={customerAppUrl} className="min-h-11 px-4 text-xs">درخواست خدمت</ButtonLink>
+          <Link href="/app" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">سوپر اپلیکیشن خودرو چاره</Link>
+          <Link href="/safir" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">ثبت نام سفیران خودرو چاره</Link>
+          <Link href="/about" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">درباره ما</Link>
         </nav>
       </div>
 
@@ -120,11 +117,9 @@ export function ResponsiveSiteHeader() {
           ))}
         </nav>
         <div className="grid gap-2 border-t border-white/10 p-4">
-          <Link href="/app#features" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold">قابلیت‌های اپلیکیشن‌ها</Link><Link href="/app#downloads" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center rounded-xl border border-white/20 px-4 text-sm font-bold">دانلود اندروید مشتریان و سفیران</Link>
-          <Link href={customerAppUrl} onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="download" size={17} /> اپلیکیشن خودرو چاره</Link>
-          <Link href={fleetAppUrl} onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-white/25 text-sm font-bold"><Icon name="truck" size={17} /> اپلیکیشن سفیران</Link>
-          <ButtonLink href={customerAppUrl} className="w-full" >درخواست خدمت</ButtonLink>
-          <a href="tel:02182801043" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/25 text-sm font-bold"><Icon name="phone" size={17} /> تماس فوری</a>
+          <Link href="/app" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">سوپر اپلیکیشن خودرو چاره</Link>
+          <Link href="/safir" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">ثبت نام سفیران خودرو چاره</Link>
+          <Link href="/about" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">درباره ما</Link>
         </div>
       </aside>
     </header>

@@ -11,7 +11,7 @@ import { seoRegions } from "../../src/seo/locations";
 export const indexablePaths = [
   ...assistanceRegions.flatMap(region => [`/${region.slug}/brands`, ...brandProfiles.map(brand => regionalBrandPath(region.slug, brand.slug))]),
   "/tools", ...tools.map((tool) => `/tools/${tool.slug}`),
-  "/", "/services", "/coverage", "/blog", "/rules", "/app", "/assistant", "/about", "/contact", "/pricing",
+  "/", "/services", "/coverage", "/blog", "/rules", "/app", "/assistant", "/about", "/team", "/contact", "/pricing",
   "/امداد-خودرو", "/امداد-خودرو-آنلاین", "/شمال", "/brands", "/roads", "/editorial-policy", "/privacy",
   "/partners", "/press", "/licenses", "/battery", "/safir",
   ...allCities.flatMap((city) => [`/${city.slug}`, ...persianServiceRoutes.map((route) => `/${city.slug}/${route.slug}`)]),

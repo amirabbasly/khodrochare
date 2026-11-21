@@ -18,6 +18,6 @@ test("site contact and structured phone use the new landline consistently",()=>{
 test("customer marketplace and APK destinations are separate and explicit",()=>{
  assert.equal(customerMyketUrl,"https://myket.ir/app/com.khodrochare.app");
  for(const file of ["src/components/site/site-footer.tsx","src/components/site/app-downloads.tsx","src/components/home/app-trust-banners.tsx"])assert.ok(readFileSync(file,"utf8").includes("href={customerMyketUrl}"),file);
- const footer=readFileSync("src/components/site/site-footer.tsx","utf8");assert.ok(footer.includes("customerRelease.available"));
+ const footer=readFileSync("src/components/site/site-footer.tsx","utf8");assert.ok(footer.includes("/images/social/myket.svg"));assert.ok(!footer.includes("راهنمای دانلود مستقیم"));
  const downloads=readFileSync("src/components/site/app-downloads.tsx","utf8");assert.ok(downloads.includes('app === "customer" &&'));
 });
