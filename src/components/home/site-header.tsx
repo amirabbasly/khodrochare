@@ -92,6 +92,8 @@ export function ResponsiveSiteHeader() {
         <nav className="app-navigation header-container flex flex-wrap items-center justify-start gap-3 py-2" aria-label="اپلیکیشن‌های خودرو چاره">
           <Link href="/app" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">سوپر اپلیکیشن خودرو چاره</Link>
           <Link href="/safir" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">ثبت نام سفیران خودرو چاره</Link>
+          <Link href="/partners" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">طرح نمایندگان خودرو چاره</Link>
+          <Link href="/imports" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/25 px-4 text-xs font-bold hover:bg-white/10">واردات خودرو</Link>
           <Link href="/about" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-brand-orange bg-brand-orange text-[#07152f] px-4 text-xs font-bold hover:brightness-110">درباره ما</Link>
           <Link href="/team" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-brand-orange bg-brand-orange text-[#07152f] px-4 text-xs font-bold hover:brightness-110">تیم ما</Link>
         </nav>

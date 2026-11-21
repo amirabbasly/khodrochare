@@ -4,8 +4,8 @@ test("header exposes the four requested secondary destinations", async ({ page, 
   await page.goto("/");
   if (isMobile) await page.getByRole("button", { name: "باز کردن منوی اصلی" }).click();
   const scope = isMobile ? page.locator("#mobile-navigation > div").last() : page.locator(".app-navigation");
-  await expect(scope.locator("a")).toHaveText(["سوپر اپلیکیشن خودرو چاره", "ثبت نام سفیران خودرو چاره", "درباره ما", "تیم ما"]);
-  for (const [i, href] of ["/app", "/safir", "/about", "/team"].entries()) await expect(scope.locator("a").nth(i)).toHaveAttribute("href", href);
+  await expect(scope.locator("a")).toHaveText(isMobile ? ["سوپر اپلیکیشن خودرو چاره", "ثبت نام سفیران خودرو چاره", "درباره ما", "تیم ما"] : ["سوپر اپلیکیشن خودرو چاره", "ثبت نام سفیران خودرو چاره", "طرح نمایندگان خودرو چاره", "واردات خودرو", "درباره ما", "تیم ما"]);
+  for (const [i, href] of (isMobile ? ["/app", "/safir", "/about", "/team"] : ["/app", "/safir", "/partners", "/imports", "/about", "/team"]).entries()) await expect(scope.locator("a").nth(i)).toHaveAttribute("href", href);
 });
 
 test("welcome reappears after refresh even with a previous session marker", async ({ page }) => {

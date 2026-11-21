@@ -790,7 +790,7 @@ html[data-scroll-motion="on"] [data-aos].aos-init.aos-animate { opacity:1; trans
 @media(max-width:767px) {
  body { padding-bottom:calc(88px + env(safe-area-inset-bottom,0px)); }
  html { scroll-padding-bottom:calc(100px + env(safe-area-inset-bottom,0px)); }
- .mobile-bottom-nav { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); position:fixed; bottom:0; right:0; left:0; z-index:70; min-height:80px; padding:5px 5px calc(5px + env(safe-area-inset-bottom,0px)); border-top:1px solid #adc2e840; background:#0b1629fa; box-shadow:0 -8px 25px #0004; }
+ .mobile-bottom-nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); position:fixed; bottom:0; right:0; left:0; z-index:70; min-height:80px; padding:5px 5px calc(5px + env(safe-area-inset-bottom,0px)); border-top:1px solid #adc2e840; background:#0b1629fa; box-shadow:0 -8px 25px #0004; }
  .mobile-bottom-nav a { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-width:0; min-height:70px; border-radius:10px; color:#dae6f7; font-size:9px; font-weight:700; text-align:center; line-height:1.7; }
  .mobile-bottom-nav a img { width:40px; height:40px; border-radius:10px; }
  .mobile-bottom-nav a[aria-current="page"] { background:#f3a15618; color:#ffb876; box-shadow:inset 0 2px #ffb16a; }
@@ -1249,3 +1249,25 @@ footer { background-color:#040b19!important; border-top:1px solid var(--line); }
 .about-service-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:30px}.about-service-links a{padding:10px 14px;min-height:44px;font-size:12px;color:#c4d3e9;background:#ffffff08;border-radius:10px}
 .about-page button:focus-visible,.about-page a:focus-visible{outline:2px solid #ffad66;outline-offset:4px}
 @media(max-width:767px){.about-block{padding:32px 20px}.about-split{grid-template-columns:minmax(0,1fr);gap:24px}.about-photo,.about-intro-photo{min-height:240px}.about-split p:not(.about-overline){font-size:13px}.about-page .hero-stats{padding:22px 4px}.about-page .hero-stats dd{font-size:24px}.about-step-nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.about-step-nav button{font-size:11px;min-height:70px}.about-story-panel{padding:20px;min-height:0}.about-story-panel .about-photo{min-height:230px}.about-license-grid{grid-template-columns:minmax(0,1fr)}.about-purpose-nav button{padding:10px 20px}.about-actions a{flex:1;min-width:125px}.about-intro>.about-split{margin-top:22px}}
+
+/* Screenshot-aligned about details: bottom road navigator, stacked credentials and partner strip. */
+.about-page .about-story-panel{background:transparent;border:0;padding:20px 0;min-height:340px}
+.about-page .about-story-panel .about-photo{min-height:270px;max-width:340px;width:100%;justify-self:center}
+.about-page .about-step-nav{display:flex;gap:0;align-items:center;justify-content:space-between;margin:38px 0 0}
+.about-page .about-step-nav button{flex:1;min-width:0;flex-direction:row;gap:8px;border:0;border-radius:0;background:transparent;padding:10px 0;font-weight:700}
+.about-page .about-step-nav button .about-road-label{width:auto;height:auto;display:block;border:0;border-radius:0;white-space:nowrap;background:transparent;color:inherit;font-size:12px}
+.about-page .about-step-nav button .about-road-segment{position:relative;display:block;flex:1;width:auto;height:10px;border:0;border-radius:0;background:linear-gradient(90deg,#adc7eb55,#adc7eb20)}
+.about-road-segment:after{content:"";position:absolute;inset:4px 0;background:repeating-linear-gradient(90deg,transparent 0 10px,#dce7f7 10px 24px,transparent 24px 34px)}
+.about-page .about-step-nav button[aria-pressed=true] .about-road-segment{background:#ff7a00}
+.about-page .about-step-nav button:last-child{flex:.75}.about-page .about-step-nav button:last-child .about-road-segment{display:none}
+.about-page .about-availability-note{font-size:12px!important;line-height:2.1!important;color:#a7bbd7!important}
+.about-credentials-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start;gap:48px;margin-top:36px}
+.about-license-list{display:grid;gap:12px}.about-license-list>a{display:flex;flex-direction:row-reverse;align-items:center;gap:20px;min-height:92px;padding:16px 20px;border:1px solid #adc7eb30;border-radius:20px;background:#0d244388}
+.about-license-list>a>span:last-child{flex:1;min-width:0}.about-license-list strong{font-size:14px;font-weight:700;color:#edf4ff;line-height:2}.about-license-list small{display:block;font-size:11px;line-height:2;color:#a7bbd7;margin-top:4px}
+.about-license-symbol{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:14px;background:#ff7a0015;color:#ffad66;font-size:28px;border:1px solid #ff7a0040}
+.about-trust-copy p{font-size:14px;line-height:2.4;color:#c4d3e9;margin-top:18px}.about-trust-copy>a{display:inline-flex;align-items:center;min-height:44px;color:#ffb16a;font-size:12px;font-weight:800;margin-top:16px}
+.about-page .about-partners{max-width:none;background:linear-gradient(110deg,#0b2d6b88,#ff7a000d);border-block:1px solid #adc7eb20;padding-inline:max(20px,calc((100% - 1104px)/2))}
+.about-partner-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;margin:36px auto;max-width:1104px;align-items:start}
+.about-partner-strip>div{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;min-height:64px;color:#dce7f7}
+.about-partner-strip span{font-size:34px;color:#ffad66}.about-partner-strip strong{font-size:14px;font-weight:800;line-height:2}
+@media(max-width:767px){.about-page .about-step-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;margin-top:20px}.about-page .about-step-nav button{min-height:48px}.about-page .about-step-nav button .about-road-label{font-size:11px}.about-page .about-story-panel{padding:0;min-height:0}.about-page .about-story-panel .about-photo{min-height:230px}.about-credentials-layout{grid-template-columns:minmax(0,1fr);gap:28px;margin-top:24px}.about-license-list>a{padding:14px;gap:14px}.about-license-list strong{font-size:13px}.about-trust-copy p{font-size:13px}.about-partner-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:24px 0}.about-partner-strip strong{font-size:12px}.about-partner-strip>div{justify-content:flex-start}.about-partner-strip>div:last-child{grid-column:1/-1;justify-content:center}}

@@ -26,10 +26,10 @@ test("image-based bottom navigation stays clear of support and works on temporar
  for(const path of ["/friday-market","/car-market","/imports"]){const response=await request.get(path);expect(response.ok()).toBe(true);expect(await response.text()).toContain("noindex");}
  await page.goto("/");const dock=page.getByRole("navigation",{name:"ناوبری پایین موبایل"});
  if(!isMobile){await expect(dock).not.toBeVisible();return;}
- await expect(dock).toBeVisible();await expect(dock.getByRole("link")).toHaveCount(4);await expect(dock.locator("img")).toHaveCount(4);await expect(dock.locator("svg")).toHaveCount(0);
+ await expect(dock).toBeVisible();await expect(dock.getByRole("link")).toHaveCount(2);await expect(dock.locator("img")).toHaveCount(2);await expect(dock.locator("svg")).toHaveCount(0);
  await expect(page.locator(".floating-support")).toBeVisible();
  const support=(await page.locator(".floating-support").boundingBox())!,nav=(await dock.boundingBox())!;expect(support.y+support.height).toBeLessThan(nav.y);
- await dock.getByRole("link",{name:"جمعه بازار لوازم یدکی",exact:true}).click();await expect(page.locator("h1")).toHaveText("جمعه بازار لوازم یدکی");await expect(dock.getByRole("link",{name:"جمعه بازار لوازم یدکی",exact:true})).toHaveAttribute("aria-current","page");
+ await dock.getByRole("link",{name:"واردات خودرو",exact:true}).click();await expect(page.locator("h1")).toHaveText("واردات");await expect(dock.getByRole("link",{name:"واردات خودرو",exact:true})).toHaveAttribute("aria-current","page");
  await page.setViewportSize({width:320,height:800});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
  await page.screenshot({path:"coverage/browser/mobile-dock-320.png"});
 });

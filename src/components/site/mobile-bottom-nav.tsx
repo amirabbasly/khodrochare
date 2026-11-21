@@ -5,10 +5,8 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 
 export const mobileDestinations=[
- {href:"/friday-market",label:"جمعه بازار لوازم یدکی",image:"parts"},
- {href:"/car-market",label:"تالار خودرو",image:"cars"},
- {href:"/imports",label:"واردات",image:"imports"},
- {href:"/partners",label:"همکاری",image:"partners"},
+ {href:"/imports",label:"واردات خودرو",image:"imports"},
+ {href:"/partners",label:"طرح نمایندگان خودرو چاره",image:"partners"},
 ] as const;
 export function MobileBottomNav(){
  const pathname=usePathname();

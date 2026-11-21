@@ -14,7 +14,10 @@ test("about follows the reference section sequence with original company content
   await page.getByRole("button", { name: "چشم‌انداز ما", exact: true }).click();
   await expect(page.locator("#about-purpose-panel h2")).toContainText("همراه یکپارچه رانندگان");
   await expect(page.locator("#about-license-title")).toBeVisible();
-  await expect(page.locator(".about-license-grid")).toContainText("سیما رایگان ایرانیان");
+  await expect(page.locator(".about-credentials-layout")).toContainText("سیما رایگان ایرانیان");
+  await expect(page.locator(".about-intro")).toContainText("تالار فروش ۲۴ ساعته خودرو");
+  await expect(page.locator(".about-license-list > a")).toHaveCount(4);
+  await expect(page.locator(".about-partner-strip > div")).toHaveCount(5);
   await expect(page.locator(".about-service-links a[href='/press']")).toHaveCount(1);
   await expect(page.locator('main img[src*="mdotcar"]')).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
@@ -27,6 +30,7 @@ test("team navy/orange cards remain readable and contained across narrow, tablet
     await page.setViewportSize({ width, height: 900 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
     const director = page.locator(".team-director");
+    await expect(director).toBeVisible();
     const rect = (await director.boundingBox())!;
     expect(rect.x).toBeGreaterThanOrEqual(0);
     expect(rect.x + rect.width).toBeLessThanOrEqual(width + 1);
