@@ -32,10 +32,19 @@ test("seal fallback uses the exact owner-supplied local image", () => {
 
 test("footer displays both supplied certificates together below the contact button", () => {
   const footer = readFileSync("src/components/site/site-footer.tsx", "utf8");
-  const certificates = footer.split('aria-label="گواهینامه‌ها"')[1].split("</section>")[0];
+  const certificates = footer.split('aria-label="گواهینامه‌ها"')[1].split("</div>")[0];
   assert.ok(certificates.includes("<EnamadBadge />"));
   assert.ok(certificates.includes('href="https://anjomansenfiemdadkhodro.ir/"'));
   assert.ok(certificates.includes("/images/roadside-association.png"));
   assert.ok(!certificates.includes("مجوزها و جواز کشوری"));
   assert.ok(existsSync("public/images/roadside-association.png"));
+});
+
+test("certificates use individual white cards without a separate section or heading", () => {
+  const footer = readFileSync("src/components/site/site-footer.tsx", "utf8");
+  const badge = readFileSync("src/components/site/enamad-badge.tsx", "utf8");
+  assert.ok(!footer.includes("<section"));
+  assert.ok(!footer.includes(">گواهینامه‌ها</h2>"));
+  assert.ok(footer.includes("rounded-xl border border-white/15 bg-white p-2"));
+  assert.ok(badge.includes("rounded-xl border border-white/15 bg-white p-2"));
 });
