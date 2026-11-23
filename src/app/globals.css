@@ -1279,3 +1279,16 @@ html[data-theme="dark"] footer .footer-certificate-card { background-color: #fff
 /* Customer PWA occupies a full row beneath all three Android download buttons. */
 .app-reference:not(.fleet-app-reference) .showcase-button-primary { grid-column: 1 / -1; min-height: 88px; font-size: 14px; }
 .app-reference:not(.fleet-app-reference) .showcase-button-primary .download-button-art { width: 40px; height: 40px; object-fit: contain; }
+
+/* Keep the full-width customer PWA CTA consistent with the glass download cards. */
+.app-reference:not(.fleet-app-reference) .showcase-button-primary {
+  background: #c8d8f01c;
+  border-color: #bed0f17a;
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+.app-reference:not(.fleet-app-reference) .showcase-button-primary small { color: #d5e1f6; }
+.app-reference:not(.fleet-app-reference) .showcase-button-primary:hover {
+  background: #c8d8f030;
+  border-color: #ffb570;
+}
