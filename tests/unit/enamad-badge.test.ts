@@ -29,3 +29,13 @@ test("seal fallback uses the exact owner-supplied local image", () => {
   assert.ok(badge.includes("onError={() => setLoaded(false)}"));
   assert.ok(existsSync("public/images/enamad-transparent.png"));
 });
+
+test("footer displays both supplied certificates together below the contact button", () => {
+  const footer = readFileSync("src/components/site/site-footer.tsx", "utf8");
+  const certificates = footer.split('aria-label="گواهینامه‌ها"')[1].split("</section>")[0];
+  assert.ok(certificates.includes("<EnamadBadge />"));
+  assert.ok(certificates.includes('href="https://anjomansenfiemdadkhodro.ir/"'));
+  assert.ok(certificates.includes("/images/roadside-association.png"));
+  assert.ok(!certificates.includes("مجوزها و جواز کشوری"));
+  assert.ok(existsSync("public/images/roadside-association.png"));
+});
