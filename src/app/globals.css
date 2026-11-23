@@ -1275,3 +1275,7 @@ footer { background-color:#040b19!important; border-top:1px solid var(--line); }
 /* Issuer logos require white backing, including the forced dark theme. */
 footer .footer-certificate-card,
 html[data-theme="dark"] footer .footer-certificate-card { background-color: #fff; color: #0b2d6b; }
+
+/* Customer PWA occupies a full row beneath all three Android download buttons. */
+.app-reference:not(.fleet-app-reference) .showcase-button-primary { grid-column: 1 / -1; min-height: 88px; font-size: 14px; }
+.app-reference:not(.fleet-app-reference) .showcase-button-primary .download-button-art { width: 40px; height: 40px; object-fit: contain; }
