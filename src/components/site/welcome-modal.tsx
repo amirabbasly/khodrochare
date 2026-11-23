@@ -1,34 +1,27 @@
 "use client";
 
+
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/home/home-ui";
 import { businessFacts } from "@/content/business";
 
-const storageKey = "khodrochare:welcome-seen:v2";
-// Business request (2026-09-14): surface the contact card sooner. It stays a small,
-// dismissible, non-modal corner card (no overlay, scroll lock or focus stealing), so
-// it is not an intrusive interstitial; all display guards below still apply.
+// Show once per document load, including refresh; client navigation does not repeat.
 const showAfterMs = 1500;
 // If storage is blocked, still avoid repeating the message on client-side navigation.
 let seenInThisDocument = false;
 
 /**
  * Small, non-blocking welcome dialog: no full-screen overlay, scroll lock or focus
- * stealing. Display once per tab session, after a delay, without interrupting forms.
+ * stealing. Display once per document load, after a delay, without interrupting forms.
  */
 export function WelcomeModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (seenInThisDocument) return;
-    try {
-      if (window.sessionStorage.getItem(storageKey) === "1") return;
-    } catch {
-      // The in-memory guard above also works when browser storage is unavailable.
-    }
-
     let timer: number;
     const revealWhenIdle = () => {
       const editing = document.activeElement?.matches("input, textarea, select, [contenteditable='true'], [role='textbox']");
@@ -38,11 +31,6 @@ export function WelcomeModal() {
         return;
       }
       seenInThisDocument = true;
-      try {
-        window.sessionStorage.setItem(storageKey, "1");
-      } catch {
-        // Showing and dismissing the dialog must not depend on storage permissions.
-      }
       setOpen(true);
     };
 
@@ -66,7 +54,7 @@ export function WelcomeModal() {
   return (
     <aside
       data-testid="welcome-dialog"
-      className="welcome-modal-card fixed inset-x-3 bottom-[calc(5.5rem+env(safe-area-inset-bottom,0px))] z-[150] mx-auto w-auto max-w-[380px] overflow-y-auto overscroll-contain rounded-2xl border border-white/20 bg-[#071a2e] text-white shadow-[0_24px_70px_rgba(3,18,36,.45)] sm:bottom-[max(1rem,env(safe-area-inset-bottom,0px))] sm:left-4 sm:right-auto sm:w-[380px]"
+      className="welcome-modal-card fixed inset-x-3 bottom-[calc(5.5rem+env(safe-area-inset-bottom,0px))] z-[150] mx-auto w-auto max-w-[380px] overflow-y-auto overscroll-contain rounded-2xl border border-white/20 bg-[#07152f] text-white shadow-[0_24px_70px_rgba(3,18,36,.45)] sm:bottom-[max(1rem,env(safe-area-inset-bottom,0px))] sm:left-4 sm:right-auto sm:w-[380px]"
       style={{ maxHeight: "calc(100dvh - 7rem)" }}
       dir="rtl"
       role="dialog"
@@ -86,7 +74,7 @@ export function WelcomeModal() {
 
         <div className="flex items-center gap-3 pl-10">
           <div className="relative h-12 w-14 shrink-0 rounded-xl border border-white/15 bg-white/10">
-            <Image src="/images/khodrochare-logo-compact.webp" alt="" fill sizes="56px" className="object-contain p-1" />
+            <Image src="/images/khodrochare-brand-symbol-dark.webp" alt="" fill sizes="56px" className="object-contain p-1" />
           </div>
           <div className="min-w-0">
             <p className="text-[10px] font-bold text-orange-300">به خودرو چاره خوش آمدید</p>

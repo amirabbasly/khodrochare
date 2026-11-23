@@ -1,4 +1,4 @@
-const CACHE_NAME = "khodrochare-shell-v2-20260905";
+const CACHE_NAME = "khodrochare-shell-v4-phone-20261017";
 const APP_SHELL = ["/offline.html", "/app-icon.svg"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
@@ -15,7 +15,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
     event.respondWith(fetch(event.request).catch(async () => {
       const offline = await caches.match("/offline.html");
-      return new Response(offline ? await offline.text() : "Offline. Call 09123022064.", { status: 503, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex" } });
+      return new Response(offline ? await offline.text() : "Offline. Call 02182801043.", { status: 503, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex" } });
     }));
   }
   // Missing assets must not be replaced by a misleading HTTP-200 home page.
