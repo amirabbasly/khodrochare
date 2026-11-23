@@ -14,7 +14,7 @@ test("footer includes the official seal in the brand column with origin referrer
   const footer = readFileSync("src/components/site/site-footer.tsx", "utf8");
   assert.ok(footer.indexOf("<EnamadBadge />") < footer.indexOf("groups.map"));
   const socials = footer.split('aria-label="شبکه‌های اجتماعی خودرو چاره"')[1].split("</nav>")[0];
-  assert.equal((socials.match(/<a /g) ?? []).length, 4);
+  assert.equal((socials.match(/<a /g) ?? []).length, 5);
   assert.ok(!socials.includes("EnamadBadge"));
   assert.ok(!footer.includes('/images/enamad.png'));
   const badge = readFileSync("src/components/site/enamad-badge.tsx", "utf8");

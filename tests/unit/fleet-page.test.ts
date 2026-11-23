@@ -26,5 +26,5 @@ test("fleet landing shares app layout and uses its own PWA and supplied screensh
   const banner = await readFile("src/components/home/app-trust-banners.tsx", "utf8");
   assert.ok(banner.includes("fleet-home-20261121.webp"));
   assert.ok(banner.includes('fleet ? getAppDownload("fleet")'));
-  assert.ok(banner.includes("!fleet && <a href={customerMyketUrl}"));
+  assert.ok(banner.includes("!fleet && <><a href={customerMyketUrl}"));
 });

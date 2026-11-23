@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { customerAppUrl, customerMyketUrl, fleetAppUrl } from "@/content/app-links";
+import { customerAppUrl, customerMyketUrl, customerBazaarUrl, fleetAppUrl } from "@/content/app-links";
 import { getAppDownload } from "@/lib/app-downloads";
 import { trustItems } from "./home-content";
 
@@ -15,7 +15,7 @@ export function AppShowcaseBanner({ fleet = false }: { fleet?: boolean } = {}) {
         <h2 id="app-showcase-title">{fleet ? "اپلیکیشن سفیران خودرو چاره" : "سوپر اپلیکیشن خودرو چاره"}</h2>
         <p className="app-showcase-description">{fleet ? "از فرصت‌های حمل و امداد تا تأمین لوازم یدکی؛ ثبت‌نام کنید و پس از بررسی مدارک، مسیر همکاری و کسب درآمد از خدمات خودرو را دنبال کنید. درآمد و تعداد مأموریت به تقاضا، محدوده، تجهیزات و شرایط همکاری بستگی دارد و تضمین نمی‌شود." : "خدمت موردنیازتان را انتخاب کنید و درخواست را در اپ مشتریان ادامه دهید؛ از امداد خودرو و حمل تا خدمات سیار، با هماهنگی و بررسی شرایط همان درخواست."}</p>
         <div className="app-showcase-actions">
-          {!fleet && <a href={customerMyketUrl} target="_blank" rel="noopener noreferrer" className="showcase-button"><Image src="/images/social/myket.svg" alt="" width={48} height={48} className="download-button-art" />دریافت از مایکت<small>اپلیکیشن اندروید مشتریان</small></a>}
+          {!fleet && <><a href={customerMyketUrl} target="_blank" rel="noopener noreferrer" className="showcase-button"><Image src="/images/social/myket.svg" alt="" width={48} height={48} className="download-button-art" />دریافت از مایکت<small>اپلیکیشن اندروید مشتریان</small></a><a href={customerBazaarUrl} target="_blank" rel="noopener noreferrer" className="showcase-button"><Image src="/images/social/cafebazaar.svg" alt="" width={48} height={48} className="download-button-art" />دریافت از کافه بازار<small>اپلیکیشن اندروید مشتریان</small></a></>}
           {release.available ? <a href={release.href} download={release.filename} className="showcase-button"><Image src="/images/social/android.svg" alt="" width={48} height={48} className="download-button-art" />دریافت نسخه اندروید<small>دانلود مستقیم APK</small></a> : <button type="button" disabled aria-label="دریافت نسخه اندروید؛ فایل هنوز منتشر نشده" className="showcase-button opacity-60 cursor-not-allowed"><Image src="/images/social/android.svg" alt="" width={48} height={48} className="download-button-art" />دریافت نسخه اندروید<small>فایل هنوز منتشر نشده</small></button>}
           <a href={fleet ? fleetAppUrl : customerAppUrl} data-app-entry={fleet ? "fleet" : "customer"} aria-label="ورود به اپلیکیشن PWA" className="showcase-button showcase-button-primary"><Image src="/images/app-screens/download-web.webp" alt="" width={48} height={48} className="download-button-art" />وب‌اپلیکیشن PWA<small>نسخه IOS</small></a>
         </div>
