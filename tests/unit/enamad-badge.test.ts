@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { businessFacts } from "../../src/content/business";
 
 test("footer includes the supplied official seal directly after Myket with origin referrer", () => {
@@ -20,10 +20,9 @@ test("footer includes the supplied official seal directly after Myket with origi
   assert.ok(badge.includes("<img ") && !badge.includes("<Image "));
 });
 
-test("seal fallback is local and never invents an official star rating", () => {
+test("seal fallback uses the exact owner-supplied local image", () => {
   const badge = readFileSync("src/components/site/enamad-badge.tsx", "utf8");
-  assert.ok(badge.includes("enamad-inquiry-fallback.svg"));
+  assert.ok(badge.includes("enamad-owner-supplied.png"));
   assert.ok(badge.includes("onError={() => setLoaded(false)}"));
-  const icon = readFileSync("public/images/enamad-inquiry-fallback.svg", "utf8");
-  assert.ok(!icon.includes("★") && !icon.includes("چهارستاره"));
+  assert.ok(existsSync("public/images/enamad-owner-supplied.png"));
 });
