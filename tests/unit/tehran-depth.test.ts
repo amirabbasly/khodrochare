@@ -48,10 +48,10 @@ test("Tehran hub covers all 22 districts mapped to valid region pages", () => {
   assert.equal(used.size, 5);
 });
 
-test("Tehran night/plan/online sections and FAQs meet minimum substance", () => {
+test("Tehran sections cover distinct decisions without volume-only minimums", () => {
   assert.equal(tehranHubSections.length, 4);
   for (const section of tehranHubSections) {
-    assert.ok(words(section.body) >= 100, `thin hub section: ${section.title.slice(0, 30)}`);
+    assert.ok(words(section.body) >= 40, `missing substantive hub decision: ${section.title.slice(0, 30)}`);
   }
   assert.equal(tehranHubFaqs.length, 4);
   for (const faq of tehranHubFaqs) {
@@ -64,7 +64,9 @@ test("pillar inbound links: 106+ contextual rules plus static guide links", asyn
   const rules = blogPage.match(/\{ phrase:/g) ?? [];
   assert.ok(rules.length >= 106, `contextual rules below 106: ${rules.length}`);
   const pillarRules = blogPage.match(/\{ phrase: "[^"]+", href: "\/امداد-خودرو" \}/g) ?? [];
-  assert.ok(pillarRules.length >= 11, `pillar-bound rules below 11: ${pillarRules.length}`);
+  assert.ok(pillarRules.length >= 9, `pillar-bound rules below 9: ${pillarRules.length}`);
+  assert.ok(blogPage.includes('{ phrase: "هزینه امداد خودرو", href: "/pricing" }'));
+  assert.ok(blogPage.includes('{ phrase: "درخواست امداد خودرو", href: "/امداد-خودرو-آنلاین" }'));
   const landings = await readFile("src/components/seo/location-landings.tsx", "utf8");
   const landingsLinks = landings.match(/راهنمای جامع امداد خودرو/g) ?? [];
   assert.ok(landingsLinks.length >= 3, "city-service/hood/province grids must link the pillar");

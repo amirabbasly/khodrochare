@@ -28,7 +28,7 @@ export default function NotFound() {
           <p className="mt-4 text-sm leading-8 text-slate-500">صفحه‌ای که دنبال آن هستید حذف شده، جابه‌جا شده یا آدرس آن اشتباه وارد شده است. از مسیرهای زیر ادامه دهید یا برای درخواست فوری تماس بگیرید.</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link href="/" className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-brand-orange px-6 text-sm font-black text-white shadow-orange"><Icon name="home" size={18} /> بازگشت به صفحه اصلی</Link>
-            <a href="tel:09123022064" className="inline-flex min-h-12 items-center rounded-lg border border-slate-300 px-6 text-sm font-black text-ink" dir="ltr">09123022064</a>
+            <a href="tel:02182801043" className="inline-flex min-h-12 items-center rounded-lg border border-slate-300 px-6 text-sm font-black text-ink" dir="ltr">02182801043</a>
           </div>
           <nav className="mt-8 flex flex-wrap justify-center gap-2" aria-label="مسیرهای پیشنهادی">
             {suggestions.map(([label, href]) => (
