@@ -1322,3 +1322,38 @@ html[data-theme="dark"] footer .footer-certificate-card { background-color: #fff
 .mobile-install-actions { padding-bottom:max(16px,env(safe-area-inset-bottom)); }
 #mobile-navigation { height:100dvh; }
 @media(max-height:650px) { .mobile-install-actions { grid-template-columns:1fr 1fr; gap:6px; padding-top:8px; } }
+
+/* Persistent menu panels animate both opening and closing, without layout jumps. */
+.menu-chevron { flex-shrink:0; color:#f5a45e; transition:transform .25s ease; }
+[aria-expanded="true"] > .menu-chevron { transform:rotate(180deg); }
+.desktop-menu-children { opacity:0; visibility:hidden; transform:translateY(8px) scale(.98); transform-origin:top right; pointer-events:none; background:linear-gradient(145deg,#102b4f,#08182e); border-color:#b8cff133; box-shadow:0 20px 50px #0007,inset 0 1px #ffffff0c; transition:opacity .2s ease,transform .2s ease,visibility .2s; }
+.desktop-menu-children[data-open="true"] { opacity:1; visibility:visible; transform:translateY(0) scale(1); pointer-events:auto; }
+.desktop-menu-children a { margin-block:3px; transition:background .18s,color .18s; }
+.desktop-menu-children .menu-group-hub { border-bottom:1px solid #ffffff12; border-radius:0; margin-bottom:6px; }
+.mobile-menu-group { margin-bottom:5px; }
+.mobile-menu-parent { border-radius:12px; transition:background .2s,color .2s; }
+.mobile-menu-parent:hover { background:#ffffff08; }
+.mobile-menu-accordion { display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows .28s ease,opacity .22s ease; }
+.mobile-menu-accordion[data-open="true"] { grid-template-rows:1fr; opacity:1; }
+.mobile-menu-accordion-inner { min-height:0; overflow:hidden; }
+.mobile-menu-children { border-right-color:#ff9638; background:linear-gradient(to left,#ff7a000b,transparent); }
+.diagnostic-device { display:grid; gap:32px; margin-block:36px; align-items:start; }
+.diagnostic-device-image { overflow:hidden; border-radius:24px; border:1px solid #bfd4f12b; background:#e4e5e7; }
+.diagnostic-device-image p { padding:10px 16px; background:#0b1d35; color:#bccce3; font-size:10px; line-height:1.9; }
+.diagnostic-device-copy h2 { margin-top:14px; font-size:clamp(23px,3vw,34px); font-weight:900; color:#f1f6ff; line-height:1.8; }
+.diagnostic-device-copy p,.diagnostic-device-copy li { color:#bccde5; font-size:13px; line-height:2.1; }
+.diagnostic-device-copy > p { margin-top:14px; }
+.diagnostic-device-tag { display:inline-flex; padding:6px 14px; border:1px solid #ff7a0045; border-radius:30px; color:#ffad65; font-size:12px; }
+.diagnostic-device-price { display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; padding:20px; margin-block:22px; border:1px solid #ff7a0040; border-radius:20px; background:linear-gradient(135deg,#ff7a0014,#0b2d6b33); }
+.diagnostic-device-price > span { color:#ffad65; font-size:12px; width:100%; }
+.diagnostic-device-price del { color:#99abc4; font-size:15px; }
+.diagnostic-device-price strong { color:#ff9638; font-size:30px; }
+.diagnostic-device-price strong small { font-size:13px; }
+.diagnostic-device-price p { width:100%; font-size:11px; }
+.diagnostic-device-copy ul { display:grid; gap:12px; }
+.diagnostic-device-copy li { padding-right:14px; border-right:2px solid #ff7a0060; }
+.diagnostic-device-copy .diagnostic-device-notice { padding:14px; border-radius:14px; background:#ffffff06; font-size:11px; }
+.diagnostic-device-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.diagnostic-device-actions a { display:inline-flex; align-items:center; min-height:46px; padding:10px 18px; border:1px solid #ff7a0080; border-radius:12px; color:#ffb16e; font-size:12px; font-weight:800; }
+@media(min-width:1024px) { .diagnostic-device { grid-template-columns:1fr 1fr; gap:40px; } .diagnostic-device-image { position:sticky; top:20px; } }
+@media(prefers-reduced-motion:reduce) { .menu-chevron,.desktop-menu-children,.mobile-menu-accordion { transition:none; } }

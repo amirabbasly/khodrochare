@@ -8,6 +8,10 @@ import { NavAmbientLight } from "./nav-ambient-light";
 import { mainMenu } from "@/content/main-menu";
 import { BrandMark, Icon } from "./home-ui";
 
+function MenuChevron() {
+  return <svg className="menu-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>;
+}
+
 export function ResponsiveSiteHeader() {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -77,8 +81,8 @@ export function ResponsiveSiteHeader() {
         <nav className="primary-navigation hidden min-w-0 flex-1 items-center justify-center gap-1 xl:flex 2xl:gap-2" aria-label="منوی اصلی">
           <NavAmbientLight />
           {mainMenu.map(item => <div key={item.label} className="desktop-menu-group relative">
-            {item.children ? <><button type="button" className="nav-item inline-flex min-h-12 items-center gap-1 rounded-xl px-2 text-xs font-black" aria-expanded={desktopExpanded === item.label} aria-controls={`desktop-group-${mainMenu.indexOf(item)}`} onClick={() => setDesktopExpanded(desktopExpanded === item.label ? null : item.label)} onKeyDown={event => { if (event.key === "Escape") setDesktopExpanded(null); }}>{item.label}<span aria-hidden="true">⌄</span></button>
-              {desktopExpanded === item.label && <div id={`desktop-group-${mainMenu.indexOf(item)}`} className="desktop-menu-children"><Link href={item.href} onClick={() => setDesktopExpanded(null)} className="menu-group-hub">{item.label} ←</Link>{item.children.map(child => <Link key={child.label} href={child.href} onClick={() => setDesktopExpanded(null)}>{child.label}</Link>)}</div>}</> : <Link href={item.href} className="nav-item inline-flex min-h-12 items-center rounded-xl px-2 text-xs font-black">{item.label}</Link>}
+            {item.children ? <><button type="button" className="nav-item inline-flex min-h-12 items-center gap-1 rounded-xl px-2 text-xs font-black" aria-expanded={desktopExpanded === item.label} aria-controls={`desktop-group-${mainMenu.indexOf(item)}`} onClick={() => setDesktopExpanded(desktopExpanded === item.label ? null : item.label)} onKeyDown={event => { if (event.key === "Escape") setDesktopExpanded(null); }}>{item.label}<MenuChevron /></button>
+              <div aria-hidden={desktopExpanded !== item.label} inert={desktopExpanded !== item.label} data-open={desktopExpanded === item.label} id={`desktop-group-${mainMenu.indexOf(item)}`} className="desktop-menu-children"><Link href={item.href} onClick={() => setDesktopExpanded(null)} className="menu-group-hub">{item.label} ←</Link>{item.children.map(child => <Link key={child.label} href={child.href} onClick={() => setDesktopExpanded(null)}>{child.label}</Link>)}</div></> : <Link href={item.href} className="nav-item inline-flex min-h-12 items-center rounded-xl px-2 text-xs font-black">{item.label}</Link>}
           </div>)}
         </nav>
 
@@ -122,8 +126,8 @@ export function ResponsiveSiteHeader() {
         </div>
         <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4" aria-label="منوی موبایل">
           {mainMenu.map((item, index) => <div key={item.label} className="mobile-menu-group">
-            {item.children ? <><button type="button" className="mobile-menu-parent" aria-expanded={expanded === item.label} aria-controls={`mobile-group-${index}`} onClick={() => setExpanded(expanded === item.label ? null : item.label)}>{item.label}<span aria-hidden="true">{expanded === item.label ? "−" : "+"}</span></button>
-              <div id={`mobile-group-${index}`} hidden={expanded !== item.label} className="mobile-menu-children"><Link href={item.href} onClick={() => setOpen(false)} className="menu-group-hub">{item.label} ←</Link>{item.children.map(child => <Link key={child.label} href={child.href} onClick={() => setOpen(false)} aria-current={isActive(child.href) ? "page" : undefined}>{child.label}</Link>)}</div></> : <Link href={item.href} onClick={() => setOpen(false)} className="mobile-menu-parent">{item.label}<span aria-hidden="true">←</span></Link>}
+            {item.children ? <><button type="button" className="mobile-menu-parent" aria-expanded={expanded === item.label} aria-controls={`mobile-group-${index}`} onClick={() => setExpanded(expanded === item.label ? null : item.label)}>{item.label}<MenuChevron /></button>
+              <div id={`mobile-group-${index}`} aria-hidden={expanded !== item.label} inert={expanded !== item.label} data-open={expanded === item.label} className="mobile-menu-accordion"><div className="mobile-menu-accordion-inner"><div className="mobile-menu-children"><Link href={item.href} onClick={() => setOpen(false)} className="menu-group-hub">{item.label} ←</Link>{item.children.map(child => <Link key={child.label} href={child.href} onClick={() => setOpen(false)} aria-current={isActive(child.href) ? "page" : undefined}>{child.label}</Link>)}</div></div></div></> : <Link href={item.href} onClick={() => setOpen(false)} className="mobile-menu-parent">{item.label}<span aria-hidden="true">←</span></Link>}
           </div>)}
         </nav>
         <div className="mobile-install-actions grid shrink-0 gap-2 border-t border-white/10 p-4">
