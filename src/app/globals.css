@@ -1293,20 +1293,18 @@ html[data-theme="dark"] footer .footer-certificate-card { background-color: #fff
   border-color: #ffb570;
 }
 
-/* Scoped, complementary rounded L-shaped service cards; content and links stay intact. */
-.interlocked-services { position:relative; display:grid; grid-template-columns:1fr; gap:0; isolation:isolate; }
-.interlocked-services > .interlocked-service { grid-area:1 / 1; min-width:0; pointer-events:none; }
-.interlocked-services .interlocked-service article { height:480px; min-height:0; border:0; border-radius:0; pointer-events:auto; }
-.interlocked-service-tow article { clip-path:url(#service-interlock-tow); }
-.interlocked-service-wash article { clip-path:url(#service-interlock-wash); }
-.interlocked-services .interlocked-service article > div.relative { position:absolute; min-height:0; width:72%; padding:24px 32px; }
-.interlocked-service-tow article > div.relative { bottom:0; left:0; height:52%; }
-.interlocked-service-wash article > div.relative { top:0; right:0; height:39%; }
+/* Interlocking treatment is mobile-only; desktop keeps the original two cards. */
 .service-shape-definitions { position:absolute; pointer-events:none; }
 @media(max-width:767px) {
- .interlocked-services .interlocked-service article { height:560px; }
- .interlocked-services .interlocked-service article > div.relative { padding:12px 14px; }
- .interlocked-services h2 { font-size:16px; }
- .interlocked-services p { font-size:12px; line-height:1.9; margin-top:8px; }
- .interlocked-services a { margin-top:10px; padding:6px 10px; }
+ #services .interlocked-services { position:relative; display:grid; grid-template-columns:1fr; gap:0; isolation:isolate; }
+ #services .interlocked-services > .interlocked-service { grid-area:1 / 1; min-width:0; pointer-events:none; }
+ #services .interlocked-service article { height:205px; min-height:205px; border:0; border-radius:0; pointer-events:auto; }
+ #services .interlocked-service-tow article { clip-path:url(#service-interlock-tow); }
+ #services .interlocked-service-wash article { clip-path:url(#service-interlock-wash); }
+ #services .interlocked-service article > div.relative { position:absolute; min-height:0; width:72%; padding:4px 8px; }
+ #services .interlocked-service-tow article > div.relative { bottom:0; left:0; height:52%; }
+ #services .interlocked-service-wash article > div.relative { top:0; right:0; height:39%; }
+ #services .interlocked-services h2 { font-size:11px; line-height:1.5; }
+ #services .interlocked-services article p { font-size:9px; line-height:1.35; margin-top:3px; }
+ #services .interlocked-services article a { min-height:24px; margin-top:3px; padding:2px 6px; font-size:9px; }
 }
