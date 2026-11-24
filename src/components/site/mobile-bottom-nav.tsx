@@ -5,8 +5,8 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 
 export const mobileDestinations=[
- {href:"/imports",label:"واردات خودرو",image:"imports"},
- {href:"/partners",label:"طرح نمایندگان خودرو چاره",image:"partners"},
+ {href:"/app",label:"سوپر اپلیکیشن خودرو چاره",image:"imports"},
+ {href:"/safir",label:"عضویت سفیران",image:"partners"},
 ] as const;
 export function MobileBottomNav(){
  const pathname=usePathname();

@@ -1308,3 +1308,17 @@ html[data-theme="dark"] footer .footer-certificate-card { background-color: #fff
  #services .interlocked-services article p { font-size:9px; line-height:1.35; margin-top:3px; }
  #services .interlocked-services article a { min-height:24px; margin-top:3px; padding:2px 6px; font-size:9px; }
 }
+
+/* Click-open hierarchical menus stay above the mobile dock and all page overlays. */
+.desktop-menu-children { position:absolute; top:100%; right:0; z-index:110; width:245px; max-height:70vh; overflow:auto; padding:10px; border:1px solid #ff7a0045; border-radius:16px; background:#0b1e3a; box-shadow:0 18px 45px #0008; }
+.desktop-menu-group:last-child .desktop-menu-children { right:auto; left:0; }
+.desktop-menu-children a,.mobile-menu-children a { display:flex; align-items:center; min-height:44px; padding:9px 12px; color:#dce8fc; font-size:12px; border-radius:8px; }
+.desktop-menu-children a:hover,.mobile-menu-children a:hover { background:#ffffff0d; color:#ff9a3d; }
+.menu-group-hub { color:#ff9a3d!important; font-weight:800; }
+.mobile-menu-parent { display:flex; align-items:center; justify-content:space-between; width:100%; min-height:50px; padding:10px 12px; border-bottom:1px solid #ffffff18; color:#f2f6ff; font-size:14px; font-weight:800; text-align:right; }
+.mobile-menu-parent[aria-expanded="true"] { color:#ff9a3d; background:#ff7a0010; border-radius:10px; }
+.mobile-menu-children { margin:6px 16px 14px 0; padding:4px 12px 4px 0; border-right:2px solid #ff7a00; background:#ffffff04; border-radius:8px 0 0 8px; }
+.mobile-menu-children[hidden] { display:none; }
+.mobile-install-actions { padding-bottom:max(16px,env(safe-area-inset-bottom)); }
+#mobile-navigation { height:100dvh; }
+@media(max-height:650px) { .mobile-install-actions { grid-template-columns:1fr 1fr; gap:6px; padding-top:8px; } }
