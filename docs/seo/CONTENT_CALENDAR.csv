@@ -1,0 +1,11 @@
+﻿relative_window,target_url,action,intent,owner_role,required_evidence,publication_gate,status,success_measure
+days 1-15,/about; /licenses,resolve_entity_conflict,entity,owner + legal,owner explicitly confirmed company identity and existing license/director/address,human approval + facts + no visual regression,implemented_owner_confirmed,single owner-confirmed identity
+days 1-15,/contact; app.khodrochare.ir,confirm_phone_roles,conversion,operations,ownership and purpose of both phone lines,human approval + facts + no visual regression,planned_not_published,qualified lead routing
+days 16-30,/امداد-خودرو-آنلاین,review_existing_product_flow,transactional,product + editor,"actual authenticated product flow, no customer data",human approval + facts + no visual regression,planned_not_published,accepted request vs received separated
+days 16-30,/تهران; /کرج,review_existing_local_pages,local transactional,operations + SEO,coverage matrix and Query/Page,human approval + facts + no visual regression,planned_not_published,local qualified leads
+days 16-30,/sitemap.xml,verify_real_lastmods,technical,editor + engineer,actual revision dates,human approval + facts + no visual regression,planned_not_published,no unsupported future dates
+days 31-45,/pricing; /tools,review_formula_and_limits,commercial,technical reviewer,tariff source and calculation conditions,human approval + facts + no visual regression,planned_not_published,correct estimate not fake quote
+days 31-45,/battery,review_safety_and_scope,informational,qualified technical reviewer,manuals and actual service scope,human approval + facts + no visual regression,planned_not_published,safe accurate answers
+days 46-60,/امداد-خودرو-آنلاین,measure_answer_retrieval,GEO,analyst,real search-enabled answer evidence,human approval + facts + no visual regression,planned_not_published,citation accuracy per engine
+days 61-75,/press,prepare_documented_case_only_if_available,authority,PR + operations,"consent, verifiable service record, photos rights",human approval + facts + no visual regression,planned_not_published,qualified referrals
+days 76-90,priority landings,review_after_equal_periods,measurement,analyst,matched search and conversion periods,human approval + facts + no visual regression,planned_not_published,qualified organic leads

@@ -1,0 +1,24 @@
+﻿keyword,intent,primary_page,secondary_pages,conversion_value_hypothesis,geographic_relevance,current_position,impressions,clicks,ctr,search_volume,competition,opportunity,evidence_status,primary_page_exists
+امداد خودرو,Transactional,https://khodrochare.ir/,/امداد-خودرو; /services,high,declared multi-region,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+امداد خودرو آنلاین,Transactional,https://khodrochare.ir/امداد-خودرو-آنلاین,/app,high,declared multi-region,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+ثبت درخواست امداد خودرو,Transactional,https://khodrochare.ir/امداد-خودرو-آنلاین,/app; /contact,high,declared multi-region,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+پیگیری درخواست امداد خودرو,Informational,https://khodrochare.ir/امداد-خودرو-آنلاین,/contact,high,existing customer,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+امداد خودرو تهران,Local transactional,https://khodrochare.ir/تهران,/تهران/امداد-خودرو,high,تهران,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+امداد خودرو کرج,Local transactional,https://khodrochare.ir/کرج,/کرج/امداد-خودرو,high,کرج,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+امداد خودرو شمال,Local transactional,https://khodrochare.ir/شمال,/coverage,high,گیلان مازندران گلستان,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+یدک کش تهران,Local transactional,https://khodrochare.ir/تهران/یدک-کش,/services/tow-truck; /pricing,high,تهران,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+خودروبر تهران,Local transactional,https://khodrochare.ir/تهران/خودروبر,/services/flatbed-carrier,high,تهران,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+مکانیک سیار تهران,Local transactional,https://khodrochare.ir/تهران/مکانیک-سیار,/services/mobile-mechanic,high,تهران,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+دیاگ سیار در تهران,Local transactional,https://khodrochare.ir/تهران/دیاگ-سیار,/services/mobile-diagnostics,high,تهران,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+کارواش سیار تهران,Local transactional,https://khodrochare.ir/تهران/کارواش-سیار,/services/mobile-carwash,medium,تهران,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+باتری به باتری سیار,Transactional,https://khodrochare.ir/services/jump-start,/battery,high,coverage confirmation needed,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+تعویض باتری در تهران,Local transactional,https://khodrochare.ir/تهران/باتری-خودرو,/battery,high,تهران,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+قیمت حمل خودرو,Commercial investigation,https://khodrochare.ir/pricing,/tools,high,route-specific,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+هزینه امداد خودرو,Commercial investigation,https://khodrochare.ir/pricing,/امداد-خودرو-آنلاین,high,service-specific,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+تفاوت یدک کش و خودروبر,Commercial investigation,https://khodrochare.ir/services/flatbed-carrier,/services/tow-truck; /tools,medium,not geographic,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+بهترین امداد خودرو,Commercial investigation,https://khodrochare.ir/امداد-خودرو,/about; /licenses,medium,no superiority claim,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+امداد خودرو نزدیک من,Local transactional,https://khodrochare.ir/coverage,/امداد-خودرو-آنلاین,high,precise position required; no fabricated branches,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+علت روشن نشدن خودرو,Informational,https://khodrochare.ir/battery,/tools,medium,not geographic,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+خودرو چاره,Navigational,https://khodrochare.ir/,/about; /app,high,brand,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+نصب اپ خودرو چاره,Navigational,https://khodrochare.ir/app,/امداد-خودرو-آنلاین,medium,customer,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true
+سفیر خودرو چاره,Navigational,https://khodrochare.ir/safir,/partners,medium,fleet,,,,,,,requires_query_page_data,proposed_mapping_not_measured,true

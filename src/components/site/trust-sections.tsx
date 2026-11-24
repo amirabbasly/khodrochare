@@ -1,8 +1,7 @@
-import Image from "next/image";
+import { TeamShowcase } from "./team-showcase";
 import { StructuredData } from "@/components/seo/structured-data";
-import { businessFacts } from "@/content/business";
 import { customerReviews } from "@/content/reviews";
-import { personSchema, reviewSchema } from "@/seo/schemas";
+import { reviewSchema } from "@/seo/schemas";
 
 function Stars({ value }: { value: number }) {
   return (
@@ -51,32 +50,7 @@ export function TestimonialsSection({ path }: { path: string }) {
  * businessFacts.team — no placeholder names, ever.
  */
 export function TeamSection() {
-  const team = businessFacts.team;
-  if (!team.length) return null;
-  return (
-    <section className="site-container mt-8" dir="rtl" aria-label="تیم خودرو چاره">
-      {team.map((member) => (
-        <StructuredData key={member.name} data={personSchema({ ...member, path: "/about" })} />
-      ))}
-      <h2 className="text-2xl font-black">تیم خودرو چاره</h2>
-      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {team.map((member) => (
-          <article key={member.name} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card">
-            {member.image ? (
-              <div className="relative h-44">
-                <Image src={member.image} alt={member.name} fill sizes="(min-width:1280px) 33vw,(min-width:768px) 50vw,100vw" className="object-cover" />
-              </div>
-            ) : null}
-            <div className="p-5">
-              <h3 className="font-black">{member.name}</h3>
-              <p className="mt-1 text-xs font-bold text-brand-orange">{member.role}</p>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{member.bio}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
+  return <TeamShowcase />;
 }
 
 export function FeedbackWall({ items }: { items: { city: string; service: string; text: string }[] }) {

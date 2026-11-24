@@ -1,0 +1,136 @@
+{
+  "note": "One local simulated mobile run per URL; not CrUX/RUM, INP, or proof of improvement. Latency/TTFB are local only; requested external network resources may be unavailable.",
+  "results": [
+    {
+      "path": "/",
+      "environment": "local_production_simulated_mobile_single_run",
+      "fetchTime": "2026-11-18T17:55:24.051Z",
+      "lighthouseVersion": "13.6.0",
+      "scores": {
+        "performance": 0.83,
+        "accessibility": 0.97,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 1261.746,
+        "largest-contentful-paint": 3990.1189999999997,
+        "cumulative-layout-shift": 0.0002636480034722222,
+        "total-blocking-time": 227.49999999999795,
+        "server-response-time": 11,
+        "total-byte-weight": 666335
+      },
+      "failures": [
+        {
+          "id": "mainthread-work-breakdown",
+          "title": "Minimize main-thread work"
+        },
+        {
+          "id": "color-contrast",
+          "title": "Background and foreground colors do not have a sufficient contrast ratio."
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery"
+        },
+        {
+          "id": "legacy-javascript-insight",
+          "title": "Legacy JavaScript"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests"
+        }
+      ]
+    },
+    {
+      "path": "/امداد-خودرو-آنلاین",
+      "environment": "local_production_simulated_mobile_single_run",
+      "fetchTime": "2026-11-18T17:55:37.124Z",
+      "lighthouseVersion": "13.6.0",
+      "scores": {
+        "performance": 0.92,
+        "accessibility": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 1085.2929,
+        "largest-contentful-paint": 3232.4393500000006,
+        "cumulative-layout-shift": 0,
+        "total-blocking-time": 65.35355000000004,
+        "server-response-time": 10,
+        "total-byte-weight": 514987
+      },
+      "failures": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "legacy-javascript-insight",
+          "title": "Legacy JavaScript"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests"
+        }
+      ]
+    },
+    {
+      "path": "/تهران",
+      "environment": "local_production_simulated_mobile_single_run",
+      "fetchTime": "2026-11-18T17:55:45.857Z",
+      "lighthouseVersion": "13.6.0",
+      "scores": {
+        "performance": 0.92,
+        "accessibility": 1,
+        "seo": 1
+      },
+      "metrics": {
+        "first-contentful-paint": 1230.1597,
+        "largest-contentful-paint": 3342.2395500000002,
+        "cumulative-layout-shift": 0,
+        "total-blocking-time": 72.42015000000015,
+        "server-response-time": 13,
+        "total-byte-weight": 525499
+      },
+      "failures": [
+        {
+          "id": "unused-css-rules",
+          "title": "Reduce unused CSS"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript"
+        },
+        {
+          "id": "legacy-javascript-insight",
+          "title": "Legacy JavaScript"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree"
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests"
+        }
+      ]
+    }
+  ]
+}
