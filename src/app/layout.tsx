@@ -11,9 +11,9 @@ import { AnalyticsEvents } from "@/components/site/analytics-events";
 import { Analytics } from "@/components/site/analytics";
 import { defaultOgImage, siteName, siteUrl } from "@/seo/metadata";
 
-const defaultTitle = "امداد خودرو آنلاین تهران، کرج و شمال | خودرو چاره";
+const defaultTitle = "امداد خودرو آنلاین | سوپر اپلیکیشن امداد خودرو چاره";
 const defaultDescription =
-  "خودرو چاره؛ هماهنگی امداد خودرو آنلاین، یدک‌کش، خودروبر، مکانیک سیار و باتری در تهران، کرج، گیلان، مازندران و گلستان.";
+  "خودرو چاره؛ سوپر اپلیکیشن خدمات خودرو برای امداد خودرو آنلاین، یدک‌کش، مکانیک سیار و باتری در تهران، کرج و شمال. دانلود اپلیکیشن امداد خودرو برای اندروید و نسخه وب آیفون.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

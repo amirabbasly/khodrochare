@@ -9,5 +9,7 @@ test("online hub renders downloads first while preserving its H1 and app-focused
   for (const text of ["<Questions", "<LandingSchemas", 'id="online-app"', 'id="request-cost"', 'id="online-coverage"']) assert.ok(page.includes(text));
   assert.ok(!page.includes("<ServiceRequestForm"));
   assert.ok(!page.includes("OnlineRequestBrief"));
+  assert.ok(!page.includes("AnswerBox"));
+  assert.ok(!page.includes("updatedAt="));
   assert.ok(!page.includes('<Section id="request-checklist"'));
 });

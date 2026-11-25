@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { AppShowcaseBanner } from "@/components/home/app-trust-banners";
 import { SubpageShell } from "@/components/site/subpage-shell";
-import { AnswerBox, FinalContact, LandingHeader, LandingSchemas, LinkGrid, Questions, SafetyNote, Section } from "@/components/seo/landing-ui";
+import { FinalContact, LandingHeader, LandingSchemas, LinkGrid, Questions, SafetyNote, Section } from "@/components/seo/landing-ui";
 import { businessFacts } from "@/content/business";
-import { onlineContentRelease, onlineDescription, onlineHubFaqs, onlinePath, onlineServices, onlineTitle } from "@/content/online-assistance";
+import { onlineDescription, onlineHubFaqs, onlinePath, onlineServices, onlineTitle } from "@/content/online-assistance";
 import { seoMetadata } from "@/seo/metadata";
 
 export const metadata = seoMetadata({ title: "امداد خودرو آنلاین | اپلیکیشن امداد خودرو چاره", description: onlineDescription, path: onlinePath });
@@ -15,14 +15,14 @@ export default function Page() {
     <span id="request" aria-hidden="true" /><span id="request-checklist" aria-hidden="true" />
     <AppShowcaseBanner />
     <LandingHeader title={onlineTitle} intro="امداد خودرو آنلاین با اپلیکیشن خودرو چاره، راه دسترسی به خدمات یدک‌کش، مکانیک سیار و برق و باتری در تهران، کرج و شمال است. نسخه اندروید را از بازار یا مایکت دریافت کنید یا از نسخه وب روی آیفون و اندروید استفاده کنید؛ نصب برنامه برای استفاده از نسخه وب اجباری نیست." crumbs={[{ label: "امداد خودرو آنلاین" }]} primaryAction={{ label: "نصب اپلیکیشن امداد خودرو", href: "/app" }} />
-    <AnswerBox updatedAt={onlineContentRelease}><p>اپلیکیشن امداد خودرو، مسیر ارتباط کاربر با خدمات موردنیاز خودرو در محل یا جاده است. خودرو چاره امکان شروع هماهنگی امداد، حمل خودرو و خدمات سیار را در اپ مشتریان فراهم می‌کند. انتخاب خدمت در اپ به معنی تأیید قطعی اعزام نیست؛ پوشش، هزینه و زمان تقریبی با توجه به موقعیت و ظرفیت بررسی می‌شوند.</p></AnswerBox>
+
     <Section id="online-app" title="اپلیکیشن امداد خودرو؛ اندروید و آیفون">
       <p>برای استفاده از امداد خودرو آنلاین، می‌توانید نسخه اندروید خودرو چاره را از فروشگاه‌های معرفی‌شده در بالای صفحه دریافت کنید. کاربران آیفون از وب‌اپلیکیشن در مرورگر استفاده می‌کنند و در صورت تمایل میان‌بر آن را به صفحه اصلی اضافه می‌کنند؛ این نسخه فایل نصب iOS نیست. مسیر نصب و ورود مشتریان با اپلیکیشن عضویت سفیران تفاوت دارد.</p>
-      <p>اپلیکیشن، دسترسی به خدمات مختلف را در یک مسیر جمع می‌کند؛ اما نوع خرابی، شرایط خودرو و دسترسی محل تعیین می‌کنند تعمیر در محل مناسب است یا حمل به تعمیرگاه. برای دریافت خدمت، ادامه کار در اپ مشتریان انجام می‌شود و این صفحه فرم ثبت درخواست ندارد.</p>
-      <Link href="/app" className="inline-flex min-h-11 items-center font-bold text-brand-orange underline">دانلود اپلیکیشن امداد خودرو و راهنمای نسخه وب</Link>
+      <p>اپلیکیشن امداد خودرو چاره، دسترسی به خدمات امدادی و حمل خودرو را در یک مسیر جمع می‌کند. از نسخه اندروید یا وب‌اپ وارد شوید و خدمت متناسب با نیاز خودرو را انتخاب کنید؛ هماهنگی تعمیر در محل یا حمل به تعمیرگاه بر اساس وضعیت خودرو انجام می‌شود.</p>
+      <Link href="/app" data-app-entry="customer" className="inline-flex min-h-11 items-center font-bold text-brand-orange underline">دانلود اپلیکیشن امداد خودرو و راهنمای نسخه وب</Link>
     </Section>
     <Section id="choose-service" title="خدمات امداد خودرو آنلاین در اپلیکیشن خودرو چاره">
-      <p>برای انتخاب خدمت، رفتار خودرو مهم‌تر از حدس نام قطعه است: «استارت کند است»، «موتور می‌چرخد اما روشن نمی‌شود» و «خودرو روشن است اما حرکت نمی‌کند» وضعیت‌های متفاوت‌اند. اگر مطمئن نیستید، نشانه را توضیح دهید. انتخاب اولیه فقط مسیر بررسی را روشن می‌کند؛ تشخیص و امکان تعمیر به ارزیابی متخصص نیاز دارند.</p>
+      <p>از یدک‌کش و خودروبر کفی تا مکانیک سیار، برق و باتری و تعویض چرخ، خدمات موردنیازتان را در اپلیکیشن امداد خودرو انتخاب کنید. معرفی هر خدمت در لینک‌های زیر کمک می‌کند با کاربرد و شرایط آن آشنا شوید و انتخاب متناسب با وضعیت خودرو داشته باشید.</p>
       <LinkGrid label="انتخاب خدمات امداد آنلاین" links={onlineServices.map(service => ({ title: service.title, href: service.href, description: service.description }))} />
     </Section>
     <Section id="request-cost" title="هزینه امداد خودرو آنلاین چگونه محاسبه می‌شود؟">

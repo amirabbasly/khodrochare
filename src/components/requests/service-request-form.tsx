@@ -21,7 +21,7 @@ export function ServiceRequestForm({ compact = false }: { compact?: boolean }) {
       const response = await fetch("/api/service-requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...fields, requestId: pending.current.id }), signal: AbortSignal.timeout(15_000) });
       const result = await response.json();
       if (response.status === 201 && result.status === "received" && typeof result.reference === "string") { setReference(result.reference); setMessage("اطلاعات به سامانه پذیرش تحویل شد؛ هنوز اعزام، زمان رسیدن یا قیمت قطعی تأیید نشده است. برای وضعیت فوری تماس بگیرید."); event("received"); }
-      else { setSummary(prepared); if (response.status === 503) setOnline(false); setMessage(response.status === 429 ? "تعداد تلاش‌ها زیاد است. فعلاً دوباره فرم را ارسال نکنید و برای هماهنگی تماس بگیرید." : "تحویل درخواست تأیید نشد. برای بررسی وضعیت با پشتیبانی تماس بگیرید؛ ارسال فرم را اعزام قطعی تلقی نکنید."); }
+      else { setSummary(prepared); if (response.status === 503) setOnline(false); setMessage(response.status === 429 ? "تعداد تلاش‌ها زیاد است. فعلاً دوباره فرم را ارسال نکنید و برای هماهنگی تماس بگیرید." : "تحویل درخواست تأیید نشد. پشتیبانی خودرو چاره برای بررسی وضعیت درخواست و هماهنگی خدمت در دسترس شماست."); }
     } catch { setSummary(prepared); setMessage("پاسخ قابل تأیید دریافت نشد؛ ممکن است ارتباط قطع شده باشد. برای بررسی وضعیت و جلوگیری از سفارش تکراری تماس بگیرید."); }
     finally { lock.current = false; setBusy(false); }
   }
