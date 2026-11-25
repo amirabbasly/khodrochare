@@ -5,7 +5,7 @@ import { SubpageShell } from "@/components/site/subpage-shell";
 import { StructuredData } from "@/components/seo/structured-data";
 import { customerAppUrl } from "@/content/app-links";
 import { seoMetadata, siteUrl } from "@/seo/metadata";
-export const metadata = seoMetadata({ title: "سوپر اپلیکیشن خودرو چاره | دانلود و ورود PWA", description: "سوپر اپلیکیشن خودرو چاره؛ دستیار خدمات خودرو، دریافت نسخه اندروید، مایکت و ورود به نسخه وب PWA.", path: "/app", image: "/images/app-screens/customer-home-20261121.webp" });
+export const metadata = seoMetadata({ title: "اپلیکیشن امداد خودرو چاره | دانلود اندروید و نسخه وب آیفون", description: "دانلود اپلیکیشن امداد خودرو چاره از بازار و مایکت؛ امداد خودرو آنلاین، یدک‌کش و خدمات سیار. نسخه وب مناسب آیفون و اندروید، بدون نصب اجباری.", path: "/app", image: "/images/app-screens/customer-home-20261121.webp" });
 export default function Page() {
   return <SubpageShell showGeneralFaq={false}>
     <StructuredData data={{ "@context": "https://schema.org", "@type": "WebApplication", name: "سوپر اپلیکیشن خودرو چاره", url: customerAppUrl, operatingSystem: "Web", applicationCategory: "UtilitiesApplication", publisher: { "@id": `${siteUrl}/#organization` } }} />

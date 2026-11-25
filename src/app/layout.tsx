@@ -47,8 +47,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: defaultTitle,
-    description:
-      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ در تهران، کرج، گیلان، مازندران و گلستان.",
+    description: defaultDescription,
     url: siteUrl,
     siteName,
     locale: "fa_IR",
@@ -58,8 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
-    description:
-      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ در تهران، کرج، گیلان، مازندران و گلستان.",
+    description: defaultDescription,
     images: [defaultOgImage.url],
   },
   robots: {

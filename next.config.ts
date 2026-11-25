@@ -57,6 +57,10 @@ const nextConfig: NextConfig = {
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
       {
+        source: "/manifest.webmanifest",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }],
+      },
+      {
         source: "/sitemap.xml",
         headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600" }],
       },

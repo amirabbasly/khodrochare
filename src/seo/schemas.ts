@@ -37,7 +37,8 @@ export const organizationSchema = {
   telephone: `+98${businessFacts.emergencyPhone.slice(1)}`,
   email: "info@khodrochare.ir",
   sameAs: [
-    "https://www.instagram.com/khodrochare",
+    "https://www.instagram.com/khodrochare_official/",
+    "https://x.com/khodrochare",
     businessFacts.baleUrl,
   ],
   address: {

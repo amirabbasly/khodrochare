@@ -73,6 +73,19 @@ async function audit(origin: string) {
       assertions(schemas.length >= 2, `${pagePath}: no entity/page structured data`);
       assertions(!schemas.some((schema) => schema["@type"] === "AggregateRating" || schema.numberOfEmployees), `${pagePath}: unsupported ratings/employees`);
       for (const schema of schemas) { const aggregate = schema.aggregateRating as { reviewCount?: unknown; ratingValue?: unknown } | undefined; if (aggregate && typeof aggregate === "object") assertions(Number(aggregate.reviewCount) >= 5 && Number(aggregate.ratingValue) >= 1 && Number(aggregate.ratingValue) <= 5, `${pagePath}: weak aggregate rating`); }
+      if (indexable) assertions($("h1").length === 1, `${pagePath}: expected exactly one server-rendered H1`);
+      for (const schema of schemas) {
+        assertions(schema["@context"] === "https://schema.org" || Boolean(schema["@type"]), `${pagePath}: JSON-LD missing context/type`);
+        assertions(typeof schema["@type"] === "string" || Array.isArray(schema["@type"]), `${pagePath}: JSON-LD missing entity type`);
+        if (schema["@type"] === "BreadcrumbList") {
+          const elements = schema.itemListElement as { position: number; name: string }[];
+          assertions(Array.isArray(elements) && elements.every((item, index) => item.position === index + 1 && Boolean(item.name)), `${pagePath}: malformed breadcrumb list`);
+        }
+      }
+      const schemaIDs = schemas.map(schema => schema["@id"]).filter(Boolean);
+      assertions(new Set(schemaIDs).size === schemaIDs.length, `${pagePath}: duplicate top-level schema IDs`);
+      assertions($("meta[property='og:title']").length === 1 && $("meta[property='og:description']").length === 1, `${pagePath}: duplicate OG metadata`);
+      assertions($("meta[property='og:locale']").attr("content") === "fa_IR", `${pagePath}: incorrect OG locale`);
       const ids = new Set($("[id]").map((_i, node) => $(node).attr("id")!).get()); const links: string[] = [];
       $("a[href]").each((_i, node) => {
         const href = $(node).attr("href")!; const url = internal(href, pagePath); if (!url) return;
@@ -151,6 +164,30 @@ async function audit(origin: string) {
     assertions(new RegExp(`User-Agent: ${escaped}\\nAllow: /\\nDisallow: /api/`, "i").test(robots), `robots: missing search/API policy for ${bot}`);
   }
   for (const bot of ["GPTBot", "Google-Extended", "ClaudeBot"]) assertions(robots.includes(`User-Agent: ${bot}`), `robots: missing training policy for ${bot}`);
+  const llmsResponse = await request("/llms.txt");
+  assertions(llmsResponse.status === 200 && llmsResponse.headers.get("content-type")?.includes("text/plain"), "llms.txt: missing plain text response");
+  const llms = await llmsResponse.text();
+  for (const path of ["/app", "/safir", "/assistant"]) assertions(llms.includes(`${siteUrl}${path}`), `llms.txt: missing ${path}`);
+  const llmsURLs = [...new Set(llms.match(/https:\/\/khodrochare\.ir[^\s)<>]*/g) ?? [])];
+  for (const url of llmsURLs) {
+    const target = new URL(url);
+    const response = await request(target.pathname + target.search);
+    assertions(response.status === 200, `llms.txt: ${url} returned ${response.status}`);
+    if (response.status === 200 && target.pathname !== "/") {
+      const html = load(await response.text());
+      assertions(html("h1").length === 1, `llms.txt: missing page content ${url}`);
+      assertions(html("link[rel='canonical']").attr("href") === absoluteUrl(pathOf(url)), `llms.txt: incorrect canonical ${url}`);
+    } else await response.body?.cancel();
+  }
+  const manifestResponse = await request("/manifest.webmanifest");
+  assertions(manifestResponse.status === 200, "manifest: not available");
+  assertions(manifestResponse.headers.get("x-robots-tag")?.includes("noindex"), "manifest: missing asset noindex header");
+  const manifest = await manifestResponse.json();
+  assertions(manifest.lang === "fa" && manifest.dir === "rtl" && manifest.scope === "/", "manifest: incorrect locale/scope");
+  for (const icon of manifest.icons ?? []) {
+    const result = await request(icon.src, "HEAD");
+    assertions(result.status === 200 && result.headers.get("content-type")?.startsWith("image/"), `manifest: invalid icon ${icon.src}`);
+  }
   const availability = await request("/api/service-requests"); assertions((await availability.json()).enabled === false, "test server must not send real requests");
   assertions(availability.headers.get("cache-control")?.includes("no-store"), "request availability must not be cached");
   const post = (body: unknown, originHeader = origin, contentType = "application/json") => request("/api/service-requests", "POST", { headers: { Origin: originHeader, "Content-Type": contentType }, body: JSON.stringify(body) });

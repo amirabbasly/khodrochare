@@ -3,9 +3,9 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "خودرو چاره | امداد خودرو آنلاین تهران و کرج",
+    name: "خودرو چاره | اپلیکیشن امداد خودرو آنلاین",
     short_name: "خودرو چاره",
-    description: "امداد خودرو آنلاین، یدک‌کش، خودروبر، مکانیک سیار، باتری و خدمات خودرو در محل در تهران و کرج.",
+    description: "اپلیکیشن امداد خودرو چاره؛ امداد خودرو آنلاین، یدک‌کش، مکانیک سیار و باتری در تهران، کرج و شمال.",
     start_url: "/?utm_source=pwa",
     scope: "/",
     display: "standalone",
