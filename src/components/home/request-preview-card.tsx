@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { businessFacts } from "@/content/business";
 import { Icon } from "./home-ui";
 
@@ -14,7 +15,7 @@ export function RequestPreviewCard() {
     <section
       id="request"
       data-testid="home-request-card"
-      className="order-1 min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-slate-200 bg-white text-ink shadow-card lg:order-2"
+      className="hidden lg:block landing-glass order-1 min-w-0 scroll-mt-28 overflow-hidden rounded-2xl border border-slate-200 bg-white text-ink shadow-card lg:order-2"
       dir="rtl"
       aria-labelledby="home-request-title"
     >
@@ -26,13 +27,14 @@ export function RequestPreviewCard() {
           <div className="min-w-0">
             <p className="text-[11px] font-bold text-slate-500">یک تماس، یک چاره</p>
             <h2 id="home-request-title" className="mt-1 text-base font-black leading-7 sm:text-lg">
-              آماده‌سازی درخواست امداد خودرو
+              درخواست امداد خودرو آنلاین
             </h2>
           </div>
         </div>
       </div>
 
       <div className="p-4 sm:p-5">
+        <Link href="/امداد-خودرو-آنلاین" className="my-3 inline-flex min-h-11 items-center text-sm font-bold text-brand-orange underline">امداد خودرو آنلاین؛ انتخاب خدمت و شروع درخواست</Link>
         <dl className="grid grid-cols-2 gap-3">
           {details.map((detail) => (
             <div key={detail.title} className="min-w-0 rounded-xl border border-slate-200 bg-slate-50/70 p-3">
