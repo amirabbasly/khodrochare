@@ -2,44 +2,29 @@ import Link from "next/link";
 import { AppShowcaseBanner } from "@/components/home/app-trust-banners";
 import { SubpageShell } from "@/components/site/subpage-shell";
 import { AnswerBox, FinalContact, LandingHeader, LandingSchemas, LinkGrid, Questions, SafetyNote, Section } from "@/components/seo/landing-ui";
-import { OnlineRequestBrief } from "@/components/tools/online-request-brief";
-import { customerAppUrl } from "@/content/app-links";
 import { businessFacts } from "@/content/business";
 import { onlineContentRelease, onlineDescription, onlineHubFaqs, onlinePath, onlineServices, onlineTitle } from "@/content/online-assistance";
 import { seoMetadata } from "@/seo/metadata";
 
-export const metadata = seoMetadata({ title: "امداد خودرو آنلاین | درخواست یدک‌کش، مکانیک و باتری", description: onlineDescription, path: onlinePath });
+export const metadata = seoMetadata({ title: "امداد خودرو آنلاین | اپلیکیشن امداد خودرو چاره", description: onlineDescription, path: onlinePath });
 
 export default function Page() {
   return <SubpageShell showGeneralFaq={false}>
     <LandingSchemas path={onlinePath} title={onlineTitle} description={onlineDescription} area={businessFacts.coverageSummary} areaType="Place" />
+    {/* Preserve incoming links to retired request sections without rendering a form. */}
+    <span id="request" aria-hidden="true" /><span id="request-checklist" aria-hidden="true" />
     <AppShowcaseBanner />
-    <LandingHeader title={onlineTitle} intro="امداد خودرو آنلاین، مسیر شروع درخواست و هماهنگی کمک برای خودروی متوقف یا خراب است؛ از عیب‌یابی در محل و خدمات باتری تا تعویض چرخ و حمل با یدک‌کش یا کفی. در خودرو چاره درخواست را از اپ مشتریان، بدون نصب اجباری، شروع کنید. خدمت، هزینه و امکان اعزام در تهران، کرج و شمال برای موقعیت همان خودرو بررسی می‌شوند." crumbs={[{ label: "امداد خودرو آنلاین" }]} primaryAction={{ label: "شروع درخواست امداد آنلاین", href: customerAppUrl }} />
-    <AnswerBox updatedAt={onlineContentRelease}><p>برای درخواست امداد خودرو آنلاین، نوع نیاز، مدل و سال خودرو، نشانه خرابی و محل توقف را آماده کنید. از <Link href="/app" className="font-bold text-brand-orange underline">اپ مشتریان خودرو چاره</Link> وارد مسیر درخواست شوید؛ ورود یا ساخت حساب، دریافت درخواست و تأیید اعزام مراحل جدا هستند. پیش از شروع کار، نوع خدمت و اجزای هزینه را هماهنگ کنید. اگر اینترنت ندارید یا وضعیت فوری است، با <a href={`tel:${businessFacts.emergencyPhone}`} className="font-bold underline" dir="ltr">{businessFacts.emergencyPhone}</a> تماس بگیرید.</p></AnswerBox>
-    <nav aria-label="بخش‌های امداد آنلاین" className="site-container mt-6 flex flex-wrap gap-3 text-sm font-bold">
-      {[["downloads", "دانلود اپلیکیشن"], ["request", "شروع درخواست"], ["choose-service", "انتخاب خدمت"], ["request-checklist", "آماده‌سازی شرح خرابی"], ["request-cost", "هزینه"], ["online-coverage", "پوشش مناطق"], ["online-help", "ورود و پیگیری"]].map(([id, label]) => <a key={id} href={`#${id}`} className="inline-flex min-h-11 items-center rounded-xl border border-slate-300 px-4 text-ink hover:underline">{label}</a>)}
-    </nav>
-    <Section id="request" title="شروع درخواست آنلاین؛ سه مرحله روشن">
-      <ol className="grid list-inside list-decimal gap-4 md:grid-cols-3">
-        <li className="rounded-xl border border-slate-200 p-4"><strong>ورود به حساب مشتری</strong><p>اپ مشتریان را در مرورگر باز کنید و وارد شوید یا حساب بسازید. نصب میان‌بر اختیاری است؛ ورود به حساب به‌تنهایی درخواست امداد ثبت نمی‌کند.</p></li>
-        <li className="rounded-xl border border-slate-200 p-4"><strong>شرح نیاز و موقعیت</strong><p>مدل و سال، رفتار خودرو و نشانی قابل دسترسی را اعلام کنید. برای حمل، گیربکس، وضعیت چرخ‌ها و مقصد؛ در بزرگراه، جهت حرکت و خروجی نزدیک مهم‌اند.</p></li>
-        <li className="rounded-xl border border-slate-200 p-4"><strong>هماهنگی خدمت</strong><p>پیام نتیجه را بررسی کنید و درباره خدمت، مبلغ و زمان تقریبی هماهنگ شوید. دریافت اطلاعات به معنی اعزام قطعی نیست؛ در ابهام، همان درخواست را پیگیری کنید.</p></li>
-      </ol>
-      <Link href="/app" data-app-entry="customer" className="inline-flex min-h-12 items-center rounded-xl bg-brand-orange px-5 font-black text-white">شروع درخواست در اپ مشتریان</Link>
+    <LandingHeader title={onlineTitle} intro="امداد خودرو آنلاین با اپلیکیشن خودرو چاره، راه دسترسی به خدمات یدک‌کش، مکانیک سیار و برق و باتری در تهران، کرج و شمال است. نسخه اندروید را از بازار یا مایکت دریافت کنید یا از نسخه وب روی آیفون و اندروید استفاده کنید؛ نصب برنامه برای استفاده از نسخه وب اجباری نیست." crumbs={[{ label: "امداد خودرو آنلاین" }]} primaryAction={{ label: "نصب اپلیکیشن امداد خودرو", href: "/app" }} />
+    <AnswerBox updatedAt={onlineContentRelease}><p>اپلیکیشن امداد خودرو، مسیر ارتباط کاربر با خدمات موردنیاز خودرو در محل یا جاده است. خودرو چاره امکان شروع هماهنگی امداد، حمل خودرو و خدمات سیار را در اپ مشتریان فراهم می‌کند. انتخاب خدمت در اپ به معنی تأیید قطعی اعزام نیست؛ پوشش، هزینه و زمان تقریبی با توجه به موقعیت و ظرفیت بررسی می‌شوند.</p></AnswerBox>
+    <Section id="online-app" title="اپلیکیشن امداد خودرو؛ اندروید و آیفون">
+      <p>برای استفاده از امداد خودرو آنلاین، می‌توانید نسخه اندروید خودرو چاره را از فروشگاه‌های معرفی‌شده در بالای صفحه دریافت کنید. کاربران آیفون از وب‌اپلیکیشن در مرورگر استفاده می‌کنند و در صورت تمایل میان‌بر آن را به صفحه اصلی اضافه می‌کنند؛ این نسخه فایل نصب iOS نیست. مسیر نصب و ورود مشتریان با اپلیکیشن عضویت سفیران تفاوت دارد.</p>
+      <p>اپلیکیشن، دسترسی به خدمات مختلف را در یک مسیر جمع می‌کند؛ اما نوع خرابی، شرایط خودرو و دسترسی محل تعیین می‌کنند تعمیر در محل مناسب است یا حمل به تعمیرگاه. برای دریافت خدمت، ادامه کار در اپ مشتریان انجام می‌شود و این صفحه فرم ثبت درخواست ندارد.</p>
+      <Link href="/app" className="inline-flex min-h-11 items-center font-bold text-brand-orange underline">دانلود اپلیکیشن امداد خودرو و راهنمای نسخه وب</Link>
     </Section>
-    <Section id="choose-service" title="کدام خدمت را آنلاین درخواست کنم؟">
+    <Section id="choose-service" title="خدمات امداد خودرو آنلاین در اپلیکیشن خودرو چاره">
       <p>برای انتخاب خدمت، رفتار خودرو مهم‌تر از حدس نام قطعه است: «استارت کند است»، «موتور می‌چرخد اما روشن نمی‌شود» و «خودرو روشن است اما حرکت نمی‌کند» وضعیت‌های متفاوت‌اند. اگر مطمئن نیستید، نشانه را توضیح دهید. انتخاب اولیه فقط مسیر بررسی را روشن می‌کند؛ تشخیص و امکان تعمیر به ارزیابی متخصص نیاز دارند.</p>
       <LinkGrid label="انتخاب خدمات امداد آنلاین" links={onlineServices.map(service => ({ title: service.title, href: service.href, description: service.description }))} />
     </Section>
-    <Section id="online-triage" title="ماشین روشن نمی‌شود یا در مسیر مانده‌اید؛ چه خدمتی انتخاب کنید؟">
-      <p>برای ثبت درخواست امداد آنلاین، به جای انتخاب قطعه از روی حدس، نشانه خرابی را مشخص کنید. اگر خودرو در محل ناامن متوقف است، ابتدا ایمنی سرنشینان و محل توقف را در اولویت بگذارید؛ بررسی فنی را در مسیر عبور خودروها انجام ندهید.</p>
-      <div className="grid gap-4 md:grid-cols-3">
-        <article className="rounded-2xl border border-slate-200 p-5"><h3 className="font-black">استارت ضعیف یا صدای تق‌تق</h3><p>نور چراغ‌ها، مدت توقف و سابقه خالی‌شدن باتری را اعلام کنید. این نشانه به‌تنهایی خرابی باتری را ثابت نمی‌کند؛ تست باتری و مدار شارژ قبل از تعویض مهم است.</p><Link href="/battery" className="font-bold text-brand-orange underline">راهنمای برق و باتری خودرو</Link></article>
-        <article className="rounded-2xl border border-slate-200 p-5"><h3 className="font-black">خودرو روشن است اما حرکت نمی‌کند</h3><p>نوع گیربکس، امکان خلاص‌شدن و وضعیت چرخ‌ها را بگویید. برای خودروی تصادفی، چرخ قفل یا گیربکس آسیب‌دیده، روش حمل باید پیش از اعزام مشخص شود.</p><Link href="/services/flatbed-carrier" className="font-bold text-brand-orange underline">بررسی شرایط حمل با کفی</Link></article>
-        <article className="rounded-2xl border border-slate-200 p-5"><h3 className="font-black">چراغ هشدار، داغ‌کردن یا صدای غیرعادی</h3><p>نام چراغ، زمان شروع و رفتار خودرو را گزارش کنید. با هشدار فشار روغن یا افزایش شدید دما، ادامه رانندگی می‌تواند آسیب را بیشتر کند؛ اقدام ایمن را با متخصص هماهنگ کنید.</p><Link href="/services/mobile-mechanic" className="font-bold text-brand-orange underline">عیب‌یابی و مکانیک سیار</Link></article>
-      </div>
-    </Section>
-    <Section id="request-checklist" title="شرح درخواست را آماده کنید؛ بدون ارسال اطلاعات"><OnlineRequestBrief /></Section>
     <Section id="request-cost" title="هزینه امداد خودرو آنلاین چگونه محاسبه می‌شود؟">
       <p>هزینه امداد خودرو آنلاین از نوع خدمت و شرایط واقعی آن به دست می‌آید، نه صرفاً ثبت اینترنتی درخواست. در تعمیر، اعزام، عیب‌یابی، اجرت و قطعه را جدا بپرسید؛ در حمل، نوع وسیله، ورودی، مسافت مشمول نرخ و بارگیری را روشن کنید. هزینه بازدید در صورت انجام‌نشدن تعمیر، انتظار و تغییر مقصد هم باید مشخص باشد. هر کار اضافه به توافق تازه نیاز دارد؛ آنلاین‌بودن به معنی رایگان‌بودن اعزام نیست.</p>
       <div className="overflow-x-auto"><table className="w-full min-w-[480px] text-right"><caption className="p-3 text-right font-bold text-ink">چه چیزی را پیش از شروع هماهنگ کنیم؟</caption><thead><tr>{["خدمت", "اقلام هزینه", "اطلاعات تعیین‌کننده"].map(label => <th key={label} scope="col" className="border-b p-3">{label}</th>)}</tr></thead><tbody>{[
@@ -57,11 +42,11 @@ export default function Page() {
       <p>خودرو چاره برند شرکت {businessFacts.legalName} است. خدمت مستقل از نمایندگی رسمی خودروساز هماهنگ می‌شود؛ برای خودروی دارای گارانتی، شرایط تعمیر و مقصد پذیرنده را با ارائه‌دهنده ضمانت کنترل کنید. پیش از تأیید، درباره دامنه کار، مسئولیت حمل و شرایط ضمانت همان خدمت سؤال کنید و شرح توافق و رسید را نگه دارید. مشخصات حقوقی، نشانی و مسیر پیگیری در صفحات زیر آمده‌اند.</p>
       <LinkGrid links={[{ title: "هویت ثبتی و جواز فعالیت", href: "/licenses" }, { title: "تماس، نشانی و پیگیری خدمت", href: "/contact" }, { title: "تیم و معرفی مجموعه", href: "/about" }]} />
     </Section>
-    <Section id="online-help" title="راهنمای ورود، آماده‌سازی و پیگیری درخواست">
-      <p>این صفحه مسیر انتخاب خدمت و شروع درخواست امداد خودرو آنلاین است. برای آماده‌کردن اطلاعات، راهنمای پیش از درخواست؛ برای پیام نامشخص، تغییر محل یا تأخیر، راهنمای پیگیری را بخوانید. اگر موقعیت یا مقصد عوض شد، تغییر را مستقیم اطلاع دهید؛ به‌روزرسانی خودکار نشانی را فرض نکنید و پیش از ارسال دوباره وضعیت درخواست قبلی را بپرسید.</p>
-      <LinkGrid links={[{ title: "ورود و نصب نسخه وب مشتریان", href: "/app", description: "راهنمای مرورگر، Android و iPhone؛ مسیر ناوگان سفیران جداست." }, { title: "چک‌لیست پیش از درخواست؛ تهران و کرج", href: "/blog/online-roadside-assistance-tehran-karaj-complete-guide", description: "اطلاعات خودرو، نشانی و محدودیت بارگیری." }, { title: "پس از ارسال؛ پیگیری و تغییر موقعیت", href: "/blog/online-roadside-assistance-request-guide", description: "نتیجه ارسال، تماس پیگیری و هماهنگی نشانی تازه." }, { title: "دریافت کمک بدون اینترنت", href: "/blog/roadside-help-without-internet" }]} />
+    <Section id="online-help" title="راهنماهای تکمیلی امداد خودرو آنلاین">
+      <p>برای آشنایی بیشتر با استفاده از اپلیکیشن امداد خودرو، راهنماهای زیر را بخوانید. در صورت نبود اینترنت، پشتیبانی تلفنی جایگزین مسیر آنلاین است؛ در موقعیت خطرناک، ایمنی سرنشینان بر استفاده از برنامه اولویت دارد.</p>
+      <LinkGrid links={[{ title: "نصب اپلیکیشن امداد خودرو", href: "/app" }, { title: "راهنمای استفاده و پیگیری خدمات آنلاین", href: "/blog/online-roadside-assistance-request-guide" }, { title: "آمادگی پیش از دریافت امداد", href: "/blog/online-roadside-assistance-tehran-karaj-complete-guide" }, { title: "دریافت کمک بدون اینترنت", href: "/blog/roadside-help-without-internet" }]} />
     </Section>
-    <Questions title="سؤال‌های درخواست امداد آنلاین" items={onlineHubFaqs} />
+    <Questions title="پرسش‌های امداد خودرو آنلاین و اپلیکیشن" items={onlineHubFaqs.filter(item => !item.question.includes("ابزار آماده‌سازی"))} />
     <SafetyNote /><FinalContact title="برای شروع درخواست آماده‌اید؟" />
   </SubpageShell>;
 }

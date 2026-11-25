@@ -1,7 +1,7 @@
 export const onlineContentRelease = { iso: "2026-10-17", label: "۲۵ مهر ۱۴۰۵" };
 export const onlinePath = "/امداد-خودرو-آنلاین";
-export const onlineTitle = "امداد خودرو آنلاین؛ درخواست یدک‌کش، مکانیک و باتری";
-export const onlineDescription = "امداد خودرو آنلاین در تهران، کرج و شمال؛ شروع درخواست یدک‌کش، مکانیک سیار و باتری در اپ خودرو چاره، بدون نصب اجباری؛ هماهنگی هزینه و اعزام پیش از خدمت.";
+export const onlineTitle = "امداد خودرو آنلاین با اپلیکیشن امداد خودرو چاره";
+export const onlineDescription = "امداد خودرو آنلاین با اپلیکیشن خودرو چاره؛ دانلود اندروید از بازار و مایکت و نسخه وب مناسب آیفون. خدمات یدک‌کش، مکانیک سیار و باتری در تهران، کرج و شمال.";
 
 /** Shared by SSR service links and the local-only request brief builder. */
 export const onlineServices = [
