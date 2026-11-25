@@ -6,7 +6,7 @@ import { businessFacts } from "@/content/business";
 import { onlineDescription, onlineHubFaqs, onlinePath, onlineServices, onlineTitle } from "@/content/online-assistance";
 import { seoMetadata } from "@/seo/metadata";
 
-export const metadata = seoMetadata({ title: "امداد خودرو آنلاین | اپلیکیشن امداد خودرو چاره", description: onlineDescription, path: onlinePath });
+export const metadata = seoMetadata({ title: "درخواست امداد خودرو آنلاین | یدک‌کش، مکانیک و باتری", description: onlineDescription, path: onlinePath });
 
 export default function Page() {
   return <SubpageShell showGeneralFaq={false}>
@@ -16,7 +16,7 @@ export default function Page() {
     <AppShowcaseBanner />
     <LandingHeader title={onlineTitle} intro="امداد خودرو آنلاین با اپلیکیشن خودرو چاره، راه دسترسی به خدمات یدک‌کش، مکانیک سیار و برق و باتری در تهران، کرج و شمال است. نسخه اندروید را از بازار یا مایکت دریافت کنید یا از نسخه وب روی آیفون و اندروید استفاده کنید؛ نصب برنامه برای استفاده از نسخه وب اجباری نیست." crumbs={[{ label: "امداد خودرو آنلاین" }]} primaryAction={{ label: "نصب اپلیکیشن امداد خودرو", href: "/app" }} />
 
-    <Section id="online-app" title="اپلیکیشن امداد خودرو؛ اندروید و آیفون">
+    <Section id="online-app" title="دسترسی به خدمات امداد خودرو آنلاین از اپلیکیشن">
       <p>برای استفاده از امداد خودرو آنلاین، می‌توانید نسخه اندروید خودرو چاره را از فروشگاه‌های معرفی‌شده در بالای صفحه دریافت کنید. کاربران آیفون از وب‌اپلیکیشن در مرورگر استفاده می‌کنند و در صورت تمایل میان‌بر آن را به صفحه اصلی اضافه می‌کنند؛ این نسخه فایل نصب iOS نیست. مسیر نصب و ورود مشتریان با اپلیکیشن عضویت سفیران تفاوت دارد.</p>
       <p>اپلیکیشن امداد خودرو چاره، دسترسی به خدمات امدادی و حمل خودرو را در یک مسیر جمع می‌کند. از نسخه اندروید یا وب‌اپ وارد شوید و خدمت متناسب با نیاز خودرو را انتخاب کنید؛ هماهنگی تعمیر در محل یا حمل به تعمیرگاه بر اساس وضعیت خودرو انجام می‌شود.</p>
       <Link href="/app" data-app-entry="customer" className="inline-flex min-h-11 items-center font-bold text-brand-orange underline">دانلود اپلیکیشن امداد خودرو و راهنمای نسخه وب</Link>
@@ -44,7 +44,7 @@ export default function Page() {
     </Section>
     <Section id="online-help" title="راهنماهای تکمیلی امداد خودرو آنلاین">
       <p>برای آشنایی بیشتر با استفاده از اپلیکیشن امداد خودرو، راهنماهای زیر را بخوانید. در صورت نبود اینترنت، پشتیبانی تلفنی جایگزین مسیر آنلاین است؛ در موقعیت خطرناک، ایمنی سرنشینان بر استفاده از برنامه اولویت دارد.</p>
-      <LinkGrid links={[{ title: "نصب اپلیکیشن امداد خودرو", href: "/app" }, { title: "راهنمای استفاده و پیگیری خدمات آنلاین", href: "/blog/online-roadside-assistance-request-guide" }, { title: "آمادگی پیش از دریافت امداد", href: "/blog/online-roadside-assistance-tehran-karaj-complete-guide" }, { title: "دریافت کمک بدون اینترنت", href: "/blog/roadside-help-without-internet" }]} />
+      <LinkGrid links={[{ title: "راهنمای امداد خودرو در محل و جاده", href: "/امداد-خودرو" }, { title: "نصب اپلیکیشن امداد خودرو", href: "/app" }, { title: "راهنمای استفاده و پیگیری خدمات آنلاین", href: "/blog/online-roadside-assistance-request-guide" }, { title: "آمادگی پیش از دریافت امداد", href: "/blog/online-roadside-assistance-tehran-karaj-complete-guide" }, { title: "دریافت کمک بدون اینترنت", href: "/blog/roadside-help-without-internet" }]} />
     </Section>
     <Questions title="پرسش‌های امداد خودرو آنلاین و اپلیکیشن" items={onlineHubFaqs.filter(item => !item.question.includes("ابزار آماده‌سازی"))} />
     <SafetyNote /><FinalContact title="برای شروع درخواست آماده‌اید؟" />
