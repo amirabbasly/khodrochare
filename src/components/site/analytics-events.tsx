@@ -24,9 +24,16 @@ export function AnalyticsEvents() {
       if (!link) return;
       const href = link.getAttribute("href") ?? "";
       if (href.startsWith("tel:")) sendEvent("click_tel", { link_url: href, page_path: window.location.pathname, placement: link.closest("header") ? "header" : link.closest("footer") ? "footer" : "content" });
+      // Keep legacy events for existing reports; add explicit, non-PII funnel names.
+      if (href.startsWith("tel:")) sendEvent("click_to_call", { page_path: window.location.pathname, placement: link.closest("header") ? "header" : link.closest("footer") ? "footer" : "content" });
+      if (link.hasAttribute("download") && /\.apk(?:$|[?#])/.test(href)) sendEvent("app_download", { page_path: window.location.pathname, platform: "android" });
+      if (link.dataset.appEntry) sendEvent("app_open", { page_path: window.location.pathname, app: link.dataset.appEntry === "customer" ? "customer" : "fleet" });
       if (href.includes("#request")) sendEvent("service_request_start", { page_path: window.location.pathname });
       if (href.startsWith("mailto:")) sendEvent("contact_email_intent", { page_path: window.location.pathname });
-      if (href.includes("wa.me") || href.includes("whatsapp")) sendEvent("click_whatsapp", { page_path: window.location.pathname });
+      if (href.includes("wa.me") || href.includes("whatsapp")) {
+        sendEvent("click_whatsapp", { page_path: window.location.pathname });
+        sendEvent("whatsapp_click", { page_path: window.location.pathname });
+      }
     };
     const handleRequestResult = (event: Event) => {
       const status = (event as CustomEvent<{ status: string }>).detail?.status;

@@ -1,3 +1,5 @@
+import { MobileBottomNav } from "@/components/site/mobile-bottom-nav";
+import { ScrollAnimations } from "@/components/site/scroll-animations";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { RouteProgress } from "@/components/site/route-progress";
@@ -9,9 +11,9 @@ import { AnalyticsEvents } from "@/components/site/analytics-events";
 import { Analytics } from "@/components/site/analytics";
 import { defaultOgImage, siteName, siteUrl } from "@/seo/metadata";
 
-const defaultTitle = "امداد خودرو آنلاین تهران، کرج و شمال | خودرو چاره";
+const defaultTitle = "امداد خودرو آنلاین | سوپر اپلیکیشن امداد خودرو چاره";
 const defaultDescription =
-  "خودرو چاره؛ هماهنگی امداد خودرو آنلاین، یدک‌کش، خودروبر، مکانیک سیار و باتری در تهران، کرج، گیلان، مازندران و گلستان.";
+  "خودرو چاره؛ سوپر اپلیکیشن خدمات خودرو برای امداد خودرو آنلاین، یدک‌کش، مکانیک سیار و باتری در تهران، کرج و شمال. دانلود اپلیکیشن امداد خودرو برای اندروید و نسخه وب آیفون.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -45,8 +47,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: defaultTitle,
-    description:
-      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ در تهران، کرج، گیلان، مازندران و گلستان.",
+    description: defaultDescription,
     url: siteUrl,
     siteName,
     locale: "fa_IR",
@@ -56,8 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: defaultTitle,
-    description:
-      "امداد خودرو آنلاین خودرو چاره برای هماهنگی امدادگر، یدک‌کش، مکانیک سیار و خدمات خودرو در محل؛ در تهران، کرج، گیلان، مازندران و گلستان.",
+    description: defaultDescription,
     images: [defaultOgImage.url],
   },
   robots: {
@@ -71,27 +71,31 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
-    : {}),
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    yandex: process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION || undefined,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  colorScheme: "light",
-  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#071a2e" }, { media: "(prefers-color-scheme: dark)", color: "#031224" }],
+  colorScheme: "dark",
+  themeColor: "#091321",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fa" dir="rtl" className="h-full antialiased">
+    <html lang="fa" dir="rtl" data-theme="dark" style={{ colorScheme: "dark" }} className="h-full antialiased">
       <head>
         <link rel="preload" href="/fonts/Vazir.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Vazir-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-full flex flex-col"><a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:right-4 focus:top-4 focus:z-[300] focus:rounded-lg focus:bg-brand-orange focus:px-4 focus:py-3 focus:text-sm focus:font-black focus:text-white">رفتن به محتوای اصلی</a><StructuredData data={organizationSchema} /><StructuredData data={websiteSchema} /><Analytics /><AnalyticsEvents /><RouteProgress />{children}<WelcomeModal /></body>
+      <body className="min-h-full flex flex-col"><a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:right-4 focus:top-4 focus:z-[300] focus:rounded-lg focus:bg-brand-orange focus:px-4 focus:py-3 focus:text-sm focus:font-black focus:text-white">رفتن به محتوای اصلی</a><StructuredData data={organizationSchema} /><StructuredData data={websiteSchema} /><Analytics /><AnalyticsEvents /><RouteProgress /><ScrollAnimations />{children}<MobileBottomNav /><WelcomeModal /></body>
     </html>
   );
 }
