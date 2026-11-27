@@ -1,3 +1,4 @@
+import { roadsideCoordinationCluster } from "@/content/roadside-coordination-cluster";
 import { onlineServiceCluster } from "@/content/online-service-cluster";
 import Link from "next/link";
 import { AppShowcaseBanner } from "@/components/home/app-trust-banners";
@@ -26,6 +27,12 @@ export default function Page() {
       <p>از یدک‌کش و خودروبر کفی تا مکانیک سیار، برق و باتری و تعویض چرخ، خدمات موردنیازتان را در اپلیکیشن امداد خودرو انتخاب کنید. معرفی هر خدمت در لینک‌های زیر کمک می‌کند با کاربرد و شرایط آن آشنا شوید و انتخاب متناسب با وضعیت خودرو داشته باشید.</p>
       <LinkGrid label="انتخاب خدمات امداد آنلاین" links={onlineServices.map(service => ({ title: service.title, href: service.href, description: service.description }))} />
     </Section>
+    <Section id="online-service-planning" title="اعزام آنلاین امدادگر؛ هماهنگی متناسب با خودرو و محل">
+      <h3 className="font-black text-ink">یک شرح روشن، انتخاب خدمت دقیق‌تر</h3>
+      <p>در خدمات امداد خودرو آنلاین، مدل و سال خودرو، نوع گیربکس و نشانه قابل مشاهده را کنار نشانی قرار دهید. برای استارت ضعیف، بررسی برق و باتری مطرح است؛ برای خودروی دارای صدای غیرعادی، مکانیک سیار و برای جابه‌جایی، یدک‌کش یا کفی را بشناسید. انتخاب آگاهانه خدمت، ارتباط کاربر و پشتیبانی را هدفمند می‌کند. در اپلیکیشن امداد خودرو چاره، مسیر مشتریان از عضویت سفیران جداست و ادامه هماهنگی خدمت از حساب مشتریان انجام می‌شود.</p>
+      <h3 className="font-black text-ink">راننده، مالک و محل دسترسی را هماهنگ کنید</h3>
+      <p>برای خودروی کاری یا خانوادگی، یک فرد مسئول ارتباط معرفی کنید تا شرح نشانه‌ها، تصمیم هزینه و مقصد یکپارچه بمانند. در پارکینگ، ورودی مناسب، طبقه و شماره فرد پاسخ‌گو را آماده کنید. در حمل خودرو، نام تعمیرگاه و ساعت پذیرش و تحویل‌گیرنده را از ابتدا مشخص کنید. راهنماهای تکمیلی این صفحه، هماهنگی خودروی شرکتی، دسترسی مجتمع و پذیرش مقصد را با جزئیات توضیح می‌دهند تا تجربه دریافت خدمات خودرو در محل منظم و حرفه‌ای پیش برود.</p>
+    </Section>
     <Section id="request-cost" title="هزینه امداد خودرو آنلاین چگونه محاسبه می‌شود؟">
       <p>هزینه امداد خودرو آنلاین از نوع خدمت و شرایط واقعی آن به دست می‌آید، نه صرفاً ثبت اینترنتی درخواست. در تعمیر، اعزام، عیب‌یابی، اجرت و قطعه را جدا بپرسید؛ در حمل، نوع وسیله، ورودی، مسافت مشمول نرخ و بارگیری را روشن کنید. هزینه بازدید در صورت انجام‌نشدن تعمیر، انتظار و تغییر مقصد هم باید مشخص باشد. هر کار اضافه به توافق تازه نیاز دارد؛ آنلاین‌بودن به معنی رایگان‌بودن اعزام نیست.</p>
       <div className="overflow-x-auto"><table className="w-full min-w-[480px] text-right"><caption className="p-3 text-right font-bold text-ink">چه چیزی را پیش از شروع هماهنگ کنیم؟</caption><thead><tr>{["خدمت", "اقلام هزینه", "اطلاعات تعیین‌کننده"].map(label => <th key={label} scope="col" className="border-b p-3">{label}</th>)}</tr></thead><tbody>{[
@@ -45,7 +52,7 @@ export default function Page() {
     </Section>
     <Section id="online-help" title="راهنماهای تکمیلی امداد خودرو آنلاین">
       <p>برای آشنایی بیشتر با استفاده از اپلیکیشن امداد خودرو، راهنماهای زیر را بخوانید. در صورت نبود اینترنت، پشتیبانی تلفنی جایگزین مسیر آنلاین است؛ در موقعیت خطرناک، ایمنی سرنشینان بر استفاده از برنامه اولویت دارد.</p>
-      <LinkGrid links={[...onlineServiceCluster.map(guide => ({ title: guide.title, href: guide.path })), { title: "بررسی هویت امدادگر و مشخصات خدمت", href: "/guides/verify-roadside-provider" }, { title: "فاکتور و تحویل خودرو به خودروبر", href: "/blog/roadside-service-invoice-handover" }, { title: "راهنمای امداد خودرو در محل و جاده", href: "/امداد-خودرو" }, { title: "نصب اپلیکیشن امداد خودرو", href: "/app" }, { title: "راهنمای استفاده و پیگیری خدمات آنلاین", href: "/blog/online-roadside-assistance-request-guide" }, { title: "آمادگی پیش از دریافت امداد", href: "/blog/online-roadside-assistance-tehran-karaj-complete-guide" }, { title: "دریافت کمک بدون اینترنت", href: "/blog/roadside-help-without-internet" }]} />
+      <LinkGrid links={[...roadsideCoordinationCluster.map(guide => ({ title: guide.title, href: guide.path })), ...onlineServiceCluster.map(guide => ({ title: guide.title, href: guide.path })), { title: "بررسی هویت امدادگر و مشخصات خدمت", href: "/guides/verify-roadside-provider" }, { title: "فاکتور و تحویل خودرو به خودروبر", href: "/blog/roadside-service-invoice-handover" }, { title: "راهنمای امداد خودرو در محل و جاده", href: "/امداد-خودرو" }, { title: "نصب اپلیکیشن امداد خودرو", href: "/app" }, { title: "راهنمای استفاده و پیگیری خدمات آنلاین", href: "/blog/online-roadside-assistance-request-guide" }, { title: "آمادگی پیش از دریافت امداد", href: "/blog/online-roadside-assistance-tehran-karaj-complete-guide" }, { title: "دریافت کمک بدون اینترنت", href: "/blog/roadside-help-without-internet" }]} />
     </Section>
     <Questions title="پرسش‌های امداد خودرو آنلاین و اپلیکیشن" items={onlineHubFaqs.filter(item => !item.question.includes("ابزار آماده‌سازی"))} />
     <SafetyNote /><FinalContact title="برای شروع درخواست آماده‌اید؟" />

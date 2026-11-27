@@ -5,7 +5,7 @@ import { indexablePaths } from "../../scripts/lib/route-inventory";
 import sitemap from "../../src/app/sitemap";
 import { absoluteUrl } from "../../src/seo/metadata";
 test("support guides have distinct intents, substantial unique sections and discoverable canonicals", () => {
- assert.equal(new Set(roadsideDecisionGuides.map(g=>g.path)).size,5);
+ assert.equal(new Set(roadsideDecisionGuides.map(g=>g.path)).size,7);
  for(const guide of roadsideDecisionGuides){
   assert.ok(indexablePaths.includes(guide.path));
   assert.equal(sitemap().filter(item=>item.url===absoluteUrl(guide.path)).length,1);

@@ -1,0 +1,80 @@
+{
+  "scope": "local production HTML, not traffic or rankings",
+  "wordCountMethod": "Whitespace-separated main text excluding scripts/styles/nav/header/footer; normalized U+200C remains within a word",
+  "rows": [
+    {
+      "path": "/امداد-خودرو-آنلاین",
+      "visibleMainWords": 1183,
+      "mainInternalLinkElements": 33,
+      "uniqueMainInternalDestinations": 28,
+      "linksToHub": 0,
+      "h2": 11,
+      "h3": 2
+    },
+    {
+      "path": "/guides/verify-roadside-provider",
+      "visibleMainWords": 592,
+      "mainInternalLinkElements": 16,
+      "uniqueMainInternalDestinations": 14,
+      "linksToHub": 2,
+      "h2": 8,
+      "h3": 0
+    },
+    {
+      "path": "/blog/roadside-service-invoice-handover",
+      "visibleMainWords": 581,
+      "mainInternalLinkElements": 16,
+      "uniqueMainInternalDestinations": 14,
+      "linksToHub": 2,
+      "h2": 8,
+      "h3": 0
+    },
+    {
+      "path": "/guides/night-roadside-access-planning",
+      "visibleMainWords": 756,
+      "mainInternalLinkElements": 15,
+      "uniqueMainInternalDestinations": 13,
+      "linksToHub": 2,
+      "h2": 8,
+      "h3": 3
+    },
+    {
+      "path": "/guides/mobile-mechanic-visit-preparation",
+      "visibleMainWords": 713,
+      "mainInternalLinkElements": 15,
+      "uniqueMainInternalDestinations": 13,
+      "linksToHub": 2,
+      "h2": 8,
+      "h3": 3
+    },
+    {
+      "path": "/guides/online-towing-destination-coordination",
+      "visibleMainWords": 692,
+      "mainInternalLinkElements": 15,
+      "uniqueMainInternalDestinations": 13,
+      "linksToHub": 2,
+      "h2": 8,
+      "h3": 3
+    },
+    {
+      "path": "/guides/company-car-roadside-coordination",
+      "visibleMainWords": 873,
+      "mainInternalLinkElements": 15,
+      "uniqueMainInternalDestinations": 13,
+      "linksToHub": 2,
+      "h2": 8,
+      "h3": 2
+    },
+    {
+      "path": "/guides/roadside-service-building-access",
+      "visibleMainWords": 858,
+      "mainInternalLinkElements": 15,
+      "uniqueMainInternalDestinations": 13,
+      "linksToHub": 2,
+      "h2": 8,
+      "h3": 2
+    }
+  ],
+  "totalMainInternalLinkElements": 140,
+  "totalGuideLinksToHub": 14
+}

@@ -1,3 +1,4 @@
+import { roadsideCoordinationCluster } from "./roadside-coordination-cluster";
 import { onlineServiceCluster } from "./online-service-cluster";
 export type DecisionGuide = { path: string; title: string; description: string; sections: { title: string; body: string; subsections?: { title: string; body: string }[]; bullets?: string[] }[]; faqs: { question: string; answer: string }[] };
 export const providerGuide: DecisionGuide = {
@@ -36,4 +37,4 @@ export const invoiceGuide: DecisionGuide = {
     { question: "آیا هزینه حمل در همه شهرها یکسان است؟", answer: "مبنای محاسبه به منطقه، نوع وسیله، مسیر و شرایط حمل بستگی دارد. نرخ‌نامه مرتبط و اقلام توافق‌شده را پیش از شروع بررسی کنید." },
   ],
 };
-export const roadsideDecisionGuides = [providerGuide, invoiceGuide, ...onlineServiceCluster];
+export const roadsideDecisionGuides = [providerGuide, invoiceGuide, ...onlineServiceCluster, ...roadsideCoordinationCluster];
