@@ -1,0 +1,30 @@
+{
+  "scope": "local production build, not live deployment",
+  "baseline_failures": 0,
+  "final_failures": 0,
+  "pages_checked": 480,
+  "indexable_pages": 476,
+  "metadata_changes": [
+    {
+      "path": "/امداد-خودرو-آنلاین",
+      "changes": {
+        "title": {
+          "before": "امداد خودرو آنلاین | اپلیکیشن امداد خودرو چاره | خودرو چاره",
+          "after": "درخواست امداد خودرو آنلاین | یدک‌کش، مکانیک و باتری | خودرو چاره"
+        },
+        "description": {
+          "before": "امداد خودرو آنلاین با اپلیکیشن خودرو چاره؛ دانلود اندروید از بازار و مایکت و نسخه وب مناسب آیفون. خدمات یدک‌کش، مکانیک سیار و باتری در تهران، کرج و شمال.",
+          "after": "درخواست امداد خودرو آنلاین در تهران، کرج و شمال؛ انتخاب یدک‌کش، مکانیک سیار و خدمات باتری، آشنایی با هزینه و پوشش و ادامه دریافت خدمت در اپلیکیشن خودرو چاره."
+        }
+      }
+    }
+  ],
+  "homepage_preservation": {
+    "sourceFilesChecked": 253,
+    "changedSources": [],
+    "renderedMarkupUnchanged": true,
+    "linkDestinationsUnchanged": true,
+    "visualBrowserComparison": "not performed",
+    "fieldCoreWebVitals": "not measured"
+  }
+}

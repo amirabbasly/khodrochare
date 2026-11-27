@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 const salt = randomBytes(16).toString("hex"); const allowRequest = createRateLimiter();
 const headers = { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" };
 const json = (body: object, status = 200) => NextResponse.json(body, { status, headers });
-export function GET() { return json({ enabled: Boolean(configuredWebhook(process.env.SERVICE_REQUEST_WEBHOOK_URL)), phone: "09123022064" }); }
+export function GET() { return json({ enabled: Boolean(configuredWebhook(process.env.SERVICE_REQUEST_WEBHOOK_URL)), phone: "02182801043" }); }
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin"); const host = request.headers.get("host");
   try { if (!origin || new URL(origin).host !== host || request.headers.get("sec-fetch-site") === "cross-site") return json({ error: "origin_not_allowed" }, 403); } catch { return json({ error: "origin_not_allowed" }, 403); }
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
   try { input = JSON.parse(await readLimitedBody(request, 8192)); } catch (error) { return json({ error: error instanceof Error && error.message === "body_too_large" ? "body_too_large" : "invalid_json" }, error instanceof Error && error.message === "body_too_large" ? 413 : 400); }
   const payload = validateServiceRequest(input); if (!payload) return json({ error: "invalid_request" }, 400);
   const url = configuredWebhook(process.env.SERVICE_REQUEST_WEBHOOK_URL);
-  if (!url) return json({ error: "online_intake_unavailable", phone: "09123022064" }, 503);
+  if (!url) return json({ error: "online_intake_unavailable", phone: "02182801043" }, 503);
   try { const acknowledgment = await deliverServiceRequest(payload, url, process.env.SERVICE_REQUEST_WEBHOOK_TOKEN); return json({ status: "received", reference: acknowledgment.reference }, 201); }
-  catch { /* Intentionally do not log customer data, credentials or upstream response bodies. */ return json({ error: "acceptance_not_confirmed", phone: "09123022064" }, 502); }
+  catch { /* Intentionally do not log customer data, credentials or upstream response bodies. */ return json({ error: "acceptance_not_confirmed", phone: "02182801043" }, 502); }
 }

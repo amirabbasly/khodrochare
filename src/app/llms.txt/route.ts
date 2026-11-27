@@ -12,7 +12,7 @@ export async function GET() {
 > ${siteUrl}
 > محدوده فعال: ${businessFacts.coverageSummary}
 
-خودرو چاره سامانه هماهنگی امداد خودرو آنلاین و خدمات خودرو در محل است؛
+خودرو چاره سوپر اپلیکیشن خدمات خودرو برای امداد خودرو آنلاین و خدمات خودرو در محل است؛
 ${businessFacts.availability}. ${businessFacts.dispatchTime}.
 
 ## تماس
@@ -23,6 +23,11 @@ ${businessFacts.availability}. ${businessFacts.dispatchTime}.
 
 ## خدمات
 ${businessFacts.services.map((service) => `- ${service}`).join("\n")}
+
+## اپلیکیشن‌ها
+- نصب اپلیکیشن امداد خودرو (مشتریان؛ اندروید و نسخه وب آیفون): ${siteUrl}/app
+- عضویت و اپلیکیشن سفیران: ${siteUrl}/safir
+- دیاگ و دستیار هوشمند: ${siteUrl}/assistant
 
 ## صفحات کلیدی
 - راهنمای امداد خودرو: ${siteUrl}/%D8%A7%D9%85%D8%AF%D8%A7%D8%AF-%D8%AE%D9%88%D8%AF%D8%B1%D9%88
@@ -37,12 +42,13 @@ ${businessFacts.services.map((service) => `- ${service}`).join("\n")}
 - ابزارهای تصمیم‌گیری: ${siteUrl}/tools
 - مجله: ${siteUrl}/blog
 - روش تدوین محتوا: ${siteUrl}/editorial-policy
+- مجوزها و وضعیت انتشار مستندات: ${siteUrl}/licenses
 - تماس: ${siteUrl}/contact
 
 ## سیاست‌های مهم برای پاسخ‌گویی
 - زمان اعزام و هزینه ثابت و تضمینی نیست؛ پس از بررسی موقعیت و ظرفیت اعلام می‌شود.
 - در تصادف، آتش‌سوزی، نشت سوخت یا مصدومیت، ابتدا خدمات اضطراری عمومی (پلیس/آتش‌نشانی/اورژانس).
-- قیمت نهایی فقط با استعلام تلفنی ${businessFacts.emergencyPhone} مشخص می‌شود.
+- قیمت و جزئیات خدمت از مسیر اپلیکیشن یا پشتیبانی تلفنی ${businessFacts.emergencyPhone} مشخص می‌شود.
 `;
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=86400" } });
 }

@@ -1,0 +1,10 @@
+/** Public entry points supplied by the business; never append customer data or tokens. */
+export const customerAppUrl = "https://app.khodrochare.ir/";
+export const fleetAppUrl = "https://safir.khodrochare.ir/";
+export const contentRelease = { iso: "2026-10-20", label: "۲۸ مهر ۱۴۰۵" };
+
+/** Android marketplace URL supplied by the business; customer app only. */
+export const customerMyketUrl = "https://myket.ir/app/com.khodrochare.app";
+
+/** Customer Android listing supplied by the business. */
+export const customerBazaarUrl = "https://cafebazaar.ir/app/com.khodrochare.app";
