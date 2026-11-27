@@ -12,3 +12,13 @@ test("towing coordination guide has an explicit route and a single canonical sit
  const route = readFileSync(`src/app${path}/page.tsx`, "utf8");
  assert.ok(route.includes("path: guide.path") && route.includes("<DecisionGuidePage"));
 });
+
+test("all cluster guides use explicit routes instead of overlapping generated params", () => {
+ for (const guide of onlineServiceCluster) {
+  const file = `src/app${guide.path}/page.tsx`;
+  assert.ok(existsSync(file), file);
+  const source = readFileSync(file, "utf8");
+  assert.ok(source.includes(`item.path === "${guide.path}"`));
+ }
+ assert.ok(!existsSync("src/app/guides/[slug]/page.tsx"));
+});
